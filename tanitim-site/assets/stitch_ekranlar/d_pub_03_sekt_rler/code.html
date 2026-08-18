@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Sektörler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#74777d",
+                        "secondary-fixed": "#d0e4ff",
+                        "on-background": "#1b1c1c",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "surface-container-high": "#eae8e7",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-primary-container": "#95a9be",
+                        "primary": "#142839",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-tertiary-fixed": "#181c1c",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "surface-tint": "#4d6074",
+                        "primary-fixed": "#d0e5fc",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#001d34",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-fixed-dim": "#b5c9df",
+                        "error-red": "#D32F2F",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#232727",
+                        "primary-container": "#2b3e50",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1b1c1c",
+                        "surface-bright": "#fbf9f8",
+                        "secondary": "#00629f",
+                        "surface-variant": "#e4e2e2",
+                        "background": "#fbf9f8",
+                        "on-primary-fixed": "#081d2e",
+                        "inverse-primary": "#b5c9df",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface-container": "#f0eded",
+                        "surface-container-low": "#f5f3f3",
+                        "on-error-container": "#93000a",
+                        "success-green": "#2E7D32",
+                        "on-secondary-container": "#004877",
+                        "tertiary-container": "#393d3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "stack-md": "24px",
+                        "base": "8px",
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline w-full sticky top-0 z-50">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-8">
+<a class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed" href="#">
+                        Mavi Belge
+                    </a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 py-2 px-3 rounded-md font-label-md text-label-md" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 py-2 px-3 rounded-md font-label-md text-label-md" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 py-2 px-3 rounded-md font-label-md text-label-md" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 py-2 px-3 rounded-md font-label-md text-label-md" href="#">İletişim</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2">
+<button aria-label="Sınav Takvimi" class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+<button aria-label="Ücretler" class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">payments</span>
+</button>
+<button aria-label="Yardım" class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button aria-label="Paylaş" class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+<button class="bg-[#066AAB] text-white px-6 py-2.5 rounded hover:bg-secondary-fixed-variant transition-colors duration-200 font-label-md text-label-md">
+                        Online Başvuru
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-stack-lg min-h-screen">
+<div class="mb-stack-lg">
+<h1 class="font-headline-xl text-headline-xl text-primary-container mb-stack-xs">Sektörel Çözümler</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Mavi Belge olarak 12 farklı endüstriyel sektörde, uluslararası standartlara uygun mesleki yeterlilik belgelendirme hizmetleri sunuyoruz.</p>
+</div>
+<!-- Bento Grid for Sectors -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Makine -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed industrial scene of a modern machine shop with CNC machines in operation. Bright, even lighting. Industrial minimalism style. Clean, precise, and professional environment." src="https://lh3.googleusercontent.com/aida/AP1WRLseq8sk830B_eKS64uzrDGBE_FDR0qi1WW3Q74HSfoW8I8HxSvMGWurXQteg5ANJ4Ujh0l0kXR2-J8XRA0TAxQxM1h6cDt4uBk2lIf0cCSz2e11jvPmjuwVvFRVFOCUFgqBEPjmh36qGQmzBJY_ItNo-ptBI0RRd3JWv2eaFynsmfF5Zbtvtxz3A1PSB6lssKQHdnz3Qd1_h07siXfFqf7PUgEgdWMZT5qdqidrr3XW0coN48aktW2bc79G"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">13 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">precision_manufacturing</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Makine</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Makine imalatı, bakımı ve CNC operasyonları alanlarında endüstri standartlarında belgelendirme.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Metalurji -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed wide shot of a modern metallurgical plant showing molten metal pouring. Industrial lighting, glowing orange contrasted with dark steel structures. Focus on safety and heavy industry." src="https://lh3.googleusercontent.com/aida/AP1WRLsPB-gPkrCcfLq2VnFGVKPHR5IXimbjosP_XGW03KK3mamqtsn-ikmFWwPKEe6aIC1v8Fcn7BpcsYN6fvUhK7hDLyS_G4-JQ8WaG_5Xz6qRDuQOmd-J9V0ygHSo1qBTOb7XUBTA2JOwTq8TacbpgKou9UYGYdiCd3r4q4hRtXiA8ih43keQFgWs6TDyTJ-jUCufXiEVzo5yYiMidD_dkhb9fhknvq15-hrplsynEVnTJGg6K-SQqMn7e-_4"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">7 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">factory</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Metalurji</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Döküm, ergitme ve haddeleme proseslerinde uzman personelin mesleki yeterliliğinin ölçülmesi.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Metal -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of professional welding on a large metal structure. Bright sparks flying. High-key industrial lighting. Professional tradesman working safely." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgp7rwO6gSzmo8_QqU8-wnHKwflNaxgGL9Dp-B7WFNWVnuFrmLYAQ7Rzj493OMs7rvzc-IsgyzQZs8_dY2H0EMvJz9mQ2sq209RbpDj9lJB5c2mHLxpXUK2PrXIVn87NfBk7FV-tFvlPc8rDVszjNtjWIXiPiOeJeEGAW2epun7-4Y0ZMokRWFRI-8XH3fzMZNcf8qSMSGepGTIETInWEm_2hTndH3Iec7iV1jtWo9Siph3XnLThkd2g"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">5 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">construction</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Metal</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Kaynakçılık, metal doğrama ve çelik konstrüksiyon işlerinde ulusal ve uluslararası standartlarda sertifikasyon.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Ulaştırma & Lojistik -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vast modern logistics hub at dusk. Cranes loading containers onto cargo ships and trucks. Industrial blue hour lighting with warm amber sodium lights. Efficient and structured." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-h9Ypg2g6wDo8n1GYYhL0Mb-jXuDiEQlQUE5LUAhk8uFlfIOoOtnWFy9UPrFH0LDL16UyblyCX8sRiY4eeUV27bp6tS5mDN4W-xSvWCMnh19wCXzxf_4_flY5L16y-aIFs_ZUxpY5ZpTzgkaG3-Inr6D8cUogBi_t-avJYg-QRrLpogAt22hVggTdJSqyas6lQzqxaLYzhMmyam9brDhH47YpBhR9ZIAo4FaktP7Bfpdo1A0y1Vt8GA"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">12 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">local_shipping</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Ulaştırma &amp; Lojistik</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Liman operasyonları, yük taşımacılığı ve lojistik depo yönetimi süreçleri için yetkinlik belgelendirme.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Plastik -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern plastic injection molding facility. Clean, high-tech environment with bright white clinical lighting. Automated robotic arms handling finished components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZtZJzZH5SELnlQz52EK2LuBGJuSbZzNCrxVn1BPf4muQBfsCgMaqHLJ_-Fydvy4pQTxKQ8hSVCn1jISvkiux68-if0xTjg4r43KTwbWAPVTtkEu3zPJeWR1vdhVBjecmHf7K-PPJLXY3zfDXSFm8MsqWDW2dNojKTNv8p366gY49PyaFmuxkJRrfkMG8MjQ-2zOpvGdBMe4abKo_nFD7ZASiG7197Lro_FmJwxaO7hBMTCN67eqVwFw"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">3 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">polymer</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Plastik</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Plastik enjeksiyon, ekstrüzyon ve şekillendirme operatörleri için endüstriyel uzmanlık sertifikasyonu.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Elektrik -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High tech electrical panel testing facility. A technician in safety gear inspecting complex wiring systems. Clean white industrial lighting with blue technological accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVwFcfMmI_jCtq3uzMUChcfSPrK-UjcMnc_D1VT2Gx2Bao6ygWc2ukDFMx_HuavbY8YOptnFJvcC6qDDxUZs63Jrj5KNKWOVJNUjMYVgGcrmL4ekXLN-Nnm7NSHo4qmVTIQw-lJLUKEILavEoRaFTRz2d48a7aFDDspMCRct2aHdCw-2yVOnEEHawUYrqVfrta2__cv8Jg61nb5s7Gt2Go1Tm3gcaAknbtv5CgOmFJ8efjOUaA9gMSEQ"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">5 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">bolt</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Elektrik</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Elektrik tesisat, pano montörlüğü ve endüstriyel otomasyon alanlarında yetkinlik sınavları.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Cam -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Industrial glass manufacturing plant. Glowing hot glass being molded on a heavy machinery line. Dramatic lighting highlighting the heat and precision of the process." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm7bjbF0y9hiRQWIDIHlPSjRqoWbp1EblLAnPs6khtEfeQ6VM8xO4UKr_F6Y8byzaqCo-v6t6qtpak-cujB0T2boaBcAYigYQKsiYY2-ZmLBW7US27KSO_slG4zYy6rIEhEjvFrdkQ1vIzHnoSCWAyGrW1GB2FJJAzZWmp4nUTFtApGgat9NnOrCrlt8aYYB_o5ya3zarzZ7uG_WO0NB0L5jFbksysXXYLkX3YCsf3JAH1bthUJ0CM_A"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">3 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">window</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Cam</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Cam işleme, kesim ve endüstriyel cam üretim proseslerinde görevli personelin belgelendirilmesi.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Tekstil -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern textile factory floor with rows of automated industrial sewing and weaving machines. High key sterile lighting emphasizing efficiency and scale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXMYcUX0wjqwNPSBl7gcDlsIhnCYepQ5xsmKb7Pu6iNtbrd9aygb6jU37wEn7AZpnPRDvEHXlGh6CdU4bd2n1qERSE3E5joJgds56vv0eKzYFmUvTerbTAuEsMCN4LI2aexpFV_q5E29BHtZr6ltmpPC6ym3uFwvpQEOCIOCvsakbKtHDCOP2t510iWJCI_pm6IQI46MwKjEUIHwg9oTJC9qnDtY7ahR3BelWQfwzJUhq90Th4N6n9eQ"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">6 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">styler</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Tekstil</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Hazır giyim, dokuma ve iplik üretimi sektörleri için mesleki standartlarda sınav hizmetleri.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- İnşaat -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Large scale construction site featuring heavy machinery, scaffolding, and concrete structures. Sunny daylight highlighting the structural engineering and organized site." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxRm4zEgtb9bfBNlGMZHAKAuU6WkpUVCchyOoLNp8Oe-WP77rEHyHM6CdvyyCnS6ELDK24k0WNaa-Yn2ZaPgQ-srfxEY23huA8Y23FHM4TLp6PJ_XB_yqiOpM-1B16knBxH9bn66VGOBQBNXWJHztMYh21zuvIYwVBgaJgSYLAfjmBhddExHtOq6LyxG71Y967yBxvl7FEq19ARsM2fNfBc_lJrYRhdjqsRdPX_0Prtl9O2TL8hpgGTA"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">12 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">architecture</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">İnşaat</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Yapı dekorasyon, duvar örme, betonarme ve iskele kurulumu alanlarında zorunlu mesleki yeterlilik belgeleri.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Mobilya -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Industrial woodworking and furniture manufacturing workshop. CNC routers cutting wood panels with precision. Bright, dust-free environment showing modern carpentry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv12wFc5xt6MTP82Jk1WaTOVioVqf99aPMswlTFHaQ4uz1vWFpGibRyL03FZ2UC8hWRScxLUOwR9EEYQkSgoJv63Wiw_d88U2ZkW8CfzUmFT6-UMHX1SvPaVFW6oAF7bpcmuJl4VCkNDIwqNvJdSqtQyUUKkrQ1iVra_8J0TgL9UNGP4MJu0e0QevT2SLGTiG2EdvastiNynjlm2Aj4sBsRs9UTbkVgG1V53dWQIJidMFW4g6z73v3tA"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">3 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">chair</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Mobilya</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Ahşap işleme, mobilya imalatı ve döşeme alanlarında kalifiye işgücü sertifikasyonu.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Maden & Mermer -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Heavy duty marble quarry showing large stone blocks being cut with wire saws. Rugged, industrial outdoor environment emphasizing heavy extraction processes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9iTarLETwr8cetzkvOXeUzqiE6uvhp8tPZF5fyiJkYWfbFFA0swtBHY2TJONEQ7eG0VBRZmvVO77MZ0ixjd8rBlaLHY-stTB5XV75MzxZQ91bH9B4BDPGTIUcqPLtpWVsr8NQrSI2lA0N_R_n-ydrmjhG4-x14sz--xqoWNXgo4i_tgFVyX0HiiPqqFNlZYZeTh0aLVceh1oaj0NKwhkWVk83gWcOpbE-gDJweUmmXK1quBatvBfVGg"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">7 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">landscape</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Maden &amp; Mermer</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Doğaltaş üretimi, mermer işleme ve maden ocakları operasyonlarında görevli personel için belgelendirme.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Güzellik ve Saç Bakım -->
+<a class="group relative bg-surface rounded-lg border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col" href="#">
+<div class="h-48 w-full overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-end professional salon environment. Clean, well-lit space with modern aesthetic equipment. Focus on precision and hygiene in beauty services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOCSqokZP8x9NEH6bbqOZns2F8tORhCRHybvx35RIWiaMbZfOulWjtM0KAtumDgH4xI-T8S_Yctd-sNQahhORFmWKRQYzZTMA0T6x36lUSkO2MvVHgdrXdj2hJRbY19D1MwmnS0-UrwQzRQYT5mtLE9jp0lWGiojCf_EIHxuZ9-FVQmsMAtPgRXtVbSFTTo2BRWn4jlT5MXaxPEr2OI6abHAGz3K12u7D8OXjdr4o11Kl_dXFENz4MSw"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded font-label-sm text-label-sm text-primary">7 Program</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-3xl">content_cut</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Güzellik ve Saç Bakım</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-1">Kuaförlük, güzellik uzmanlığı ve saç bakım hizmetlerinde hijyen ve teknik yeterlilik sertifikasyonu.</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex justify-between items-center text-secondary font-label-sm text-label-sm group-hover:text-primary transition-colors">
+<span>Sektör Detayları</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</a>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-container border-t border-primary-fixed-variant full-width bottom-0 mt-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-primary">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-container">Sertifikasyon ve Uzmanlık Merkezi.</p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-x-8 gap-y-4 justify-end">
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-8 border-t border-primary-fixed-variant/30 text-center">
+<p class="font-body-sm text-body-sm text-on-primary-container">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</div>
+</footer>
+</body></html>

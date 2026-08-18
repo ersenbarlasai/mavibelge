@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Mavi Belge - Ana Sayfa</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d0e5fc",
+                    "outline": "#74777d",
+                    "secondary-container": "#71b8fe",
+                    "inverse-surface": "#303030",
+                    "on-secondary-container": "#004877",
+                    "on-tertiary-container": "#a4a8a7",
+                    "surface-container-high": "#eae8e7",
+                    "tertiary-fixed-dim": "#c4c7c6",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#00629f",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1b1c1c",
+                    "surface-dim": "#dbd9d9",
+                    "on-surface": "#1b1c1c",
+                    "surface": "#fbf9f8",
+                    "secondary-fixed": "#d0e4ff",
+                    "tertiary": "#232727",
+                    "inverse-on-surface": "#f2f0f0",
+                    "primary": "#142839",
+                    "outline-variant": "#c4c7cc",
+                    "on-secondary-fixed": "#001d34",
+                    "surface-container-highest": "#e4e2e2",
+                    "surface-container": "#f0eded",
+                    "surface-container-low": "#f5f3f3",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#081d2e",
+                    "surface-tint": "#4d6074",
+                    "tertiary-fixed": "#e0e3e2",
+                    "on-primary-fixed-variant": "#36495b",
+                    "background": "#fbf9f8",
+                    "surface-variant": "#e4e2e2",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#434847",
+                    "on-surface-variant": "#43474c",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#393d3d",
+                    "secondary-fixed-dim": "#9bcbff",
+                    "on-primary-container": "#95a9be",
+                    "surface-bright": "#fbf9f8",
+                    "inverse-primary": "#b5c9df",
+                    "on-secondary-fixed-variant": "#004a7a",
+                    "primary-container": "#2b3e50",
+                    "on-tertiary-fixed": "#181c1c",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#b5c9df",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "display": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Hide scrollbar for horizontal scrolling containers */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface-container-highest text-on-surface font-body antialiased flex justify-center items-start min-h-screen">
+<!-- Mobile Device Simulator Container (390px Width) -->
+<div class="w-full max-w-[390px] bg-surface min-h-screen relative shadow-2xl flex flex-col overflow-x-hidden">
+<!-- TopAppBar (From JSON) -->
+<header class="sticky top-0 z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-4 h-16 w-full"><div class="flex items-center gap-2"><button aria-label="Menü" class="text-primary active:scale-95 transition-transform"><span class="material-symbols-outlined">menu</span></button><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO4DeH_DKv7uqq3qN4njnIioCdK6mJG7FBR5ZipzGIA9U1_Bd3T2EmPN7ohN2W0go32mHo1H8ev9s8UdtptNlFKmgDEEbp11umgMU-Ym1dQqr7wcquL6xXmYew5LI6caVn3fxGEdE1eJqk8mnvycIEa2-c3tK5HymYhSP88JPQry2os_Mbqurflya3Tb5NSu3Wn7tYWfirmsSmNcCmfV5Sp2U_3A60GZNRp3GeAnTqMaGAYd6ERfK4z5Ov4WvNd_5sI3A" alt="Mavi Belge" class="h-8 object-contain"></div><div class="flex items-center gap-2"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsa4x3gJn8o7h-CH10iI-FdFR8rYLiInb9BlocLx6mKOeu6rcjFwm5UxevM4NS0LLWt0Vaki7faB4gkli-YH8EllrP-NW4Ck7cTfXZkjpFO41qJqPhd1FiV0kb9WdQhgpqJMhbOfmMG5xoOTGrucVZ1nVu_xvX9I_BfkA0bq5T0cttMI1914KOPZ5cVj6uDTwNR-EI0XLz4THpuin58NQXVihGLIoRdOZMO2oHcM4GG83pcOs4U44QJPyxBPKxDBfRGFU" alt="MYK" class="h-10 object-contain"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmNvvnoHOA7SusbQhY8z-vLxRuKy-ZB_x1GBumodH6n9GX8PFXV0ein26kOInPpAgFoHfP4TL7HJxS-O_5pSzibHPrY3_eBGTTjfHaaWrb6zEkAjXCSXaLD_RQXo8apV4y6j130IjzQNPLFL1HujXlYZRANq1RX23k86YYYGoO8t42IyaaHxOKPv1pZtF_De-yWsSb_u4G1LkkXpF3Oof4MYpaoB4r-dRaOedJJIhSSqzK1dyTg3EPMt0BZzXpFi7J7SU" alt="TÜRKAK" class="h-10 object-contain"></div></header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 flex flex-col pb-16"> <!-- padding-bottom to clear footer inside the scrolling area before BottomNav -->
+<!-- Hero Search Section -->
+<section class="px-5 pt-8 pb-6 bg-surface-container-lowest">
+<h1 class="font-headline text-2xl font-bold text-primary mb-2">Mesleğini Bul</h1>
+<p class="text-on-surface-variant text-sm mb-6">Uluslararası geçerliliğe sahip mesleki yeterlilik belgenizi hemen alın.</p>
+<div class="relative flex items-center bg-surface-container-low border border-outline-variant rounded-xl p-1 focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary transition-all">
+<span class="material-symbols-outlined text-outline ml-3" data-icon="search">search</span>
+<input class="w-full bg-transparent border-none outline-none py-3 px-3 text-sm text-on-surface placeholder:text-outline-variant font-body focus:ring-0" placeholder="Meslek, sektör veya standart ara..." type="text">
+<button class="bg-secondary text-on-secondary px-4 py-3 rounded-lg text-sm font-semibold h-full flex items-center active:scale-95 transition-transform">
+                        Ara
+                    </button>
+</div>
+</section>
+<!-- Quick Actions (Horizontal Scroll) -->
+<section class="py-4 border-b border-surface-variant bg-surface-container-lowest">
+<div class="flex gap-3 px-5 overflow-x-auto snap-x no-scrollbar pb-2">
+<a class="snap-start flex-shrink-0 flex items-center gap-2 bg-surface border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="calendar_month">calendar_month</span>
+<span class="text-sm font-medium text-on-surface-variant">Sınav Takvimi</span>
+</a>
+<a class="snap-start flex-shrink-0 flex items-center gap-2 bg-surface border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="manage_search">manage_search</span>
+<span class="text-sm font-medium text-on-surface-variant">Belge Doğrula</span>
+</a>
+<a class="snap-start flex-shrink-0 flex items-center gap-2 bg-surface border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="payments">payments</span>
+<span class="text-sm font-medium text-on-surface-variant">Ücretler</span>
+</a>
+<a class="snap-start flex-shrink-0 flex items-center gap-2 bg-surface border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="description">description</span>
+<span class="text-sm font-medium text-on-surface-variant">Başvuru Formu</span>
+</a>
+<a class="snap-start flex-shrink-0 flex items-center gap-2 bg-surface border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="live_help">live_help</span>
+<span class="text-sm font-medium text-on-surface-variant">S.S.S.</span>
+</a>
+</div>
+</section>
+<!-- Sectors Grid -->
+<section class="px-5 py-8 bg-surface">
+<div class="flex justify-between items-end mb-5">
+<h2 class="font-headline text-lg font-bold text-primary">Sektörler</h2>
+<a class="text-xs font-semibold text-secondary flex items-center gap-1" href="#">Tümünü Gör <span class="material-symbols-outlined text-[16px]">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Sector Items -->
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+</div>
+<span class="text-sm font-medium text-on-surface">İnşaat</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Makine</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="electrical_services">electrical_services</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Elektrik &amp; Elektronik</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Ulaştırma &amp; Lojistik</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Tekstil</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="devices">devices</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Bilişim</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Gıda &amp; Hizmet</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#">
+<div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Sağlık &amp; Güvenlik</span>
+</a>
+<a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#"><div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors"><span class="material-symbols-outlined">energy_savings_leaf</span></div><span class="text-sm font-medium text-on-surface">Enerji</span></a><a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#"><div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors"><span class="material-symbols-outlined">agriculture</span></div><span class="text-sm font-medium text-on-surface">Tarım</span></a><a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#"><div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors"><span class="material-symbols-outlined">directions_car</span></div><span class="text-sm font-medium text-on-surface">Otomotiv</span></a><a class="group flex flex-col p-4 rounded-xl border border-outline-variant bg-surface-container-lowest hover:border-secondary transition-colors items-start gap-3" href="#"><div class="bg-primary-fixed text-primary p-2 rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-colors"><span class="material-symbols-outlined">mining</span></div><span class="text-sm font-medium text-on-surface">Maden</span></a></div>
+<!-- Simulating remaining 4 hidden in view for brevity, minimal aesthetic -->
+</section>
+<!-- News Section -->
+<section class="px-5 py-8 bg-surface-container-low border-t border-outline-variant">
+<h2 class="font-headline text-lg font-bold text-primary mb-5">Haberler &amp; Duyurular</h2>
+<!-- Featured News -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-sm mb-4" href="#">
+<img class="w-full h-40 object-cover" data-alt="A bright, modern, well-lit corporate office space showcasing professionals reviewing technical documents. The aesthetic is clean and minimal, adhering to an industrial minimalist style. The lighting is high-key and natural, creating a light-mode atmosphere. The overall palette features crisp whites, subtle grays, and touches of professional navy blue (#142839). The mood is focused and productive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4WH3xVwghjU42zjKI0sA8N25YnUeTyge4Krd5vhwktBZYUFz1aRS4ESB9rEsDYO4lEwfrv0RUaZgOWXwbW8LLJZxRa8Jo0UEjiIApFRRnDa6mXleUag9KSZ_gUwE9SaPc5p2V11V_L2WcFqMsIl2awZzXccwq5Kq7dZCb4pfuRISCVLhO-2d2EIBH_yJdJGtbOdzkyQMbrWvCbvTFufQt-KA7tuXdos3Dox5eBKbjIre-M7NsKjGUWA">
+<div class="p-4">
+<span class="text-xs font-semibold text-secondary tracking-wider mb-1 block">YENİ STANDARTLAR</span>
+<h3 class="font-headline text-sm font-bold text-on-surface leading-snug">2024 Mesleki Yeterlilik Standartları Güncellemesi Hakkında Bilgilendirme</h3>
+<span class="text-xs text-outline mt-2 block">12 Mayıs 2024</span>
+</div>
+</a>
+<!-- List News -->
+<div class="flex flex-col gap-4">
+<a class="flex gap-4 items-center" href="#">
+<img class="w-20 h-20 rounded-lg object-cover flex-shrink-0 border border-outline-variant" data-alt="Close up of an industrial worker's hands expertly handling modern, clean machinery. The setting is a well-lit, organized industrial environment. The visual style is crisp and professional, fitting a modern certification body. Lighting is bright, favoring a light-mode aesthetic. Colors are neutral grays and metallic tones with a hint of safety blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3lUOe2cUCCCflPJsVaHpMhP6eYlYQKAS0YeH5-c7NqowPnr4pS4jbqpqVqlMiN6FEzwpdNjX4lTXRtchPNOCs4I_70pr0PgSZDwifBvJxHLujQ7O2a8E5_3rUOFpl3xlZvSfJSYBZaw7O2t77unyeLtAgmUFkX6gFm4-uYRK0eLh_LGzh258jlHp8XM6ON79k1b8V-eehR8BurNmfPICqinqaRYDLsOlTC9pEAFGjFDYXD-i8BZiI9w">
+<div>
+<h4 class="font-headline text-sm font-semibold text-on-surface leading-tight mb-1 line-clamp-2">Kaynak Operatörü Sınav Kayıtları Başladı</h4>
+<span class="text-xs text-outline">05 Mayıs 2024</span>
+</div>
+</a>
+<a class="flex gap-4 items-center" href="#">
+<img class="w-20 h-20 rounded-lg object-cover flex-shrink-0 border border-outline-variant" data-alt="A professional clipboard holding certification documents resting on a clean, light gray surface next to a hard hat. The scene is minimal and orderly, reflecting a modern industrial aesthetic. Bright, even lighting emphasizes clarity and precision. The color palette is dominated by whites, light grays (#fbf9f8), and accents of navy blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBftC0zW9ruVFBUnVWO9wm6VKUG_klLdCa3ow4lYrAgUrrR1akm-VVZW-R6LklP78rcXoLpoyWaiQ9EeMAUO4YVx-fd1LYEqzzvAvl64ET_2nqHep_qGNOBEjyQkDRGImiVhlSDUmW8ViI1Frjk8ym_OFIgronn2t02t78GeXHVsSD7QC1LGWM744GgA6J_iZPUgsSNz8G1yfu7INYp4RSSKvnU6HylUpBEDSJI0OjJEmYy8C6S-TeWgQ">
+<div>
+<h4 class="font-headline text-sm font-semibold text-on-surface leading-tight mb-1 line-clamp-2">Ankara Bölge Ofisimiz Yeni Adresinde Hizmetinizde</h4>
+<span class="text-xs text-outline">28 Nisan 2024</span>
+</div>
+</a>
+<a class="flex gap-4 items-center" href="#"><img class="w-20 h-20 rounded-lg object-cover flex-shrink-0 border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4WH3xVwghjU42zjKI0sA8N25YnUeTyge4Krd5vhwktBZYUFz1aRS4ESB9rEsDYO4lEwfrv0RUaZgOWXwbW8LLJZxRa8Jo0UEjiIApFRRnDa6mXleUag9KSZ_gUwE9SaPc5p2V11V_L2WcFqMsIl2awZzXccwq5Kq7dZCb4pfuRISCVLhO-2d2EIBH_yJdJGtbOdzkyQMbrWvCbvTFufQt-KA7tuXdos3Dox5eBKbjIre-M7NsKjGUWA"><div><h4 class="font-headline text-sm font-semibold text-on-surface leading-tight mb-1 line-clamp-2">Mesleki Yeterlilik Belgesi Teşvikleri Uzatıldı</h4><span class="text-xs text-outline">20 Nisan 2024</span></div></a></div>
+</section>
+<!-- Footer (From JSON) -->
+<footer class="w-full py-8 mb-16 bg-primary flex flex-col items-center text-center px-6 gap-4">
+<div class="text-on-primary font-bold font-headline text-lg">Mavi Belge</div>
+<div class="flex flex-col gap-2 font-body text-sm text-on-primary/80">
+<a class="hover:text-secondary-fixed transition-colors" href="#">Merkez Ofis: Ankara</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Bölge Ofis: İstanbul</a>
+<a class="hover:text-secondary-fixed transition-colors mt-2" href="#">Gizlilik Politikası</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">KVKK Aydınlatma</a>
+</div>
+<div class="text-xs text-on-primary/60 mt-4 font-body">
+                    © 2024 Mavi Belge Uluslararası Sertifikasyon. Tüm Hakları Saklıdır.
+                </div>
+</footer>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="fixed bottom-0 max-w-[390px] w-full z-50 h-16 border-t border-outline-variant bg-surface flex justify-around items-center px-2 pb-safe">
+<!-- Active Item: Ana Sayfa -->
+<button class="flex flex-col items-center justify-center text-secondary bg-secondary-container/20 rounded-full px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label text-xs font-medium mt-0.5">Ana Sayfa</span>
+</button>
+<!-- Inactive Items -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:scale-90 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-label text-xs font-medium mt-0.5">Meslekler</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:scale-90 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-label text-xs font-medium mt-0.5">Belgem</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:scale-90 px-4 py-1">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+<span class="font-label text-xs font-medium mt-0.5">Destek</span>
+</button>
+</nav>
+</div>
+
+
+</body></html>

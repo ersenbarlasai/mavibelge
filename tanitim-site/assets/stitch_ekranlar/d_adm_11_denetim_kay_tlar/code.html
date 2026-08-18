@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Denetim Kayıtları</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#43474c",
+                      "primary-fixed-dim": "#b5c9df",
+                      "surface-tint": "#4d6074",
+                      "secondary": "#00629f",
+                      "primary-fixed": "#d0e5fc",
+                      "outline-variant": "#c4c7cc",
+                      "on-tertiary-fixed-variant": "#434847",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#181c1c",
+                      "secondary-fixed": "#d0e4ff",
+                      "tertiary-fixed": "#e0e3e2",
+                      "on-secondary-container": "#004877",
+                      "on-surface": "#1b1c1c",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#36495b",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#303030",
+                      "tertiary": "#232727",
+                      "tertiary-container": "#393d3d",
+                      "secondary-container": "#71b8fe",
+                      "tertiary-fixed-dim": "#c4c7c6",
+                      "on-background": "#1b1c1c",
+                      "surface-container-low": "#f5f3f3",
+                      "background": "#fbf9f8",
+                      "on-secondary": "#ffffff",
+                      "error-red": "#D32F2F",
+                      "surface-bright": "#fbf9f8",
+                      "accent-blue": "#337AB7",
+                      "surface-container": "#f0eded",
+                      "surface-container-highest": "#e4e2e2",
+                      "on-tertiary-container": "#a4a8a7",
+                      "surface-container-high": "#eae8e7",
+                      "on-secondary-fixed-variant": "#004a7a",
+                      "inverse-on-surface": "#f2f0f0",
+                      "surface-dim": "#dbd9d9",
+                      "secondary-fixed-dim": "#9bcbff",
+                      "on-tertiary": "#ffffff",
+                      "success-green": "#2E7D32",
+                      "warning-orange": "#ED6C02",
+                      "on-secondary-fixed": "#001d34",
+                      "outline": "#74777d",
+                      "on-primary-fixed": "#081d2e",
+                      "on-primary-container": "#95a9be",
+                      "error": "#ba1a1a",
+                      "primary-container": "#2b3e50",
+                      "inverse-primary": "#b5c9df",
+                      "primary": "#142839",
+                      "surface-variant": "#e4e2e2",
+                      "on-error": "#ffffff",
+                      "surface": "#fbf9f8",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-sm": "12px",
+                      "stack-xs": "4px",
+                      "base": "8px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "container-max": "1280px",
+                      "margin-desktop": "32px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-outlined[style*="'FILL' 1"] {
+           font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Table Zebra Striping matching design system rules */
+        .zebra-table tr:nth-child(even) {
+            background-color: #fbf9f8; /* surface */
+        }
+        .zebra-table tr:nth-child(odd) {
+            background-color: #ffffff; /* pure white */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md flex min-h-screen">
+<!-- SideNavBar (from JSON) -->
+<nav class="bg-surface-container-low dark:bg-surface-dim h-screen w-64 fixed left-0 top-0 border-r border-outline-variant hidden md:flex flex-col gap-base p-margin-mobile flat no shadows">
+<div class="mb-stack-md">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Mavi Belge Panel</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Operasyonel İşlemler</p>
+</div>
+<div class="flex-grow flex flex-col gap-base">
+<!-- Items -> None are perfectly exact, but this is an admin view. Default to inactive for all standard tabs to prioritize the canvas, or keep standard shell. Standard JSON implies these are main tabs. -->
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+<span>Başvuru Takibi</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span>Sınav Takvimi</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span>Belge Sorgulama</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">folder_open</span>
+<span>Doküman Merkezi</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">report_problem</span>
+<span>İtiraz ve Şikayet</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm rounded-DEFAULT text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container hover:bg-surface-container-high dark:hover:bg-tertiary-container transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>SSS</span>
+</a>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md py-stack-sm px-stack-md rounded-DEFAULT hover:bg-primary-container transition-colors mt-auto flex items-center justify-center gap-stack-sm w-full">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Yeni Başvuru
+        </button>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow md:ml-64 flex flex-col min-h-screen relative">
+<!-- Header / Controls -->
+<div class="px-margin-mobile md:px-margin-desktop py-stack-md border-b border-outline-variant bg-surface sticky top-0 z-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-stack-md">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Denetim Kayıtları</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-stack-xs">Sistem üzerindeki tüm teknik ve operasyonel işlemlerin kronolojik listesi.</p>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="border border-outline-variant text-on-surface font-label-md text-label-md py-stack-sm px-stack-md rounded-DEFAULT hover:bg-surface-container-low transition-colors flex items-center gap-stack-sm h-[44px]">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Rapor Dışa Aktar
+                    </button>
+</div>
+</div>
+<!-- Filters (Bento-style tight layout) -->
+<div class="mt-stack-md grid grid-cols-1 md:grid-cols-4 gap-stack-sm">
+<div class="relative">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-stack-xs">Tarih Aralığı</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[18px]">calendar_today</span>
+<input class="w-full pl-10 pr-3 py-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent h-[44px] font-body-sm text-body-sm" placeholder="Son 7 Gün" type="text"/>
+</div>
+</div>
+<div class="relative">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-stack-xs">İşlem Tipi</label>
+<select class="w-full px-3 py-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent h-[44px] font-body-sm text-body-sm appearance-none">
+<option>Tümü</option>
+<option>Oturum Açma</option>
+<option>Veri Güncelleme</option>
+<option>Kayıt Silme</option>
+</select>
+</div>
+<div class="relative">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-stack-xs">Kullanıcı</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[18px]">person</span>
+<input class="w-full pl-10 pr-3 py-2 border border-outline-variant rounded-DEFAULT bg-surface-container-lowest text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent h-[44px] font-body-sm text-body-sm" placeholder="Kullanıcı Ara..." type="text"/>
+</div>
+</div>
+<div class="relative flex items-end">
+<button class="bg-surface-container-low border border-outline-variant text-on-surface font-label-md text-label-md py-2 px-stack-md rounded-DEFAULT hover:bg-surface-container-high transition-colors flex items-center justify-center gap-stack-sm h-[44px] w-full">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtrele
+                    </button>
+</div>
+</div>
+</div>
+<!-- Canvas / Data Table -->
+<div class="flex-grow p-margin-mobile md:p-margin-desktop bg-background overflow-x-auto">
+<div class="bg-surface-container-lowest rounded-DEFAULT border border-outline-variant overflow-hidden">
+<table class="w-full text-left border-collapse zebra-table">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container whitespace-nowrap w-[180px]">Tarih / Saat</th>
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container whitespace-nowrap w-[200px]">Kullanıcı</th>
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container whitespace-nowrap w-[150px]">IP Adresi</th>
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container whitespace-nowrap w-[180px]">İşlem Tipi</th>
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container">Detay</th>
+<th class="py-stack-sm px-stack-md font-label-md text-label-md text-primary-container text-right whitespace-nowrap w-[100px]">İşlem</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-stack-sm px-stack-md text-on-surface-variant">24 Eki 2023, 14:32:11</td>
+<td class="py-stack-sm px-stack-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-sm text-label-sm">AY</div>
+<span class="font-medium text-on-surface">Ahmet Yılmaz</span>
+</div>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant font-mono text-[12px]">192.168.1.45</td>
+<td class="py-stack-sm px-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm border border-secondary-fixed-dim">
+<span class="material-symbols-outlined text-[14px]">edit_document</span>
+                                    Durum Değişikliği
+                                </span>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant truncate max-w-[300px]" title="BSV-2023-0892 numaralı başvuru durumu 'İnceleniyor' olarak güncellendi.">BSV-2023-0892 numaralı başvuru durumu 'İnceleniyor' olarak güncellendi.</td>
+<td class="py-stack-sm px-stack-md text-right">
+<button class="text-on-surface-variant hover:text-secondary transition-colors p-1 rounded-sm hover:bg-surface-container-highest focus:outline-none focus:ring-2 focus:ring-secondary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-stack-sm px-stack-md text-on-surface-variant">24 Eki 2023, 11:15:42</td>
+<td class="py-stack-sm px-stack-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-sm text-label-sm">Sİ</div>
+<span class="font-medium text-on-surface">Sistem</span>
+</div>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant font-mono text-[12px]">85.102.x.x</td>
+<td class="py-stack-sm px-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-error-container text-on-error-container font-label-sm text-label-sm border border-[#ffb4ab]">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                    Başarısız Giriş
+                                </span>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant truncate max-w-[300px]" title="Geçersiz şifre denemesi (3. deneme) - Kullanıcı: m.demir">Geçersiz şifre denemesi (3. deneme) - Kullanıcı: m.demir</td>
+<td class="py-stack-sm px-stack-md text-right">
+<button class="text-on-surface-variant hover:text-secondary transition-colors p-1 rounded-sm hover:bg-surface-container-highest focus:outline-none focus:ring-2 focus:ring-secondary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-stack-sm px-stack-md text-on-surface-variant">23 Eki 2023, 16:45:00</td>
+<td class="py-stack-sm px-stack-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-sm text-label-sm">EK</div>
+<span class="font-medium text-on-surface">Elif Kaya</span>
+</div>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant font-mono text-[12px]">10.0.5.22</td>
+<td class="py-stack-sm px-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-[#e6f4ea] text-[#137333] font-label-sm text-label-sm border border-[#ceead6]">
+<span class="material-symbols-outlined text-[14px]">login</span>
+                                    Oturum Açma
+                                </span>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant truncate max-w-[300px]" title="Başarılı sistem girişi.">Başarılı sistem girişi.</td>
+<td class="py-stack-sm px-stack-md text-right">
+<button class="text-on-surface-variant hover:text-secondary transition-colors p-1 rounded-sm hover:bg-surface-container-highest focus:outline-none focus:ring-2 focus:ring-secondary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-stack-sm px-stack-md text-on-surface-variant">23 Eki 2023, 09:20:15</td>
+<td class="py-stack-sm px-stack-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-sm text-label-sm">AY</div>
+<span class="font-medium text-on-surface">Ahmet Yılmaz</span>
+</div>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant font-mono text-[12px]">192.168.1.45</td>
+<td class="py-stack-sm px-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-surface-container-highest text-on-surface font-label-sm text-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+                                    Kayıt Silme
+                                </span>
+</td>
+<td class="py-stack-sm px-stack-md text-on-surface-variant truncate max-w-[300px]" title="Geçici dosya 'Taslak_Rapor_v1.pdf' silindi.">Geçici dosya 'Taslak_Rapor_v1.pdf' silindi.</td>
+<td class="py-stack-sm px-stack-md text-right">
+<button class="text-on-surface-variant hover:text-secondary transition-colors p-1 rounded-sm hover:bg-surface-container-highest focus:outline-none focus:ring-2 focus:ring-secondary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="py-3 px-stack-md border-t border-outline-variant bg-surface flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toplam 1,245 kayıttan 1-10 arası gösteriliyor</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-sm text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-sm bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded-sm hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded-sm hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm flex items-center justify-center transition-colors">3</button>
+<span class="text-outline-variant px-1">...</span>
+<button class="w-8 h-8 rounded-sm hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm flex items-center justify-center transition-colors">125</button>
+<button class="p-1 rounded-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

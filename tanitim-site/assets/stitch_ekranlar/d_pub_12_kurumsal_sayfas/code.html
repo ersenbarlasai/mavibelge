@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Kurumsal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "success-green": "#2E7D32",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#4d6074",
+                      "primary-fixed": "#d0e5fc",
+                      "on-primary-container": "#95a9be",
+                      "secondary-fixed": "#d0e4ff",
+                      "on-background": "#1b1c1c",
+                      "primary-fixed-dim": "#b5c9df",
+                      "on-tertiary-fixed": "#181c1c",
+                      "surface-dim": "#dbd9d9",
+                      "surface-container-low": "#f5f3f3",
+                      "surface-container": "#f0eded",
+                      "surface-variant": "#e4e2e2",
+                      "on-error-container": "#93000a",
+                      "accent-blue": "#337AB7",
+                      "outline": "#74777d",
+                      "secondary-fixed-dim": "#9bcbff",
+                      "on-error": "#ffffff",
+                      "primary-container": "#2b3e50",
+                      "surface-container-highest": "#e4e2e2",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#43474c",
+                      "on-tertiary-fixed-variant": "#434847",
+                      "on-secondary-container": "#004877",
+                      "on-tertiary-container": "#a4a8a7",
+                      "tertiary-container": "#393d3d",
+                      "on-secondary-fixed-variant": "#004a7a",
+                      "error-red": "#D32F2F",
+                      "surface-container-high": "#eae8e7",
+                      "surface-bright": "#fbf9f8",
+                      "on-surface": "#1b1c1c",
+                      "tertiary-fixed-dim": "#c4c7c6",
+                      "tertiary": "#232727",
+                      "on-secondary-fixed": "#001d34",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#36495b",
+                      "warning-orange": "#ED6C02",
+                      "on-primary-fixed": "#081d2e",
+                      "inverse-surface": "#303030",
+                      "surface": "#fbf9f8",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#c4c7cc",
+                      "on-tertiary": "#ffffff",
+                      "background": "#fbf9f8",
+                      "secondary-container": "#71b8fe",
+                      "inverse-on-surface": "#f2f0f0",
+                      "tertiary-fixed": "#e0e3e2",
+                      "primary": "#142839",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#b5c9df",
+                      "secondary": "#00629f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "12px",
+                      "base": "8px",
+                      "stack-xs": "4px",
+                      "container-max": "1280px",
+                      "margin-desktop": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Sticky Navigation Highlight */
+        .toc-link.active {
+            color: #066AAB; /* accent-blue fallback, matching secondary/accent logic */
+            border-left-color: #066AAB;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-highest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows z-50 sticky top-0">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop md:flex-row md:items-center justify-between h-[88px]">
+<!-- Brand Logo -->
+<div class="flex items-center">
+<a class="flex items-center gap-2 font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed" href="#">
+<img alt="Mavi Belge Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLurdcsK2tq_12_Kf3qbanY7JgYPKB7rMl8LNLZ5W6y8IA9lVigus4QbjzqXyunJiXKuPtIGNZH77XPujhgCW8RxUHWiuFmy4QMe-8nkRg0XV8ysfUgS316giaxF_pjTBfFAtMU3btVn7poWi0DKjLS4zSQ-4a2JTiLQ6PP3oChuTauLBvKK5nT3pY9tWryqvzhf18aH2lIDvvkMVq1zhoyJ9crbJGBmEaD6cyOcBE_B7OndpglGjhIPKAeI"/>
+</a>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md flex items-center h-full hover:bg-surface-container-low transition-colors duration-200 px-2" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md flex items-center h-full hover:bg-surface-container-low transition-colors duration-200 px-2" href="#">Sınav/Başvuru</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md flex items-center h-full hover:bg-surface-container-low transition-colors duration-200 px-2 active:opacity-80 active:scale-95 transition-all" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md flex items-center h-full hover:bg-surface-container-low transition-colors duration-200 px-2" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md flex items-center h-full hover:bg-surface-container-low transition-colors duration-200 px-2" href="#">İletişim</a>
+</nav>
+<!-- Trailing Actions (Desktop) -->
+<div class="hidden md:flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" title="Takvim"><span class="material-symbols-outlined">calendar_month</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" title="Ödemeler"><span class="material-symbols-outlined">payments</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" title="Yardım"><span class="material-symbols-outlined">help</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" title="Paylaş"><span class="material-symbols-outlined">share</span></button>
+</div>
+<a class="bg-[#066AAB] text-white px-6 py-2.5 rounded hover:bg-opacity-90 font-label-md text-label-md transition-colors flex items-center gap-2" href="#">
+                    Online Başvuru
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Mobile Menu Toggle (Placeholder logic) -->
+<div class="md:hidden flex items-center">
+<button class="p-2 text-primary">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col md:flex-row gap-gutter">
+<!-- Sticky Left Navigation (Table of Contents) -->
+<aside class="w-full md:w-[280px] shrink-0 md:sticky md:top-[120px] h-fit">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h3 class="font-headline-md text-headline-md text-primary mb-6 border-b border-outline-variant pb-2">İçindekiler</h3>
+<nav class="flex flex-col gap-2" id="toc-nav">
+<a class="toc-link font-label-md text-label-md text-on-surface-variant hover:text-secondary py-2 px-3 border-l-2 border-transparent transition-colors" href="#hakkimizda">Hakkımızda</a>
+<a class="toc-link font-label-md text-label-md text-on-surface-variant hover:text-secondary py-2 px-3 border-l-2 border-transparent transition-colors" href="#misyon-vizyon">Misyon &amp; Vizyon</a>
+<a class="toc-link font-label-md text-label-md text-on-surface-variant hover:text-secondary py-2 px-3 border-l-2 border-transparent transition-colors" href="#kalite-politikasi">Kalite Politikası</a>
+<a class="toc-link font-label-md text-label-md text-on-surface-variant hover:text-secondary py-2 px-3 border-l-2 border-transparent transition-colors" href="#yonetim-kurulu">Yönetim Kurulu</a>
+</nav>
+</div>
+</aside>
+<!-- Article Content -->
+<article class="flex-grow min-w-0 max-w-3xl space-y-12 pb-24">
+<!-- Hero Image / Header -->
+<header class="space-y-6">
+<h1 class="font-headline-xl text-headline-xl text-primary border-b-4 border-secondary pb-4 inline-block">Kurumsal</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Mavi Belge, sektördeki tecrübesi ve uzman kadrosuyla belgelendirme süreçlerinde güvenilir çözüm ortağınızdır. Endüstriyel standartlara uygun, şeffaf ve tarafsız hizmet anlayışımızla değer katıyoruz.
+                </p>
+<div class="w-full h-80 rounded-lg overflow-hidden border border-outline-variant shadow-sm mt-8">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional photograph of a modern industrial manufacturing facility or construction site, showcasing safety, precision, and engineering excellence. The lighting is bright and natural, emphasizing a clean, organized work environment. Focus on modern machinery or structural steelwork. Corporate and trustworthy aesthetic, fitting for a certification body's website. Cool blue and gray tones dominant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFd00UpBZMK9MEyylGDc7-PuVNyKOmVgCUQEG0MFkCBbSVMXSHI9ERcBSkVnBrGDQVVbryTLb3dWdfkp012hQEadspN1xGDRLN7_Qn4JGdPRH2pp2436ebbWSV2bD-LyletQKFwdrYf8surYK_h3HE55nmK0OnDgSCY-JftJuwZiisA3rUyhSF9NcgE2tTpNDUZt-f0lmJUf8cZGfiG8bEcrJivVbiojv2-FU_5_isFkdtegLJEU5Esg"/>
+</div>
+</header>
+<!-- Hakkımızda Section -->
+<section class="scroll-mt-32 space-y-4" id="hakkimizda">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">business</span>
+                    Mavi Belge Hakkında
+                </h2>
+<div class="prose max-w-none text-on-surface font-body-md leading-relaxed space-y-4">
+<p>
+                        Kuruluşumuz, mesleki yeterlilik ve belgelendirme alanında uzun yıllara dayanan deneyimiyle, sektördeki kalite standartlarını yükseltmeyi hedefleyen bağımsız bir denetim ve sertifikasyon kuruluşudur. Amacımız, işletmelerin ve bireylerin rekabet gücünü artırmak, güvenli çalışma ortamlarının oluşturulmasına katkı sağlamaktır.
+                    </p>
+<p>
+                        Tarafsızlık, bağımsızlık ve gizlilik ilkelerinden ödün vermeden faaliyet gösteren Mavi Belge, ilgili akreditasyon kurumları tarafından yetkilendirilmiş olup, ulusal ve uluslararası standartlara tam uyum çerçevesinde hizmet sunmaktadır. 
+                    </p>
+</div>
+</section>
+<!-- Misyon & Vizyon Section (Bento-ish Grid) -->
+<section class="scroll-mt-32 pt-8 border-t border-outline-variant" id="misyon-vizyon">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Misyon -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col gap-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">flag</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Misyonumuz</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            Nitelikli iş gücünün belgelendirilmesi süreçlerinde; güvenilir, şeffaf, adil ve uluslararası standartlara uygun değerlendirme sistemleri kurarak, ülkemizin rekabet gücüne sürdürülebilir katkı sağlamak.
+                        </p>
+</div>
+<!-- Vizyon -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col gap-4">
+<div class="w-12 h-12 bg-secondary-fixed rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-2xl">visibility</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Vizyonumuz</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            Belgelendirme ve değerlendirme alanında yenilikçi yaklaşımlar sunan, sektöründe öncü, ulusal ve uluslararası arenada en çok tercih edilen ve referans gösterilen güvenilir kurum olmak.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Kalite Politikası Section -->
+<section class="scroll-mt-32 pt-8 border-t border-outline-variant space-y-6" id="kalite-politikasi">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">verified</span>
+                    Kalite Politikamız
+                </h2>
+<div class="bg-surface border border-outline-variant rounded-lg p-8 shadow-sm">
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-success-green mt-0.5">check_circle</span>
+<span class="font-body-md text-on-surface leading-relaxed"><strong>Tarafsızlık ve Bağımsızlık:</strong> Tüm belgelendirme faaliyetlerinde adil, önyargısız ve bağımsız bir yaklaşım sergilemek.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-success-green mt-0.5">check_circle</span>
+<span class="font-body-md text-on-surface leading-relaxed"><strong>Sürekli İyileştirme:</strong> Değerlendirme süreçlerimizi teknolojik gelişmeler ve sektör gereksinimleri doğrultusunda sürekli gözden geçirmek ve geliştirmek.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-success-green mt-0.5">check_circle</span>
+<span class="font-body-md text-on-surface leading-relaxed"><strong>Gizlilik:</strong> Adaylara ve kurumlara ait tüm bilgilerin mahremiyetini en üst düzeyde korumak.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-success-green mt-0.5">check_circle</span>
+<span class="font-body-md text-on-surface leading-relaxed"><strong>Yetkinlik:</strong> Sınav ve belgelendirme süreçlerini alanında uzman, deneyimli ve sürekli eğitimlerle desteklenen personel ile yürütmek.</span>
+</li>
+</ul>
+</div>
+</section>
+</article>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-container grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg full-width bottom-0 border-t border-primary-fixed-variant flat no shadows mt-auto">
+<div class="col-span-1 md:col-span-1 space-y-4">
+<div class="font-headline-md text-headline-md text-on-primary">Mavi Belge</div>
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                 Güvenilir belgelendirme ve sertifikasyon hizmetleri. Endüstriyel standartlarda profesyonel çözümler.
+             </p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 justify-end">
+<nav class="flex flex-col gap-3">
+<span class="font-label-md text-label-md text-on-primary mb-2 opacity-80">Hızlı Linkler</span>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</nav>
+<nav class="flex flex-col gap-3">
+<span class="font-label-md text-label-md text-on-primary mb-2 opacity-80">Yasal</span>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</nav>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-8 border-t border-outline/20 text-center">
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                © 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.
+            </p>
+</div>
+</footer>
+<script>
+        // Simple Intersection Observer for Table of Contents highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.toc-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Remove active class from all links
+                        navLinks.forEach(link => link.classList.remove('active', 'border-secondary', 'text-secondary'));
+                        
+                        // Add active class to corresponding link
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active', 'border-secondary', 'text-secondary');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body></html>

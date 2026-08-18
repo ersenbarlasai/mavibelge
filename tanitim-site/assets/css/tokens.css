@@ -1,0 +1,60 @@
+:root {
+  /* Marka renkleri — Mavi Belge logosundan türetilmiş lacivert/mavi (Stitch "Industrial Integrity" tasarım sistemine yaklaştırıldı) */
+  --color-navy-950: #0f1b26;
+  --color-navy-900: #2b3e50;
+  --color-navy-800: #35495d;
+  --color-navy-700: #3f5568;
+  --color-blue-600: #066aab;
+  --color-blue-500: #1f86c9;
+  --color-blue-100: #d7ecf9;
+  --color-blue-50: #eef7fc;
+
+  --color-white: #ffffff;
+  --color-gray-50: #f4f7f6;
+  --color-gray-100: #eceef2;
+  --color-gray-200: #dde1e8;
+  --color-gray-300: #c3c9d4;
+  --color-gray-500: #6b7385;
+  --color-gray-700: #3b4254;
+  --color-gray-900: #1a1e29;
+
+  --color-success: #1b8a5a;
+  --color-warning: #b5760a;
+  --color-danger: #c0392b;
+
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 2.75rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(14, 35, 71, 0.08);
+  --shadow-md: 0 4px 16px rgba(14, 35, 71, 0.10);
+  --shadow-lg: 0 12px 32px rgba(14, 35, 71, 0.14);
+
+  --container-max: 1280px;
+  --header-h: 128px;
+
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+}

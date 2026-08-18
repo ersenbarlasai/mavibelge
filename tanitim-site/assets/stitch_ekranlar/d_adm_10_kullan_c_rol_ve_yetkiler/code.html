@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kullanıcı, Rol ve Yetkiler - Mavi Belge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#43474c",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-tint": "#4d6074",
+                        "secondary": "#00629f",
+                        "primary-fixed": "#d0e5fc",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-fixed": "#d0e4ff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-secondary-container": "#004877",
+                        "on-surface": "#1b1c1c",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#232727",
+                        "tertiary-container": "#393d3d",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f5f3f3",
+                        "background": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "surface-bright": "#fbf9f8",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "on-tertiary": "#ffffff",
+                        "success-green": "#2E7D32",
+                        "warning-orange": "#ED6C02",
+                        "on-secondary-fixed": "#001d34",
+                        "outline": "#74777d",
+                        "on-primary-fixed": "#081d2e",
+                        "on-primary-container": "#95a9be",
+                        "error": "#ba1a1a",
+                        "primary-container": "#2b3e50",
+                        "inverse-primary": "#b5c9df",
+                        "primary": "#142839",
+                        "surface-variant": "#e4e2e2",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    },
+                    spacing: {
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    fontFamily: {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "label-md": ["14px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "label-sm": ["12px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "500" }],
+                        "headline-xl": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased min-h-screen relative">
+<!-- Shared Component: SideNavBar -->
+<nav class="bg-surface-container-low border-r border-outline-variant h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col gap-base p-margin-mobile z-40">
+<div class="mb-stack-md flex items-center gap-3 px-2">
+<div class="w-10 h-10 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary">Mavi Belge Panel</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operasyonel İşlemler</p>
+</div>
+</div>
+<button class="w-full bg-secondary text-on-secondary py-3 px-4 rounded font-label-md text-label-md mb-stack-sm flex items-center justify-center gap-2 transition-colors hover:bg-on-secondary-container">
+<span class="material-symbols-outlined">add</span>
+            Yeni Başvuru
+        </button>
+<div class="flex flex-col gap-1 flex-1 overflow-y-auto">
+<!-- Tabs - All inactive as per strict semantic mapping (no direct match for User Management) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">assignment</span>
+                Başvuru Takibi
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                Sınav Takvimi
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">verified</span>
+                Belge Sorgulama
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+                Doküman Merkezi
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+                İtiraz ve Şikayet
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm text-label-sm md:font-label-md md:text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                SSS
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="md:ml-64 flex-1 flex flex-col min-h-screen">
+<!-- Header -->
+<header class="bg-surface border-b border-outline-variant px-margin-desktop py-stack-md flex justify-between items-center sticky top-0 z-30">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Kullanıcı ve Rol Yönetimi</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Sistem yöneticileri, operasyon personeli ve yetki atamaları.</p>
+</div>
+<button class="bg-secondary text-on-secondary px-6 py-3 min-h-[44px] rounded font-label-md text-label-md flex items-center gap-2 hover:bg-on-secondary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined">person_add</span>
+                Yeni Kullanıcı Davet Et
+            </button>
+</header>
+<!-- Content Canvas -->
+<div class="p-margin-desktop space-y-stack-md max-w-container-max mx-auto w-full">
+<!-- Metrics Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Toplam Yönetici</span>
+<span class="font-headline-xl text-headline-xl text-primary">24</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Aktif Oturumlar</span>
+<span class="font-headline-xl text-headline-xl text-secondary">18</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Bekleyen Davetler</span>
+<span class="font-headline-xl text-headline-xl text-warning-orange">3</span>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden">
+<!-- Toolbar -->
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 min-h-[44px] bg-surface-container-low border border-outline-variant rounded font-body-sm text-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" placeholder="Kullanıcı ara..." type="text"/>
+</div>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary font-label-md text-label-md px-4 py-2 min-h-[44px] border border-outline-variant rounded bg-surface-container-lowest">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filtrele
+                    </button>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary-container text-on-primary-container border-b border-outline-variant">
+<th class="px-6 py-4 font-label-md text-label-md uppercase tracking-wider">Kullanıcı</th>
+<th class="px-6 py-4 font-label-md text-label-md uppercase tracking-wider">Rol</th>
+<th class="px-6 py-4 font-label-md text-label-md uppercase tracking-wider">2FA Durumu</th>
+<th class="px-6 py-4 font-label-md text-label-md uppercase tracking-wider">Son Giriş</th>
+<th class="px-6 py-4 font-label-md text-label-md uppercase tracking-wider text-right">İşlemler</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-surface-container-lowest">
+<!-- Row 1 -->
+<tr class="even:bg-surface-container-low odd:bg-surface-container-lowest hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot portrait of a corporate manager in a modern, well-lit office environment, light mode aesthetic, crisp details, soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWF7-1Y3fPotij0qo21PyptI4VETZL4-NOabnZTL6vZcPwcx0LMlmVhcRszcVU--isk7hgcIcz54ejehgMgKW-GKCVRBe2JcDh52wpkWB_nTKgp8f91sZOHczWnjkV9-cL-L9w4hx0fTP8yiL6c-UO7Kcf91GEmnnwLM3OXguocxGEuTHbwuV8J6IuQwdtyHcU5oPuIV5LHIb4M0X-Vptxtpqd0Mz0Tm3NTK2TBYMjulIeGLbamlndKw"/>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ahmet Yılmaz</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ahmet.yilmaz@mavibelge.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-fixed text-on-primary-fixed border border-primary-fixed-dim">
+                                        Süper Yönetici
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-success-green">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm">Aktif</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Bugün, 09:41
+                                </td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-2 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="even:bg-surface-container-low odd:bg-surface-container-lowest hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md text-label-md border border-outline-variant">
+                                            AY
+                                        </div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ayşe Kaya</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ayse.kaya@mavibelge.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant">
+                                        Başvuru Yöneticisi
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-error-red">
+<span class="material-symbols-outlined text-[18px]">gpp_maybe</span>
+<span class="font-label-sm text-label-sm">Pasif</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Dün, 16:30
+                                </td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-2 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

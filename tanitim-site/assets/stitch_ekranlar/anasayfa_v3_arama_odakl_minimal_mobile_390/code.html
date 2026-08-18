@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Arama</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-red": "#D32F2F",
+                      "primary-container": "#2b3e50",
+                      "success-green": "#2E7D32",
+                      "surface-container-highest": "#e4e2e2",
+                      "inverse-on-surface": "#f2f0f0",
+                      "surface-container-low": "#f5f3f3",
+                      "surface-container-high": "#eae8e7",
+                      "on-tertiary-fixed": "#181c1c",
+                      "on-background": "#1b1c1c",
+                      "outline": "#74777d",
+                      "background": "#fbf9f8",
+                      "surface-tint": "#4d6074",
+                      "tertiary-fixed": "#e0e3e2",
+                      "surface-dim": "#dbd9d9",
+                      "secondary-fixed": "#d0e4ff",
+                      "secondary-container": "#71b8fe",
+                      "on-tertiary-container": "#a4a8a7",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#b5c9df",
+                      "warning-orange": "#ED6C02",
+                      "tertiary": "#232727",
+                      "surface-container": "#f0eded",
+                      "on-surface": "#1b1c1c",
+                      "on-secondary-fixed-variant": "#004a7a",
+                      "on-secondary-fixed": "#001d34",
+                      "primary": "#142839",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#95a9be",
+                      "surface-bright": "#fbf9f8",
+                      "tertiary-fixed-dim": "#c4c7c6",
+                      "on-secondary-container": "#004877",
+                      "surface": "#fbf9f8",
+                      "primary-fixed": "#d0e5fc",
+                      "inverse-surface": "#303030",
+                      "outline-variant": "#c4c7cc",
+                      "on-primary-fixed-variant": "#36495b",
+                      "secondary-fixed-dim": "#9bcbff",
+                      "accent-blue": "#337AB7",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#081d2e",
+                      "on-tertiary-fixed-variant": "#434847",
+                      "secondary": "#00629f",
+                      "primary-fixed-dim": "#b5c9df",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#e4e2e2",
+                      "on-surface-variant": "#43474c",
+                      "tertiary-container": "#393d3d",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "stack-xs": "4px",
+                      "stack-md": "24px",
+                      "stack-sm": "12px",
+                      "base": "8px",
+                      "margin-desktop": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-sm min-h-screen flex flex-col">
+<!-- Top Navigation for Mobile (Slightly simplified for search focus) -->
+<header class="bg-surface dark:bg-surface-container-highest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows sticky z-50">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-mobile py-stack-sm md:hidden">
+<div class="flex items-center justify-between">
+<div class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-primary-fixed">
+                    Mavi Belge
+                </div>
+<div class="flex space-x-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="bg-[#066AAB] text-white px-4 py-2 rounded font-label-md text-label-md hover:bg-[#05568a] transition-colors">
+                        Giriş
+                    </button>
+</div>
+</div>
+</div>
+<!-- Desktop Nav Placeholder (Hidden on Mobile) -->
+<div class="hidden md:flex flex-col w-full max-w-container-max mx-auto px-margin-desktop py-stack-md justify-between items-center flex-row">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">
+                Mavi Belge
+            </div>
+<nav class="flex space-x-6">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md" href="#">Ana Sayfa</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md" href="#">Kurumsal</a>
+</nav>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-start px-margin-mobile pt-stack-lg pb-stack-lg w-full max-w-container-max mx-auto md:w-1/2 lg:w-1/3">
+<!-- Search Hero Section -->
+<div class="w-full mb-stack-lg text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-6xl mb-stack-sm" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-stack-xs text-center w-full">Ne Arıyorsunuz?</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md text-center">Sertifika, meslek veya sınav kodu ile arayın.</p>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant focus:outline-none focus:ring-2 focus:ring-[#066AAB] focus:border-transparent bg-surface min-h-[44px] font-body-md text-body-md shadow-sm" placeholder="Örn: Kaynakçı, Sınav Sonucu..." type="text"/>
+</div>
+</div>
+<!-- Quick Actions Grid -->
+<div class="w-full mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm border-b border-outline-variant pb-2">Hızlı İşlemler</h2>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex flex-col items-center justify-center p-4 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors shadow-sm min-h-[100px]" href="#">
+<span class="material-symbols-outlined text-secondary mb-2 text-3xl" data-icon="assignment_ind">assignment_ind</span>
+<span class="font-label-md text-label-md text-center text-primary">Sınav Başvurusu</span>
+</a>
+<a class="flex flex-col items-center justify-center p-4 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors shadow-sm min-h-[100px]" href="#">
+<span class="material-symbols-outlined text-secondary mb-2 text-3xl" data-icon="fact_check">fact_check</span>
+<span class="font-label-md text-label-md text-center text-primary">Sonuç Sorgula</span>
+</a>
+<a class="flex flex-col items-center justify-center p-4 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors shadow-sm min-h-[100px]" href="#">
+<span class="material-symbols-outlined text-secondary mb-2 text-3xl" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md text-center text-primary">Sınav Takvimi</span>
+</a>
+<a class="flex flex-col items-center justify-center p-4 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors shadow-sm min-h-[100px]" href="#">
+<span class="material-symbols-outlined text-secondary mb-2 text-3xl" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md text-center text-primary">Ücret Listesi</span>
+</a>
+</div>
+</div>
+<!-- Sectors List (Vertical List) -->
+<div class="w-full">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm border-b border-outline-variant pb-2">Sektörler</h2>
+<ul class="flex flex-col space-y-2">
+<li>
+<a class="flex items-center justify-between p-3 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors min-h-[44px]" href="#">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="engineering">engineering</span>
+<span class="font-label-md text-label-md text-primary">İnşaat ve Altyapı</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between p-3 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors min-h-[44px]" href="#">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="factory">factory</span>
+<span class="font-label-md text-label-md text-primary">Üretim ve İmalat</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between p-3 bg-surface rounded border border-outline-variant hover:bg-surface-container-low transition-colors min-h-[44px]" href="#">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md text-primary">Lojistik ve Taşıma</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</a>
+</li>
+</ul>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile specific navigation) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50 flex justify-around items-center py-2 pb-safe">
+<a class="flex flex-col items-center justify-center w-16 h-12 text-[#066AAB]" href="#">
+<span class="material-symbols-outlined" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="font-label-sm text-label-sm mt-1">Arama</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant hover:text-[#066AAB] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-label-sm text-label-sm mt-1">Meslekler</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant hover:text-[#066AAB] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm mt-1">Başvuru</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant hover:text-[#066AAB] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Profil</span>
+</a>
+</nav>
+<!-- Add padding to bottom of body to account for fixed bottom nav on mobile -->
+<style>
+        @media (max-width: 767px) {
+            body {
+                padding-bottom: 70px; /* Approximate height of bottom nav */
+            }
+            .pb-safe {
+                 padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+    </style>
+</body></html>

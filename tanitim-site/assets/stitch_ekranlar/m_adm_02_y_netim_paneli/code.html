@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge Yönetim Paneli - Mobil</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#43474c",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-tint": "#4d6074",
+                        "secondary": "#00629f",
+                        "primary-fixed": "#d0e5fc",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-fixed": "#d0e4ff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-secondary-container": "#004877",
+                        "on-surface": "#1b1c1c",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#232727",
+                        "tertiary-container": "#393d3d",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f5f3f3",
+                        "background": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "surface-bright": "#fbf9f8",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "on-tertiary": "#ffffff",
+                        "success-green": "#2E7D32",
+                        "warning-orange": "#ED6C02",
+                        "on-secondary-fixed": "#001d34",
+                        "outline": "#74777d",
+                        "on-primary-fixed": "#081d2e",
+                        "on-primary-container": "#95a9be",
+                        "error": "#ba1a1a",
+                        "primary-container": "#2b3e50",
+                        "inverse-primary": "#b5c9df",
+                        "primary": "#142839",
+                        "surface-variant": "#e4e2e2",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles derived from guidance */
+        body {
+            background-color: #fbf9f8; /* surface-bright */
+            color: #1b1c1c; /* on-surface */
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Mobile Drawer Transition */
+        #mobile-drawer {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-drawer.open {
+            transform: translateX(0);
+        }
+        #drawer-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #drawer-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* Hide scrollbar for clean mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Mobile Top App Bar -->
+<header class="sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant px-margin-mobile h-16 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-stack-sm">
+<button aria-label="Menüyü Aç" class="p-2 -ml-2 text-primary hover:bg-surface-container-low rounded-full transition-colors" id="menu-toggle">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-headline-md text-headline-md font-bold text-primary">Mavi Belge</div>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error-red rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Kullanıcı Profili" class="w-full h-full object-cover" data-alt="A professional headshot of an administrative user in a corporate setting. The lighting is bright and modern. The user looks focused and reliable, reflecting trust and operational efficiency. The background is a clean, slightly blurred industrial minimalist office environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfan21SnJ6ojbcC8zqQcVovPfCcQhjOutaHVlbQ6J0eo07mYsW_YTNYOJZD0x_i3lDBgqi4lUxw0dqkxlhcz17ZF5kNSnntQqPVqjdcMj1PtsaCw34FrQglAYKf8_I2hmT3kE_L6OLnlcB5k8-2ABFdHXNDTpRcQOubO8fvGof-vbS_7Ckr09kGTRGFaUMbYEO49Nk54e0v_zxszPkpzR88BTJcZAyfsM6ts0SSi5u1bZl7n0BRQedg"/>
+</div>
+</div>
+</header>
+<!-- Mobile Drawer (Mapped from SideNavBar JSON) -->
+<div class="fixed inset-0 bg-inverse-surface/50 z-40 backdrop-blur-sm" id="drawer-overlay"></div>
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-outline-variant z-50 flex flex-col shadow-lg overflow-y-auto no-scrollbar" id="mobile-drawer">
+<div class="p-margin-mobile border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<div>
+<div class="font-headline-md text-headline-md text-primary font-bold">Mavi Belge Panel</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Operasyonel İşlemler</div>
+</div>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded-full" id="menu-close">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<nav class="flex-1 p-base flex flex-col gap-base mt-stack-sm">
+<!-- Active Item: Başvuru Takibi -->
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assignment" style="font-variation-settings: 'FILL' 1;">assignment</span>
+                Başvuru Takibi
+            </a>
+<!-- Inactive Items -->
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                Sınav Takvimi
+            </a>
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+                Belge Sorgulama
+            </a>
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+                Doküman Merkezi
+            </a>
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+                İtiraz ve Şikayet
+            </a>
+<a class="flex items-center gap-stack-sm p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                SSS
+            </a>
+</nav>
+<div class="p-margin-mobile mt-auto">
+<button class="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-DEFAULT hover:bg-opacity-90 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Yeni Başvuru
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full px-margin-mobile py-stack-md flex flex-col gap-stack-md pb-24">
+<!-- Welcome Section -->
+<section>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Operasyon Özeti</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Bugün: 24 Ekim 2023, Salı</p>
+</section>
+<!-- KPI Cards (Single Column Flow for Mobile) -->
+<section class="flex flex-col gap-stack-sm">
+<!-- Alert/Action Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-sm rounded-lg flex items-start gap-stack-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-warning-orange"></div>
+<div class="bg-warning-orange/10 p-2 rounded-full text-warning-orange shrink-0">
+<span class="material-symbols-outlined" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+<div class="flex-1">
+<h2 class="font-label-md text-label-md text-on-surface">Bekleyen Başvuru Onayları</h2>
+<div class="font-headline-xl text-headline-xl text-primary font-bold mt-1">12</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">İşlem bekleyen yeni kayıtlar.</p>
+</div>
+</div>
+<!-- Stats Group -->
+<div class="grid grid-cols-2 gap-stack-sm">
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-sm rounded-lg">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="event_available">event_available</span>
+<span class="font-label-sm text-label-sm">Aktif Sınavlar</span>
+</div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">4</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-sm rounded-lg">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="task">task</span>
+<span class="font-label-sm text-label-sm">Tamamlanan</span>
+</div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-success-green font-bold">85</div>
+</div>
+</div>
+</section>
+<!-- Recent Applications List (Mobile Friendly Cards) -->
+<section class="flex flex-col gap-stack-sm">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Son Başvurular</h2>
+<a class="font-label-sm text-label-sm text-secondary hover:underline flex items-center" href="#">
+                    Tümünü Gör
+                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<!-- List Container -->
+<div class="flex flex-col gap-stack-sm">
+<!-- Data Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-bold">Ahmet Yılmaz</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">11UY0011-3/04 Ahşap Kalıpçı</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-warning-orange/10 text-warning-orange font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-orange"></span>
+                            Bekliyor
+                        </span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm border-t border-outline-variant/50 pt-2 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                            24 Eki 2023
+                        </div>
+<!-- Quick Action Button -->
+<button class="text-secondary font-label-md text-label-md hover:bg-surface-container-low px-3 py-1.5 rounded-DEFAULT transition-colors flex items-center gap-1 border border-secondary/30">
+                            Durum Güncelle
+                            <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+<!-- Data Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-bold">Ayşe Demir</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">12UY0054-3/01 Alçı Sıva Uygulayıcısı</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-success-green/10 text-success-green font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span>
+                            Onaylandı
+                        </span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm border-t border-outline-variant/50 pt-2 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                            23 Eki 2023
+                        </div>
+<button class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low px-3 py-1.5 rounded-DEFAULT transition-colors flex items-center gap-1">
+                            İncele
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Data Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-bold">Mehmet Kaya</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">11UY0011-3/04 Ahşap Kalıpçı</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-warning-orange/10 text-warning-orange font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-orange"></span>
+                            Bekliyor
+                        </span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm border-t border-outline-variant/50 pt-2 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                            22 Eki 2023
+                        </div>
+<button class="text-secondary font-label-md text-label-md hover:bg-surface-container-low px-3 py-1.5 rounded-DEFAULT transition-colors flex items-center gap-1 border border-secondary/30">
+                            Durum Güncelle
+                            <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Area (Contextual for mobile dashboard) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant p-margin-mobile shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] flex justify-around items-center z-30">
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-[10px]">Özet</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-[10px]">Ara</span>
+</button>
+<!-- FAB embedded in bottom nav for quick action -->
+<button class="bg-secondary text-on-secondary rounded-full h-12 w-12 flex items-center justify-center shadow-md transform -translate-y-4 border-4 border-surface-container-lowest hover:bg-opacity-90">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-sm text-[10px]">Raporlar</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-[10px]">Ayarlar</span>
+</button>
+</div>
+<!-- Scripts for Interactions -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const drawer = document.getElementById('mobile-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+
+            function openDrawer() {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', openDrawer);
+            menuClose.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+        });
+    </script>
+</body></html>

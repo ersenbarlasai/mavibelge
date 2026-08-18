@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Sektör Odaklı Anasayfa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-red": "#D32F2F",
+                        "primary-container": "#2b3e50",
+                        "success-green": "#2E7D32",
+                        "surface-container-highest": "#e4e2e2",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container-high": "#eae8e7",
+                        "on-tertiary-fixed": "#181c1c",
+                        "on-background": "#1b1c1c",
+                        "outline": "#74777d",
+                        "background": "#fbf9f8",
+                        "surface-tint": "#4d6074",
+                        "tertiary-fixed": "#e0e3e2",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed": "#d0e4ff",
+                        "secondary-container": "#71b8fe",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#b5c9df",
+                        "warning-orange": "#ED6C02",
+                        "tertiary": "#232727",
+                        "surface-container": "#f0eded",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-secondary-fixed": "#001d34",
+                        "primary": "#142839",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#95a9be",
+                        "surface-bright": "#fbf9f8",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-secondary-container": "#004877",
+                        "surface": "#fbf9f8",
+                        "primary-fixed": "#d0e5fc",
+                        "inverse-surface": "#303030",
+                        "outline-variant": "#c4c7cc",
+                        "on-primary-fixed-variant": "#36495b",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "accent-blue": "#337AB7",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#081d2e",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary": "#00629f",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e4e2e2",
+                        "on-surface-variant": "#43474c",
+                        "tertiary-container": "#393d3d",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "stack-md": "24px",
+                        "stack-sm": "12px",
+                        "base": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-highest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows sticky z-50 w-full">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop">
+<div class="flex items-center justify-between h-20">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Mavi Belge</span>
+</div>
+<!-- Navigation -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md transition-colors duration-200" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 font-label-md text-label-md py-2 px-3 rounded" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 font-label-md text-label-md py-2 px-3 rounded" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 font-label-md text-label-md py-2 px-3 rounded" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 font-label-md text-label-md py-2 px-3 rounded" href="#">İletişim</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">calendar_month</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">payments</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">help</span></button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors"><span class="material-symbols-outlined">share</span></button>
+</div>
+<button class="bg-accent-blue text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-secondary transition-colors">Online Başvuru</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<!-- Hero Section -->
+<section class="mb-stack-lg grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+<div class="flex flex-col gap-stack-md">
+<h1 class="font-headline-xl text-headline-xl text-primary">Sektörünüzde Uzmanlığınızı Belgelendirin.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Mavi Belge ile ulusal ve uluslararası geçerliliğe sahip sertifikasyon süreçlerinizi güvenle tamamlayın. Kariyerinizde bir adım öne çıkın.</p>
+<div class="flex gap-4">
+<button class="bg-accent-blue text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-secondary transition-colors flex items-center gap-2">
+                        Hemen Başvur <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border border-primary-container text-primary-container font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-container-low transition-colors">
+                        Mesleğimi Bul
+                    </button>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden h-[400px] border border-outline-variant shadow-sm relative group cursor-pointer">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed professional photography of an industrial worker in full safety gear operating heavy machinery. The setting is a modern, well-lit manufacturing plant with a clean, industrial aesthetic. The color palette is dominated by cool blues, stark whites, and the bold safety orange of the equipment. The mood is focused, professional, and secure, reflecting a modern industrial environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB2y5o-FUSBuXztnuXiEM5W5Sak3QqNeH7o0ym3_tLp3v_OIaGN1x1sWNRyhORwCIAVa4ynXoZnHK7xUpstojMWJzl4iiudqWxzCd2aE0BL4lzVP45Trzxq1A2pbcapuuoza9xftvv21I5XWTXk-U_cxdpvcqsGseUJbrapTQAdpI2XLFoS6sXdTKmOOLyoLLhEofy2AamMhneHPrCXoCX7UrBxFU9EsEKvxQBdwyJMuIjlBqR90PvGnw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<p class="text-white font-headline-md text-headline-md">Endüstriyel Üretim Sertifikasyonları Başladı</p>
+</div>
+</div>
+</section>
+<!-- Sektör Gezgini (Bento Grid) -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end mb-stack-md border-b border-outline-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-primary">Sektör Gezgini</h2>
+<a class="font-label-md text-label-md text-accent-blue flex items-center gap-1 hover:underline" href="#">Tüm Sektörleri Gör <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 (Active) -->
+<div class="bg-surface-container-low rounded-lg border-2 border-accent-blue overflow-hidden cursor-pointer hover:shadow-md transition-all group relative">
+<div class="absolute top-2 right-2 bg-accent-blue text-on-primary rounded-full p-1 shadow-sm">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div class="bg-cover bg-center h-32 w-full border-b border-outline-variant opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A close-up shot of architectural blueprints and a yellow hard hat resting on a wooden desk. Soft natural light illuminates the technical drawings, highlighting the intricate details. The setting implies a professional construction planning environment. The aesthetic is clean, analytical, and structured, utilizing a light mode palette with technical blue lines." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRHfKnmzAjj9XX7JhbY2JpxB8gd-KP5FqAa0gzel2Nv6JxT08yxkdvXhdxUfpIm2UQ55bCBxfgiEIHvmrtYZo8QUqCXIdME418oxTnAGXBo4oXJOt7TKk3juZFjgjsuNjad1AqD001CqDRSgtXhgWzC8rMyorAt4W87bnjDJ3xrqR35mJceAlJKSUK_p9sm7W2DlP_nT46VGNjhAOoYeXzFdFS7Y6YMnAvTzJS8AVEWtnKrd_XarV1qQ')"></div>
+<div class="p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-accent-blue">engineering</span>
+<h3 class="font-label-md text-label-md text-primary">İnşaat ve Mimarlık</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="bg-cover bg-center h-32 w-full border-b border-outline-variant opacity-70 group-hover:opacity-100 transition-opacity" data-alt="A modern electric vehicle charging station in a bright, clean urban setting. The focus is on the charging cable connected to the car. The lighting is crisp and clear, emphasizing sustainability and modern technology. The color scheme features clean whites, tech blues, and subtle greens to convey eco-friendly energy." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBlGrBHLZrOCPxhYa-y9pgHAYQBrh04kOgSpEtHWVuiBOPOL7pKEJgPK-3fIBSFFC-VJn4Ni8G6BH4EzS0-DnjVTtrCg9Dx6GMYQaHMWVaAH4g7WP8DhNNGWJvgJ9qtLxrL9jEFVH4nF8gxVb-CW9_WY30nb-ru6Fi-xdwClsZZxc4MUiP8kx1Eq9DTX3d3HFb5Wt3MEWnPw_F5IL-SKn-ITWHUkWJNBwsnYSaG2zyPEoHdde99cKBf5A')"></div>
+<div class="p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-accent-blue transition-colors">electric_car</span>
+<h3 class="font-label-md text-label-md text-primary">Otomotiv ve Ulaşım</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">8 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="bg-cover bg-center h-32 w-full border-b border-outline-variant opacity-70 group-hover:opacity-100 transition-opacity" data-alt="A pristine laboratory environment showing gloved hands carefully adjusting a high-tech microscope. The lighting is bright and clinical, emphasizing hygiene and precision. The aesthetic relies on crisp whites, metallic silver, and subtle blue tints, representing advanced medical or chemical research." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnuT9VI7AbqXjPlDJBXydJR8AdEI99BD_BulTgiz5LPkQCbSl8vP_BWkXWZ9nZ2rjDGV5fWPWpiNHY-zura6h438030ciW9Ajt_O8nl-E_9y_RtT7t1ezti-MoyeLHiCfmIJhV00jyHCaycDpBXH2_PzgTyV5oX6PHaqGm_9e2kYaqwQMKg7hHQtZgsClvpPmcdXdsHt31YrnjAiNBHciQE0bV_3w5ipK8zeYe4U1KVh8mLsP06P3enA')"></div>
+<div class="p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-accent-blue transition-colors">biotech</span>
+<h3 class="font-label-md text-label-md text-primary">Kimya ve Biyoloji</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">5 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="bg-cover bg-center h-32 w-full border-b border-outline-variant opacity-70 group-hover:opacity-100 transition-opacity" data-alt="A vibrant shot of a modern solar panel farm under a clear blue sky. The reflective surfaces of the panels catch the sunlight. The scene conveys renewable energy and technological advancement. The color palette is dominated by bright blues and clean technological silver tones, fitting a modern industrial aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAngk4Z4uAfSo-F5yKSV0Wnxau2mqLi2sWFjusQ7w53ixzZ8h51wdqr937nOsSAlc-cP2zqDvbiF77KX6cs6kdmzM9VUNi23ehdOjaX34HYoAsndAp5SAOwyKqztGKitlZrOuqd6W6XaUwysl-oqZCCjwbi28RW09S93AZceNGdxIaF5t33qsIVHcx_aDW4J7e_rc3BdTEO7CQ3biDiQA0HbefYQheH8_lT-H0Dl7sL7rD5lVw0rvBbNQ')"></div>
+<div class="p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-accent-blue transition-colors">solar_power</span>
+<h3 class="font-label-md text-label-md text-primary">Enerji Sektörü</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">9 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="p-4 flex flex-col gap-2 h-full justify-center items-center text-center bg-surface-container-low">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl group-hover:text-accent-blue transition-colors mb-2">precision_manufacturing</span>
+<h3 class="font-label-md text-label-md text-primary">Makine ve Metal</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">15 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="p-4 flex flex-col gap-2 h-full justify-center items-center text-center bg-surface-container-low">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl group-hover:text-accent-blue transition-colors mb-2">restaurant</span>
+<h3 class="font-label-md text-label-md text-primary">Gıda ve Hizmet</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">6 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group">
+<div class="p-4 flex flex-col gap-2 h-full justify-center items-center text-center bg-surface-container-low">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl group-hover:text-accent-blue transition-colors mb-2">computer</span>
+<h3 class="font-label-md text-label-md text-primary">Bilişim Teknolojileri</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">21 Aktif Sınav</p>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden cursor-pointer hover:border-accent-blue hover:shadow-md transition-all group flex items-center justify-center">
+<div class="text-center p-4">
+<span class="material-symbols-outlined text-accent-blue text-4xl mb-2">grid_view</span>
+<p class="font-label-md text-label-md text-accent-blue">Diğer Sektörleri Keşfet</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-container full-width bottom-0 border-t border-primary-fixed-variant flat no shadows mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-primary">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-container">Profesyonel belgelendirme ve sertifikasyon hizmetleri. Güvenilir geleceğiniz için standartları belirliyoruz.</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Hızlı Linkler</h4>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Kurumsal</h4>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">İletişim</h4>
+<p class="font-body-sm text-body-sm text-on-primary-container flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span> 0850 123 45 67</p>
+<p class="font-body-sm text-body-sm text-on-primary-container flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> info@mavibelge.com</p>
+</div>
+</div>
+<div class="border-t border-primary-fixed-variant/20 py-4 text-center">
+<p class="font-body-sm text-body-sm text-on-primary-container">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</footer>
+</body></html>

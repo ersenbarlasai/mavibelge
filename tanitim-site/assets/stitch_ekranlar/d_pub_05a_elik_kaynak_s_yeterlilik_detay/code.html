@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Çelik Kaynakçısı - Mavi Belge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#74777d",
+                    "secondary-fixed": "#d0e4ff",
+                    "on-background": "#1b1c1c",
+                    "outline-variant": "#c4c7cc",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface": "#fbf9f8",
+                    "surface-container-high": "#eae8e7",
+                    "inverse-on-surface": "#f2f0f0",
+                    "on-primary-container": "#95a9be",
+                    "primary": "#142839",
+                    "on-tertiary-container": "#a4a8a7",
+                    "on-tertiary-fixed": "#181c1c",
+                    "on-secondary-fixed-variant": "#004a7a",
+                    "warning-orange": "#ED6C02",
+                    "surface-container-highest": "#e4e2e2",
+                    "surface-tint": "#4d6074",
+                    "primary-fixed": "#d0e5fc",
+                    "secondary-fixed-dim": "#9bcbff",
+                    "inverse-surface": "#303030",
+                    "on-secondary-fixed": "#001d34",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#36495b",
+                    "primary-fixed-dim": "#b5c9df",
+                    "error-red": "#D32F2F",
+                    "surface-dim": "#dbd9d9",
+                    "secondary-container": "#71b8fe",
+                    "tertiary-fixed": "#e0e3e2",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#232727",
+                    "primary-container": "#2b3e50",
+                    "accent-blue": "#337AB7",
+                    "on-surface-variant": "#43474c",
+                    "on-tertiary-fixed-variant": "#434847",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1b1c1c",
+                    "surface-bright": "#fbf9f8",
+                    "secondary": "#00629f",
+                    "surface-variant": "#e4e2e2",
+                    "background": "#fbf9f8",
+                    "on-primary-fixed": "#081d2e",
+                    "inverse-primary": "#b5c9df",
+                    "tertiary-fixed-dim": "#c4c7c6",
+                    "surface-container": "#f0eded",
+                    "surface-container-low": "#f5f3f3",
+                    "on-error-container": "#93000a",
+                    "success-green": "#2E7D32",
+                    "on-secondary-container": "#004877",
+                    "tertiary-container": "#393d3d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "48px",
+                    "container-max": "1280px",
+                    "stack-md": "24px",
+                    "base": "8px",
+                    "stack-sm": "12px",
+                    "stack-xs": "4px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar Shell -->
+<header class="bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline docked full-width top-0 z-50 sticky">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop">
+<div class="flex items-center justify-between h-16">
+<!-- Brand -->
+<div class="flex-shrink-0 flex items-center">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Mavi Belge</span>
+</div>
+<!-- Navigation -->
+<nav class="hidden md:flex space-x-8 items-center h-full">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 h-full flex items-center font-label-md text-label-md" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary h-full flex items-center font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary h-full flex items-center font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary h-full flex items-center font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary h-full flex items-center font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">İletişim</a>
+</nav>
+<!-- Actions -->
+<div class="hidden md:flex items-center space-x-4">
+<button aria-label="Takvim" class="text-primary dark:text-primary-fixed p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200" title="Takvim">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</button>
+<button aria-label="Ücretler" class="text-primary dark:text-primary-fixed p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200" title="Ücretler">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</button>
+<button aria-label="Yardım" class="text-primary dark:text-primary-fixed p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200" title="Yardım">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="Paylaş" class="text-primary dark:text-primary-fixed p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200" title="Paylaş">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+<a class="bg-secondary text-on-secondary px-6 py-2 rounded-DEFAULT font-label-md text-label-md hover:opacity-90 transition-opacity" href="#">Online Başvuru</a>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col lg:flex-row w-full max-w-container-max mx-auto px-margin-desktop py-stack-md gap-gutter">
+<!-- Left Content Area -->
+<div class="flex-1 w-full flex flex-col gap-stack-lg">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex items-center text-on-surface-variant font-label-sm text-label-sm space-x-2">
+<a class="hover:text-secondary hover:underline" href="#">Anasayfa</a>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-secondary hover:underline" href="#">Meslekler</a>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-secondary hover:underline" href="#">Metal</a>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span aria-current="page" class="text-on-surface font-semibold">Çelik Kaynakçısı</span>
+</nav>
+<!-- Hero/Header Section -->
+<section class="relative w-full rounded-xl overflow-hidden bg-surface-container border border-outline-variant shadow-sm h-64 lg:h-80 flex flex-col justify-end">
+<!-- Background Image Layer -->
+<div class="absolute inset-0 z-0">
+<img alt="Industrial welding professional in action" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLsZ2n7lEtt10xjJl_E3VC-L1wUZ8DJxBQg_jWQv-yTm7TsAwXo62QULLoY_wE8URD2dMjEmSrbiZyXw5FGxa4R_-CQ3LPkRWQB9Fp2S2Y8z4p4q7J8WEJg8B4HpQV5kf_mOuoyncPdsl4Y3lawOSfDajN2jFFr_WCkuYfNnhUF2UYMy91WeJQf1POPDDwZ4glO4-qpzdCQ2wx-JXkNWVZEroXhvK3qhw19LsPiQjX70nfc3oDVqIu5ckcJH"/>
+<!-- Gradient overlay for text readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/80 to-transparent"></div>
+</div>
+<!-- Content Layer -->
+<div class="relative z-10 p-margin-desktop text-on-primary">
+<div class="flex flex-wrap items-center gap-4 mb-stack-sm">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wide">Seviye 3</span>
+<span class="bg-surface-container text-on-surface font-label-sm text-label-sm px-3 py-1 rounded-full border border-outline-variant">Revizyon: 04</span>
+<span class="font-label-md text-label-md text-primary-fixed-dim">MYK Kodu: 11UY0010-3</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-white mb-2 shadow-sm">Çelik Kaynakçısı</h1>
+</div>
+</section>
+<!-- Grid Layout for Info Sections -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Program Amacı -->
+<section class="bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-primary-container border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="target">target</span>
+                        Program Amacı
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Çelik Kaynakçısı (Seviye 3) mesleğinin başarılı bir şekilde icra edilebilmesi için MYK tarafından belirlenen standartlara uygun bilgi, beceri ve yetkinliklerin ölçülmesi ve belgelendirilmesidir. Adayın iş sağlığı ve güvenliği kurallarına uygun olarak kaynak işlemlerini yapabilme yeteneği değerlendirilir.
+                    </p>
+</section>
+<!-- Giriş Şartları -->
+<section class="bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-primary-container border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="login">login</span>
+                        Giriş Şartları
+                    </h2>
+<ul class="list-disc list-inside font-body-md text-body-md text-on-surface-variant space-y-2">
+<li>Sınav başvurusu için özel bir ön şart bulunmamaktadır.</li>
+<li>Adayın mesleği icra edebilecek fiziksel yeterliliğe sahip olması önerilir.</li>
+<li>Yabancı uyruklu adaylar için geçerli kimlik belgesi gereklidir.</li>
+</ul>
+</section>
+</div>
+<!-- Yeterlilik Birimleri (Bento Grid Style) -->
+<section class="flex flex-col gap-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary-container">Yeterlilik Birimleri</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Zorunlu Birim -->
+<div class="bg-surface border-l-4 border-l-secondary border border-outline-variant rounded-r-lg p-stack-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md font-bold text-primary">A1 Zorunlu</span>
+<span class="bg-surface-container-high text-on-surface-variant text-xs px-2 py-1 rounded">Teorik + Performans</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">İş Sağlığı ve Güvenliği, Çevre ve Kalite Yönetim Sistemleri</h3>
+</div>
+<!-- Seçmeli Birimler -->
+<div class="bg-surface border-l-4 border-l-outline-variant border border-outline-variant rounded-r-lg p-stack-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md font-bold text-primary">B1 Seçmeli</span>
+<span class="bg-surface-container-high text-on-surface-variant text-xs px-2 py-1 rounded">Teorik + Performans</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">Elektrotla Ark Kaynağı (111)</h3>
+</div>
+<div class="bg-surface border-l-4 border-l-outline-variant border border-outline-variant rounded-r-lg p-stack-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md font-bold text-primary">B2 Seçmeli</span>
+<span class="bg-surface-container-high text-on-surface-variant text-xs px-2 py-1 rounded">Teorik + Performans</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">MIG Kaynağı (131)</h3>
+</div>
+<div class="bg-surface border-l-4 border-l-outline-variant border border-outline-variant rounded-r-lg p-stack-sm flex flex-col hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md font-bold text-primary">B5 Seçmeli</span>
+<span class="bg-surface-container-high text-on-surface-variant text-xs px-2 py-1 rounded">Teorik + Performans</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">TIG Kaynağı (141)</h3>
+</div>
+</div>
+</section>
+<!-- Sınav Detayları & Geçme Kriterleri -->
+<section class="bg-surface-container-low border border-outline-variant rounded-lg p-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary-container mb-stack-md">Sınav Detayları ve Kriterler</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div>
+<h3 class="font-label-md text-label-md font-bold text-primary mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="quiz">quiz</span>
+                            Teorik Sınav (T1)
+                        </h3>
+<ul class="list-none space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Soru Tipi:</span> <span>Çoktan Seçmeli (4 Seçenekli)</span></li>
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>A1 Birimi Soru Sayısı:</span> <span>En az 25 soru</span></li>
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Seçmeli Birimler Soru Sayısı:</span> <span>Birim başına en az 10 soru</span></li>
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Süre:</span> <span>Soru başına 1.5 - 2 dakika</span></li>
+<li class="flex justify-between text-success-green font-medium pt-1"><span>Geçme Notu:</span> <span>Minimum %60 başarı</span></li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-primary mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="construction">construction</span>
+                            Performans Sınavı (P1)
+                        </h3>
+<ul class="list-none space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Uygulama Alanı:</span> <span>Simüle edilmiş atölye ortamı</span></li>
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Değerlendirme:</span> <span>Gözlem ve kontrol listesi üzerinden</span></li>
+<li class="flex justify-between border-b border-outline-variant pb-1"><span>Kritik Adımlar:</span> <span>Tamamı %100 başarılmalı</span></li>
+<li class="flex justify-between text-success-green font-medium pt-1"><span>Geçme Notu:</span> <span>Minimum %80 genel başarı</span></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Geçerlilik ve Hukuki Dayanak -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<section class="bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-primary-container border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="update">update</span>
+                        Geçerlilik ve Yenileme
+                    </h2>
+<div class="font-body-md text-body-md text-on-surface-variant space-y-3">
+<p><strong class="text-on-surface">Geçerlilik Süresi:</strong> Belgenin geçerlilik süresi 3 yıldır.</p>
+<p><strong class="text-on-surface">Gözetim:</strong> Belge geçerlilik süresi içerisinde en az bir kez gözetime tabi tutulur.</p>
+<p><strong class="text-on-surface">Yenileme:</strong> Geçerlilik süresi sonunda fiilen çalışıldığını belgeleyen veya uygulama sınavına girerek başarılı olan adayların belgesi yenilenir.</p>
+</div>
+</section>
+<section class="bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-primary-container border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="gavel">gavel</span>
+                        Hukuki Dayanak
+                    </h2>
+<ul class="list-disc list-inside font-body-sm text-body-sm text-on-surface-variant space-y-1">
+<li>5544 sayılı Mesleki Yeterlilik Kurumu Kanunu</li>
+<li>Mesleki Yeterlilik, Sınav ve Belgelendirme Yönetmeliği</li>
+<li>Çelik Kaynakçısı Seviye 3 Ulusal Yeterliliği (11UY0010-3)</li>
+</ul>
+</section>
+</div>
+<!-- Dokümanlar & SSS -->
+<section class="bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col gap-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary-container border-b border-outline-variant pb-2">İlgili Dokümanlar ve SSS</h2>
+<div class="flex flex-col sm:flex-row gap-gutter">
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-2 p-2 rounded hover:bg-surface-container-low border border-transparent hover:border-outline-variant transition-all text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="font-label-md text-label-md">Ulusal Yeterlilik Dokümanı (PDF)</span>
+</a>
+<a class="flex items-center gap-2 p-2 rounded hover:bg-surface-container-low border border-transparent hover:border-outline-variant transition-all text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="font-label-md text-label-md">Aday Başvuru Formu (PDF)</span>
+</a>
+</div>
+<div class="flex-1 space-y-4">
+<details class="group bg-surface-container-low rounded p-2 cursor-pointer border border-outline-variant">
+<summary class="font-label-md text-label-md text-primary flex justify-between items-center">
+                                 Sınav ücretleri ne kadar?
+                                 <span class="material-symbols-outlined text-outline transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 pl-1">Güncel sınav ücretleri seçilen birimlere göre değişiklik göstermektedir. Sağ panelden 'Güncel Ücreti Gör' butonuna tıklayarak veya iletişim bölümünden bilgi alabilirsiniz.</p>
+</details>
+<details class="group bg-surface-container-low rounded p-2 cursor-pointer border border-outline-variant">
+<summary class="font-label-md text-label-md text-primary flex justify-between items-center">
+                                 Teşvik kapsamında mıyım?
+                                 <span class="material-symbols-outlined text-outline transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 pl-1">Tehlikeli ve çok tehlikeli işler sınıfında yer alan Çelik Kaynakçısı mesleği için devlet teşvikleri bulunabilmektedir. Şartlar için destek merkezimizle iletişime geçin.</p>
+</details>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Sidebar (Sticky Actions) -->
+<aside class="w-full lg:w-80 flex-shrink-0">
+<div class="sticky top-[88px] flex flex-col gap-stack-sm">
+<!-- Action Card -->
+<div class="bg-surface border border-outline-variant rounded-lg p-stack-md shadow-sm flex flex-col gap-stack-sm text-center">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Başvuru İşlemleri</h3>
+<button class="w-full bg-[#066AAB] text-white hover:bg-[#05578d] transition-colors py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2 font-label-md text-label-md h-[44px]">
+<span class="material-symbols-outlined text-[20px]" data-icon="how_to_reg">how_to_reg</span>
+                         Online Başvur
+                     </button>
+<button class="w-full bg-transparent border border-primary-container text-primary-container hover:bg-surface-container-low transition-colors py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2 font-label-md text-label-md h-[44px]">
+<span class="material-symbols-outlined text-[20px]" data-icon="currency_lira">currency_lira</span>
+                         Güncel Ücreti Gör
+                     </button>
+<button class="w-full bg-transparent border border-outline text-on-surface-variant hover:bg-surface-container-low transition-colors py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2 font-label-md text-label-md h-[44px]">
+<span class="material-symbols-outlined text-[20px]" data-icon="event">event</span>
+                         Sınav Takvimine Git
+                     </button>
+</div>
+<!-- Support Contact Card -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-stack-sm flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="support_agent">support_agent</span>
+<h4 class="font-label-md text-label-md text-primary">Yardıma mı ihtiyacınız var?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Başvuru süreci veya teşvikler hakkında bilgi almak için uzmanlarımıza danışın.</p>
+<a class="font-label-md text-label-md text-[#066AAB] hover:underline" href="tel:+900000000000">0850 XXX XX XX</a>
+</div>
+</div>
+</aside>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-t border-primary-fixed-variant full-width bottom-0 mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<!-- Brand Column -->
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-primary">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                    Sertifikasyon ve Uzmanlık Merkezi. Güvenilir ve akredite belgelendirme hizmetleri.
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Hızlı Linkler</h4>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Kurumsal</h4>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<!-- Contact Column -->
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">İletişim</h4>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-on-primary-container">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span>Merkez Ofis, Ankara</span>
+</div>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-on-primary-container">
+<span class="material-symbols-outlined text-sm" data-icon="mail">mail</span>
+<span>info@mavibelge.com</span>
+</div>
+</div>
+</div>
+<!-- Copyright -->
+<div class="border-t border-primary-fixed-variant/30 py-4 mt-stack-md text-center">
+<p class="font-body-sm text-body-sm text-on-primary-container">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</footer>
+</body></html>

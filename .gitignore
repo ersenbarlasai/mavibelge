@@ -1,0 +1,39 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and caches
+node_modules/
+vendor/
+.cache/
+tmp/
+temp/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editors / local tool config
+.vscode/
+.idea/
+.claude/
+*.suo
+*.user
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# QA ekran görüntüleri (PNG) — repo şişmesini önlemek için dışarıda bırakıldı.
+# Ölçüm/sonuç verisi (measurements.json) ve raporlar korunur.
+tanitim-site/qa-screenshots/**/*.png

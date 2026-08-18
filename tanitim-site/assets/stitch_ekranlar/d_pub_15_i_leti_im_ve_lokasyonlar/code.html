@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - İletişim ve Lokasyonlar</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "success-green": "#2E7D32",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#4d6074",
+                        "primary-fixed": "#d0e5fc",
+                        "on-primary-container": "#95a9be",
+                        "secondary-fixed": "#d0e4ff",
+                        "on-background": "#1b1c1c",
+                        "primary-fixed-dim": "#b5c9df",
+                        "on-tertiary-fixed": "#181c1c",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container": "#f0eded",
+                        "surface-variant": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "accent-blue": "#337AB7",
+                        "outline": "#74777d",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#2b3e50",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#43474c",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-secondary-container": "#004877",
+                        "on-tertiary-container": "#a4a8a7",
+                        "tertiary-container": "#393d3d",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "error-red": "#D32F2F",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "on-surface": "#1b1c1c",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "tertiary": "#232727",
+                        "on-secondary-fixed": "#001d34",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#36495b",
+                        "warning-orange": "#ED6C02",
+                        "on-primary-fixed": "#081d2e",
+                        "inverse-surface": "#303030",
+                        "surface": "#fbf9f8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "secondary-container": "#71b8fe",
+                        "inverse-on-surface": "#f2f0f0",
+                        "tertiary-fixed": "#e0e3e2",
+                        "primary": "#142839",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#b5c9df",
+                        "secondary": "#00629f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "12px",
+                        "base": "8px",
+                        "stack-xs": "4px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline docked full-width top-0 z-50">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop">
+<div class="flex items-center justify-between h-20">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<a class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed tracking-tight" href="#">Mavi Belge</a>
+</div>
+<!-- Navigation -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Bilgi Merkezi</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md transition-colors duration-200" href="#">İletişim</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-2 text-on-surface-variant">
+<button aria-label="Takvim" class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center"><span class="material-symbols-outlined">calendar_month</span></button>
+<button aria-label="Ödemeler" class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center"><span class="material-symbols-outlined">payments</span></button>
+<button aria-label="Yardım" class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center"><span class="material-symbols-outlined">help</span></button>
+</div>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded hover:bg-opacity-90 transition-all font-label-md text-label-md h-[44px] flex items-center justify-center">
+                        Online Başvuru
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-stack-lg md:py-16">
+<!-- Hero Section -->
+<div class="mb-stack-lg text-left max-w-3xl">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-4">İletişim ve Lokasyonlar</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Mavi Belge ile iletişime geçmek için form doldurabilir veya doğrudan merkez ofisimiz ve sınav alanlarımızı ziyaret edebilirsiniz. Operasyonel mükemmellik için size en yakın lokasyonu seçin.
+            </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Locations List -->
+<div class="lg:col-span-7 flex flex-col gap-stack-md">
+<!-- Main Office Card with Embedded Map -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 w-full bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A clean, modern top-down map view focusing on a coastal industrial city layout, highlighted by a subtle blue marker indicating a headquarters location. The map style is minimalist, utilizing light grays, whites, and soft blues to maintain a professional, corporate light-mode aesthetic without visual clutter." data-location="İskenderun, Türkiye" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz5nx5RoaIZ8pXopa0EAmqjx-gwH9SjQcDUehM6qgfB0rQPAk5DGOHKyRYR6qInypaFZSG3UECTQE_aTLzM1zylsVrMK5zkId4-nn6tgv06S1m1yK25dQsEdTcELqH0JVyAR3wO_fwussCsthmjS0d3B9ih6aXxIFatydjpJWwrpAxc1Xs1BvjVzXWf7CMewNE_peqNZtU74foJ4VzB-a8B8P6dyevN8YOvagb89EnQwZi4NKr_PP1cg"/>
+</div>
+<div class="p-6">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant pb-4">
+<h2 class="font-headline-md text-headline-md text-primary">İskenderun Merkez Ofis</h2>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm">Merkez</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5">location_on</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Çay Mahallesi, 5 Temmuz Cd. No:45, 31200 İskenderun/Hatay</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">phone</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">0850 215 44 22</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">mail</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">info@mavibelge.com.tr</p>
+</div>
+</div>
+<div class="flex items-end justify-start sm:justify-end">
+<button class="flex items-center gap-2 border border-primary-container text-primary-container px-4 py-2 rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md h-[44px]">
+                                    Haritada Gör
+                                    <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Locations Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<!-- Exam Area 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Payas Sınav Alanı</h3>
+<div class="w-full h-px bg-outline-variant mb-4"></div>
+<div class="flex flex-col gap-3 flex-grow mb-6">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5">map</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Karayılan OSB Mahallesi, 2. Cd. No:12, Payas/Hatay</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">phone</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">0850 215 44 22</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">mail</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">info@mavibelge.com.tr</p>
+</div>
+</div>
+<button class="w-full flex justify-center items-center gap-2 border border-primary-container text-primary-container px-4 py-2 rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md h-[44px]">
+                            Haritada Gör
+                        </button>
+</div>
+<!-- Exam Area 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Aliağa Sınav Alanı</h3>
+<div class="w-full h-px bg-outline-variant mb-4"></div>
+<div class="flex flex-col gap-3 flex-grow mb-6">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5">map</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Alposbi Mahallesi, 5. Cadde No:8, Aliağa/İzmir</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">phone</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">0850 215 44 22</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">mail</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">info@mavibelge.com.tr</p>
+</div>
+</div>
+<button class="w-full flex justify-center items-center gap-2 border border-primary-container text-primary-container px-4 py-2 rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md h-[44px]">
+                            Haritada Gör
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Contact Form -->
+<div class="lg:col-span-5">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 lg:p-8 sticky top-28 shadow-sm">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Bize Ulaşın</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 pb-4 border-b border-outline-variant">Sorularınız, geri bildirimleriniz veya destek talepleriniz için aşağıdaki formu doldurabilirsiniz.</p>
+<form class="flex flex-col gap-5">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="fullName">Ad Soyad</label>
+<input class="w-full min-h-[44px] px-4 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body-md text-body-md placeholder-outline" id="fullName" placeholder="Örn: Ahmet Yılmaz" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="email">E-posta</label>
+<input class="w-full min-h-[44px] px-4 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body-md text-body-md placeholder-outline" id="email" placeholder="ornek@sirket.com" type="email"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="phone">Telefon</label>
+<input class="w-full min-h-[44px] px-4 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body-md text-body-md placeholder-outline" id="phone" placeholder="05XX XXX XX XX" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="subject">Konu</label>
+<select class="w-full min-h-[44px] px-4 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body-md text-body-md appearance-none" id="subject">
+<option disabled="" selected="" value="">Lütfen bir konu seçin</option>
+<option value="genel">Genel Bilgi Talebi</option>
+<option value="sinav">Sınav Başvurusu</option>
+<option value="kurumsal">Kurumsal İşbirliği</option>
+<option value="diger">Diğer</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="message">Mesaj</label>
+<textarea class="w-full p-4 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body-md text-body-md placeholder-outline resize-y min-h-[120px]" id="message" placeholder="Mesajınızı buraya yazın..." rows="4"></textarea>
+</div>
+<div class="flex items-start gap-3 mt-2">
+<div class="flex items-center h-5 mt-0.5">
+<input class="w-5 h-5 border border-outline-variant rounded-[2px] bg-surface-container-lowest text-secondary focus:ring-2 focus:ring-secondary focus:ring-offset-1 cursor-pointer" id="kvkk" type="checkbox"/>
+</div>
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="kvkk">
+<a class="text-secondary hover:underline" href="#">KVKK Aydınlatma Metni</a>'ni okudum ve kişisel verilerimin işlenmesini onaylıyorum.
+                            </label>
+</div>
+<button class="mt-4 w-full bg-secondary text-on-secondary font-label-md text-label-md h-[44px] rounded flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all" type="button">
+                            Gönder
+                            <span class="material-symbols-outlined text-sm">send</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating WhatsApp Button -->
+<a aria-label="WhatsApp ile İletişime Geç" class="fixed bottom-8 right-8 z-50 bg-success-green text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">chat</span>
+</a>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-container border-t border-primary-fixed-variant full-width bottom-0 mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-primary font-bold">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                    © 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.
+                </p>
+</div>
+<div class="flex flex-col gap-3">
+<a class="text-on-primary-container hover:text-on-primary font-label-md text-label-md hover:underline transition-all" href="#">Meslekler</a>
+<a class="text-on-primary-container hover:text-on-primary font-label-md text-label-md hover:underline transition-all" href="#">Başvuru Sorgula</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="text-on-primary-container hover:text-on-primary font-label-md text-label-md hover:underline transition-all" href="#">Ücret Listesi</a>
+<a class="text-on-primary-container hover:text-on-primary font-label-md text-label-md hover:underline transition-all" href="#">KVKK</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="text-on-primary-container hover:text-on-primary font-label-md text-label-md hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="text-secondary-fixed font-bold font-label-md text-label-md hover:underline transition-all" href="#">İletişim</a>
+</div>
+</div>
+</footer>
+</body></html>

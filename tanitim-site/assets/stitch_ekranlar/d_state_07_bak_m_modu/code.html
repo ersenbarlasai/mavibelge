@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bakım Modu - Mavi Belge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d0e5fc",
+                    "on-primary-fixed-variant": "#36495b",
+                    "inverse-primary": "#b5c9df",
+                    "success-green": "#2E7D32",
+                    "secondary-fixed-dim": "#9bcbff",
+                    "surface-dim": "#dbd9d9",
+                    "surface-variant": "#e4e2e2",
+                    "on-secondary-fixed": "#001d34",
+                    "surface": "#fbf9f8",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#434847",
+                    "on-surface-variant": "#43474c",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-container-high": "#eae8e7",
+                    "on-background": "#1b1c1c",
+                    "primary-container": "#2b3e50",
+                    "secondary-fixed": "#d0e4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#71b8fe",
+                    "warning-orange": "#ED6C02",
+                    "on-error-container": "#93000a",
+                    "background": "#fbf9f8",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary": "#142839",
+                    "error-container": "#ffdad6",
+                    "accent-blue": "#337AB7",
+                    "on-primary-container": "#95a9be",
+                    "on-primary-fixed": "#081d2e",
+                    "surface-container-highest": "#e4e2e2",
+                    "outline": "#74777d",
+                    "inverse-surface": "#303030",
+                    "surface-container": "#f0eded",
+                    "on-tertiary-fixed": "#181c1c",
+                    "on-tertiary-container": "#a4a8a7",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#4d6074",
+                    "on-surface": "#1b1c1c",
+                    "surface-bright": "#fbf9f8",
+                    "outline-variant": "#c4c7cc",
+                    "tertiary-fixed-dim": "#c4c7c6",
+                    "on-secondary-container": "#004877",
+                    "tertiary-fixed": "#e0e3e2",
+                    "tertiary-container": "#393d3d",
+                    "on-secondary-fixed-variant": "#004a7a",
+                    "error-red": "#D32F2F",
+                    "secondary": "#00629f",
+                    "tertiary": "#232727",
+                    "primary-fixed-dim": "#b5c9df",
+                    "inverse-on-surface": "#f2f0f0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "stack-sm": "12px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px",
+                    "stack-lg": "48px",
+                    "stack-md": "24px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-xs": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface h-screen flex flex-col items-center justify-center overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[400px] text-primary-container" style="font-variation-settings: 'FILL' 0;">
+            engineering
+        </span>
+</div>
+<!-- Main Content Canvas -->
+<div class="relative z-10 max-w-2xl w-full px-margin-mobile md:px-margin-desktop text-center">
+<!-- Icon/Logo Area -->
+<div class="mb-stack-lg inline-flex items-center justify-center w-24 h-24 rounded-full bg-surface-container-high border border-outline-variant">
+<span class="material-symbols-outlined text-headline-xl text-primary" style="font-variation-settings: 'FILL' 1;">
+                build
+            </span>
+</div>
+<!-- Typography -->
+<h1 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary mb-stack-md">
+            Sizlere daha iyi hizmet verebilmek için çalışıyoruz
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg max-w-xl mx-auto">
+            Sistemlerimizde planlı bakım çalışması yapılmaktadır. En kısa sürede tekrar yayında olacağız. Anlayışınız için teşekkür ederiz.
+        </p>
+<!-- Contact Info Card (Bento/Glassmorphism inspired light structural container) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md flex flex-col md:flex-row items-center justify-center gap-stack-md md:gap-margin-desktop shadow-sm">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">
+                    call
+                </span>
+<div class="text-left">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Acil Durumlar İçin</p>
+<a class="font-label-md text-label-md text-primary hover:text-secondary transition-colors" href="tel:08501234567">0850 123 45 67</a>
+</div>
+</div>
+<div class="hidden md:block w-px h-12 bg-outline-variant"></div>
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">
+                    mail
+                </span>
+<div class="text-left">
+<p class="font-label-sm text-label-sm text-on-surface-variant">E-posta İletişim</p>
+<a class="font-label-md text-label-md text-primary hover:text-secondary transition-colors" href="mailto:destek@mavibelge.com">destek@mavibelge.com</a>
+</div>
+</div>
+</div>
+<!-- Progress/Loading Indicator Minimalist -->
+<div class="mt-stack-lg flex flex-col items-center gap-stack-xs">
+<div class="w-48 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/3 rounded-full animate-pulse"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sistem Güncelleniyor...</span>
+</div>
+</div>
+</body></html>

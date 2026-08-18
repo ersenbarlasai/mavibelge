@@ -1,0 +1,648 @@
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Mavi Belge - Anasayfa</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: 300;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#00629f",
+                      "surface-container": "#f0eded",
+                      "on-primary-container": "#95a9be",
+                      "tertiary-fixed-dim": "#c4c7c6",
+                      "on-background": "#1b1c1c",
+                      "on-tertiary-fixed-variant": "#434847",
+                      "on-secondary-container": "#004877",
+                      "surface-container-low": "#f5f3f3",
+                      "on-tertiary-fixed": "#181c1c",
+                      "on-secondary-fixed-variant": "#004a7a",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#b5c9df",
+                      "inverse-on-surface": "#f2f0f0",
+                      "on-primary-fixed": "#081d2e",
+                      "primary-fixed": "#d0e5fc",
+                      "primary": "#142839",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e4e2e2",
+                      "on-primary-fixed-variant": "#36495b",
+                      "surface-variant": "#e4e2e2",
+                      "tertiary-fixed": "#e0e3e2",
+                      "outline-variant": "#c4c7cc",
+                      "secondary-fixed": "#d0e4ff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#a4a8a7",
+                      "surface-container-high": "#eae8e7",
+                      "tertiary-container": "#393d3d",
+                      "surface-tint": "#4d6074",
+                      "inverse-primary": "#b5c9df",
+                      "inverse-surface": "#303030",
+                      "secondary-container": "#71b8fe",
+                      "outline": "#74777d",
+                      "on-surface-variant": "#43474c",
+                      "background": "#fbf9f8",
+                      "primary-container": "#2b3e50",
+                      "secondary-fixed-dim": "#9bcbff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1b1c1c",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#fbf9f8",
+                      "on-secondary-fixed": "#001d34",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#fbf9f8",
+                      "tertiary": "#232727",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#dbd9d9",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "stack-xs": "4px",
+                      "stack-md": "24px",
+                      "stack-sm": "12px",
+                      "base": "8px",
+                      "margin-desktop": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline": ["Inter"],
+                      "display": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface sticky top-0 z-50 shadow-sm" style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+<!-- Top Info Bar (Optional addition for corporate feel, consistent with design language) -->
+<div class="bg-primary-container text-on-primary-container py-2 hidden md:block">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center font-label-sm text-label-sm">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">call</span> 0850 123 45 67</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">mail</span> bilgi@mavibelge.com.tr</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 16px;">translate</span> TR</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop py-4">
+<div class="flex justify-between items-center">
+<!-- Brand -->
+<div class="flex items-center gap-3 cursor-pointer">
+<img alt="Mavi Belge Logo" class="h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJy8TDEJmspFW7Mv6HFUl_hX9yLsXrBBXQnGi0o9hmnWzOcyxAGmCVZiTHlwVCuHI1xNSDtiZ0Dc7tFRYPYyIcQb7oy6qz4KGIReeNdI58nx7VSnsPI-gKid39W1HhMoiDO-B0ttVcHdnliQSk9GDsyZg-2HxmT87fgNbkW9b_cpep9NoKGPlgNk6UFjbcKk9n6plBq0LF-9BUIDYvrd0OEMBBjvev_f7Nb8uaTr5grAnm9L9b6NQIEBUubck3vT2q_c0">
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Meslekler</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Kurumsal</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-md text-label-md transition-colors duration-200" href="#">İletişim</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-4 mr-4 border-r border-outline-variant pr-4">
+<div class="flex items-center gap-2">
+<img alt="MYK Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGAzC5xPUYno5UfGwCyK1-SaDVJQZTZkALB0RXMWypQn0Zzj_0GaNRxjfWzzteTqCVznF7-Ar8vCDYbSlKa7A2ja-Nsh246ZZE3KlnpEpVj6oVeUuWlNdyCt5YcHkuoOUmaW3DFKJ0_CULH2LLp8UWcHKItuZ2ATDvSmBGhtbp50nSqzbEVIoNtJ1X1zQ1fzrand3jY2I-_ZFT0Qhvc1IRhsGcTTFv1mKG_20bq2zauyNvux67ZRldMjU-kgK10jPfCbk">
+<span class="font-label-sm text-[10px] leading-tight text-on-surface-variant max-w-[80px]">MYK tarafından yetkilendirilmiş</span>
+</div>
+<div class="flex items-center gap-2">
+<img alt="TÜRKAK Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8FQ2NwXA3OY8W6QufvmcJpRqtzmOWHL1gEe8d_PaA-5WIV-DEdBP7AgfF2N9Re5g2u0lva1jlgGj4wY4FTP9K5qoWLn4wogJYIT1QQO94oWsQ35oHT7nQssQHmBfipnoF2kPInBYHYsK7GEbfyQ1hoKsHitPlmzeyBgw14uJQ9h4knyHSbdzhRm_xqp71pt5nA5lW4z7J_q6-uY_4JLUIrTJOeA47qpwWEiKsAuAEV7bHicmD-ZCmRNENb3YE5RP1gpA">
+<span class="font-label-sm text-[10px] leading-tight text-on-surface-variant max-w-[80px]">TÜRKAK tarafından akredite</span>
+</div>
+</div>
+<div class="hidden md:flex gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" title="calendar_month">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" title="payments">
+<span class="material-symbols-outlined">payments</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" title="help">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<button class="bg-secondary text-on-secondary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-[#005185] transition-colors duration-200 shadow-sm flex items-center gap-2">
+                        Online Başvuru
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main>
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] flex flex-col items-center justify-center pt-16 pb-32">
+<!-- Full width background image with overlay -->
+<div class="absolute inset-0 z-0" data-alt="A high-quality industrial photograph showing workers in safety gear (hard hats, high-vis vests) actively working in a modern, strong production or manufacturing environment. The scene emphasizes heavy industry, safety standards, and professional work." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBr4hRIzeCaWcG4gQ1aKeXcPcXpDBE3xvz89b3XwW360LSvVyifJXxJW7KRSzQTb3BVbkke2Fvl_JJbvolCgAEcn2sYakx8poM3lRcmUi1EIe_u52DHnXvmQdOVu4yBR4t209_JeiopY4Y4XL3b9C9t2AjBg91l_JvZ14nFxGmXz5Cx14yZh_cSd59BPmn9j3qsxedOrwurSOoARbPJbWj5cKTKzL3jZJ_v7duWWIIg3vP9bQkLU_KI-A'); background-position: center; background-size: cover;">
+<div class="absolute inset-0 bg-primary/80 mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-90"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl px-margin-mobile md:px-0">
+<h1 class="font-headline-xl text-headline-xl text-on-primary mb-6 drop-shadow-md">
+                    Endüstriyel Standartlarda<br>Uzmanlığınızı Belgelendirin
+                </h1>
+<p class="font-body-lg text-body-lg text-on-primary-container mb-12 max-w-2xl mx-auto">
+                    Mesleki Yeterlilik Kurumu (MYK) ve TÜRKAK akreditasyonu ile güvenilir, tarafsız ve uluslararası geçerliliğe sahip sertifikasyon hizmetleri.
+                </p>
+<!-- Search Box Overlay -->
+<div class="bg-surface p-2 rounded-xl shadow-lg flex items-center w-full max-w-2xl mx-auto border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline ml-4 mr-2">search</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder-on-surface-variant outline-none h-12" placeholder="Meslek veya standart kodu arayın (örn: Kaynakçı)..." type="text">
+<button class="bg-primary text-on-primary px-8 h-12 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors flex items-center gap-2">
+                        Bul <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Overlapping 5 Actions Panel (Bento Grid Style) -->
+<section class="relative z-20 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop -mt-24 mb-24">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<a class="bg-surface p-6 rounded-xl shadow-md border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed">calendar_today</span>
+</div>
+<span class="font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">Sınav Takvimi</span>
+</a>
+<a class="bg-surface p-6 rounded-xl shadow-md border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed">search_check</span>
+</div>
+<span class="font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">Başvuru Sorgula</span>
+</a>
+<a class="bg-surface p-6 rounded-xl shadow-md border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center col-span-2 md:col-span-1 bg-gradient-to-br from-surface to-surface-container-low" href="#">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">Belge Sorgula</span>
+</a>
+<a class="bg-surface p-6 rounded-xl shadow-md border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed">edit_document</span>
+</div>
+<span class="font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">Online Başvuru</span>
+</a>
+<a class="bg-surface p-6 rounded-xl shadow-md border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed">payments</span>
+</div>
+<span class="font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">Ücret Listesi</span>
+</a>
+</div>
+</section>
+<!-- 12 Sectors (Meslekler) - Bento/Card Layout -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-stack-lg">
+<div class="flex justify-between items-end mb-stack-md border-b border-outline-variant pb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Yetkilendirilmiş Meslekler</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Sertifikasyon hizmeti sunduğumuz başlıca endüstriyel alanlar.</p>
+</div>
+<a class="hidden md:flex items-center gap-1 font-label-md text-label-md text-secondary hover:underline" href="#">
+                    Tümünü Gör <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter"><!-- Makine -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Makine Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">NC/CNC Tezgah İşçisi, Makine Bakımcı, Frezeci...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">15 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- İnşaat -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">construction</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">İnşaat Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Ahşap Kalıpçı, Betonarme Demircisi, Duvarcı...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">22 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Metal -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">engineering</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Metal Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Çelik Kaynakçısı, Metal Levha İşlemeci, Isıl İşlemci...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">18 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Enerji -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">bolt</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Enerji Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Güneş Isıl Sistem Tesisatçısı, Doğal Gaz İşletme Operatörü...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">9 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Otomotiv -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">directions_car</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Otomotiv Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Otomotiv Elektromekanikçisi, Kaportacı, Boyacı...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">14 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Lojistik & Ulaşım -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">local_shipping</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Lojistik &amp; Ulaşım</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Liman Operatörü, Depo Görevlisi, Kurye...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">11 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Kimya -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1532187875605-2fe358511423?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">science</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Kimya Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Kimya Laboratuvar Sorumlusu, Boya Üretim Operatörü...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">7 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Tekstil -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1558271823-662425ce5e04?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">checkroom</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Tekstil Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">İplik Eğirme Operatörü, Dokuma Operatörü, Terzi...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">12 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Mobilya -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">chair</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Mobilya Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Mobilya Döşemecisi, Ahşap Mobilya İmalatçısı...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">8 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Maden & Mermer -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">landslide</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Maden &amp; Mermer</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Mermer Doğaltaş Ocakçısı, Kırma Eleme Tesis Operatörü...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">10 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Güzellik ve Saç Bakım -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">content_cut</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Güzellik ve Saç Bakım</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Kuaför, Güzellik Uzmanı, Manikürcü...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">6 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div>
+<!-- Gıda -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+    <div class="h-32 w-full relative" style="background-image: url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&amp;fit=crop&amp;q=80&amp;w=800'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+        <div class="absolute top-4 left-4 w-10 h-10 bg-surface rounded-lg flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-primary">restaurant</span>
+        </div>
+    </div>
+    <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+            <h3 class="font-label-md text-label-md text-primary mb-1">Gıda Sektörü</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Süt İşleme Operatörü, Et ve Et Ürünleri İşlemecisi...</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-secondary">
+            <span class="font-label-sm text-label-sm">13 Meslek</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </div>
+    </div>
+</div></div>
+<div class="mt-6 text-center md:hidden">
+<button class="border border-outline font-label-md text-label-md px-6 py-2 rounded-lg text-primary w-full">Tüm Meslekleri Gör</button>
+</div>
+</section>
+<!-- Corporate Trust & Logos (Asymmetric Layout) -->
+<section class="bg-surface-container-low py-stack-lg mb-stack-lg border-y border-outline-variant/50">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
+<div class="order-2 lg:order-1">
+<div class="flex gap-4 mb-8">
+<div class="bg-surface p-4 rounded-xl shadow-sm border border-outline-variant flex items-center justify-center w-32 h-24">
+<img class="max-h-full max-w-full object-contain opacity-80 mix-blend-multiply" data-alt="MYK Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT9vNF-_uLj-MLIRe50AbIlxOBwLgTQG-1GitWcBmWJcKq7QJGapMLsYeGIldA1Zzrphvcyhma5x4DZNKsrvnExGlgWS2nBR-9FK8o78FTRDj0DTLdcW-BzSBEatBn8mdvjbN0F4vXUsvgrT3ZQVNb1aW8R66ya9zEUuqH89bxjsCo-L8pYM9YmLjJw4sWiklfaPaQ2w3nLQwDiDa84EG-zybFwvA7Rlrz2Qksd3zXfouiDI_eG9hVFIg5gD_IOvJk_XM">
+</div>
+<div class="bg-surface p-4 rounded-xl shadow-sm border border-outline-variant flex items-center justify-center w-32 h-24">
+<img class="max-h-full max-w-full object-contain opacity-80 mix-blend-multiply" data-alt="TÜRKAK Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHcQp3_gVcWCtvjrlP6UGBdZzZSkrILrS8L5r1hybjl6B0S19UOXR4K7fca33zG01JbKvR-VDQcEMP3SQF7m_viAlLC3mw3bD4dIAOBQdv7A03OBYCKQK594XWSvrpm7p9vQEuxMLc3UOX-HUfyhvxMNFoNbC5Qp2UfxUxBTKYN7X1sA316X9tMfx0Tosh2EXeg4HwkyIfRhgpLpFyVCGgW-kstiWr8gsi85N7HwgsrmsNN4a6vWKeLnKTBdUL90DUYpk">
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Güvenilir, Tarafsız ve Yetkin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                            Mavi Belge, Türk Akreditasyon Kurumu (TÜRKAK) tarafından AB-XXXX-P akreditasyon numarası ile akredite edilmiş ve Mesleki Yeterlilik Kurumu (MYK) tarafından YB-XXXX yetki numarası ile yetkilendirilmiş bir belgelendirme kuruluşudur.
+                        </p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="font-body-sm text-body-sm">TS EN ISO/IEC 17024 standardına uygun hizmet</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="font-body-sm text-body-sm">Tamamen tarafsız ve bağımsız sınav süreçleri</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="font-body-sm text-body-sm">Avrupa standartlarında (Europass) geçerlilik</span>
+</li>
+</ul>
+<button class="border border-primary text-primary font-label-md text-label-md px-6 py-2.5 rounded-lg hover:bg-primary-fixed transition-colors">
+                            Kurumsal Politikalarımız
+                        </button>
+</div>
+<div class="order-1 lg:order-2 relative">
+<div class="absolute inset-0 bg-secondary rounded-2xl transform translate-x-4 translate-y-4 opacity-10"></div>
+<img class="w-full h-auto rounded-2xl shadow-lg relative z-10 object-cover aspect-video" data-alt="A well-lit, candid shot of a professional examiner in a hard hat and high-visibility vest observing a candidate performing a practical welding task in a controlled workshop environment. Both individuals look focused. The overall tone is serious, emphasizing strict adherence to safety and skill assessment protocols." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU0qmf_NQRpCDVSHlw2zX-p3u5_-2YlPsbbJq69fvLSN1OSQTGSyxi8Dny7JBdvHSWz2YmZ2YlNekxcY5P_pU3px3Y0iPYDsjZxD7SoqdIjXa-V80miSWviDgCK0qkvjJ5Lxhe7sKpuX_sIAzFFYCIGrXvPiApQTEPzE64YH5wKgmLlCV85G6oR8wLMBvd-3xm_Qt9jAavtwH1mRjqRmQpUusCfvtwk9l5Vc82kVcSADUh-nRf3DtKJw">
+</div>
+</div>
+</div>
+</section>
+<!-- News Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-stack-lg">
+<div class="flex justify-between items-end mb-stack-md border-b border-outline-variant pb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Haberler ve Duyurular</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Kurumumuzdan son gelişmeler ve sektörel haberler.</p>
+</div>
+<a class="hidden md:flex items-center gap-1 font-label-md text-label-md text-secondary hover:underline" href="#">
+                    Tüm Haberler <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- News Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="MYK Denetimi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM9B5hQkPLwdHLLzlGNzqg6tXgOoyfn2nsC8Oxk_9ypE4Oz4nedBQiK1EisXTCYrZoJgYuJnbyxVK95-vv-O-SNDivP1rHRcnsb79R_QsszoEdL7vmXjrv0_7m22eVut8cmmUJKdVZhA6VsCmmVLRcv0Nvm_N0dPkbWOWVi7BGt19bC6kdqm3mbCVgS2MbE1M1c4amjqID2Y5s0aCQy9zNbJmxd3TATRH-wLP6RHsLddZSq1idlgVgNw">
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="bg-primary-fixed text-on-primary-fixed text-xs font-semibold px-2.5 py-0.5 rounded">Kurumsal</span>
+<span class="text-on-surface-variant text-xs font-medium">15 Ekim 2023</span>
+</div>
+<h3 class="font-headline-md text-lg text-primary mb-2 group-hover:text-secondary transition-colors">MYK Tarafından Gerçekleştirilen Gözetim Denetimi Başarıyla Tamamlandı</h3>
+<p class="font-body-sm text-on-surface-variant mb-4 flex-1 line-clamp-3">
+                            Kurumumuz, Mesleki Yeterlilik Kurumu (MYK) uzmanları tarafından gerçekleştirilen yıllık planlı gözetim denetimini hiçbir uygunsuzluk bulunmadan başarıyla tamamlamıştır.
+                        </p>
+<a class="inline-flex items-center text-secondary font-label-md hover:underline" href="#">
+                            Haberi Oku <span class="material-symbols-outlined text-[18px] ml-1">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- News Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Yeni Meslekler" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt1yaStRRUUDdx1WATwsSxxjq0Jhkoh7eSLLU_D0bTDrQez46SxzpRReNGCnQw35RWHgUxgtEov7NnW2hUYLZGlYYTmOAqh1tGSOU-G4FufdvIbaqk2RTMKse8KscjHjH9FlObcqp8iDXf0leR7bo2SIYUAB4_oVnrGyVJ299VhZS0PQMUMdWgSYsYzRPdQbUg3wnRvK7lujSog00cAWzIQ7DIibZmSh8ibpUcc2tT70JuzyxUTIQIFQ">
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="bg-secondary-container text-on-secondary-container text-xs font-semibold px-2.5 py-0.5 rounded">Duyuru</span>
+<span class="text-on-surface-variant text-xs font-medium">02 Eylül 2023</span>
+</div>
+<h3 class="font-headline-md text-lg text-primary mb-2 group-hover:text-secondary transition-colors">Kapsam Genişletme Çalışmalarımız Sonuçlandı: 5 Yeni Meslekte Yetki Aldık</h3>
+<p class="font-body-sm text-on-surface-variant mb-4 flex-1 line-clamp-3">
+                            Elektrik ve Elektronik sektöründeki kapsam genişletme başvurumuz TÜRKAK ve MYK tarafından onaylanarak yetki belgemize 5 yeni meslek eklenmiştir.
+                        </p>
+<a class="inline-flex items-center text-secondary font-label-md hover:underline" href="#">
+                            Haberi Oku <span class="material-symbols-outlined text-[18px] ml-1">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- News Card 3 -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Teşvikler" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9obzbz8E9eQ7weR4ZpTerqM_wDRg1HAt1Pw0umjimpB5OkAysJ6gQ0WHI6aHvcC2_4_WAW9sd_zRITs-ZvGnmcgPIvqiLGUxEV8jKwYbfxORdRrgygCRBQxn3-4opNE9DZWZLVOMEgbNfvnmr_88RPNJ2HEQLhxrIpkfXiRpGy9YdOVyaJv3CLnQP5ULEJaefSP-8hgh6ongXBCl9VL34c_rwnduMmwrJ3FqBYpZST2UW7S9FNDstUg">
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="bg-tertiary-container text-on-tertiary-container text-xs font-semibold px-2.5 py-0.5 rounded">Bilgilendirme</span>
+<span class="text-on-surface-variant text-xs font-medium">28 Ağustos 2023</span>
+</div>
+<h3 class="font-headline-md text-lg text-primary mb-2 group-hover:text-secondary transition-colors">2023 Yılı Sınav ve Belgelendirme Teşvikleri Hakkında Önemli Bilgilendirme</h3>
+<p class="font-body-sm text-on-surface-variant mb-4 flex-1 line-clamp-3">
+                            Tehlikeli ve çok tehlikeli işler sınıfında yer alan mesleklerde, sınav ve belge ücretlerinin İşsizlik Sigortası Fonundan karşılanmasına devam edilmektedir.
+                        </p>
+<a class="inline-flex items-center text-secondary font-label-md hover:underline" href="#">
+                            Haberi Oku <span class="material-symbols-outlined text-[18px] ml-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center md:hidden">
+<button class="border border-outline font-label-md text-label-md px-6 py-2 rounded-lg text-primary w-full">Tüm Haberler</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary text-on-primary font-body-sm text-body-sm border-t border-primary-fixed-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<!-- Brand Column -->
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md text-on-primary">Mavi Belge</div>
+<p class="text-on-primary-container">
+                    Sertifikasyon ve uzmanlık alanında güvenilir çözüm ortağınız.
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Hızlı Bağlantılar</h4>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Kurumsal</h4>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<!-- Contact Info Column -->
+<div class="flex flex-col gap-2 text-on-primary-container">
+<h4 class="font-label-md text-label-md text-on-primary mb-2">Bize Ulaşın</h4>
+<p class="flex items-start gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">location_on</span>
+<span class="">Örnek Endüstri Bölgesi, 1. Cadde No:45<br>Ankara, Türkiye</span>
+</p>
+</div>
+</div>
+<!-- Copyright Bottom -->
+<div class="border-t border-primary-container mt-4 py-6 text-center text-on-primary-container">
+<p class="">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</footer>
+
+
+</body></html>

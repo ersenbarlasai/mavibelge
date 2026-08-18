@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Yönetici Girişi</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#43474c",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-tint": "#4d6074",
+                        "secondary": "#00629f",
+                        "primary-fixed": "#d0e5fc",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-fixed": "#d0e4ff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-secondary-container": "#004877",
+                        "on-surface": "#1b1c1c",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#232727",
+                        "tertiary-container": "#393d3d",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f5f3f3",
+                        "background": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "surface-bright": "#fbf9f8",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "on-tertiary": "#ffffff",
+                        "success-green": "#2E7D32",
+                        "warning-orange": "#ED6C02",
+                        "on-secondary-fixed": "#001d34",
+                        "outline": "#74777d",
+                        "on-primary-fixed": "#081d2e",
+                        "on-primary-container": "#95a9be",
+                        "error": "#ba1a1a",
+                        "primary-container": "#2b3e50",
+                        "inverse-primary": "#b5c9df",
+                        "primary": "#142839",
+                        "surface-variant": "#e4e2e2",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center relative overflow-hidden">
+<!-- Atmospheric Secure Background -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-30" data-alt="A highly professional and clean abstract background designed for a secure corporate login interface. The image features a light-mode aesthetic dominated by pristine whites, soft silvers, and extremely subtle hints of deep corporate blue. Very faint, precise geometric grid lines and subtle light gradients suggest data security, industrial reliability, and modern technological infrastructure. The overall composition is minimalist, ensuring it does not distract from foreground elements while establishing a mood of unwavering trust and high-end operational efficiency." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCW-Xt0V8-9akyNutCg16bTjBpNsGNBCPwOGyuUMwOGLWD4gOS-bPam0jwaUTuZYKWB2jarn1kEBogjqhyL-X1KXDLuwyAwh6nrHDHmTIyVPlEILTcwwQb7V8dMkPK6qJncMycfpFes8Sv5d978fjoZnu_mVp-CbBY0PE6bX6DAvA8eSDoGILi1J74ZRL78Y18B8HlShZP0swnQX686E8PjEl-eIm_xKg1IYkm4lTnol16L5-1RjVf0qQ')">
+</div>
+<!-- Login Card Canvas -->
+<main class="relative z-10 w-full max-w-[440px] px-margin-mobile md:px-0">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-margin-desktop shadow-sm flex flex-col">
+<!-- Header Area -->
+<div class="text-center mb-stack-lg">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-container text-on-primary mb-stack-sm">
+<span class="material-symbols-outlined text-2xl" data-weight="fill">shield_locked</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary mb-stack-xs">Mavi Belge</h1>
+<h2 class="font-body-md text-body-md text-on-surface">Yönetici Girişi</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-stack-xs">Sisteme erişmek için kimliğinizi doğrulayın.</p>
+</div>
+<!-- Login Form -->
+<form action="#" class="flex flex-col gap-stack-md" method="POST" onsubmit="event.preventDefault();">
+<!-- Username Input -->
+<div class="flex flex-col gap-stack-xs">
+<label class="font-label-md text-label-md text-on-surface" for="username">Kullanıcı Adı veya E-posta</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">person</span>
+</div>
+<input class="block w-full pl-10 pr-3 min-h-[44px] bg-surface border border-outline-variant rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-colors placeholder:text-outline" id="username" name="username" placeholder="admin@mavibelge.com.tr" required="" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-stack-xs">
+<label class="font-label-md text-label-md text-on-surface" for="password">Şifre</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 min-h-[44px] bg-surface border border-outline-variant rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-colors placeholder:text-outline" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none" id="togglePassword" type="button">
+<span class="material-symbols-outlined text-lg" id="visibilityIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Options Row -->
+<div class="flex items-center justify-between mt-stack-xs">
+<div class="flex items-center">
+<input class="h-4 w-4 rounded-none border-outline-variant text-secondary focus:ring-secondary focus:ring-offset-surface-container-lowest bg-surface cursor-pointer" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-2 block font-body-sm text-body-sm text-on-surface cursor-pointer" for="remember-me">
+                            Beni Hatırla
+                        </label>
+</div>
+<div class="text-sm">
+<a class="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors" href="#">
+                            Şifremi Unuttum
+                        </a>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full flex justify-center items-center gap-2 min-h-[44px] bg-secondary text-on-secondary font-label-md text-label-md rounded hover:bg-on-secondary-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary focus:ring-offset-surface-container-lowest transition-colors mt-base" type="submit">
+                    Giriş Yap
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+<!-- 2FA Context Footer -->
+<div class="mt-stack-lg pt-stack-sm border-t border-outline-variant flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5">verified_user</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-on-surface mb-1">Güvenli Oturum (2FA)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Başarılı girişin ardından sistem kayıtlı cihazınıza veya numaranıza doğrulama kodu gönderecektir.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Corporate Copyright -->
+<div class="text-center mt-stack-md font-label-sm text-label-sm text-on-surface-variant opacity-70">
+            © 2024 Mavi Belge Mesleki Yeterlilik ve Belgelendirme.
+        </div>
+</main>
+<script>
+        // Password Visibility Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePasswordButton = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const visibilityIcon = document.getElementById('visibilityIcon');
+
+            togglePasswordButton.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                if (type === 'password') {
+                    visibilityIcon.textContent = 'visibility';
+                } else {
+                    visibilityIcon.textContent = 'visibility_off';
+                }
+            });
+        });
+    </script>
+</body></html>

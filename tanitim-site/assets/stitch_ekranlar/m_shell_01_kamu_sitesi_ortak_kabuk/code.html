@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Mavi Belge - Kurumsal Kabuk (Mobil)</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b5c9df",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface": "#fbf9f8",
+                        "on-secondary-container": "#004877",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-container": "#71b8fe",
+                        "surface-tint": "#4d6074",
+                        "on-primary-fixed": "#081d2e",
+                        "on-surface-variant": "#43474c",
+                        "on-primary-container": "#95a9be",
+                        "outline": "#74777d",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae8e7",
+                        "tertiary": "#232727",
+                        "secondary": "#00629f",
+                        "inverse-primary": "#b5c9df",
+                        "on-background": "#1b1c1c",
+                        "surface-variant": "#e4e2e2",
+                        "surface-container-highest": "#e4e2e2",
+                        "tertiary-fixed": "#e0e3e2",
+                        "outline-variant": "#c4c7cc",
+                        "tertiary-container": "#393d3d",
+                        "on-primary-fixed-variant": "#36495b",
+                        "error-container": "#ffdad6",
+                        "success-green": "#2E7D32",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#d0e4ff",
+                        "primary-container": "#2b3e50",
+                        "primary": "#142839",
+                        "primary-fixed": "#d0e5fc",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f8",
+                        "error-red": "#D32F2F",
+                        "warning-orange": "#ED6C02",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#001d34",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface-bright": "#fbf9f8",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f5f3f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "48px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "12px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .drawer-open {
+            transform: translateX(0%);
+        }
+        
+        .drawer-closed {
+            transform: translateX(100%);
+        }
+        
+        /* Fixed mobile frame for preview purposes */
+        body {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .mobile-frame {
+            width: 390px;
+            height: 844px;
+            background-color: #fbf9f8; /* background */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 40px;
+            border: 8px solid #111;
+        }
+
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body>
+<div class="mobile-frame font-body-md text-on-background">
+<!-- Top Navigation (Mobile) -->
+<header class="bg-surface dark:bg-surface-container-highest border-b border-outline-variant flex items-center justify-between px-margin-mobile py-3 shrink-0 z-20 sticky top-0">
+<!-- Logo -->
+<a class="block w-[140px]" href="#">
+<img alt="Mavi Belge" class="w-full h-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLurdcsK2tq_12_Kf3qbanY7JgYPKB7rMl8LNLZ5W6y8IA9lVigus4QbjzqXyunJiXKuPtIGNZH77XPujhgCW8RxUHWiuFmy4QMe-8nkRg0XV8ysfUgS316giaxF_pjTBfFAtMU3btVn7poWi0DKjLS4zSQ-4a2JTiLQ6PP3oChuTauLBvKK5nT3pY9tWryqvzhf18aH2lIDvvkMVq1zhoyJ9crbJGBmEaD6cyOcBE_B7OndpglGjhIPKAeI"/>
+</a>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="bg-[#066AAB] hover:bg-[#05578c] text-on-primary font-label-md text-label-md px-4 py-2 rounded transition-colors shadow-sm">
+                Başvur
+            </button>
+<button class="p-2 text-primary hover:bg-surface-container-low rounded-full transition-colors flex items-center justify-center" id="menu-btn">
+<span class="material-symbols-outlined text-[28px]" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<!-- Canvas (Scrollable Content) -->
+<main class="scrollable-content bg-background flex flex-col items-center justify-center p-6">
+<div class="text-center opacity-40">
+<span class="material-symbols-outlined text-[64px] mb-4 text-outline" data-icon="construction">construction</span>
+<h2 class="font-headline-md text-headline-md text-on-surface-variant mb-2">İçerik Alanı</h2>
+<p class="font-body-sm text-body-sm text-outline">Sayfa içeriği buraya gelecek</p>
+</div>
+</main>
+<!-- Footer (Mobile Optimized) -->
+<footer class="bg-primary text-on-primary shrink-0 py-8 px-margin-mobile border-t border-primary-fixed-variant">
+<div class="flex flex-col gap-8">
+<!-- Brand & Contact -->
+<div>
+<img alt="Mavi Belge Logo" class="h-10 w-auto mb-4 brightness-0 invert" src="https://lh3.googleusercontent.com/aida/AP1WRLurdcsK2tq_12_Kf3qbanY7JgYPKB7rMl8LNLZ5W6y8IA9lVigus4QbjzqXyunJiXKuPtIGNZH77XPujhgCW8RxUHWiuFmy4QMe-8nkRg0XV8ysfUgS316giaxF_pjTBfFAtMU3btVn7poWi0DKjLS4zSQ-4a2JTiLQ6PP3oChuTauLBvKK5nT3pY9tWryqvzhf18aH2lIDvvkMVq1zhoyJ9crbJGBmEaD6cyOcBE_B7OndpglGjhIPKAeI"/>
+<p class="font-body-sm text-body-sm text-on-primary-container mb-4">
+                    Mavi Belge, mesleki yeterlilik ve sertifikasyon alanında güvenilir çözüm ortağınızdır.
+                </p>
+<div class="flex flex-col gap-3">
+<a class="flex items-center gap-3 text-on-primary hover:text-secondary-fixed transition-colors p-3 bg-primary-container rounded-lg border border-primary-fixed-variant" href="tel:+908500000000">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+<span class="font-label-md text-label-md">0850 000 00 00</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary hover:text-secondary-fixed transition-colors p-3 bg-primary-container rounded-lg border border-primary-fixed-variant" href="mailto:info@mavibelge.com.tr">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-md text-label-md">info@mavibelge.com.tr</span>
+</a>
+</div>
+</div>
+<!-- Links -->
+<div class="grid grid-cols-2 gap-6">
+<div>
+<h3 class="font-label-md text-label-md text-secondary-fixed mb-4 pb-2 border-b border-primary-fixed-variant">Kurumsal</h3>
+<ul class="flex flex-col gap-3">
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Hakkımızda</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Kalite Politikası</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Belge İptal &amp; İtiraz</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">İletişim</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-secondary-fixed mb-4 pb-2 border-b border-primary-fixed-variant">Hızlı Erişim</h3>
+<ul class="flex flex-col gap-3">
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Meslekler</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Sınav Takvimi</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Ücret Listesi</a></li>
+<li><a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary transition-colors" href="#">Belge Sorgulama</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Legal -->
+<div class="pt-6 border-t border-primary-fixed-variant flex flex-col items-center text-center gap-3">
+<p class="font-body-sm text-body-sm text-on-primary-container text-xs">
+                    © 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.
+                </p>
+<div class="flex gap-4">
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary text-xs underline" href="#">KVKK</a>
+<a class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary text-xs underline" href="#">Kullanım Koşulları</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Full-screen Mobile Navigation Drawer -->
+<div class="fixed inset-0 bg-surface z-50 flex flex-col transition-transform duration-300 ease-in-out drawer-closed h-full absolute w-full" id="nav-drawer">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between px-margin-mobile py-4 border-b border-outline-variant bg-surface shrink-0">
+<span class="font-headline-md text-headline-md text-primary font-bold">Menü</span>
+<button class="p-2 text-on-surface hover:bg-surface-container-low rounded-full transition-colors flex items-center justify-center" id="close-menu-btn">
+<span class="material-symbols-outlined text-[28px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Drawer Content (Scrollable) -->
+<div class="flex-1 overflow-y-auto px-margin-mobile py-6 flex flex-col gap-2">
+<!-- Accordion Items -->
+<div class="border-b border-outline-variant py-2">
+<button class="w-full flex items-center justify-between py-3 text-left group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors" data-icon="engineering">engineering</span>
+<span class="font-label-md text-label-md text-on-surface text-lg group-hover:text-secondary transition-colors">Meslekler</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="border-b border-outline-variant py-2">
+<button class="w-full flex items-center justify-between py-3 text-left group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md text-on-surface text-lg group-hover:text-secondary transition-colors">Sınav/Başvuru</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="border-b border-outline-variant py-2">
+<button class="w-full flex items-center justify-between py-3 text-left group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors" data-icon="business">business</span>
+<span class="font-label-md text-label-md text-on-surface text-lg group-hover:text-secondary transition-colors">Kurumsal</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="border-b border-outline-variant py-2">
+<button class="w-full flex items-center justify-between py-3 text-left group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors" data-icon="info">info</span>
+<span class="font-label-md text-label-md text-on-surface text-lg group-hover:text-secondary transition-colors">Bilgi Merkezi</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="py-2">
+<a class="w-full flex items-center justify-between py-3 text-left group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-colors" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md text-on-surface text-lg group-hover:text-secondary transition-colors">İletişim</span>
+</div>
+</a>
+</div>
+</div>
+<!-- Drawer Footer -->
+<div class="shrink-0 p-margin-mobile bg-surface-container-low border-t border-outline-variant flex flex-col gap-3">
+<button class="w-full flex items-center justify-center gap-2 border border-[#2B3E50] text-[#2B3E50] hover:bg-surface-variant font-label-md text-label-md py-3 rounded transition-colors h-[44px]">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+                Belge Sorgula
+            </button>
+<a class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md py-3 rounded transition-colors h-[44px]" href="tel:+908500000000">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+                Bizi Arayın
+            </a>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const navDrawer = document.getElementById('nav-drawer');
+
+        function openDrawer() {
+            navDrawer.classList.remove('drawer-closed');
+            navDrawer.classList.add('drawer-open');
+        }
+
+        function closeDrawer() {
+            navDrawer.classList.remove('drawer-open');
+            navDrawer.classList.add('drawer-closed');
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeMenuBtn.addEventListener('click', closeDrawer);
+    });
+</script>
+</body></html>

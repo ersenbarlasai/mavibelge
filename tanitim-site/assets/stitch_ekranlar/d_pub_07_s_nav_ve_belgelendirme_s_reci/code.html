@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Sınav ve Belgelendirme Süreci</title>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "outline": "#74777d",
+                        "tertiary-container": "#393d3d",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#00629f",
+                        "surface-dim": "#dbd9d9",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface": "#fbf9f8",
+                        "inverse-surface": "#303030",
+                        "surface-container": "#f0eded",
+                        "primary": "#142839",
+                        "on-secondary-container": "#004877",
+                        "surface-tint": "#4d6074",
+                        "on-background": "#1b1c1c",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "surface-bright": "#fbf9f8",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d0e5fc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary-fixed": "#d0e4ff",
+                        "error-red": "#D32F2F",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-container": "#2b3e50",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-secondary-fixed": "#001d34",
+                        "inverse-primary": "#b5c9df",
+                        "on-primary-fixed": "#081d2e",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-container": "#95a9be",
+                        "on-tertiary-fixed": "#181c1c",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-low": "#f5f3f3",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "tertiary": "#232727",
+                        "success-green": "#2E7D32",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface": "#1b1c1c",
+                        "surface-container-high": "#eae8e7",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary-container": "#71b8fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom styles for infographic steps */
+        .step-line {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #c4c7cc;
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .step-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface docked full-width top-0 border-b border-outline-variant sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-base">
+<span class="font-headline-md text-headline-md font-bold text-primary">Mavi Belge</span>
+</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-2" href="#">Sınavlar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-2" href="#">Ücretler</a>
+<a class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1 py-2" href="#">Dokümanlar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-2" href="#">İletişim</a>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="font-label-md text-label-md text-primary hover:bg-surface-container-low transition-colors px-4 py-2 rounded">
+                    Giriş Yap
+                </button>
+<button class="font-label-md text-label-md bg-secondary text-on-secondary hover:bg-opacity-90 transition-opacity px-4 py-2 rounded">
+                    Başvuru Yap
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg flex flex-col gap-stack-lg">
+<!-- Header Section -->
+<header class="text-center max-w-3xl mx-auto flex flex-col gap-stack-sm">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">D / PUB-07</span>
+<h1 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary">Sınav ve Belgelendirme Süreci</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Mesleki yeterliliğinizi kanıtlamak için izlemeniz gereken 6 temel adım. Sürecimiz şeffaf, adil ve uluslararası standartlara uygundur.</p>
+</header>
+<!-- Infographic Section -->
+<section class="w-full py-stack-md">
+<div class="grid grid-cols-1 md:grid-cols-6 gap-stack-md relative">
+<!-- Step 1 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0">1</div>
+<span class="material-symbols-outlined text-secondary text-[32px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+<h3 class="font-label-md text-label-md text-primary">Başvuru</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Online veya fiziksel olarak ön başvuru formunun doldurulması ve iletilmesi.</p>
+<div class="step-line md:block hidden"></div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">2</div>
+<span class="material-symbols-outlined text-secondary text-[32px]">fact_check</span>
+<h3 class="font-label-md text-label-md text-primary">Evrak Kontrolü</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Gerekli kimlik ve mesleki yeterlilik belgelerinin incelenmesi ve onaylanması.</p>
+<div class="step-line md:block hidden"></div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">3</div>
+<span class="material-symbols-outlined text-secondary text-[32px]">assignment</span>
+<h3 class="font-label-md text-label-md text-primary">Sınav</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Teorik bilgi ve uygulamalı performans sınavlarının gerçekleştirilmesi.</p>
+<div class="step-line md:block hidden"></div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">4</div>
+<span class="material-symbols-outlined text-secondary text-[32px]">analytics</span>
+<h3 class="font-label-md text-label-md text-primary">Değerlendirme</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sınav sonuçlarının bağımsız değerlendiriciler tarafından objektif olarak incelenmesi.</p>
+<div class="step-line md:block hidden"></div>
+</div>
+<!-- Step 5 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">5</div>
+<span class="material-symbols-outlined text-secondary text-[32px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<h3 class="font-label-md text-label-md text-primary">Belgelendirme</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Başarılı adaylar için MYK onaylı mesleki yeterlilik belgesinin düzenlenmesi.</p>
+<div class="step-line md:block hidden"></div>
+</div>
+<!-- Step 6 -->
+<div class="relative flex flex-col items-center text-center gap-stack-sm z-10 bg-surface">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">6</div>
+<span class="material-symbols-outlined text-secondary text-[32px]">update</span>
+<h3 class="font-label-md text-label-md text-primary">Gözetim &amp; Yenileme</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Belge geçerlilik süresi boyunca gözetim faaliyetleri ve süre sonunda yenileme.</p>
+</div>
+</div>
+</section>
+<!-- Accordion Info Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg py-stack-md border-t border-outline-variant">
+<!-- Left Column: Content Cards -->
+<div class="flex flex-col gap-stack-md">
+<div class="bg-surface-container-low p-gutter rounded border border-outline-variant flex flex-col gap-stack-xs">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary">gavel</span>
+<h3 class="font-headline-md text-headline-md text-primary">Sınav Kuralları</h3>
+</div>
+<ul class="font-body-md text-body-md text-on-surface-variant list-disc pl-5 mt-2 space-y-2">
+<li>Adaylar sınav saatinden 15 dakika önce sınav yerinde hazır bulunmalıdır.</li>
+<li>Geçerli kimlik belgesi (T.C. Kimlik Kartı, Ehliyet veya Pasaport) ibrazı zorunludur.</li>
+<li>Sınav alanında cep telefonu ve elektronik cihaz kullanımı yasaktır.</li>
+<li>İş güvenliği kurallarına (Özellikle performans sınavlarında) uyulması zorunludur.</li>
+</ul>
+</div>
+<div class="bg-primary-container text-on-primary-container p-gutter rounded flex flex-col gap-stack-xs">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary-fixed">security</span>
+<h3 class="font-headline-md text-headline-md text-on-primary-container">Neden Zorunlu?</h3>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container mt-2 opacity-90">
+                        Tehlikeli ve çok tehlikeli işler sınıfında yer alan mesleklerde, İş Sağlığı ve Güvenliği Kanunu kapsamında MYK Mesleki Yeterlilik Belgesi zorunludur. Bu belge, hem çalışanın güvenliğini hem de yapılan işin standartlara uygunluğunu garanti altına alır, olası iş kazalarını ve verim kayıplarını en aza indirir.
+                    </p>
+</div>
+</div>
+<!-- Right Column: FAQs -->
+<div class="flex flex-col gap-stack-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Sık Sorulan Sorular</h3>
+<!-- FAQ Item 1 -->
+<div class="border border-outline-variant rounded bg-surface">
+<button class="w-full flex justify-between items-center p-4 text-left hover:bg-surface-container-low transition-colors">
+<span class="font-label-md text-label-md text-primary">Sınavı geçemezsem ne olur?</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<!-- FAQ Item 2 (Open) -->
+<div class="border border-outline-variant rounded bg-surface overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left bg-surface-container-low border-b border-outline-variant">
+<span class="font-label-md text-label-md text-primary">Belgemin geçerlilik süresi ne kadardır?</span>
+<span class="material-symbols-outlined text-primary">expand_less</span>
+</button>
+<div class="p-4 font-body-sm text-body-sm text-on-surface-variant bg-surface">
+                        Belgelerin geçerlilik süresi, ilgili ulusal yeterlilikte belirtilen süre kadardır (Genellikle 5 yıl). Süre bitiminde gözetim şartlarının sağlanması durumunda belge yenileme işlemi yapılır.
+                    </div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="border border-outline-variant rounded bg-surface">
+<button class="w-full flex justify-between items-center p-4 text-left hover:bg-surface-container-low transition-colors">
+<span class="font-label-md text-label-md text-primary">Sınav ücretleri nasıl belirleniyor?</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<!-- FAQ Item 4 -->
+<div class="border border-outline-variant rounded bg-surface">
+<button class="w-full flex justify-between items-center p-4 text-left hover:bg-surface-container-low transition-colors">
+<span class="font-label-md text-label-md text-primary">Hangi mesleklerde belge veriyorsunuz?</span>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary full-width mt-stack-lg w-full py-margin-desktop px-margin-mobile md:px-margin-desktop border-t border-primary-container">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<span class="font-label-md text-label-md font-bold text-on-primary">
+                © 2024 Mavi Belge Mesleki Yeterlilik ve Belgelendirme. Tüm Hakları Saklıdır.
+            </span>
+<div class="flex flex-wrap gap-stack-sm justify-center">
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all" href="#">Gizlilik Politikası</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all" href="#">KVKK Aydınlatma Metni</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all" href="#">Site Haritası</a>
+</div>
+</div>
+</footer>
+</body></html>

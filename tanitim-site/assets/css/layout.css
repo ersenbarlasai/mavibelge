@@ -1,0 +1,72 @@
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  color: var(--color-white);
+  background-size: cover;
+  background-position: center top;
+  padding: var(--space-9) 0 var(--space-9);
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(10,26,51,0.92) 0%, rgba(14,35,71,0.88) 45%, rgba(14,35,71,0.55) 100%);
+}
+.hero .container { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-7); align-items: center; }
+.hero h1 { color: var(--color-white); font-size: var(--fs-3xl); }
+.hero p.lead { font-size: var(--fs-md); color: var(--color-gray-100); max-width: 46ch; }
+.hero-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+.hero-search-panel {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  backdrop-filter: blur(2px);
+}
+.hero-search-panel h2 { color: var(--color-white); font-size: var(--fs-lg); }
+.hero-search-panel .lead-sm { color: var(--color-gray-100); font-size: var(--fs-sm); margin-bottom: var(--space-4); }
+
+.page-hero {
+  position: relative;
+  color: var(--color-white);
+  background-size: cover;
+  background-position: center top;
+  padding: var(--space-7) 0;
+}
+.page-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(10,26,51,0.93), rgba(14,35,71,0.82)); }
+.page-hero .container { position: relative; z-index: 1; }
+.page-hero h1 { color: var(--color-white); margin-bottom: var(--space-2); }
+.page-hero p { color: var(--color-gray-100); max-width: 64ch; margin-bottom: 0; }
+.page-hero .breadcrumb { color: var(--color-gray-300); }
+.page-hero .breadcrumb a { color: var(--color-gray-300); }
+
+/* ===== CTA band ===== */
+.cta-band { background: var(--color-navy-900); color: var(--color-white); text-align: center; padding: var(--space-8) 0; }
+.cta-band h2 { color: var(--color-white); }
+.cta-band .cta-actions { display: flex; gap: var(--space-3); justify-content: center; margin-top: var(--space-5); flex-wrap: wrap; }
+
+/* ===== Two-col layout w/ sidebar (dokumanlar, sss, etc.) ===== */
+.layout-with-sidebar { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-7); align-items: start; }
+.side-nav { position: sticky; top: calc(var(--header-h) + 24px); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-4); }
+.side-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.side-nav a { display: block; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--fs-sm); color: var(--color-gray-700); font-weight: 500; }
+.side-nav a:hover, .side-nav a.is-active { background: var(--color-blue-50); color: var(--color-blue-600); text-decoration: none; }
+
+.filter-bar { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: end; margin-bottom: var(--space-6); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-4); }
+.filter-bar .form-field { margin-bottom: 0; min-width: 180px; flex: 1; }
+
+/* mobile-only accordion footer helper */
+.footer-col .footer-col-toggle { display: none; }
+
+/* ===== Task band (Stitch V1 v2): lift the card grid so it overlaps the
+   hero's bottom edge while keeping the section flow stable. ===== */
+.task-grid-overlap {
+  position: relative;
+  z-index: 2;
+  transform: translateY(calc(-1 * var(--space-8)));
+}
+@media (max-width: 1024px) {
+  .task-grid-overlap { transform: translateY(calc(-1 * var(--space-6))); }
+}
+@media (max-width: 768px) {
+  .task-grid-overlap { transform: translateY(calc(-1 * var(--space-4))); }
+}

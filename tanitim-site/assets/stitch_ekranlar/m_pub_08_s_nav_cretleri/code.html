@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Sınav Ücretleri</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fbf9f8",
+                    "surface-tint": "#4d6074",
+                    "outline": "#74777d",
+                    "outline-variant": "#c4c7cc",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#b5c9df",
+                    "on-primary-container": "#95a9be",
+                    "primary": "#142839",
+                    "on-tertiary-container": "#a4a8a7",
+                    "primary-container": "#2b3e50",
+                    "warning-orange": "#ED6C02",
+                    "on-surface-variant": "#43474c",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e2e2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dbd9d9",
+                    "surface-container-high": "#eae8e7",
+                    "on-primary-fixed-variant": "#36495b",
+                    "secondary-fixed": "#d0e4ff",
+                    "on-primary-fixed": "#081d2e",
+                    "secondary": "#00629f",
+                    "inverse-on-surface": "#f2f0f0",
+                    "inverse-primary": "#b5c9df",
+                    "surface-container": "#f0eded",
+                    "accent-blue": "#337AB7",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#d0e5fc",
+                    "secondary-fixed-dim": "#9bcbff",
+                    "surface-container-lowest": "#ffffff",
+                    "success-green": "#2E7D32",
+                    "tertiary-container": "#393d3d",
+                    "on-tertiary-fixed": "#181c1c",
+                    "surface-container-highest": "#e4e2e2",
+                    "on-surface": "#1b1c1c",
+                    "surface": "#fbf9f8",
+                    "tertiary": "#232727",
+                    "secondary-container": "#71b8fe",
+                    "on-secondary-fixed": "#001d34",
+                    "surface-container-low": "#f5f3f3",
+                    "tertiary-fixed": "#e0e3e2",
+                    "background": "#fbf9f8",
+                    "on-secondary-fixed-variant": "#004a7a",
+                    "tertiary-fixed-dim": "#c4c7c6",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-red": "#D32F2F",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#434847",
+                    "on-secondary-container": "#004877",
+                    "on-background": "#1b1c1c",
+                    "inverse-surface": "#303030"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "48px",
+                    "container-max": "1280px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "margin-desktop": "32px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base styles */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md w-full min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) - Mobile Optimized -->
+<header class="bg-surface sticky top-0 z-50 w-full border-b border-outline-variant shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile py-stack-sm max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                Mavi Belge
+            </div>
+<!-- Mobile Menu Toggle -->
+<button aria-label="Menüyü aç" class="md:hidden text-on-surface-variant p-2 -mr-2 flex items-center justify-center rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Desktop Links (Hidden on Mobile) -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Başvuru Yap</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Sınavlar</a>
+<a class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1" href="#">Ücretler</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Dokümanlar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">İletişim</a>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg ml-stack-sm hover:opacity-90 transition-opacity">Giriş Yap</button>
+</nav>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-md mx-auto px-margin-mobile py-stack-md flex flex-col">
+<!-- Page Header -->
+<div class="mb-stack-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Sınav Ücretleri</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-stack-xs">2024 Yılı Mesleki Yeterlilik Belgesi (MYK) sınav ve belgelendirme güncel ücret tarifesi.</p>
+</div>
+<!-- Filters & Actions Toolbar -->
+<div class="flex flex-col gap-stack-sm mb-stack-md bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm">
+<!-- Search -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface rounded-lg border border-outline-variant font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all placeholder:text-on-tertiary-container" placeholder="Meslek adı veya kod ara..." type="text"/>
+</div>
+<!-- Sector Select -->
+<div class="relative w-full">
+<select class="w-full h-11 pl-4 pr-10 appearance-none bg-surface rounded-lg border border-outline-variant font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+<option value="">Tüm Sektörler</option>
+<option value="insaat">İnşaat Sektörü</option>
+<option value="metal">Metal Sektörü</option>
+<option value="makine">Makine Sektörü</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Actions -->
+<div class="flex gap-stack-sm pt-2 border-t border-outline-variant mt-1">
+<button class="flex-1 h-10 flex items-center justify-center gap-2 bg-surface text-primary border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    PDF İndir
+                </button>
+<button class="flex-1 h-10 flex items-center justify-center gap-2 bg-surface text-primary border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="print">print</span>
+                    Yazdır
+                </button>
+</div>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-margin-mobile">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm">
+<!-- Card Header -->
+<div class="p-4 bg-surface">
+<div class="flex justify-between items-start mb-2 gap-2">
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">Ahşap Kalıpçı</h2>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded whitespace-nowrap">Seviye 3</span>
+</div>
+<div class="inline-flex items-center gap-1.5 bg-surface-container text-on-surface-variant px-2 py-1 rounded border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px]" data-icon="tag">tag</span>
+<span class="font-label-sm text-label-sm">11UY0011-3</span>
+</div>
+</div>
+<!-- Card Body (Fees) -->
+<div class="px-4 py-3 border-t border-outline-variant flex flex-col gap-3 bg-surface-bright">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Teorik Sınav (T1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">500,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Performans Sınavı (P1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">2.500,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+                            Belge Masrafı
+                            <span class="material-symbols-outlined text-[14px] text-outline cursor-help" data-icon="info">info</span>
+</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">750,00 ₺</span>
+</div>
+</div>
+<!-- Card Footer (Total) -->
+<div class="p-4 bg-primary-container text-on-primary-container flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary-fixed-dim">Toplam Ücret</span>
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed">3.750,00 ₺</span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm">
+<div class="p-4 bg-surface">
+<div class="flex justify-between items-start mb-2 gap-2">
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">Betonarme Demircisi</h2>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded whitespace-nowrap">Seviye 3</span>
+</div>
+<div class="inline-flex items-center gap-1.5 bg-surface-container text-on-surface-variant px-2 py-1 rounded border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px]" data-icon="tag">tag</span>
+<span class="font-label-sm text-label-sm">11UY0012-3</span>
+</div>
+</div>
+<div class="px-4 py-3 border-t border-outline-variant flex flex-col gap-3 bg-surface-bright">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Teorik Sınav (T1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">600,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Performans Sınavı (P1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">2.800,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Belge Masrafı</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">750,00 ₺</span>
+</div>
+</div>
+<div class="p-4 bg-primary-container text-on-primary-container flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary-fixed-dim">Toplam Ücret</span>
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed">4.150,00 ₺</span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-sm">
+<div class="p-4 bg-surface">
+<div class="flex justify-between items-start mb-2 gap-2">
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">İskele Kurulum Elemanı</h2>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded whitespace-nowrap">Seviye 3</span>
+</div>
+<div class="inline-flex items-center gap-1.5 bg-surface-container text-on-surface-variant px-2 py-1 rounded border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px]" data-icon="tag">tag</span>
+<span class="font-label-sm text-label-sm">11UY0013-3</span>
+</div>
+</div>
+<div class="px-4 py-3 border-t border-outline-variant flex flex-col gap-3 bg-surface-bright">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Teorik Sınav (T1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">650,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Performans Sınavı (P1)</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">3.200,00 ₺</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Belge Masrafı</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">750,00 ₺</span>
+</div>
+</div>
+<div class="p-4 bg-primary-container text-on-primary-container flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary-fixed-dim">Toplam Ücret</span>
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed">4.600,00 ₺</span>
+</div>
+</article>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-primary w-full py-margin-desktop px-margin-mobile md:px-margin-desktop border-t border-primary-container mt-stack-lg">
+<div class="max-w-container-max mx-auto flex flex-col gap-stack-md">
+<div class="font-label-md text-label-md font-bold text-on-primary">
+                Mavi Belge Mesleki Yeterlilik
+            </div>
+<div class="flex flex-col gap-3">
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary transition-all" href="#">Gizlilik Politikası</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary transition-all" href="#">KVKK Aydınlatma Metni</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary transition-all" href="#">Site Haritası</a>
+</div>
+<div class="pt-stack-sm border-t border-primary-container font-body-sm text-body-sm text-on-primary-fixed-variant opacity-80">
+                © 2024 Mavi Belge Mesleki Yeterlilik ve Belgelendirme. Tüm Hakları Saklıdır.
+            </div>
+</div>
+</footer>
+</body></html>

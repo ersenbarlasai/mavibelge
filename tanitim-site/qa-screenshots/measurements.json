@@ -1,0 +1,290 @@
+[
+  {
+    "url": "index.html",
+    "name": "home",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "index.html",
+    "name": "home",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "index.html",
+    "name": "home",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "index.html",
+    "name": "home",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "meslekler.html",
+    "name": "meslekler",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "meslekler.html",
+    "name": "meslekler",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "meslekler.html",
+    "name": "meslekler",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "meslekler.html",
+    "name": "meslekler",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "sektor.html?slug=insaat",
+    "name": "sektor-insaat",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "sektor.html?slug=insaat",
+    "name": "sektor-insaat",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "sektor.html?slug=insaat",
+    "name": "sektor-insaat",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "sektor.html?slug=insaat",
+    "name": "sektor-insaat",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "yeterlilik.html?slug=10UY0002-3%2F03",
+    "name": "yeterlilik-detay",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "yeterlilik.html?slug=10UY0002-3%2F03",
+    "name": "yeterlilik-detay",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "yeterlilik.html?slug=10UY0002-3%2F03",
+    "name": "yeterlilik-detay",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "yeterlilik.html?slug=10UY0002-3%2F03",
+    "name": "yeterlilik-detay",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "sinav-ucretleri.html",
+    "name": "sinav-ucretleri",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "sinav-ucretleri.html",
+    "name": "sinav-ucretleri",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "sinav-ucretleri.html",
+    "name": "sinav-ucretleri",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "sinav-ucretleri.html",
+    "name": "sinav-ucretleri",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "haberler.html",
+    "name": "haberler",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "haberler.html",
+    "name": "haberler",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "haberler.html",
+    "name": "haberler",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "haberler.html",
+    "name": "haberler",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "online-basvuru.html",
+    "name": "online-basvuru",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "online-basvuru.html",
+    "name": "online-basvuru",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "online-basvuru.html",
+    "name": "online-basvuru",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "online-basvuru.html",
+    "name": "online-basvuru",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "iletisim.html",
+    "name": "iletisim",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "iletisim.html",
+    "name": "iletisim",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "iletisim.html",
+    "name": "iletisim",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "iletisim.html",
+    "name": "iletisim",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  },
+  {
+    "url": "referanslar.html",
+    "name": "referanslar",
+    "viewport": "1440x1000",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false
+  },
+  {
+    "url": "referanslar.html",
+    "name": "referanslar",
+    "viewport": "1024x768",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false
+  },
+  {
+    "url": "referanslar.html",
+    "name": "referanslar",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false
+  },
+  {
+    "url": "referanslar.html",
+    "name": "referanslar",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false
+  }
+]

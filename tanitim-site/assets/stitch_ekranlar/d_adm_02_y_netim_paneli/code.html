@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge Yönetim Paneli - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#43474c",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-tint": "#4d6074",
+                        "secondary": "#00629f",
+                        "primary-fixed": "#d0e5fc",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-fixed": "#d0e4ff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-secondary-container": "#004877",
+                        "on-surface": "#1b1c1c",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#232727",
+                        "tertiary-container": "#393d3d",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-background": "#1b1c1c",
+                        "surface-container-low": "#f5f3f3",
+                        "background": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "surface-bright": "#fbf9f8",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface-container-high": "#eae8e7",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "on-tertiary": "#ffffff",
+                        "success-green": "#2E7D32",
+                        "warning-orange": "#ED6C02",
+                        "on-secondary-fixed": "#001d34",
+                        "outline": "#74777d",
+                        "on-primary-fixed": "#081d2e",
+                        "on-primary-container": "#95a9be",
+                        "error": "#ba1a1a",
+                        "primary-container": "#2b3e50",
+                        "inverse-primary": "#b5c9df",
+                        "primary": "#142839",
+                        "surface-variant": "#e4e2e2",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "base": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-sm min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top AppBar (Only visible on small screens) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 sticky top-0 z-50 bg-surface border-b border-outline-variant flat no shadows">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80">menu</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Mavi Belge Panel</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:opacity-80">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:opacity-80">settings</span>
+</div>
+</header>
+<!-- SideNavBar (Visible on md and up) -->
+<nav class="hidden md:flex flex-col py-stack-md bg-primary text-on-primary font-label-md text-label-md fixed left-0 top-0 h-screen w-[280px] shadow-md transition-all duration-200 ease-in-out z-40">
+<!-- Header -->
+<div class="px-margin-desktop mb-stack-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-on-primary m-0 p-0 leading-none">Mavi Belge</h1>
+<span class="font-label-sm text-label-sm opacity-80">Yönetim Paneli</span>
+</div>
+</div>
+</div>
+<!-- Main Tabs -->
+<ul class="flex flex-col gap-1 flex-grow">
+<!-- Active Tab -->
+<li class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill">dashboard</span>
+<span>Dashboard</span>
+</li>
+<!-- Inactive Tabs -->
+<li class="text-on-primary opacity-80 hover:opacity-100 hover:bg-primary-container hover:text-on-primary-container transition-colors mx-2 rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span>Sınav Takvimi</span>
+</li>
+<li class="text-on-primary opacity-80 hover:opacity-100 hover:bg-primary-container hover:text-on-primary-container transition-colors mx-2 rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span>Başvurular</span>
+</li>
+<li class="text-on-primary opacity-80 hover:opacity-100 hover:bg-primary-container hover:text-on-primary-container transition-colors mx-2 rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span>Belgelendirme</span>
+</li>
+<li class="text-on-primary opacity-80 hover:opacity-100 hover:bg-primary-container hover:text-on-primary-container transition-colors mx-2 rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Kullanıcılar</span>
+</li>
+<li class="text-on-primary opacity-80 hover:opacity-100 hover:bg-primary-container hover:text-on-primary-container transition-colors mx-2 rounded-lg flex items-center gap-3 px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Raporlar</span>
+</li>
+</ul>
+<!-- CTA -->
+<div class="px-margin-desktop mb-stack-md mt-auto">
+<button class="w-full bg-secondary text-on-secondary py-3 px-4 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2 hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Yeni Sınav Oluştur
+            </button>
+</div>
+<!-- Footer Tabs -->
+<ul class="flex flex-col gap-1 border-t border-outline-variant/20 pt-stack-sm mx-margin-desktop">
+<li class="text-on-primary opacity-80 hover:opacity-100 transition-colors rounded-lg flex items-center gap-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span>Destek</span>
+</li>
+<li class="text-on-primary opacity-80 hover:opacity-100 transition-colors rounded-lg flex items-center gap-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Çıkış Yap</span>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[280px] min-h-screen">
+<!-- TopAppBar (Desktop) -->
+<header class="hidden md:flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-30 bg-surface text-primary border-b border-outline-variant flat no shadows font-body-md text-body-md">
+<div class="flex-1 max-w-md">
+<div class="relative flex items-center w-full h-10 rounded-full focus-within:shadow-lg bg-surface-container-low overflow-hidden border border-outline-variant/50 focus-within:border-secondary transition-all">
+<div class="grid place-items-center h-full w-12 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="peer h-full w-full outline-none text-sm text-on-surface bg-transparent pr-2" id="search" placeholder="Ara..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 ml-auto">
+<div class="cursor-pointer hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</div>
+<div class="cursor-pointer hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</div>
+<div class="cursor-pointer hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</div>
+<div class="h-8 w-8 rounded-full bg-primary-fixed-dim overflow-hidden border border-outline-variant ml-2 cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-margin-mobile md:p-margin-desktop flex-1 max-w-container-max mx-auto w-full">
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary m-0">Dashboard</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Operasyonel özet ve güncel durum metrikleri.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Metric Card 1 -->
+<div class="bg-surface rounded-xl p-stack-md border border-outline-variant shadow-sm flex flex-col justify-between h-40 hover:border-secondary transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Bekleyen Başvuru Onayları</span>
+<div class="w-8 h-8 rounded-full bg-warning-orange/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-warning-orange text-sm" data-icon="pending_actions">pending_actions</span>
+</div>
+</div>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-headline-xl text-headline-xl text-primary leading-none">24</span>
+<span class="font-label-sm text-label-sm text-warning-orange flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="arrow_upward">arrow_upward</span> +3 Bugün
+                        </span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-surface rounded-xl p-stack-md border border-outline-variant shadow-sm flex flex-col justify-between h-40 hover:border-secondary transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Aktif Sınavlar</span>
+<div class="w-8 h-8 rounded-full bg-accent-blue/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-blue text-sm" data-icon="event_note">event_note</span>
+</div>
+</div>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-headline-xl text-headline-xl text-primary leading-none">5</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bu Hafta</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-surface rounded-xl p-stack-md border border-outline-variant shadow-sm flex flex-col justify-between h-40 hover:border-secondary transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tamamlanan Belgelendirme</span>
+<div class="w-8 h-8 rounded-full bg-success-green/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-success-green text-sm" data-icon="task_alt">task_alt</span>
+</div>
+</div>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-headline-xl text-headline-xl text-primary leading-none">1,204</span>
+<span class="font-label-sm text-label-sm text-success-green flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="trending_up">trending_up</span> %12 Artış
+                        </span>
+</div>
+</div>
+</div>
+<!-- Two Column Layout for Lists -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Recent Applications Panel -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<div class="p-stack-md border-b border-outline-variant/50 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary m-0">Son Başvurular</h3>
+<button class="font-label-md text-label-md text-secondary hover:underline bg-transparent border-none cursor-pointer">Tümünü Gör</button>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/50">
+<th class="py-3 px-stack-md font-label-md text-label-md text-primary-container">İsim Soyisim</th>
+<th class="py-3 px-stack-md font-label-md text-label-md text-primary-container">Başvuru Türü</th>
+<th class="py-3 px-stack-md font-label-md text-label-md text-primary-container">Tarih</th>
+<th class="py-3 px-stack-md font-label-md text-label-md text-primary-container">Durum</th>
+<th class="py-3 px-stack-md font-label-md text-label-md text-primary-container text-right">İşlem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface">Ahmet Yılmaz</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">Kaynak Operatörü (Seviye 3)</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">12 Eki 2023</td>
+<td class="py-4 px-stack-md">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-orange/10 text-warning-orange">Beklemede</span>
+</td>
+<td class="py-4 px-stack-md text-right">
+<button class="text-secondary hover:text-primary transition-colors cursor-pointer bg-transparent border-none p-1 rounded hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_document">edit_document</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface">Ayşe Demir</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">Makine Bakımcı (Seviye 4)</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">11 Eki 2023</td>
+<td class="py-4 px-stack-md">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant">Eksik Evrak</span>
+</td>
+<td class="py-4 px-stack-md text-right">
+<button class="text-secondary hover:text-primary transition-colors cursor-pointer bg-transparent border-none p-1 rounded hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_document">edit_document</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface">Mehmet Kaya</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">CNC Programcısı (Seviye 4)</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">10 Eki 2023</td>
+<td class="py-4 px-stack-md">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green/10 text-success-green">Onaylandı</span>
+</td>
+<td class="py-4 px-stack-md text-right">
+<button class="text-secondary hover:text-primary transition-colors cursor-pointer bg-transparent border-none p-1 rounded hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="visibility">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface">Zeynep Çelik</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">Elektrik Tesisatçısı (Seviye 3)</td>
+<td class="py-4 px-stack-md font-body-sm text-body-sm text-on-surface-variant">09 Eki 2023</td>
+<td class="py-4 px-stack-md">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-orange/10 text-warning-orange">Beklemede</span>
+</td>
+<td class="py-4 px-stack-md text-right">
+<button class="text-secondary hover:text-primary transition-colors cursor-pointer bg-transparent border-none p-1 rounded hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_document">edit_document</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Task & Notification Panel -->
+<div class="bg-surface rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<div class="p-stack-md border-b border-outline-variant/50 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary m-0">Operasyonel Bildirimler</h3>
+</div>
+<div class="p-stack-md flex flex-col gap-4 flex-grow overflow-y-auto max-h-[400px]">
+<!-- Notification Item: Critical -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-error-container/20 border border-error-red/20">
+<div class="mt-1">
+<span class="material-symbols-outlined text-error-red" data-icon="error">error</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface m-0">Sistem Kesintisi Uyarısı</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-2">MYK entegrasyon servisinde geçici bir bağlantı sorunu yaşanmaktadır. İşlemler kuyruğa alınıyor.</p>
+<span class="font-label-sm text-label-sm text-outline">10 dakika önce</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary bg-transparent border-none cursor-pointer">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Notification Item: Task -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="mt-1">
+<span class="material-symbols-outlined text-accent-blue" data-icon="fact_check">fact_check</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface m-0">Sınav Dosyası Onayı Gerekli</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-2">15 Ekim tarihli 'Kaynak Operatörü' sınavı için hazırlanan soru kitapçıkları son onayınızı bekliyor.</p>
+<span class="font-label-sm text-label-sm text-outline">2 saat önce</span>
+</div>
+<button class="bg-transparent border border-primary-container text-primary-container hover:bg-primary-container hover:text-on-primary transition-colors rounded px-3 py-1 font-label-sm text-label-sm cursor-pointer whitespace-nowrap self-center">
+                                İncele
+                            </button>
+</div>
+<!-- Notification Item: Info -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="mt-1">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface m-0">Yeni İç Denetim Raporu</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-2">2023 Q3 dönemi iç denetim taslak raporu sisteme yüklendi.</p>
+<span class="font-label-sm text-label-sm text-outline">Dün, 14:30</span>
+</div>
+<button class="bg-transparent border border-primary-container text-primary-container hover:bg-primary-container hover:text-on-primary transition-colors rounded px-3 py-1 font-label-sm text-label-sm cursor-pointer whitespace-nowrap self-center">
+                                İncele
+                            </button>
+</div>
+<!-- Notification Item: Success -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low border border-outline-variant/50">
+<div class="mt-1">
+<span class="material-symbols-outlined text-success-green" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface m-0">Sertifika Basımı Tamamlandı</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-2">Eylül dönemi makine bakımcılarına ait 45 adet sertifikanın basım işlemi başarılıyla tamamlandı.</p>
+<span class="font-label-sm text-label-sm text-outline">Dün, 09:15</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

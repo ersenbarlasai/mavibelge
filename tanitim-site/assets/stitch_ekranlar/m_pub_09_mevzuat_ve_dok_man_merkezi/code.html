@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Mevzuat ve Doküman Merkezi</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fbf9f8",
+                        "surface-tint": "#4d6074",
+                        "outline": "#74777d",
+                        "outline-variant": "#c4c7cc",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#b5c9df",
+                        "on-primary-container": "#95a9be",
+                        "primary": "#142839",
+                        "on-tertiary-container": "#a4a8a7",
+                        "primary-container": "#2b3e50",
+                        "warning-orange": "#ED6C02",
+                        "on-surface-variant": "#43474c",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-high": "#eae8e7",
+                        "on-primary-fixed-variant": "#36495b",
+                        "secondary-fixed": "#d0e4ff",
+                        "on-primary-fixed": "#081d2e",
+                        "secondary": "#00629f",
+                        "inverse-on-surface": "#f2f0f0",
+                        "inverse-primary": "#b5c9df",
+                        "surface-container": "#f0eded",
+                        "accent-blue": "#337AB7",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#d0e5fc",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "surface-container-lowest": "#ffffff",
+                        "success-green": "#2E7D32",
+                        "tertiary-container": "#393d3d",
+                        "on-tertiary-fixed": "#181c1c",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-surface": "#1b1c1c",
+                        "surface": "#fbf9f8",
+                        "tertiary": "#232727",
+                        "secondary-container": "#71b8fe",
+                        "on-secondary-fixed": "#001d34",
+                        "surface-container-low": "#f5f3f3",
+                        "tertiary-fixed": "#e0e3e2",
+                        "background": "#fbf9f8",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "on-secondary-container": "#004877",
+                        "on-background": "#1b1c1c",
+                        "inverse-surface": "#303030"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "stack-xs": "4px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "stack-md": "24px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "12px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "headline-xl": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for Webkit scrollbars to match industrial minimalism */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component JSON Applied) -->
+<nav class="bg-surface sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile max-w-container-max mx-auto py-3 border-b border-outline-variant shadow-sm transition-colors duration-150">
+<!-- Brand Logo -->
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+            Mavi Belge
+        </div>
+<!-- Desktop Navigation (Hidden on Mobile per pivot rule) -->
+<ul class="hidden md:flex items-center gap-stack-sm">
+<li><a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded font-label-md text-label-md" href="#">Başvuru Yap</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded font-label-md text-label-md" href="#">Sınavlar</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded font-label-md text-label-md" href="#">Ücretler</a></li>
+<!-- Active State Navigation -->
+<li><a class="text-secondary border-b-2 border-secondary pb-1 opacity-80 transition-opacity duration-150 font-label-md text-label-md" href="#">Dokümanlar</a></li>
+<li><a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded font-label-md text-label-md" href="#">İletişim</a></li>
+</ul>
+<!-- Trailing Action & Mobile Menu Toggle -->
+<div class="flex items-center gap-3">
+<button class="hidden md:flex bg-primary-container text-on-primary-container font-label-md px-4 py-2 rounded transition-colors hover:opacity-90">
+                Giriş Yap
+            </button>
+<button class="md:hidden text-primary p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile py-stack-md flex flex-col gap-stack-md">
+<!-- Header Section -->
+<header class="flex flex-col gap-stack-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Mevzuat ve Doküman Merkezi</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sınav, belgelendirme ve operasyonel süreçlere ait tüm güncel dokümanlara buradan ulaşabilirsiniz.</p>
+</header>
+<!-- Search and Filter Section (Mobile optimized select menu) -->
+<section class="flex flex-col gap-stack-sm w-full bg-surface-container-low p-margin-mobile rounded-xl border border-outline-variant/50">
+<!-- Search Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Doküman adı veya kod ile ara..." type="text"/>
+</div>
+<!-- Filters (Simple Select Menu) -->
+<div class="flex gap-base w-full">
+<div class="relative w-1/2">
+<select class="w-full appearance-none bg-surface border border-outline-variant rounded-lg pl-3 pr-8 py-2.5 text-label-sm font-label-sm text-primary focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary shadow-sm">
+<option value="">Tüm Kategoriler</option>
+<option value="form">Başvuru Formları</option>
+<option value="procedure">Prosedürler</option>
+<option value="guide">Yönergeler</option>
+<option value="list">Listeler</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+<div class="relative w-1/2">
+<select class="w-full appearance-none bg-surface border border-outline-variant rounded-lg pl-3 pr-8 py-2.5 text-label-sm font-label-sm text-primary focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary shadow-sm">
+<option value="">Tüm Kurumlar</option>
+<option value="myk">MYK</option>
+<option value="turkak">TÜRKAK</option>
+<option value="mavi">Mavi Belge İç</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+</section>
+<!-- Segmented Control Tabs -->
+<div class="flex bg-surface-container-high rounded-lg p-1 w-full shadow-inner">
+<button class="flex-1 bg-surface shadow rounded text-secondary font-label-md text-label-md py-2.5 text-center transition-all">Güncel</button>
+<button class="flex-1 text-on-surface-variant font-label-md text-label-md py-2.5 text-center hover:text-primary transition-all">Arşiv</button>
+</div>
+<!-- Document List (Bento-inspired Cards) -->
+<section class="flex flex-col gap-base pb-stack-lg">
+<!-- Card 1 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-margin-mobile flex flex-col gap-stack-sm relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Status Indicator Accent -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-success-green"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded text-[10px] font-label-sm uppercase tracking-wider border border-secondary-fixed-dim">FRM-045</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-label-sm uppercase">MYK</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> 12.10.2023
+                    </span>
+</div>
+<h3 class="font-label-md text-label-md text-primary mt-1 pl-2 leading-tight pr-4">Ulusal Yeterlilik Sınav Başvuru Formu ve Taahhütnamesi</h3>
+<div class="flex items-center justify-between mt-2 pl-2 border-t border-outline-variant/30 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wide">Revizyon</span>
+<span class="text-label-sm font-label-sm text-primary">02</span>
+</div>
+<button class="bg-secondary text-on-secondary flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-label-sm hover:bg-primary-container transition-colors focus:ring-2 focus:ring-secondary focus:ring-offset-1 focus:outline-none">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span> İndir
+                    </button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-margin-mobile flex flex-col gap-stack-sm relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Status Indicator Accent -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-success-green"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded text-[10px] font-label-sm uppercase tracking-wider border border-secondary-fixed-dim">PR-012</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-label-sm uppercase">TÜRKAK</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> 05.08.2023
+                    </span>
+</div>
+<h3 class="font-label-md text-label-md text-primary mt-1 pl-2 leading-tight pr-4">Aday İtiraz ve Şikayetlerin Değerlendirilmesi Prosedürü</h3>
+<div class="flex items-center justify-between mt-2 pl-2 border-t border-outline-variant/30 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wide">Revizyon</span>
+<span class="text-label-sm font-label-sm text-primary">05</span>
+</div>
+<button class="bg-surface border border-primary text-primary flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-label-sm hover:bg-surface-container-low transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:outline-none">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span> Görüntüle
+                    </button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-margin-mobile flex flex-col gap-stack-sm relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<!-- Status Indicator Accent -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-success-green"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded text-[10px] font-label-sm uppercase tracking-wider border border-secondary-fixed-dim">LST-003</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-label-sm uppercase">İÇ</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> 21.01.2024
+                    </span>
+</div>
+<h3 class="font-label-md text-label-md text-primary mt-1 pl-2 leading-tight pr-4">Belgelendirme Ücretleri ve Ödeme Şartları Listesi</h3>
+<div class="flex items-center justify-between mt-2 pl-2 border-t border-outline-variant/30 pt-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wide">Revizyon</span>
+<span class="text-label-sm font-label-sm text-primary">01</span>
+</div>
+<button class="bg-secondary text-on-secondary flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-label-sm hover:bg-primary-container transition-colors focus:ring-2 focus:ring-secondary focus:ring-offset-1 focus:outline-none">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span> İndir
+                    </button>
+</div>
+</article>
+<!-- Load More Button -->
+<button class="w-full py-3 mt-4 border border-outline-variant rounded-lg text-primary font-label-md flex justify-center items-center gap-2 hover:bg-surface-container-low transition-colors">
+                Daha Fazla Yükle <span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+</section>
+</main>
+<!-- Footer (Shared Component JSON Applied) -->
+<footer class="bg-primary w-full py-margin-desktop px-margin-mobile md:px-margin-desktop border-t border-primary-container mt-auto">
+<div class="max-w-container-max mx-auto flex flex-col gap-stack-md">
+<!-- Brand & Copyright -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md font-bold text-on-primary">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-fixed-variant opacity-90">© 2024 Mavi Belge Mesleki Yeterlilik ve Belgelendirme. Tüm Hakları Saklıdır.</p>
+</div>
+<!-- Links -->
+<ul class="flex flex-col sm:flex-row flex-wrap gap-stack-sm sm:gap-gutter text-on-primary-fixed-variant">
+<li><a class="font-body-sm text-body-sm hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Gizlilik Politikası</a></li>
+<li><a class="font-body-sm text-body-sm hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">KVKK Aydınlatma Metni</a></li>
+<li><a class="font-body-sm text-body-sm hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Kullanım Koşulları</a></li>
+<li><a class="font-body-sm text-body-sm hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Site Haritası</a></li>
+</ul>
+</div>
+</footer>
+</body></html>

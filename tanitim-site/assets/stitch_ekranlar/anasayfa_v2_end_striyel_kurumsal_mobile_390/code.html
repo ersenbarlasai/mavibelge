@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Anasayfa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-red": "#D32F2F",
+                        "primary-container": "#2b3e50",
+                        "success-green": "#2E7D32",
+                        "surface-container-highest": "#e4e2e2",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container-high": "#eae8e7",
+                        "on-tertiary-fixed": "#181c1c",
+                        "on-background": "#1b1c1c",
+                        "outline": "#74777d",
+                        "background": "#fbf9f8",
+                        "surface-tint": "#4d6074",
+                        "tertiary-fixed": "#e0e3e2",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-fixed": "#d0e4ff",
+                        "secondary-container": "#71b8fe",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#b5c9df",
+                        "warning-orange": "#ED6C02",
+                        "tertiary": "#232727",
+                        "surface-container": "#f0eded",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-secondary-fixed": "#001d34",
+                        "primary": "#142839",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#95a9be",
+                        "surface-bright": "#fbf9f8",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "on-secondary-container": "#004877",
+                        "surface": "#fbf9f8",
+                        "primary-fixed": "#d0e5fc",
+                        "inverse-surface": "#303030",
+                        "outline-variant": "#c4c7cc",
+                        "on-primary-fixed-variant": "#36495b",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "accent-blue": "#337AB7",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#081d2e",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary": "#00629f",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e4e2e2",
+                        "on-surface-variant": "#43474c",
+                        "tertiary-container": "#393d3d",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "stack-md": "24px",
+                        "stack-sm": "12px",
+                        "base": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased md:hidden flex flex-col min-h-screen">
+<!-- Mobile Top App Bar (Simplified from TopNavBar for Mobile) -->
+<header class="bg-surface dark:bg-surface-container-highest flex w-full max-w-container-max mx-auto px-margin-mobile border-b border-outline-variant dark:border-outline h-16 items-center justify-between sticky top-0 z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" style="font-variation-settings: 'FILL' 1;">assured_workload</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Mavi Belge</span>
+</div>
+<button class="p-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-low transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col w-full pb-20">
+<!-- Hero Section -->
+<section class="relative w-full h-[400px] flex flex-col justify-end">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A professional, modern industrial setting showing a confident worker in a high-vis vest and hard hat reviewing a document on a tablet. The lighting is bright and clean, emphasizing a professional, safety-focused, and certified workforce environment. High quality, realistic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAN6_rAEbZ4G7mJkEMUDOr45MimTdWo-EdoMlstIiZlgUI3SRGVBqDdjhqqYr6PbWvApDkhY-hZhj_V0xWUPQhP7dDYvmOIiDpP8zyNB5NuFLcot7jpNPfOGBQ5ZxFOTtEUva7w6evWBX_L5PLYNIVKJK9bctcKc25xh8qP8K8OPWBwJ-oP0tgfUAO84ZfKg8lB3k021JMh8NmZ0maw0LYWhf8jtvY67ef2xE0AHDkm_nYcRWwDT8isyQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent"></div>
+<div class="relative z-10 p-margin-mobile flex flex-col gap-stack-sm text-on-primary">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile">Sertifikasyon ve Uzmanlık</h1>
+<p class="font-body-md text-body-md text-on-primary-container">Kariyerinizi belgelendirin, güvenle ilerleyin.</p>
+<button class="mt-stack-sm bg-accent-blue text-on-primary font-label-md text-label-md py-3 px-6 rounded w-full flex items-center justify-center gap-2 hover:bg-opacity-90 active:scale-95 transition-all">
+                    Online Başvuru
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Quick Access / Action Panel -->
+<section class="px-margin-mobile py-stack-md bg-surface-container-low border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">Hızlı İşlemler</h2>
+<div class="grid grid-cols-2 gap-base">
+<button class="bg-surface border border-outline-variant rounded-lg p-stack-sm flex flex-col items-center justify-center gap-2 text-center hover:bg-surface-container-highest transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="font-label-md text-label-md text-on-surface">Başvuru Sorgula</span>
+</button>
+<button class="bg-surface border border-outline-variant rounded-lg p-stack-sm flex flex-col items-center justify-center gap-2 text-center hover:bg-surface-container-highest transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="calendar_month" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-md text-label-md text-on-surface">Sınav Takvimi</span>
+</button>
+<button class="bg-surface border border-outline-variant rounded-lg p-stack-sm flex flex-col items-center justify-center gap-2 text-center hover:bg-surface-container-highest transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="engineering" style="font-variation-settings: 'FILL' 1;">engineering</span>
+<span class="font-label-md text-label-md text-on-surface">Meslekler</span>
+</button>
+<button class="bg-surface border border-outline-variant rounded-lg p-stack-sm flex flex-col items-center justify-center gap-2 text-center hover:bg-surface-container-highest transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-label-md text-on-surface">Ücretler</span>
+</button>
+</div>
+</section>
+<!-- Information / Updates -->
+<section class="px-margin-mobile py-stack-md">
+<div class="flex justify-between items-center mb-stack-sm">
+<h2 class="font-headline-md text-headline-md text-primary">Duyurular</h2>
+<a class="font-label-md text-label-md text-accent-blue hover:underline" href="#">Tümü</a>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<div class="bg-surface border border-outline-variant rounded p-stack-sm shadow-sm flex flex-col gap-2 relative">
+<div class="w-1 h-full bg-accent-blue absolute left-0 top-0 rounded-l"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">event</span> 12 Ekim 2024
+                    </span>
+<h3 class="font-label-md text-label-md text-on-surface">Yeni Sınav Merkezleri Açıldı</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Ankara ve İzmir'de yeni sınav merkezlerimiz faaliyete geçmiştir. Detaylı bilgi için takvimi kontrol ediniz.</p>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-stack-sm shadow-sm flex flex-col gap-2 relative">
+<div class="w-1 h-full bg-outline-variant absolute left-0 top-0 rounded-l"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">event</span> 05 Ekim 2024
+                    </span>
+<h3 class="font-label-md text-label-md text-on-surface">Tehlikeli Madde Güvenlik Danışmanlığı (TMGD) Başvuruları</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">TMGD sınavları için başvuru süreci başlamıştır. Gerekli belgeler ve şartlar güncellenmiştir.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
+<div class="flex justify-around items-center h-16 px-margin-mobile">
+<!-- Home (Active implicitly for this view, mapped from lack of direct match but intent) -->
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-secondary font-bold">
+<span class="material-symbols-outlined text-[24px]" data-icon="home" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Anasayfa</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-on-surface-variant dark:text-on-surface hover:text-secondary">
+<span class="material-symbols-outlined text-[24px]" data-icon="engineering">engineering</span>
+<span class="font-label-sm text-label-sm">Meslekler</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-on-surface-variant dark:text-on-surface hover:text-secondary">
+<span class="material-symbols-outlined text-[24px]" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm">Başvuru</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-on-surface-variant dark:text-on-surface hover:text-secondary">
+<span class="material-symbols-outlined text-[24px]" data-icon="business">business</span>
+<span class="font-label-sm text-label-sm">Kurumsal</span>
+</button>
+</div>
+</nav>
+</body></html>

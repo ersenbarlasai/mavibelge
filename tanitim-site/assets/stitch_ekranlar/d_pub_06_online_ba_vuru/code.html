@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Online Başvuru</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "outline": "#74777d",
+                        "tertiary-container": "#393d3d",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#00629f",
+                        "surface-dim": "#dbd9d9",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface": "#fbf9f8",
+                        "inverse-surface": "#303030",
+                        "surface-container": "#f0eded",
+                        "primary": "#142839",
+                        "on-secondary-container": "#004877",
+                        "surface-tint": "#4d6074",
+                        "on-background": "#1b1c1c",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "surface-bright": "#fbf9f8",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d0e5fc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary-fixed": "#d0e4ff",
+                        "error-red": "#D32F2F",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-container": "#2b3e50",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-secondary-fixed": "#001d34",
+                        "inverse-primary": "#b5c9df",
+                        "on-primary-fixed": "#081d2e",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-container": "#95a9be",
+                        "on-tertiary-fixed": "#181c1c",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-low": "#f5f3f3",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "tertiary": "#232727",
+                        "success-green": "#2E7D32",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface": "#1b1c1c",
+                        "surface-container-high": "#eae8e7",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary-container": "#71b8fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar (Suppressed due to task-focused transactional flow) -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Header -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-stack-xs">Online Başvuru</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sertifikasyon sürecinize devam etmek için istenen belgeleri eksiksiz yükleyiniz.</p>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Main Content Area -->
+<div class="flex-grow w-full lg:w-2/3 flex flex-col gap-stack-lg">
+<!-- Stepper Component -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded">
+<div class="flex justify-between items-center relative">
+<!-- Connecting Line -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-surface-container-high -z-10"></div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-3/4 h-0.5 bg-secondary -z-10 transition-all duration-300"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-stack-xs bg-surface-container-lowest px-2">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary hidden md:block">Yeterlilik</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-stack-xs bg-surface-container-lowest px-2">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary hidden md:block">Kimlik</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-stack-xs bg-surface-container-lowest px-2">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary hidden md:block">Başvuru Türü</span>
+</div>
+<!-- Step 4 (Active) -->
+<div class="flex flex-col items-center gap-stack-xs bg-surface-container-lowest px-2">
+<div class="w-8 h-8 rounded-full border-2 border-secondary bg-surface-container-lowest text-secondary flex items-center justify-center font-label-md text-label-md">
+                                4
+                            </div>
+<span class="font-label-sm text-label-sm text-secondary font-bold hidden md:block">Belge Yükleme</span>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-stack-xs bg-surface-container-lowest px-2">
+<div class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant flex items-center justify-center font-label-md text-label-md">
+                                5
+                            </div>
+<span class="font-label-sm text-label-sm text-on-surface-variant hidden md:block">Özet</span>
+</div>
+</div>
+</div>
+<!-- Document Upload Section -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded flex flex-col gap-stack-md">
+<div class="border-b border-outline-variant pb-stack-xs">
+<h2 class="font-headline-md text-headline-md text-primary">Gerekli Belgeler</h2>
+</div>
+<!-- File Upload 1: ID Card (Completed) -->
+<div class="border border-outline-variant rounded p-stack-sm bg-surface-bright">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm mb-stack-xs">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-outline">badge</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-background">Kimlik Fotokopisi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ön ve arka yüz, net ve okunaklı olmalıdır.</p>
+</div>
+</div>
+<button class="font-label-sm text-label-sm text-error-red hover:underline focus:outline-none flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+                                Kaldır
+                            </button>
+</div>
+<div class="bg-surface-container-low p-stack-sm rounded border border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-base truncate">
+<span class="material-symbols-outlined text-success-green">description</span>
+<span class="font-body-sm text-body-sm text-on-background truncate">kimlik_on_arka_yuz.pdf</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-2">(1.2 MB)</span>
+</div>
+<span class="material-symbols-outlined text-success-green">check_circle</span>
+</div>
+</div>
+<!-- File Upload 2: Receipt (Uploading) -->
+<div class="border border-outline-variant rounded p-stack-sm bg-surface-bright">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm mb-stack-xs">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-outline">receipt_long</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-background">Banka Dekontu</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sınav ücreti yatırıldığını gösterir belge.</p>
+</div>
+</div>
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary focus:outline-none flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+                                İptal
+                            </button>
+</div>
+<div class="bg-surface-container-low p-stack-sm rounded border border-outline-variant">
+<div class="flex items-center gap-base mb-2 truncate">
+<span class="material-symbols-outlined text-secondary">description</span>
+<span class="font-body-sm text-body-sm text-on-background truncate">ziraat_dekont_subat_2024.jpg</span>
+<span class="font-label-sm text-label-sm text-secondary ml-auto">75%</span>
+</div>
+<div class="w-full bg-surface-variant rounded h-1.5 overflow-hidden">
+<div class="bg-secondary h-1.5" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<!-- File Upload 3: Education Certificate (Error/Empty State) -->
+<div class="border border-error-red rounded p-stack-sm bg-error-container/20">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm mb-stack-xs">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-error-red">school</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-background">Eğitim Belgesi (Diploma)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">En son mezun olunan okula ait belge.</p>
+</div>
+</div>
+</div>
+<div class="border-2 border-dashed border-outline-variant hover:border-secondary transition-colors rounded-lg p-stack-lg flex flex-col items-center justify-center text-center cursor-pointer bg-surface-bright">
+<span class="material-symbols-outlined text-primary text-[32px] mb-2">cloud_upload</span>
+<span class="font-label-md text-label-md text-primary mb-1">Dosya Seçin veya Sürükleyin</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">PDF, JPG, PNG (Max. 5MB)</span>
+</div>
+<div class="mt-2 flex items-center gap-1 text-error-red font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>Bu belge zorunludur. Lütfen geçerli bir dosya yükleyiniz.</span>
+</div>
+</div>
+<!-- Consents -->
+<div class="mt-stack-sm p-stack-sm bg-surface-container-low border border-outline-variant rounded flex flex-col gap-stack-sm">
+<label class="flex items-start gap-base cursor-pointer group">
+<div class="relative flex items-start pt-0.5">
+<input class="peer appearance-none w-5 h-5 border border-outline-variant rounded bg-surface-container-lowest checked:bg-secondary checked:border-secondary focus:ring-2 focus:ring-secondary focus:ring-offset-1 focus:outline-none transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0.5 text-on-secondary opacity-0 peer-checked:opacity-100 pointer-events-none text-[20px]">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-background">
+<a class="text-secondary hover:underline" href="#">KVKK Aydınlatma Metni</a>'ni okudum ve anladım.
+                            </span>
+</label>
+<label class="flex items-start gap-base cursor-pointer group">
+<div class="relative flex items-start pt-0.5">
+<input class="peer appearance-none w-5 h-5 border border-outline-variant rounded bg-surface-container-lowest checked:bg-secondary checked:border-secondary focus:ring-2 focus:ring-secondary focus:ring-offset-1 focus:outline-none transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0.5 text-on-secondary opacity-0 peer-checked:opacity-100 pointer-events-none text-[20px]">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-background">
+                                Kişisel verilerimin işlenmesine ilişkin <span class="font-bold">Açık Rıza Beyanını</span> kabul ediyorum.
+                            </span>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="flex justify-between items-center mt-stack-md pt-stack-sm border-t border-outline-variant">
+<button class="px-6 py-3 border border-primary-container text-primary-container font-label-md text-label-md rounded hover:bg-surface-container-low transition-colors min-h-[44px] focus:outline-none focus:ring-2 focus:ring-secondary">
+                            Geri Dön
+                        </button>
+<button class="px-6 py-3 bg-[#066AAB] text-white font-label-md text-label-md rounded hover:bg-[#05578c] transition-colors min-h-[44px] flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 opacity-80 cursor-not-allowed">
+                            İlerle
+                            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Sidebar / Summary -->
+<div class="w-full lg:w-1/3">
+<div class="bg-surface-container-lowest border border-outline-variant rounded sticky top-stack-lg">
+<div class="p-stack-sm border-b border-outline-variant bg-surface-container-low">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-base">
+<span class="material-symbols-outlined">fact_check</span>
+                            Başvuru Özeti
+                        </h2>
+</div>
+<div class="p-stack-md flex flex-col gap-stack-sm">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Seçilen Yeterlilik</span>
+<span class="font-body-md text-body-md text-on-background font-medium">11UY0011-3 Ahşap Kalıpçı (Seviye 3)</span>
+</div>
+<div class="flex flex-col gap-1 border-t border-outline-variant pt-stack-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Birimler</span>
+<ul class="font-body-sm text-body-sm text-on-background space-y-1">
+<li class="flex items-start gap-1"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> A1 İş Sağlığı ve Güvenliği</li>
+<li class="flex items-start gap-1"><span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span> B1 Ahşap Kalıp Uygulamaları</li>
+</ul>
+</div>
+<div class="flex flex-col gap-1 border-t border-outline-variant pt-stack-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sınav Türü</span>
+<span class="font-body-md text-body-md text-on-background">Teorik ve Performans</span>
+</div>
+<div class="flex flex-col gap-1 border-t border-outline-variant pt-stack-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Başvuran</span>
+<span class="font-body-md text-body-md text-on-background">Ahmet Yılmaz</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">12345678901</span>
+</div>
+</div>
+<div class="p-stack-md border-t border-outline-variant bg-surface-bright rounded-b">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-background">Toplam Ücret</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">2.450 ₺</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-right">KDV Dahildir</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Suppressed due to task-focused transactional flow) -->
+</body></html>

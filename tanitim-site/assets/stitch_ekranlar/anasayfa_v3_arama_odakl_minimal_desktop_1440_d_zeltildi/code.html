@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Mesleğini Bul</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#ffdad6",
+                "inverse-surface": "#303030",
+                "primary": "#142839",
+                "surface-container-low": "#f5f3f3",
+                "surface-dim": "#dbd9d9",
+                "on-tertiary-fixed-variant": "#434847",
+                "on-primary-fixed": "#081d2e",
+                "tertiary": "#232727",
+                "surface-container": "#f0eded",
+                "on-primary-fixed-variant": "#36495b",
+                "secondary-fixed": "#d0e4ff",
+                "surface": "#fbf9f8",
+                "on-primary-container": "#95a9be",
+                "surface-container-highest": "#e4e2e2",
+                "outline-variant": "#c4c7cc",
+                "tertiary-fixed": "#e0e3e2",
+                "surface-variant": "#e4e2e2",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-secondary-fixed-variant": "#004a7a",
+                "on-surface": "#1b1c1c",
+                "on-secondary": "#ffffff",
+                "outline": "#74777d",
+                "tertiary-fixed-dim": "#c4c7c6",
+                "on-error": "#ffffff",
+                "primary-fixed-dim": "#b5c9df",
+                "secondary": "#00629f",
+                "on-tertiary-container": "#a4a8a7",
+                "inverse-primary": "#b5c9df",
+                "on-background": "#1b1c1c",
+                "surface-container-high": "#eae8e7",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#d0e5fc",
+                "on-secondary-fixed": "#001d34",
+                "primary-container": "#2b3e50",
+                "secondary-container": "#71b8fe",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-container": "#393d3d",
+                "on-surface-variant": "#43474c",
+                "on-secondary-container": "#004877",
+                "secondary-fixed-dim": "#9bcbff",
+                "error": "#ba1a1a",
+                "background": "#fbf9f8",
+                "on-tertiary-fixed": "#181c1c",
+                "surface-bright": "#fbf9f8",
+                "surface-tint": "#4d6074",
+                "inverse-on-surface": "#f2f0f0"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {},
+        "fontFamily": {
+                "headline": [
+                        "Inter"
+                ],
+                "display": [
+                        "Inter"
+                ],
+                "body": [
+                        "Inter"
+                ],
+                "label": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {}
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant w-full z-50">
+<div class="flex flex-col w-full max-w-7xl mx-auto px-8 py-3 md:py-6">
+<div class="flex items-center justify-between">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<img alt="Mavi Belge Logo" class="h-12 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr3r_TDLiSUTTkASzWexlGmdZ1BDz9MHx6mitli4nUGJ1ZiEcMSaYdH_047c7Hnd8tP7l2aZ_jJ9IPBDB8R7kRx0aK6a2AeJ-ypWPK3g_I79nsTK1a-RR6kyi7dO_QnpvJo3GAfqaZgLLf6aM_rZo_sOenTixI5Cu0MqY7u4EqwVOm3xTdEUVE0rCyDPO_UYEzlWULggyqIJp2TZXvg4JmRrjSLephB0DXiXKIqKOF1LCn2_7oRwXFZgNA9rkOybiEvSA"/>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-label text-sm text-secondary font-bold border-b-2 border-secondary pb-1" href="#">Meslekler</a>
+<a class="font-label text-sm text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 px-2 py-1 rounded" href="#">Sınav/Başvuru</a>
+<a class="font-label text-sm text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 px-2 py-1 rounded" href="#">Kurumsal</a>
+<a class="font-label text-sm text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 px-2 py-1 rounded" href="#">Bilgi Merkezi</a>
+<a class="font-label text-sm text-on-surface-variant hover:text-secondary hover:bg-surface-container-low transition-colors duration-200 px-2 py-1 rounded" href="#">İletişim</a>
+</nav>
+<!-- Trailing Actions & Trust Group -->
+<div class="hidden md:flex items-center gap-4">
+<div class="flex items-center gap-2 mr-4 border-r border-outline-variant pr-4">
+<img alt="MYK tarafından yetkilendirilmiş" class="h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8c5ZalnP8OYG_XdNtQeT0POYBOEbNaOmqgFfAJcsN2A_HNbrpvkqLrmZiW8QxfOHMmOThHImmsOvPxqTpMgfvJ-PYhcr0GvCVFa9QDFm5qqevnFdhHa4XQwt1mcAu9W6EC-FU5ORx_VD0lKPUCqFKtoRrmEYcwzhixIwDrlMbOAxLAf6nfAEZEwEF0jjDpajPaSZzoeWFV7LMZkSQbex3hF9pBlEfABhhnqhkTN90tbPF1GumRk3U8UPZEmODW0uaFGA"/>
+<img alt="TÜRKAK tarafından akredite" class="h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEwKb7cw65H9rXP-q7ZTkBKrfpjb_xVV24cr919xTr-83yK2S8mTBDoHBPJ1eIjzEuDG_QJEVA-hrMEcpdvkBGMz17CGd4pLJmzI4YX6Iaxl6TxR8wUtv9hTyBs6ksTZvZGFSI3AtpK8G-o0nlQLx0B7Qn4vCA07CDG3B2uK42dDktlCFfqafESajljyoVoEuIV1yOYebok2mfEoQK-NhuFM6KkaH3cJZLUflpIuE8iAQcUI6cKks-iNBZcNVwmu5wVB8"/>
+</div>
+<button aria-label="calendar_month" class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+<button aria-label="payments" class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</button>
+<button aria-label="help" class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button aria-label="share" class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="bg-primary text-on-primary font-label text-sm px-4 py-2 rounded ml-2 hover:bg-opacity-90 transition-opacity">Online Başvuru</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col w-full">
+<!-- Hero Search Section -->
+<section class="w-full relative py-24 flex justify-center bg-surface-container-lowest">
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Industrial Background" class="w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlVDqqCCd-0tMb6sYgxKEMfvqOL8ZuXOnu2RCTkQd7HTOUJ1z-qOVLO5hM18Rr6DGHRZHnmNCiNmsSOcZFJGN2PVra675mUCCWn8_6Bupxkqt8V2azbYG-tTk2DTPztBXKp20FmxHe9KGqXyTQkETDk4_RLuSMErGXA6sItDivGRLeDRn5c8RyXTdJ3RXoujo3lpDmMGee7oZBXPmEJ_ALty1zELhlFmm_7IUdgn0sIaFSze_rTMbQ9w"/>
+<div class="absolute inset-0 bg-gradient-to-b from-surface/80 to-surface"></div>
+</div>
+<div class="relative z-10 w-full max-w-3xl flex flex-col items-center text-center px-8">
+<h1 class="font-headline text-5xl font-bold text-primary mb-6 tracking-tight">Mesleğini Bul, Belgeni Al.</h1>
+<p class="font-body text-lg text-on-surface-variant mb-8 max-w-2xl">Endüstriyel uzmanlığınızı ulusal ve uluslararası standartlarda sertifikalandırmak için doğru mesleği arayın.</p>
+<!-- Large Search Input -->
+<div class="w-full relative group shadow-lg rounded">
+<span class="material-symbols-outlined absolute left-6 top-1/2 transform -translate-y-1/2 text-outline-variant group-focus-within:text-secondary transition-colors text-2xl">search</span>
+<input class="w-full h-16 pl-16 pr-32 bg-surface-container-lowest border border-outline-variant rounded font-body text-lg text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all" placeholder="Örn: Elektrik Tesisatçısı, Kaynakçı, İnşaat Boyacısı..." type="text"/>
+<button class="absolute right-2 top-2 bottom-2 bg-secondary text-on-secondary font-label text-sm px-6 rounded hover:bg-opacity-90 transition-opacity flex items-center gap-2">
+                    Ara <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Compact Shortcuts -->
+<div class="flex flex-wrap justify-center gap-4 mt-8">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest/80 backdrop-blur hover:bg-surface-container-low rounded border border-outline-variant text-primary font-label text-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">assignment_turned_in</span> Başvuru Sorgula
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest/80 backdrop-blur hover:bg-surface-container-low rounded border border-outline-variant text-primary font-label text-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">calendar_today</span> Sınav Takvimi
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest/80 backdrop-blur hover:bg-surface-container-low rounded border border-outline-variant text-primary font-label text-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">currency_lira</span> Ücret Listesi
+                </button>
+</div>
+</div>
+</section>
+<!-- Sectors Grid -->
+<section class="w-full max-w-7xl mx-auto px-8 py-16">
+<h2 class="font-headline text-2xl font-semibold text-primary mb-6 border-b border-outline-variant pb-2">Sektörler</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Sector Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">engineering</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<h3 class="font-headline text-xl font-semibold text-primary mb-2">Elektrik &amp; Elektronik</h3>
+<p class="font-body text-sm text-on-surface-variant">Elektrik tesisatçısı, pano montörü ve bakım onarım personeli belgelendirmeleri.</p>
+</div>
+<!-- Sector Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">architecture</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<h3 class="font-headline text-xl font-semibold text-primary mb-2">İnşaat</h3>
+<p class="font-body text-sm text-on-surface-variant">Ahşap kalıpçı, betonarme demircisi, duvarcı ve iskele kurulum elemanı belgelendirmeleri.</p>
+</div>
+<!-- Sector Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">precision_manufacturing</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<h3 class="font-headline text-xl font-semibold text-primary mb-2">Makine &amp; Metal</h3>
+<p class="font-body text-sm text-on-surface-variant">Kaynakçı, CNC operatörü, makine bakımcı ve çelik konstrüksiyon işçisi belgelendirmeleri.</p>
+</div>
+<!-- Sector Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">local_shipping</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<h3 class="font-headline text-xl font-semibold text-primary mb-2">Lojistik &amp; Ulaşım</h3>
+<p class="font-body text-sm text-on-surface-variant">Tehlikeli madde taşımacılığı, depo görevlisi ve forklift operatörü belgelendirmeleri.</p>
+</div>
+<!-- Sector Card 5 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:scale-110 transition-transform">restaurant</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+<h3 class="font-headline text-xl font-semibold text-primary mb-2">Turizm &amp; Gıda</h3>
+<p class="font-body text-sm text-on-surface-variant">Aşçı, servis görevlisi, kat görevlisi ve gıda hijyeni personeli belgelendirmeleri.</p>
+</div>
+<!-- Sector Card 6 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-6 hover:shadow-md transition-shadow cursor-pointer group flex items-center justify-center">
+<span class="font-label text-sm text-secondary group-hover:underline font-medium">Tüm Sektörleri Gör</span>
+<span class="material-symbols-outlined text-secondary ml-1">arrow_forward</span>
+</div>
+</div>
+</section>
+<!-- Haberler ve Duyurular Section -->
+<section class="w-full max-w-7xl mx-auto px-8 py-16 bg-surface-container-lowest border-t border-outline-variant">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-2xl font-semibold text-primary">Haberler ve Duyurular</h2>
+<a class="font-label text-sm text-secondary hover:underline flex items-center gap-1" href="#">
+        Tümünü Gör <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Featured News (Left) -->
+<div class="col-span-1 lg:col-span-2 group cursor-pointer">
+<div class="aspect-video bg-surface-container rounded overflow-hidden mb-4 relative">
+<img alt="Yeni Sınav Merkezi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzTEww3jjlWg-nT1cnVm-f9bzmt1dEAultqtklL-HV0NX8M0vC3q-JfYt7xk_ae3gjdXa475pr24xNqiOtInWo_TBZJxrvJq877X9Nh49OqBuSfa_3uKczOUPay7vT9Oe6n8fDPRsbcCUqEq7EyA5F0aAnCGiXAoAQ6J5qdbX3hVL9V4hNjL9Gnamz-O-doBzPKYhqflA4QkFlWljE4-5nUcBSGnoUhVJmxVz5K5oAHnY9rB3nUJAqxA"/>
+<div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-xs px-2 py-1 rounded">Duyuru</div>
+</div>
+<span class="font-label text-xs text-on-surface-variant mb-2 block">12 Ekim 2024</span>
+<h3 class="font-headline text-2xl font-semibold text-primary mb-2 group-hover:text-secondary transition-colors">Ankara'da Yeni Sınav ve Belgelendirme Merkezimiz Açıldı</h3>
+<p class="font-body text-base text-on-surface-variant">İç Anadolu bölgesindeki adaylarımıza daha hızlı ve erişilebilir hizmet sunabilmek amacıyla Ankara şubemiz faaliyetlerine başlamıştır. Yeni merkezimizde makine, metal ve inşaat sektörleri ağırlıklı olmak üzere...</p>
+</div>
+<!-- Smaller News (Right) -->
+<div class="col-span-1 flex flex-col gap-6">
+<!-- Small News Item 1 -->
+<div class="group cursor-pointer flex gap-4">
+<div class="w-1/3 aspect-square bg-surface-container rounded overflow-hidden shrink-0">
+<img alt="Sertifika Yenileme" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDE3xrmRm-AqSqten1s0yPM2V9Y4nC8_oEgWpEOxWnYYjvml2Hl0UBfj27XAtZK3n2zCqwc2Vhpq_GhQ17d3itwiyWDfW8nCkkYdv4gzOvT9WL4ZdQ1hms4b5MhrmOKajQXvXrPoUdbY-V5x4eLwQer131nPJ8akHBJeN86WzJ2jDcAVRspBHAMVN7Ry4Xdb9n1_TfK0Wq61nOIvOTu4GZABUXR_b6G6-RMamTXWv34_u08HuMiFzBZg"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label text-xs text-on-surface-variant mb-1">05 Ekim 2024</span>
+<h4 class="font-headline text-base font-semibold text-primary group-hover:text-secondary transition-colors line-clamp-2">Sertifika Yenileme Süreçlerinde Dijital Kolaylık Dönemi</h4>
+</div>
+</div>
+<!-- Small News Item 2 -->
+<div class="group cursor-pointer flex gap-4">
+<div class="w-1/3 aspect-square bg-surface-container rounded overflow-hidden shrink-0">
+<img alt="İSG Eğitimi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdovuzmJjsrzxGxkeDprERgewFI78KLHtI-xQTMAdKtjSu6WnHaXugu1wCbuIgYHldKcWKCLwFmgdU0UcbdEkRzGtjG7LnRQxOXVgrEQ3Tq-HeZlPgRH3tdi6yo9urZuuhqasLnsSUI9TdvOAVR5s1CEG9Eboa8PfP8of12WPkykJT_1yWUje5hGzLXocinCGUkxNnSahCCBRyIDFEWzO9VAP5FWEGTho5NVSscIpZlt_VrRLNHv6QAw"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label text-xs text-on-surface-variant mb-1">28 Eylül 2024</span>
+<h4 class="font-headline text-base font-semibold text-primary group-hover:text-secondary transition-colors line-clamp-2">İş Sağlığı ve Güvenliği Kapsamında Yeni Standartlar Yürürlükte</h4>
+</div>
+</div>
+<!-- Small News Item 3 -->
+<div class="group cursor-pointer flex gap-4">
+<div class="w-1/3 aspect-square bg-surface-container rounded overflow-hidden shrink-0">
+<img alt="Kalite Belgesi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-gRHDz7tHWzbtMLuRSN01CovdpAK6pcYX2hoJ8qbE9kS5CnwYhkztpftcGT4yeTrw_H3aFd0cwHI5r_P-6KaX7jPKIbQNo6gJ695x0ioGSdsD02ZoVAQrY4ws7MUh8kAPVdW8foJ84I4l6DpMUQA6lwduJ9d5lLnJGuST2twqzgbl7uOnm7_0ELgpSo2zrtvOnBK663-36Ey6l-8WknHl5Al0ryEjXZj3yyySeRXzxbDJDv-Nn50pSQ"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label text-xs text-on-surface-variant mb-1">15 Eylül 2024</span>
+<h4 class="font-headline text-base font-semibold text-primary group-hover:text-secondary transition-colors line-clamp-2">2024 Yılı İkinci Yarı Denetimlerini Başarıyla Tamamladık</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary border-t border-primary-container mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto px-8 py-12">
+<!-- Brand Column -->
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<span class="font-headline text-2xl font-semibold text-on-primary">Mavi Belge</span>
+<p class="font-body text-sm text-on-primary-container">
+                    Sertifikasyon ve Uzmanlık Merkezi. Güvenilir belgelendirme hizmetleri.
+                </p>
+<div class="flex items-center gap-4 mt-4">
+<img alt="MYK Logo" class="h-12 bg-surface-container-lowest/10 p-1 rounded object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyE0Ik3BV0EiuotsRYcoY4s1aRylmzT6kohsBmft0_MRkGBV7G-wpu17lG9F7japm6YAoMdUdyxrxZ4wjmOpvxR9DOtQvJuJfjCnNrkqV07JlrVUZy34SgeWcMnTAcauD2KWxOPbdVC69xttW1MY5t5ElgJUgH9PaUy8mpOdTCmyIIsr_r0nkqN6yCPjC6FGsbyeJcgETT0urhatoGvLbcSeDV1c8RxH0j0dLn_RS1uc9JvenZTh7cmeBtwcVOGImf_IQ"/>
+<img alt="TÜRKAK Logo" class="h-12 bg-surface-container-lowest/10 p-1 rounded object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD644gdP8-eXHjzsmWlSp531NDMwBH6aqXyDWsID-xK2_FzGATq6QGx84a6fDAXIVhbwkkwGaZrUFCQOt-rLRO_py6V7Y51dekj8b75nfiy6pgDNcdY7dDa2aBt8lr6agHHa_pe-87AMJMlijeyK9H-sSunyxXUcwIqrvbYP0OdoGnzEfXKQAFP4Z5aIYQJe1nh_xmWoKMvLOxJZrufOg7idftBzmzx6lNOxka3JBcw_O7wuKC-fzjIfyue4McbDhzBa48"/>
+</div>
+</div>
+<!-- Links Column 1 -->
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label text-sm font-semibold text-on-primary mb-2">Hızlı Linkler</h4>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<!-- Links Column 2 -->
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label text-sm font-semibold text-on-primary mb-2">Kurumsal</h4>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-body text-sm text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<!-- Contact Info -->
+<div class="col-span-1 flex flex-col gap-2">
+<h4 class="font-label text-sm font-semibold text-on-primary mb-2">İletişim</h4>
+<p class="font-body text-sm text-on-primary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">mail</span> info@mavibelge.com
+                </p>
+<p class="font-body text-sm text-on-primary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">phone</span> +90 (212) 555 0000
+                </p>
+</div>
+</div>
+<!-- Copyright -->
+<div class="border-t border-primary-container py-4 mt-8">
+<div class="max-w-7xl mx-auto px-8 text-center">
+<p class="font-body text-sm text-on-primary-container">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</div>
+</footer>
+</body></html>

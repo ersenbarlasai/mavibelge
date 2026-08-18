@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" width="220" height="64" role="img" aria-labelledby="t">
+<title id="t">Liman Teknik</title>
+<rect x="2" y="12" width="40" height="40" rx="8" fill="#2b3e50"/>
+<circle cx="22" cy="20" r="3.4" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+<path d="M22 24 V42 M14 32 H30 M14 40 C14 45 16 46 22 46 C28 46 30 45 30 40" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<text x="52" y="30" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1a1e29" letter-spacing="0.5">LİMAN</text>
+<text x="52" y="48" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#3b4254" letter-spacing="1.5">TEKNİK</text>
+</svg>

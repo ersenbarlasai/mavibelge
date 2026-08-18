@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yetki Belgeleri ve Akreditasyon - Mavi Belge</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "success-green": "#2E7D32",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#4d6074",
+                    "primary-fixed": "#d0e5fc",
+                    "on-primary-container": "#95a9be",
+                    "secondary-fixed": "#d0e4ff",
+                    "on-background": "#1b1c1c",
+                    "primary-fixed-dim": "#b5c9df",
+                    "on-tertiary-fixed": "#181c1c",
+                    "surface-dim": "#dbd9d9",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-container": "#f0eded",
+                    "surface-variant": "#e4e2e2",
+                    "on-error-container": "#93000a",
+                    "accent-blue": "#337AB7",
+                    "outline": "#74777d",
+                    "secondary-fixed-dim": "#9bcbff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#2b3e50",
+                    "surface-container-highest": "#e4e2e2",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#43474c",
+                    "on-tertiary-fixed-variant": "#434847",
+                    "on-secondary-container": "#004877",
+                    "on-tertiary-container": "#a4a8a7",
+                    "tertiary-container": "#393d3d",
+                    "on-secondary-fixed-variant": "#004a7a",
+                    "error-red": "#D32F2F",
+                    "surface-container-high": "#eae8e7",
+                    "surface-bright": "#fbf9f8",
+                    "on-surface": "#1b1c1c",
+                    "tertiary-fixed-dim": "#c4c7c6",
+                    "tertiary": "#232727",
+                    "on-secondary-fixed": "#001d34",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#36495b",
+                    "warning-orange": "#ED6C02",
+                    "on-primary-fixed": "#081d2e",
+                    "inverse-surface": "#303030",
+                    "surface": "#fbf9f8",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c4c7cc",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f8",
+                    "secondary-container": "#71b8fe",
+                    "inverse-on-surface": "#f2f0f0",
+                    "tertiary-fixed": "#e0e3e2",
+                    "primary": "#142839",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#b5c9df",
+                    "secondary": "#00629f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "stack-md": "24px",
+                    "stack-lg": "48px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "12px",
+                    "base": "8px",
+                    "stack-xs": "4px",
+                    "container-max": "1280px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="bg-surface dark:bg-surface-container-highest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows z-50">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop py-stack-sm md:py-0">
+<div class="flex items-center justify-between h-16 md:h-20">
+<!-- Brand Logo -->
+<a class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined icon-fill text-secondary text-3xl">verified</span>
+                    Mavi Belge
+                </a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200 py-4" href="#">Meslekler</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200 py-4" href="#">Sınav/Başvuru</a>
+<a aria-current="page" class="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary py-4" href="#">Kurumsal</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200 py-4" href="#">Bilgi Merkezi</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface hover:text-secondary transition-colors duration-200 py-4" href="#">İletişim</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">payments</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+<button class="hidden md:flex bg-secondary text-on-secondary font-label-md text-label-md px-6 h-11 items-center justify-center rounded hover:bg-primary-container transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2">
+                        Online Başvuru
+                    </button>
+<!-- Mobile Menu Button -->
+<button class="md:hidden p-2 text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Page Header -->
+<div class="mb-stack-lg text-center md:text-left">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-stack-sm">Yetki Belgeleri ve Akreditasyon</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+                Kuruluşumuzun faaliyetlerini ulusal ve uluslararası standartlarda yürüttüğünü belgeleyen resmî akreditasyon ve yetkilendirme sertifikalarımız.
+            </p>
+</div>
+<!-- Documents Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- TÜRKAK Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md flex flex-col hover:shadow-sm transition-shadow duration-300">
+<div class="flex items-start justify-between mb-stack-md border-b border-outline-variant pb-stack-sm">
+<div class="w-32 h-16 relative bg-surface-container-low rounded flex items-center justify-center border border-outline-variant">
+<img alt="TÜRKAK Logo Placeholder" class="w-full h-full object-contain p-2 opacity-80" data-alt="A clean, minimalist corporate logo placeholder representing a governmental accreditation body. The design features strong geometric lines, a deep navy blue and stark white color palette, fitting an industrial and professional aesthetic. The image is flat, sharp, and highly legible, illuminated evenly as if displayed on a high-quality modern interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEY1i8q22TmAzen7Xe4nZeBTC7Ckb8tJKyctFtpNe-d3XqV0mABzXzJ1DYfYpiu5GubOQujpq5emj0XhV6aU7SinoBDtVEZURbRz2iEG7JhWYmw2DkfpU03JNJnBT_Xwxeb-qAMyijm3vfXR8JYe68QXLXLEkGKnK1hfRiQKrGZTfHk2udhDsGEVvH44_Kgmq3WHP9ITRMt5C-u0g_MIR4IAEOPNSU_DFEhPuvUR7rG9TP5_ilmabrWA"/>
+</div>
+<span class="bg-surface-container flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined text-secondary">policy</span>
+</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-xs">TÜRKAK Akreditasyon Sertifikası</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-md flex-grow">
+                    TS EN ISO/IEC 17024 Personel Belgelendirme Kuruluşları için Genel Şartlar standardına göre akredite edilmiştir.
+                </p>
+<div class="bg-surface-container-low rounded-lg p-stack-sm mb-stack-md grid grid-cols-2 gap-4">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">İlk Akreditasyon Tarihi</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">02.05.2016</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Akreditasyon No</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">AB-0000-P</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mt-auto">
+<button class="flex-1 min-h-[44px] bg-accent-blue hover:bg-secondary text-white font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+                        Resmî Doğrulama
+                    </button>
+<button class="flex-1 min-h-[44px] border border-primary-container text-primary-container hover:bg-surface-container-low font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Sertifikayı İndir
+                    </button>
+</div>
+</div>
+<!-- MYK Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md flex flex-col hover:shadow-sm transition-shadow duration-300">
+<div class="flex items-start justify-between mb-stack-md border-b border-outline-variant pb-stack-sm">
+<div class="w-32 h-16 relative bg-surface-container-low rounded flex items-center justify-center border border-outline-variant">
+<img alt="MYK Logo Placeholder" class="w-full h-full object-contain p-2 opacity-80" data-alt="A clean, minimalist corporate logo placeholder representing a national vocational qualifications authority. The design incorporates structured typographic elements and an emblem signifying industrial standard setting. Colors are dark navy and stark white, creating a trusted, official look typical of government certification bodies. Flat and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSdmhweNqM03MtY9DBrpbZwJP1u1ux1c3L6tXWzqIyxLZyAlWtajoaAdMTwEmB3koCW5WXJzdkW7CnJbgJmCQuebluyg4wfuR92OW2hFIw-druNcFDYWeRAu1O4QTMrG-E4C30xVNc9ef0LUIH5xA4bVI6K1Hqb2g5O8AQtjDqje3kT1xfnGQthxqhcTdnEQdlWtsY0b4zWQ3OOB24D8RE_PelZuCIDOM1OBuMJ-Mi_lOvVFfWIWZT9w"/>
+</div>
+<span class="bg-surface-container flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined text-secondary">assignment_turned_in</span>
+</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-xs">MYK Yetki Belgesi</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-stack-md flex-grow">
+                    Mesleki Yeterlilik Kurumu (MYK) tarafından sınav ve belgelendirme faaliyetleri yürütmek üzere yetkilendirilmiştir.
+                </p>
+<div class="bg-surface-container-low rounded-lg p-stack-sm mb-stack-md grid grid-cols-2 gap-4">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">İlk Yetkilendirme Tarihi</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">16.08.2016</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Yetkilendirme No</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">YB-0000</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mt-auto">
+<button class="flex-1 min-h-[44px] bg-accent-blue hover:bg-secondary text-white font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+                        Resmî Doğrulama
+                    </button>
+<button class="flex-1 min-h-[44px] border border-primary-container text-primary-container hover:bg-surface-container-low font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Belgeyi İndir
+                    </button>
+</div>
+</div>
+</div>
+<!-- Info Alert -->
+<div class="mt-stack-lg bg-secondary-fixed text-on-secondary-fixed p-stack-sm rounded border border-primary-fixed-dim flex items-start gap-3">
+<span class="material-symbols-outlined mt-0.5">info</span>
+<p class="font-body-sm text-body-sm">
+                 Yukarıda yer alan bağlantılar aracılığıyla belgelerimizin güncel geçerlilik durumlarını ilgili kurumların resmî portalları üzerinden anlık olarak doğrulayabilirsiniz. İndirilen PDF dosyaları sadece bilgilendirme amaçlıdır.
+             </p>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-primary dark:bg-primary-container full-width bottom-0 border-t border-primary-fixed-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<!-- Brand & Copyright -->
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-primary font-bold flex items-center gap-2">
+<span class="material-symbols-outlined icon-fill">verified</span>
+                    Mavi Belge
+                </span>
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                    © 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.
+                </p>
+</div>
+<!-- Links Group 1 -->
+<div class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başvuru Sorgula</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<!-- Links Group 2 -->
+<div class="flex flex-col gap-3">
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">İletişim</a>
+</div>
+<!-- Address/Contact Brief -->
+<div class="flex flex-col gap-3 font-body-sm text-body-sm text-on-primary-container">
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+                    Merkez Ofis, Ankara, TR
+                </p>
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">call</span>
+                    +90 850 000 00 00
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

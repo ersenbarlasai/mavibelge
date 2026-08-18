@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Çelik Kaynakçısı Detay - Mavi Belge</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#74777d",
+                        "secondary-fixed": "#d0e4ff",
+                        "on-background": "#1b1c1c",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "surface-container-high": "#eae8e7",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-primary-container": "#95a9be",
+                        "primary": "#142839",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-tertiary-fixed": "#181c1c",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "surface-tint": "#4d6074",
+                        "primary-fixed": "#d0e5fc",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#001d34",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-fixed-dim": "#b5c9df",
+                        "error-red": "#D32F2F",
+                        "surface-dim": "#dbd9d9",
+                        "secondary-container": "#71b8fe",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#232727",
+                        "primary-container": "#2b3e50",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1b1c1c",
+                        "surface-bright": "#fbf9f8",
+                        "secondary": "#00629f",
+                        "surface-variant": "#e4e2e2",
+                        "background": "#fbf9f8",
+                        "on-primary-fixed": "#081d2e",
+                        "inverse-primary": "#b5c9df",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface-container": "#f0eded",
+                        "surface-container-low": "#f5f3f3",
+                        "on-error-container": "#93000a",
+                        "success-green": "#2E7D32",
+                        "on-secondary-container": "#004877",
+                        "tertiary-container": "#393d3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "stack-md": "24px",
+                        "base": "8px",
+                        "stack-sm": "12px",
+                        "stack-xs": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Sticky bottom action bar for mobile */
+        .mobile-bottom-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ensure content doesn't get hidden behind the sticky bar */
+        body {
+            padding-bottom: 80px; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased md:hidden flex flex-col min-h-screen">
+<!-- Top Navigation (Mobile App-like Header) -->
+<header class="sticky top-0 z-40 bg-surface border-b border-outline-variant px-margin-mobile py-stack-sm flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary">
+<button aria-label="Geri" class="flex items-center justify-center p-1 hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold truncate">Meslek Detayı</span>
+</div>
+<button aria-label="Paylaş" class="flex items-center justify-center p-1 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[24px]">share</span>
+</button>
+</header>
+<main class="flex-grow w-full">
+<!-- Hero Section -->
+<section class="w-full relative h-[250px]">
+<img class="w-full h-full object-cover" data-alt="A professional welder working on steel in an industrial factory setting. Bright blue sparks fly from the welding torch. The welder wears heavy protective gear and a dark welding mask. Modern industrial lighting. High contrast between the dark factory background and the bright, intense blue welding light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2xq3diPCgAgPueZTN4aNi7es-5JGn41yOY815ge4SPfo0W2_4d2cdwl8-aiZWPox4cPJURU7NqexTAS2AtQh72G_TT87eYhoxP59o56lnnWdxbwJ9cwDwybDFvPdSMSIHyOwsxBU1EDguNKRpCLa3TOAokLBYL9Lnn_NpSKcSPi4FHxA6gDYO1Uruumspqgnpew7Pf60b1fIASTUW2N1IfNrvxxaZxjad2xUl-TrB_luU124XqxPVUQ"/>
+<!-- Overlay Content -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent flex flex-col justify-end p-margin-mobile">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-1 rounded-DEFAULT uppercase tracking-wider">Seviye 3</span>
+<span class="bg-surface/20 text-on-secondary backdrop-blur-sm font-label-sm text-label-sm px-2 py-1 rounded-DEFAULT border border-on-secondary/30">11UY0010-3</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary mb-1 leading-tight">Çelik Kaynakçısı</h1>
+</div>
+</section>
+<!-- Content Area -->
+<div class="px-margin-mobile py-stack-md flex flex-col gap-stack-lg">
+<!-- Overview / Purpose -->
+<section class="bg-surface-container-low rounded-lg p-margin-mobile border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary-container mb-stack-xs flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-secondary">flag</span>
+                    Amacı
+                </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+                    Çelik Kaynakçısı (Seviye 3) mesleğinin başarılı bir şekilde icra edilebilmesi için gerekli olan bilgi, beceri ve yetkinlikleri belirlemek ve belgelendirmektir. Bu belge, adayın çelik malzemeleri ilgili standartlara ve iş güvenliği kurallarına uygun olarak kaynak yapabilme yeteneğini kanıtlar.
+                </p>
+</section>
+<!-- Requirements (Bento-style Grid) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary-container mb-stack-sm px-1">Başvuru Şartları</h2>
+<div class="grid grid-cols-2 gap-stack-sm">
+<div class="bg-surface-container rounded-lg p-3 flex flex-col items-center text-center border border-outline-variant/50">
+<span class="material-symbols-outlined text-accent-blue text-[32px] mb-2" data-weight="fill">school</span>
+<span class="font-label-md text-label-md text-on-surface">Öğrenim</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Öğrenim şartı aranmamaktadır.</span>
+</div>
+<div class="bg-surface-container rounded-lg p-3 flex flex-col items-center text-center border border-outline-variant/50">
+<span class="material-symbols-outlined text-accent-blue text-[32px]" data-weight="fill">work_history</span>
+<span class="font-label-md text-label-md text-on-surface">Deneyim</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Belirli bir tecrübe süresi zorunlu değildir.</span>
+</div>
+</div>
+</section>
+<!-- Units -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary-container mb-stack-sm px-1">Zorunlu Birimler</h2>
+<div class="flex flex-col gap-2">
+<div class="bg-surface border border-outline-variant rounded-lg p-3 flex items-start gap-3">
+<div class="bg-secondary/10 p-2 rounded-full text-secondary flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">A1: İş Sağlığı ve Güvenliği, Çevre ve Kalite</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Teorik (T1) sınav uygulanır.</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-3 flex items-start gap-3">
+<div class="bg-secondary/10 p-2 rounded-full text-secondary flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">precision_manufacturing</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">B1: Elektrotla Ark Kaynağı (111)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Teorik (T1) ve Performans (P1) sınavı uygulanır.</p>
+</div>
+</div>
+<!-- Selected Optional Unit Example -->
+<div class="bg-surface border border-outline-variant rounded-lg p-3 flex items-start gap-3 opacity-80 border-dashed">
+<div class="bg-outline-variant/20 p-2 rounded-full text-outline flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-outline">Seçmeli Birimler Mevcuttur</h3>
+<p class="font-body-sm text-body-sm text-outline-variant mt-1">TIG (141), MAG (135) vb. diğer kaynak yöntemleri isteğe bağlı seçilebilir.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Exams & Assessment -->
+<section class="bg-surface-container-high rounded-xl p-margin-mobile border-l-4 border-l-secondary">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">quiz</span>
+                    Sınav ve Değerlendirme
+                </h2>
+<ul class="list-disc list-inside font-body-sm text-body-sm text-on-surface-variant space-y-2">
+<li><strong class="text-on-surface">Teorik Sınav (T1):</strong> Çoktan seçmeli sorulardan oluşur. Minimum %60 başarı gereklidir.</li>
+<li><strong class="text-on-surface">Performans Sınavı (P1):</strong> Gerçek çalışma ortamı şartlarında uygulama yaptırılır. Minimum %80 başarı gereklidir.</li>
+<li>Adayın her iki sınav türünden de başarılı olması zorunludur.</li>
+</ul>
+</section>
+<!-- Validity -->
+<section class="mb-stack-lg">
+<div class="flex items-center justify-between border-y border-outline-variant py-3">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-warning-orange">calendar_month</span>
+<span class="font-label-md text-label-md">Belge Geçerlilik Süresi</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-primary">5 Yıl</span>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Fixed Bottom Action Bar -->
+<div class="mobile-bottom-action bg-surface border-t border-outline-variant p-margin-mobile flex items-center justify-between gap-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Sınav Ücreti</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">₺2.500<span class="text-body-sm font-normal text-outline ml-1">+KDV</span></span>
+</div>
+<button class="bg-[#066AAB] text-white font-label-md text-label-md px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-opacity-90 transition-colors focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[#066AAB] min-w-[140px]">
+            Başvur
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</body></html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Online Başvuru</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for step navigation on mobile */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "outline": "#74777d",
+                        "tertiary-container": "#393d3d",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#00629f",
+                        "surface-dim": "#dbd9d9",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface": "#fbf9f8",
+                        "inverse-surface": "#303030",
+                        "surface-container": "#f0eded",
+                        "primary": "#142839",
+                        "on-secondary-container": "#004877",
+                        "surface-tint": "#4d6074",
+                        "on-background": "#1b1c1c",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "surface-bright": "#fbf9f8",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d0e5fc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary-fixed": "#d0e4ff",
+                        "error-red": "#D32F2F",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-container": "#2b3e50",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-secondary-fixed": "#001d34",
+                        "inverse-primary": "#b5c9df",
+                        "on-primary-fixed": "#081d2e",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-container": "#95a9be",
+                        "on-tertiary-fixed": "#181c1c",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-low": "#f5f3f3",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "tertiary": "#232727",
+                        "success-green": "#2E7D32",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface": "#1b1c1c",
+                        "surface-container-high": "#eae8e7",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary-container": "#71b8fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar (Transactional - Suppressed Full Nav) -->
+<header class="bg-surface dark:bg-surface-container docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16 md:h-20">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary text-[28px] md:text-[32px]">verified</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Mavi Belge</span>
+</div>
+<div>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-base font-label-md text-label-md">
+<span class="material-symbols-outlined">close</span>
+<span class="hidden md:inline">İptal</span>
+</button>
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-md pb-[120px] md:pb-stack-lg flex flex-col md:flex-row gap-gutter">
+<!-- Stepper (Mobile: Horizontal Scroll, Desktop: Vertical) -->
+<aside class="w-full md:w-64 flex-shrink-0 md:sticky md:top-[100px] md:h-[calc(100vh-120px)]">
+<div class="bg-surface-container-low rounded-xl p-margin-mobile md:p-margin-desktop border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-md hidden md:block">Başvuru Adımları</h2>
+<div class="flex md:flex-col overflow-x-auto md:overflow-visible scrollbar-hide gap-stack-sm md:gap-stack-md snap-x">
+<!-- Step 1 (Completed) -->
+<div class="flex items-center md:items-start gap-base min-w-[150px] md:min-w-0 snap-start">
+<div class="w-8 h-8 rounded-full bg-success-green text-on-primary flex items-center justify-center flex-shrink-0 relative z-10">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adım 1</span>
+<span class="font-label-md text-label-md text-on-surface whitespace-nowrap">Kişisel Bilgiler</span>
+</div>
+<!-- Connector (Desktop) -->
+<div class="hidden md:block absolute left-4 w-[2px] h-10 bg-success-green top-8 -z-10"></div>
+</div>
+<!-- Step 2 (Completed) -->
+<div class="flex items-center md:items-start gap-base min-w-[150px] md:min-w-0 snap-start relative">
+<div class="w-8 h-8 rounded-full bg-success-green text-on-primary flex items-center justify-center flex-shrink-0 relative z-10">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adım 2</span>
+<span class="font-label-md text-label-md text-on-surface whitespace-nowrap">Sınav Seçimi</span>
+</div>
+<!-- Connector (Desktop) -->
+<div class="hidden md:block absolute left-4 w-[2px] h-10 bg-success-green top-8 -z-10"></div>
+</div>
+<!-- Step 3 (Completed) -->
+<div class="flex items-center md:items-start gap-base min-w-[150px] md:min-w-0 snap-start relative">
+<div class="w-8 h-8 rounded-full bg-success-green text-on-primary flex items-center justify-center flex-shrink-0 relative z-10">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adım 3</span>
+<span class="font-label-md text-label-md text-on-surface whitespace-nowrap">Ödeme</span>
+</div>
+<!-- Connector (Desktop) -->
+<div class="hidden md:block absolute left-4 w-[2px] h-10 bg-outline-variant top-8 -z-10"></div>
+</div>
+<!-- Step 4 (Active) -->
+<div class="flex items-center md:items-start gap-base min-w-[150px] md:min-w-0 snap-start relative">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0 relative z-10 outline outline-2 outline-offset-2 outline-secondary">
+<span class="font-label-md text-label-md">4</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary">Adım 4</span>
+<span class="font-label-md text-label-md text-primary font-bold whitespace-nowrap">Belge Yükleme</span>
+</div>
+<!-- Connector (Desktop) -->
+<div class="hidden md:block absolute left-4 w-[2px] h-10 bg-outline-variant top-8 -z-10"></div>
+</div>
+<!-- Step 5 (Pending) -->
+<div class="flex items-center md:items-start gap-base min-w-[150px] md:min-w-0 snap-start relative">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center flex-shrink-0 relative z-10">
+<span class="font-label-md text-label-md">5</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Adım 5</span>
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Onay</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-grow w-full max-w-3xl">
+<div class="mb-stack-md">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-xs">Gerekli Belgeler</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Lütfen başvuru işleminizi tamamlamak için aşağıdaki belgeleri yükleyiniz. İzin verilen formatlar: PDF, JPG, PNG. Maksimum dosya boyutu: 5MB.</p>
+</div>
+<form class="flex flex-col gap-stack-md">
+<!-- Document Upload 1: Kimlik Fotokopisi -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-margin-mobile flex flex-col gap-stack-sm hover:border-secondary transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-secondary">
+<div class="flex justify-between items-center border-b border-outline-variant pb-base">
+<h3 class="font-label-md text-label-md text-primary">Kimlik Fotokopisi <span class="text-error-red">*</span></h3>
+<span class="material-symbols-outlined text-outline-variant">badge</span>
+</div>
+<div class="relative border-2 border-dashed border-outline-variant rounded-lg p-stack-md flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors min-h-[120px]">
+<input accept=".pdf,.jpg,.jpeg,.png" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="doc_id" required="" type="file"/>
+<span class="material-symbols-outlined text-secondary text-[32px] mb-base">cloud_upload</span>
+<p class="font-label-md text-label-md text-primary mb-1">Dosya Seçin veya Sürükleyin</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Önlü arkalı okunaklı kopya</p>
+</div>
+</div>
+<!-- Document Upload 2: Diploma / Mezuniyet Belgesi -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-margin-mobile flex flex-col gap-stack-sm hover:border-secondary transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-secondary">
+<div class="flex justify-between items-center border-b border-outline-variant pb-base">
+<h3 class="font-label-md text-label-md text-primary">Diploma / Mezuniyet Belgesi <span class="text-error-red">*</span></h3>
+<span class="material-symbols-outlined text-outline-variant">school</span>
+</div>
+<div class="relative border-2 border-dashed border-outline-variant rounded-lg p-stack-md flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors min-h-[120px]">
+<input accept=".pdf,.jpg,.jpeg,.png" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="doc_diploma" required="" type="file"/>
+<span class="material-symbols-outlined text-secondary text-[32px] mb-base">cloud_upload</span>
+<p class="font-label-md text-label-md text-primary mb-1">Dosya Seçin veya Sürükleyin</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">E-Devlet barkodlu çıktı kabul edilir</p>
+</div>
+</div>
+<!-- Document Upload 3: Islak İmzalı Başvuru Formu -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-margin-mobile flex flex-col gap-stack-sm hover:border-secondary transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-secondary">
+<div class="flex justify-between items-center border-b border-outline-variant pb-base">
+<h3 class="font-label-md text-label-md text-primary">Islak İmzalı Başvuru Formu <span class="text-error-red">*</span></h3>
+<span class="material-symbols-outlined text-outline-variant">signature</span>
+</div>
+<div class="relative border-2 border-dashed border-outline-variant rounded-lg p-stack-md flex flex-col items-center justify-center text-center cursor-pointer bg-surface-container-low transition-colors min-h-[120px]">
+<!-- Uploaded State Simulation -->
+<div class="flex items-center gap-base mb-base">
+<span class="material-symbols-outlined text-success-green">description</span>
+<span class="font-label-md text-label-md text-primary">basvuru_formu_imzali.pdf</span>
+</div>
+<div class="flex gap-base">
+<button class="font-label-sm text-label-sm text-secondary hover:underline px-4 py-2" type="button">Görüntüle</button>
+<button class="font-label-sm text-label-sm text-error-red hover:underline px-4 py-2" type="button">Sil</button>
+</div>
+<input accept=".pdf,.jpg,.jpeg,.png" class="hidden" id="doc_form" type="file"/>
+</div>
+</div>
+<!-- Consents & Agreements -->
+<div class="bg-surface-container-low rounded-xl p-margin-mobile border border-outline-variant mt-stack-sm">
+<div class="flex flex-col gap-stack-sm">
+<label class="flex items-start gap-base cursor-pointer min-h-[44px]">
+<div class="relative flex items-center justify-center w-6 h-6 mt-0.5">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline rounded-sm bg-surface-container-lowest checked:bg-secondary checked:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-colors" required="" type="checkbox"/>
+<span class="material-symbols-outlined text-on-secondary absolute text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface mt-1">Yüklediğim belgelerin doğruluğunu ve asıllarını talep edildiğinde ibraz edeceğimi taahhüt ederim. <span class="text-error-red">*</span></span>
+</label>
+<label class="flex items-start gap-base cursor-pointer min-h-[44px]">
+<div class="relative flex items-center justify-center w-6 h-6 mt-0.5">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline rounded-sm bg-surface-container-lowest checked:bg-secondary checked:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-colors" required="" type="checkbox"/>
+<span class="material-symbols-outlined text-on-secondary absolute text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface mt-1"><a class="text-secondary hover:underline" href="#">KVKK Aydınlatma Metni</a>'ni okudum, anladım ve belgelerimin bu kapsamda işlenmesine onay veriyorum. <span class="text-error-red">*</span></span>
+</label>
+</div>
+</div>
+</form>
+</div>
+</main>
+<!-- Sticky Bottom Action Bar (Mobile & Desktop) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant p-margin-mobile md:px-margin-desktop z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="max-w-container-max mx-auto flex justify-between items-center gap-gutter">
+<button class="hidden md:flex items-center justify-center min-w-[120px] min-h-[44px] px-6 py-2 border border-primary-container text-primary-container font-label-md text-label-md rounded hover:bg-surface-container-low transition-colors focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2" type="button">
+                Geri
+            </button>
+<button class="md:hidden flex items-center justify-center w-12 h-12 border border-primary-container text-primary-container rounded hover:bg-surface-container-low transition-colors focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="flex-grow md:flex-grow-0 flex items-center justify-center min-w-[200px] min-h-[44px] px-8 py-3 bg-[#066AAB] text-[#FFFFFF] font-label-md text-label-md rounded hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 gap-2 shadow-sm" type="button">
+                Devam Et
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

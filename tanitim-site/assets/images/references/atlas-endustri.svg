@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" width="220" height="64" role="img" aria-labelledby="t">
+<title id="t">Atlas Endüstri</title>
+<rect x="2" y="12" width="40" height="40" rx="8" fill="#2b3e50"/>
+<path d="M10 40 L22 20 L28 30 L34 18 L40 40 Z" fill="#ffffff"/>
+<text x="52" y="30" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1a1e29" letter-spacing="0.5">ATLAS</text>
+<text x="52" y="48" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#3b4254" letter-spacing="1.5">ENDÜSTRİ</text>
+</svg>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Kamu Sitesi Ortak Kabuk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b5c9df",
+                        "on-tertiary-container": "#a4a8a7",
+                        "surface": "#fbf9f8",
+                        "on-secondary-container": "#004877",
+                        "on-tertiary-fixed": "#181c1c",
+                        "secondary-container": "#71b8fe",
+                        "surface-tint": "#4d6074",
+                        "on-primary-fixed": "#081d2e",
+                        "on-surface-variant": "#43474c",
+                        "on-primary-container": "#95a9be",
+                        "outline": "#74777d",
+                        "accent-blue": "#337AB7",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae8e7",
+                        "tertiary": "#232727",
+                        "secondary": "#00629f",
+                        "inverse-primary": "#b5c9df",
+                        "on-background": "#1b1c1c",
+                        "surface-variant": "#e4e2e2",
+                        "surface-container-highest": "#e4e2e2",
+                        "tertiary-fixed": "#e0e3e2",
+                        "outline-variant": "#c4c7cc",
+                        "tertiary-container": "#393d3d",
+                        "on-primary-fixed-variant": "#36495b",
+                        "error-container": "#ffdad6",
+                        "success-green": "#2E7D32",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#d0e4ff",
+                        "primary-container": "#2b3e50",
+                        "primary": "#142839",
+                        "primary-fixed": "#d0e5fc",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f8",
+                        "error-red": "#D32F2F",
+                        "warning-orange": "#ED6C02",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#001d34",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface-bright": "#fbf9f8",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f5f3f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "48px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "stack-sm": "12px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- TopNavBar (Derived from Shared Components JSON with Context) -->
+<header class="w-full bg-surface border-b border-outline-variant docked top-0 z-50">
+<!-- Top Utility Band -->
+<div class="w-full bg-surface-container-high py-2 border-b border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center text-body-sm">
+<div class="flex space-x-6 text-on-surface-variant">
+<a class="hover:text-secondary flex items-center space-x-1" href="#"><span class="material-symbols-outlined text-[16px]">calendar_today</span><span>Sınav Takvimi</span></a>
+<a class="hover:text-secondary flex items-center space-x-1" href="#"><span class="material-symbols-outlined text-[16px]">payments</span><span>Sınav Ücretleri</span></a>
+<a class="hover:text-secondary flex items-center space-x-1" href="#"><span class="material-symbols-outlined text-[16px]">info</span><span>Neden Zorunlu?</span></a>
+</div>
+<div class="flex space-x-4 text-on-surface-variant">
+<!-- Placeholder Social Icons using simple text or material symbols where applicable -->
+<a aria-label="Facebook" class="hover:text-secondary" href="#"><span class="material-symbols-outlined text-[16px]">public</span></a>
+<a aria-label="Twitter" class="hover:text-secondary" href="#"><span class="material-symbols-outlined text-[16px]">public</span></a>
+<a aria-label="LinkedIn" class="hover:text-secondary" href="#"><span class="material-symbols-outlined text-[16px]">public</span></a>
+</div>
+</div>
+</div>
+<!-- Brand Row -->
+<div class="w-full bg-surface py-4 border-b border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center">
+<!-- Left: Logo -->
+<div class="flex-shrink-0">
+<img alt="Mavi Belge Logo" class="h-[60px] w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLurdcsK2tq_12_Kf3qbanY7JgYPKB7rMl8LNLZ5W6y8IA9lVigus4QbjzqXyunJiXKuPtIGNZH77XPujhgCW8RxUHWiuFmy4QMe-8nkRg0XV8ysfUgS316giaxF_pjTBfFAtMU3btVn7poWi0DKjLS4zSQ-4a2JTiLQ6PP3oChuTauLBvKK5nT3pY9tWryqvzhf18aH2lIDvvkMVq1zhoyJ9crbJGBmEaD6cyOcBE_B7OndpglGjhIPKAeI"/>
+</div>
+<!-- Center: Tagline -->
+<div class="hidden md:block flex-grow text-center px-4">
+<span class="font-headline-md text-headline-md text-primary">MYK &amp; TÜRKAK Yetkili Sınav ve Belgelendirme Kuruluşu</span>
+</div>
+<!-- Right: Actions & Logos -->
+<div class="flex-shrink-0 flex items-center space-x-6">
+<div class="hidden lg:flex space-x-2">
+<!-- Placeholder for MYK/TURKAK Logos - using generic image placeholders as specific ones aren't provided in the prompt beyond text description -->
+<img class="h-[40px] w-auto bg-surface-variant rounded" data-alt="A small, official-looking government certification logo placeholder in a minimal style, high key lighting, light mode UI element." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkPMqAJdVjLg81d4wNl9EzgyHvtyo0sYeN05a5N-7jv_yB9tbR6C3HCSp4isfGh-_HlfieVSm42PHjTqi73k3GiHW0NUWX6XRfl_lurhqHDvqVytUzQ9az6p552qAm8plVTK8gksZ3ICjd7KIuVbWvmdhF8N-eIYeiZBxIXjTAdsq5qYSWAg-LmI9qrz_aTuGyAYPTISsrcQYuN1ey00DdrijXSK5ZuhcjU5gCpLzFoWHHBH7QjTDEFw"/>
+<img class="h-[40px] w-auto bg-surface-variant rounded" data-alt="Another small, official-looking government certification logo placeholder in a minimal style, high key lighting, light mode UI element." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb0Z9_JziPUCQNwSh-mbI19BKifJVQTZ-c9BFU3va0u4ZXR1VVWne-BVviJ4B-omSpXrVX9BRsKqe_r87HEQMHHZsgHiErgwQ8Ursd_7II6uN8ZRzFRs99WBqCh5o5HeH07uNMYOz4HYPA0NqFsq4DJCllj58wlz_s4SJHTtkK8rwcadLt-USoaXThyudR2ARw4tzfrNxYsS1m_oKBolcmd2G4Vbab8ecA8S0Q9jWvH027DGovlz1qtg"/>
+</div>
+<a class="bg-secondary text-on-secondary px-6 py-3 rounded hover:bg-[#004a7a] transition-colors duration-200 font-label-md text-label-md flex items-center shadow-sm" href="#">
+                        Online Başvuru
+                    </a>
+</div>
+</div>
+</div>
+<!-- Main Navigation (From JSON) -->
+<div class="w-full bg-surface">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center h-[56px]">
+<nav class="flex space-x-8 h-full">
+<!-- Labels from JSON: ["Meslekler", "Sınav/Başvuru", "Kurumsal", "Bilgi Merkezi", "İletişim"] -->
+<!-- Active state logic: Since content area is empty placeholder, we default to no active state, or first item. We will leave inactive for generic shell view. -->
+<a class="text-on-surface-variant hover:text-secondary h-full flex items-center font-label-md text-label-md transition-colors duration-200" href="#">
+                        Meslekler ve Belgeler
+                    </a>
+<a class="text-on-surface-variant hover:text-secondary h-full flex items-center font-label-md text-label-md transition-colors duration-200" href="#">
+                        Sınav ve Başvuru
+                    </a>
+<a class="text-on-surface-variant hover:text-secondary h-full flex items-center font-label-md text-label-md transition-colors duration-200" href="#">
+                        Kurumsal
+                    </a>
+<a class="text-on-surface-variant hover:text-secondary h-full flex items-center font-label-md text-label-md transition-colors duration-200" href="#">
+                        Bilgi Merkezi
+                    </a>
+<a class="text-on-surface-variant hover:text-secondary h-full flex items-center font-label-md text-label-md transition-colors duration-200" href="#">
+                        İletişim
+                    </a>
+</nav>
+<div class="flex items-center space-x-6 text-on-surface-variant">
+<a class="flex items-center space-x-1 hover:text-secondary font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span>Belge Sorgula</span>
+</a>
+<div class="flex items-center space-x-2 text-primary font-headline-md text-body-lg">
+<span class="material-symbols-outlined text-secondary">call</span>
+<span>0850 (215) 44 22</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas (Empty Placeholder) -->
+<main class="flex-grow flex items-center justify-center bg-background py-stack-lg min-h-[500px]">
+<div class="text-center p-12 border-2 border-dashed border-outline-variant rounded-lg w-full max-w-container-max mx-margin-desktop bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[48px] text-outline mb-4">web_asset</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">İçerik Alanı</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Bu alan alt sayfalar için ayrılmıştır.</p>
+</div>
+</main>
+<!-- Footer (From Shared Components JSON) -->
+<footer class="w-full bottom-0 border-t border-primary-fixed-variant bg-primary text-on-primary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<!-- Column 1: Brand & Summary -->
+<div class="flex flex-col space-y-4">
+<img alt="Mavi Belge Logo" class="h-[50px] w-auto max-w-max mb-2 grayscale brightness-200 contrast-100" src="https://lh3.googleusercontent.com/aida/AP1WRLurdcsK2tq_12_Kf3qbanY7JgYPKB7rMl8LNLZ5W6y8IA9lVigus4QbjzqXyunJiXKuPtIGNZH77XPujhgCW8RxUHWiuFmy4QMe-8nkRg0XV8ysfUgS316giaxF_pjTBfFAtMU3btVn7poWi0DKjLS4zSQ-4a2JTiLQ6PP3oChuTauLBvKK5nT3pY9tWryqvzhf18aH2lIDvvkMVq1zhoyJ9crbJGBmEaD6cyOcBE_B7OndpglGjhIPKAeI"/>
+<p class="font-body-sm text-body-sm text-on-primary-container">
+                    MYK ve TÜRKAK tarafından yetkilendirilmiş, güvenilir sınav ve belgelendirme kuruluşu. Endüstriyel standartlarda kalite ve uzmanlık.
+                </p>
+<div class="flex space-x-4 mt-4">
+<a aria-label="Facebook" class="text-on-primary-container hover:text-on-primary transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a aria-label="Twitter" class="text-on-primary-container hover:text-on-primary transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a aria-label="LinkedIn" class="text-on-primary-container hover:text-on-primary transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+</div>
+</div>
+<!-- Column 2: Nav (Meslekler, vb.) -->
+<div class="flex flex-col space-y-3">
+<h3 class="font-headline-md text-body-lg text-on-primary border-b border-primary-fixed-variant pb-2 mb-2">Hızlı Bağlantılar</h3>
+<!-- Links from JSON -->
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Meslekler</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Sınav/Başvuru</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Başkuru Sorgula</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Ücret Listesi</a>
+</div>
+<!-- Column 3: Legal & Corporate -->
+<div class="flex flex-col space-y-3">
+<h3 class="font-headline-md text-body-lg text-on-primary border-b border-primary-fixed-variant pb-2 mb-2">Kurumsal</h3>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Hakkımızda</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">KVKK</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Kullanım Koşulları</a>
+<a class="font-label-md text-label-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Gizlilik Politikası</a>
+</div>
+<!-- Column 4: Contact -->
+<div class="flex flex-col space-y-3">
+<h3 class="font-headline-md text-body-lg text-on-primary border-b border-primary-fixed-variant pb-2 mb-2">İletişim</h3>
+<div class="flex items-start space-x-2 font-body-sm text-body-sm text-on-primary-container">
+<span class="material-symbols-outlined text-[18px] mt-0.5">location_on</span>
+<span>İskenderun, HATAY<br/>Türkiye</span>
+</div>
+<div class="flex items-center space-x-2 font-body-sm text-body-sm text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>0850 (215) 44 22</span>
+</div>
+<div class="flex items-center space-x-2 font-body-sm text-body-sm text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span>info@mavibelge.com.tr</span>
+</div>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="bg-[#0f1d2a] border-t border-primary-fixed-variant py-4">
+<div class="max-w-container-max mx-auto px-margin-desktop text-center font-body-sm text-label-sm text-on-primary-container">
+                © 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.
+            </div>
+</div>
+</footer>
+</body></html>

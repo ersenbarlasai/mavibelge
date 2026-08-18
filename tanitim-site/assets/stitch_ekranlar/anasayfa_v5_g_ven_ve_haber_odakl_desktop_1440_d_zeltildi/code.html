@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Sertifikasyon ve Uzmanlık</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#ffdad6",
+                "inverse-surface": "#303030",
+                "primary": "#142839",
+                "surface-container-low": "#f5f3f3",
+                "surface-dim": "#dbd9d9",
+                "on-tertiary-fixed-variant": "#434847",
+                "on-primary-fixed": "#081d2e",
+                "tertiary": "#232727",
+                "surface-container": "#f0eded",
+                "on-primary-fixed-variant": "#36495b",
+                "secondary-fixed": "#d0e4ff",
+                "surface": "#fbf9f8",
+                "on-primary-container": "#95a9be",
+                "surface-container-highest": "#e4e2e2",
+                "outline-variant": "#c4c7cc",
+                "tertiary-fixed": "#e0e3e2",
+                "surface-variant": "#e4e2e2",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-secondary-fixed-variant": "#004a7a",
+                "on-surface": "#1b1c1c",
+                "on-secondary": "#ffffff",
+                "outline": "#74777d",
+                "tertiary-fixed-dim": "#c4c7c6",
+                "on-error": "#ffffff",
+                "primary-fixed-dim": "#b5c9df",
+                "secondary": "#00629f",
+                "on-tertiary-container": "#a4a8a7",
+                "inverse-primary": "#b5c9df",
+                "on-background": "#1b1c1c",
+                "surface-container-high": "#eae8e7",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#d0e5fc",
+                "on-secondary-fixed": "#001d34",
+                "primary-container": "#2b3e50",
+                "secondary-container": "#71b8fe",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-container": "#393d3d",
+                "on-surface-variant": "#43474c",
+                "on-secondary-container": "#004877",
+                "secondary-fixed-dim": "#9bcbff",
+                "error": "#ba1a1a",
+                "background": "#fbf9f8",
+                "on-tertiary-fixed": "#181c1c",
+                "surface-bright": "#fbf9f8",
+                "surface-tint": "#4d6074",
+                "inverse-on-surface": "#f2f0f0"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+            "gutter": "24px",
+            "stack-lg": "48px",
+            "margin-mobile": "16px",
+            "container-max": "1280px",
+            "stack-xs": "4px",
+            "stack-md": "24px",
+            "stack-sm": "12px",
+            "base": "8px",
+            "margin-desktop": "32px"
+        },
+        "fontFamily": {
+                "headline": [
+                        "Inter"
+                ],
+                "display": [
+                        "Inter"
+                ],
+                "body": [
+                        "Inter"
+                ],
+                "label": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline docked full-width top-0 z-50">
+<div class="flex flex-col w-full max-w-container-max mx-auto px-margin-desktop">
+<div class="flex items-center justify-between h-24">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<img alt="Mavi Belge Logo" class="h-16" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv92EPY1YFQVNVfepWHbzwOYCaZfi45yvNInyK55dcRyoZEmNA78cfxws8nRzdlVTsTHpnoGt19eefIflZ50y7fjQVv2b3S5kBhRIczN0vQd1q8d7Rpr8YIDOIbAKw4Nz65s_E24X4gJE94Kh6baXJzex8_fTIHc1dUlqf_dSqtR78V4KlMEbpRdSYndlNIFrEB1jqbgoUsswovMCv89xvunuEho_9yuRAAt9cH-5u7p4z22RQtgcsgBiBvSkoawmIqL0"/>
+</div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Kurumsal</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Meslekler</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Sınav/Başvuru</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">Bilgi Merkezi</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-secondary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200" href="#">İletişim</a>
+</div>
+<!-- Trailing Actions & Trust Group -->
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-4 border-r border-outline-variant pr-6">
+<div class="flex items-center gap-2" title="MYK tarafından yetkilendirilmiş">
+<img alt="MYK Logo" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArEKFXR9R17z16LwfbbjcKc7LsC4Z4WKhEJPfE7_mySYGN2w04Oirk6wujDmX93J2qx-X_pjGFbBzlJu_CUqoeEf-U-kQJa3oTHUGnv-l461FQPjX0jy3JQIqMzEr1zR_nVp40cwmy44zsVNk_u9ZfIu6wjUrD5OxDNx6QhoweDJnsI2hDLZ1XrqLijN_Yu4cwEavBUubGFwzsIK9LZx0bZ6angbFtCQzuWJ_wNUKBv1tmSeUL4-i3bRvuTkt_LBIOmQY"/>
+</div>
+<div class="flex items-center gap-2" title="TÜRKAK tarafından akredite">
+<img alt="TÜRKAK Logo" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn1gsqtSozwqRMA3Pj2W5nAONvVITPjat7sGUpTj1B0KBR2bEWqHlAwQdu-DGrBT1RXZGNR2yxvweaguU-KC7nQv0EtgS-SdPX6HwWzwrYgfvjennIzNZynV5v19buT1ehP9NktsJOJ848X8tigfcrhfqhB-Yzr4XKhIoRpfOeipPIqXN9LgJXWIjxt3JMhMJ_Wm0SB5IZ2ZW6wsVfz3B7XHTLjI8MUGXOBcGd_vbBsSul7CUR8rxIRyp-Ub4--bGvpSY"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary hover:bg-opacity-90 px-4 py-2 rounded font-label-md text-label-md transition-all active:opacity-80 active:scale-95 flex items-center gap-2">
+                        Online Başvuru
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col gap-12">
+<!-- Hero Section: Editorial Trust -->
+<section class="flex flex-col lg:flex-row gap-8 items-center bg-surface-container-low rounded-xl p-8 border border-outline-variant/30">
+<div class="flex-1 flex flex-col gap-6">
+<div class="inline-flex items-center gap-2 text-secondary font-label-sm text-label-sm uppercase tracking-wider bg-secondary-container/20 px-3 py-1 rounded-full w-fit">
+<span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
+                    MYK ve TÜRKAK Akreditasyonu
+                </div>
+<h1 class="font-headline-xl text-headline-xl text-primary">Sertifikasyon Süreçlerinde Güvenilir Referans Noktası.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Mavi Belge, ulusal meslek standartlarında bağımsız ve tarafsız değerlendirme sunar. Kurumsal çözümlerimizle sektörünüzdeki kaliteyi tescilliyoruz.</p>
+<div class="flex gap-4 pt-4">
+<button class="bg-[#066AAB] text-white px-6 py-3 rounded hover:bg-[#055a91] font-label-md text-label-md flex items-center gap-2 transition-colors">
+                        Akreditasyon Kapsamımız
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-primary-container text-primary-container hover:bg-surface-container-high px-6 py-3 rounded font-label-md text-label-md transition-colors">
+                        Kurumsal Tanıtım Dosyası
+                    </button>
+</div>
+</div>
+<div class="flex-1 relative h-96 w-full rounded-lg overflow-hidden border border-outline-variant/50">
+<div class="bg-cover bg-center w-full h-full" data-alt="A professional corporate setting featuring a diverse team of industry experts reviewing certification documents around a modern glass conference table. The scene is brightly lit with natural daylight streaming through large windows, creating a clean, modern, and trustworthy aesthetic. The color palette emphasizes crisp whites, subtle grays, and professional navy blues, conveying authority and operational efficiency." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1SZJSrYciXb5Y8I8DEx1BToMn1vFTjRhq3S2lzr2TVchq5gxs0UsU6XTgrs9KYHS1NMlxRuMVg1RQhRD5h0Xj1NAoiyKFIJvHlFsxpZA9IU1JmOJWUHhv9qDVAnQSkA8yMPzmYE6YqnZWUaPkMB12qpZC5aMouMylgBu3DOhGi0UdhHYTLtd3H1zzBUg5RGI7cdKhpFNjeIKFFE2nSqQUL40v90PIsGtNDYhGGDcYDMgjbtfMRB1Ijg')"></div>
+</div>
+</section>
+<!-- Transaction Strip -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-4 hover:border-secondary transition-colors cursor-pointer group">
+<div class="w-12 h-12 bg-secondary-container/20 rounded flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Belge Sorgulama</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MYK Mesleki Yeterlilik Belgenizin geçerliliğini anında sorgulayın.</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-4 hover:border-secondary transition-colors cursor-pointer group">
+<div class="w-12 h-12 bg-secondary-container/20 rounded flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Sınav Takvimi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Yaklaşan teorik ve performansa dayalı sınav tarihlerini inceleyin.</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 flex flex-col gap-4 hover:border-secondary transition-colors cursor-pointer group">
+<div class="w-12 h-12 bg-secondary-container/20 rounded flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Kurumsal Çözümler</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Toplu sınav ve belgelendirme talepleriniz için özel protokol oluşturun.</p>
+</div>
+</div>
+</section>
+<!-- Corporate Trust (Detailed) -->
+<section class="bg-surface-container-highest/30 border border-outline-variant/50 rounded-xl p-8 flex flex-col gap-8">
+<div class="text-center max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Yetki ve Akreditasyonlarımız</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">T.C. Mesleki Yeterlilik Kurumu tarafından yetkilendirilmiş, TÜRKAK tarafından akredite edilmiş tarafsız sınav ve belgelendirme kuruluşu.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- MYK Details -->
+<div class="bg-surface rounded-lg p-6 border border-outline-variant/30 flex items-start gap-4">
+<div class="w-16 h-16 flex-shrink-0 bg-white border border-outline-variant rounded flex items-center justify-center">
+<img alt="MYK Logo" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDajS7r5TQcnujiTgq32mZs9A3fUVabVDge9-dtt-nNbwpTnfCl_vShU6N4QrW2hUN90KpQJLYLGWoKtwX6twHu4vPBqR5kHR97lGz5KMg3U3o_syAO3Aq7hciHLlL5afRvRyhZTrb17mHNdMWvPD66LJcayHT8xUoiAglOUOqhTelTZjW-YqvmbbUeC0In-PEA5ZOWXKUIK18uumDTF6Mcu_jIKjSCYPgk_CyXSUbw3-x7Db9W9h5s0REBrGJoZQYDtlE"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">MYK Yetki Belgesi</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Mavi Belge, Mesleki Yeterlilik Kurumu (MYK) tarafından sınav ve belgelendirme yapmak üzere YB-0052 kodu ile yetkilendirilmiştir.</p>
+<a class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1" href="#">
+                            Yetki Kapsamını Görüntüle <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- TURKAK Details -->
+<div class="bg-surface rounded-lg p-6 border border-outline-variant/30 flex items-start gap-4">
+<div class="w-16 h-16 flex-shrink-0 bg-white border border-outline-variant rounded flex items-center justify-center">
+<img alt="TÜRKAK Logo" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfv9FGX5t6L0bkMw03gK5daONUCNxX9qv34X_KDf-AGkya1pN_HQ-1dGkp063D1GRDcPev-e-rspzOUSJ-w1ISRI0gx5ZxGNEEnpCM-IHz3TcpvGoC6BFuNLaZDNpmwPugV8v3pxp61_pxanANyil3fDUibDr2kU_mtAjPDBaExuI9GdKEqCE_4kHio-hfgBjO1s2e4YAJc32uskj-ipZff4YyrBoN-YK1zSYrYzBuE7x8VNcfaIfnB1wb-5uoYgNK3KM"/>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">TÜRKAK Akreditasyonu</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">TS EN ISO/IEC 17024 Personel Belgelendirme standardına göre AB-0104-P akreditasyon numarası ile akredite edilmiştir.</p>
+<a class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1" href="#">
+                            Akreditasyon Sertifikasını İncele <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- News Section (1 Large, 2 Small) -->
+<section class="flex flex-col gap-6">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-headline-lg text-headline-lg text-primary">Güncel Haberler ve Duyurular</h2>
+<a class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1" href="#">
+                    Tüm Haberler <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Large Card -->
+<div class="lg:col-span-8 bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col group cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-64 overflow-hidden relative">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A professional press conference or industry seminar setting. A speaker is standing at a modern podium, addressing a focused audience. The lighting is bright and even, highlighting the speaker and the modern architectural elements of the hall. The visual style is crisp and corporate, utilizing a high-contrast palette of deep navy and bright white to convey authority and clear communication." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCp1St60rEQTeiyFOixQ3xF0WCznmieP9Hzh_XSavVEqQqma-Mtw3rvpWPrY9w4-wt4V_vR6e1oWLxStlKHVt9Qk-pavBCGgo-W0ewk50QGiEX-Zau1WGIHnyquPAX_Qwlzi0qIaxLOym9v5HSUjLEBHe5ajj0B2aAvr6ihJ2aH21OUKTx4UGmo_nv3x9bjfKPcl7ncbPiPEokzC096XiH_gzKKmsT5WERDmcGbKtcfFxkr-IV44vEr-A')"></div>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-sm text-label-sm px-2 py-1 rounded">Basın Bülteni</div>
+</div>
+<div class="p-6 flex flex-col gap-3 flex-grow">
+<div class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 15 Kasım 2024
+                        </div>
+<h3 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors">Ulusal Meslek Standartları Revizyon Çalıştayı Tamamlandı</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Sektörel ihtiyaçlar doğrultusunda güncellenen 12 yeni meslek standardı, uzman komitelerin katılımıyla düzenlenen çalıştayda değerlendirildi ve nihai onay sürecine sunuldu.</p>
+</div>
+</div>
+<!-- Small Cards -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Small Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col sm:flex-row lg:flex-col h-full group cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-48 sm:h-auto sm:w-1/3 lg:w-full lg:h-40 overflow-hidden relative flex-shrink-0">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="Close up shot of a person's hands filling out an official certification form with a blue pen. The document is placed on a clean white desk, next to a modern tablet displaying technical data. The lighting is soft and focused, emphasizing accuracy and detail in a professional administrative environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAP3k5vlDCf44xf3kuRBF06hEtpgQW02jqPwQl6_odrX6wPIYnwrT7YkRqvq0d4Be24YuW-giKiaOgOptGRAx_lxU4P2y0QC6V-_yNbxP7M57zaNcBMkpTFeulPXLqSKp6C9ketJ_BbZdG2ypiZUfk3joFzcbwKraua2PrLy6Vg8ePxa_Woj-aE_kk-beUz-uIkWrXHqioTTitBCwJPv73LYkYKx1Nr-6yZVr9ADLWqi7dronQrL0Ca-A')"></div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-grow justify-center">
+<div class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 10 Kasım 2024
+                            </div>
+<h4 class="font-headline-sm font-semibold text-primary group-hover:text-secondary transition-colors text-[18px] leading-[24px]">2025 Yılı Sınav ve Belgelendirme Ücret Tarifesi Açıklandı</h4>
+</div>
+</div>
+<!-- Small Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col sm:flex-row lg:flex-col h-full group cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-48 sm:h-auto sm:w-1/3 lg:w-full lg:h-40 overflow-hidden relative flex-shrink-0">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="A wide shot of an industrial training facility. Trainees wearing high-visibility vests and hard hats are observing a demonstration on heavy machinery. The environment is well-lit, clean, and organized, reflecting a strong emphasis on safety and professional standards in an industrial context." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4fZfV6E7Xuae5LMwFwX3w_AMVONjq2xhjN8x-_tEluG9peMup1xCkrtFB_4ZzbeAX-5fhrAYcRaZh5WpJXOkg-g0WVXLh0ERexibzFSr53rDT_gEPmwSS29URnuOy3fBOEBdnueyIX3KZXSWdEkuqvHdfzQH8WiShqGfMqxOe3RfY2LLvWFRl8XL8A3MCiuhRQTmmd_QE_sa2AyWjY5XRBOC2p_HlGfpPUGtlXHaa_gxmYMxOefL4lA')"></div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-grow justify-center">
+<div class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 05 Kasım 2024
+                            </div>
+<h4 class="font-headline-sm font-semibold text-primary group-hover:text-secondary transition-colors text-[18px] leading-[24px]">Yeni Kapsam Genişletme Başvurumuz MYK Tarafından Onaylandı</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-container full-width bottom-0 border-t border-primary-fixed-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="col-span-1 flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<img alt="Mavi Belge Logo" class="h-12 brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHq2pm6u97sslqUB0kTZQhcEZAj9xJVkVxfDX4ZPbu4qNs2XU0VtaRQLA6HD8Bzu4UpoIQg-xM_9GrAx3vgHaFK5aqLoxdcMTwyL7XX5TGvsy2Iek60Jpt32o9meydcyID8KJJRZWSaK1rSaLu0MkyxUF5SPmjvww9Owp3kLFXWfEDhhaAt_NOGQSwhUGy7jfM8Mg6IAr_rkdTrMDbPIouferRoRZ69nzUCuIN4PETsR1TECJLKxdRRRjBFZv_aLWH4sw"/>
+</div>
+<p class="text-on-primary-container font-body-sm text-body-sm opacity-80">Güvenilir ve tarafsız sertifikasyon hizmetleri.</p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 justify-start md:justify-end items-center">
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">Meslekler</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">Başvuru Sorgula</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">Ücret Listesi</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">KVKK</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">Kullanım Koşulları</a>
+<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all font-label-md text-label-md" href="#">İletişim</a>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-4 border-t border-primary-fixed-variant/50 text-center">
+<p class="font-body-sm text-body-sm text-on-primary-container opacity-60">© 2024 Mavi Belge Sertifikasyon. Tüm Hakları Saklıdır.</p>
+</div>
+</div>
+</footer>
+</body></html>

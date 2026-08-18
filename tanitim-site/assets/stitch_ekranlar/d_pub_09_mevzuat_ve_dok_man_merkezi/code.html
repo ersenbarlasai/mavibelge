@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mavi Belge - Mevzuat ve Doküman Merkezi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "outline": "#74777d",
+                        "tertiary-container": "#393d3d",
+                        "secondary-fixed-dim": "#9bcbff",
+                        "tertiary-fixed": "#e0e3e2",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#00629f",
+                        "surface-dim": "#dbd9d9",
+                        "tertiary-fixed-dim": "#c4c7c6",
+                        "surface": "#fbf9f8",
+                        "inverse-surface": "#303030",
+                        "surface-container": "#f0eded",
+                        "primary": "#142839",
+                        "on-secondary-container": "#004877",
+                        "surface-tint": "#4d6074",
+                        "on-background": "#1b1c1c",
+                        "accent-blue": "#337AB7",
+                        "on-surface-variant": "#43474c",
+                        "surface-bright": "#fbf9f8",
+                        "outline-variant": "#c4c7cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d0e5fc",
+                        "on-tertiary-fixed-variant": "#434847",
+                        "secondary-fixed": "#d0e4ff",
+                        "error-red": "#D32F2F",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#36495b",
+                        "primary-container": "#2b3e50",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#004a7a",
+                        "on-tertiary-container": "#a4a8a7",
+                        "on-secondary-fixed": "#001d34",
+                        "inverse-primary": "#b5c9df",
+                        "on-primary-fixed": "#081d2e",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-container": "#95a9be",
+                        "on-tertiary-fixed": "#181c1c",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b5c9df",
+                        "surface-container-low": "#f5f3f3",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "tertiary": "#232727",
+                        "success-green": "#2E7D32",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface": "#1b1c1c",
+                        "surface-container-high": "#eae8e7",
+                        "warning-orange": "#ED6C02",
+                        "surface-container-highest": "#e4e2e2",
+                        "secondary-container": "#71b8fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "stack-xs": "4px",
+                        "gutter": "24px",
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-base">
+<span class="font-headline-md text-headline-md font-bold text-primary">Mavi Belge</span>
+</div>
+<nav class="hidden md:flex items-center gap-gutter">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded" href="#">Başvuru Yap</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded" href="#">Sınavlar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded" href="#">Ücretler</a>
+<a class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1 px-2" href="#">Dokümanlar</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors px-2 py-1 rounded" href="#">İletişim</a>
+</nav>
+<div class="flex items-center gap-base">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded flex items-center gap-2 hover:bg-primary/90 transition-colors">
+                Giriş Yap
+            </button>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low border-r border-outline-variant h-[calc(100vh-4rem)] w-64 fixed left-0 top-16 hidden md:flex flex-col gap-base p-margin-mobile z-40 overflow-y-auto">
+<div class="mb-stack-md">
+<div class="font-headline-md text-headline-md text-primary mb-1">Mavi Belge Panel</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Operasyonel İşlemler</div>
+</div>
+<button class="bg-secondary text-on-secondary font-label-md text-label-md py-2 px-4 rounded w-full flex justify-center items-center gap-2 mb-stack-sm hover:opacity-90 transition-opacity">
+                Yeni Başvuru
+            </button>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl">assignment</span>
+                    Başvuru Takibi
+                </a>
+<a class="flex items-center gap-3 p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl">calendar_month</span>
+                    Sınav Takvimi
+                </a>
+<a class="flex items-center gap-3 p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl">verified</span>
+                    Belge Sorgulama
+                </a>
+<a class="flex items-center gap-3 p-2 rounded bg-secondary-container text-on-secondary-container font-bold font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+                    Doküman Merkezi
+                </a>
+<a class="flex items-center gap-3 p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl">report_problem</span>
+                    İtiraz ve Şikayet
+                </a>
+<a class="flex items-center gap-3 p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-sm md:font-label-md text-label-sm md:text-label-md" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+                    SSS
+                </a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop bg-surface w-full">
+<div class="mb-stack-lg border-b border-outline-variant pb-stack-sm">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Mevzuat ve Doküman Merkezi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Güncel formlar, talimatlar, rehberler ve mevzuat dokümanlarına buradan erişebilirsiniz. (D / PUB-09)</p>
+</div>
+<!-- Search and Filter Bar -->
+<div class="bg-surface-container-low p-stack-sm rounded border border-outline-variant mb-stack-md flex flex-col lg:flex-row gap-gutter items-end">
+<div class="w-full lg:w-1/3">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Doküman Ara</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface border border-outline-variant rounded focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md" placeholder="Doküman adı, kodu veya anahtar kelime..." type="text"/>
+</div>
+</div>
+<div class="w-full lg:w-1/4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Kategori</label>
+<select class="w-full px-3 py-2 bg-surface border border-outline-variant rounded focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md">
+<option>Tümü</option>
+<option>Mevzuat</option>
+<option>Formlar</option>
+<option>Talimatlar</option>
+<option>Rehberler</option>
+</select>
+</div>
+<div class="w-full lg:w-1/4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Kurum / Kapsam</label>
+<select class="w-full px-3 py-2 bg-surface border border-outline-variant rounded focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md">
+<option>Tümü</option>
+<option>MYK</option>
+<option>TÜRKAK</option>
+<option>İç Doküman</option>
+</select>
+</div>
+<div class="w-full lg:w-auto">
+<button class="w-full bg-primary-container text-on-primary bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded hover:bg-primary/90 transition-colors h-[42px] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filtrele
+                    </button>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant mb-stack-md">
+<button class="px-4 py-2 font-label-md text-label-md text-secondary border-b-2 border-secondary bg-surface-container-low/50">Güncel Dokümanlar</button>
+<button class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors">Arşivlenmiş Dokümanlar</button>
+</div>
+<!-- Document List (Bento-ish/Card-based List) -->
+<div class="flex flex-col gap-base">
+<!-- Document Item 1 -->
+<div class="bg-surface rounded border border-outline-variant p-stack-sm flex flex-col lg:flex-row gap-gutter items-start lg:items-center hover:bg-surface-container-low transition-colors group">
+<div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-error-container text-on-error-container rounded">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded font-label-sm text-[10px]">FR-012</span>
+<span class="bg-primary-container text-on-primary px-2 py-0.5 rounded font-label-sm text-[10px]">Formlar</span>
+<span class="bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded font-label-sm text-[10px]">MYK</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-primary font-semibold mb-1 truncate">Aday Başvuru Formu</h3>
+<div class="flex flex-wrap items-center gap-4 text-on-surface-variant font-body-sm text-[13px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">history</span> Rev: 04</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> 12.10.2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">sd_storage</span> 1.2 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-4 lg:mt-0 w-full lg:w-auto border-t lg:border-t-0 border-outline-variant pt-3 lg:pt-0">
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 px-3 py-2 border border-outline text-on-surface-variant rounded font-label-sm text-label-sm hover:bg-surface-variant transition-colors" title="Önceki Sürümler">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="lg:hidden">Geçmiş</span>
+</button>
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-secondary text-on-secondary rounded font-label-sm text-label-sm hover:bg-secondary/90 transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            İndir
+                        </button>
+</div>
+</div>
+<!-- Document Item 2 -->
+<div class="bg-surface rounded border border-outline-variant p-stack-sm flex flex-col lg:flex-row gap-gutter items-start lg:items-center hover:bg-surface-container-low transition-colors group">
+<div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-accent-blue/10 text-accent-blue rounded">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded font-label-sm text-[10px]">TL-05</span>
+<span class="bg-primary-container text-on-primary px-2 py-0.5 rounded font-label-sm text-[10px]">Talimatlar</span>
+<span class="bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded font-label-sm text-[10px]">İç Doküman</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-primary font-semibold mb-1 truncate">Sınav Yapıcı Görevlendirme Talimatı</h3>
+<div class="flex flex-wrap items-center gap-4 text-on-surface-variant font-body-sm text-[13px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">history</span> Rev: 02</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> 05.08.2023</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">sd_storage</span> 450 KB (DOCX)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-4 lg:mt-0 w-full lg:w-auto border-t lg:border-t-0 border-outline-variant pt-3 lg:pt-0">
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 px-3 py-2 border border-outline text-on-surface-variant rounded font-label-sm text-label-sm hover:bg-surface-variant transition-colors" title="Önceki Sürümler">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="lg:hidden">Geçmiş</span>
+</button>
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-secondary text-on-secondary rounded font-label-sm text-label-sm hover:bg-secondary/90 transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            İndir
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-primary full-width mt-stack-lg w-full py-margin-desktop px-margin-mobile md:px-margin-desktop border-t border-primary-container z-50 relative">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="text-center md:text-left">
+<span class="font-label-md text-label-md font-bold text-on-primary">Mavi Belge</span>
+<p class="font-body-sm text-body-sm text-on-primary-fixed-variant mt-2">© 2024 Mavi Belge Mesleki Yeterlilik ve Belgelendirme. Tüm Hakları Saklıdır.</p>
+</div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-x-gutter gap-y-2">
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Gizlilik Politikası</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">KVKK Aydınlatma Metni</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Kullanım Koşulları</a>
+<a class="font-body-sm text-body-sm text-on-primary-fixed-variant hover:text-on-primary hover:underline transition-all opacity-90 hover:opacity-100" href="#">Site Haritası</a>
+</nav>
+</div>
+</footer>
+</body></html>
