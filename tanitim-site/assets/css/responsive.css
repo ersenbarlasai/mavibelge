@@ -14,10 +14,11 @@
   .hero .container { grid-template-columns: 1fr; }
   .hero-search-panel { margin-top: var(--space-6); }
 
-  .header-main { gap: var(--space-3); min-height: 76px; }
+  .header-main { gap: var(--space-3); min-height: 84px; }
   .main-nav > ul { gap: var(--space-3); }
   .main-nav > ul > li > a, .main-nav > ul > li > button.nav-toggle { padding: var(--space-3) 2px; font-size: 0.8125rem; }
-  .trust-group img { height: 56px; }
+  .trust-logo-item img { height: 56px; }
+  .trust-code { font-size: 11px; }
 }
 
 /* ===== Small tablet (<=768px) ===== */
@@ -37,7 +38,8 @@
   .brand-logo { order: 1; }
   .menu-toggle { display: inline-flex; order: 3; }
   .trust-group { order: 2; border-left: none; padding-left: 0; gap: 8px; margin-left: auto; margin-right: var(--space-2); }
-  .trust-group img { height: 40px; }
+  .trust-logo-item img { height: 40px; }
+  .trust-code { font-size: 9px; letter-spacing: 0.02em; }
   .header-cta { display: none; }
 
   .main-nav {
