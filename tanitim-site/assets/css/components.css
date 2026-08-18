@@ -72,7 +72,7 @@
   align-items: center;
   gap: var(--space-5);
   padding: var(--space-2) 0;
-  min-height: 0;
+  min-height: 88px;
 }
 .brand-logo img { height: 44px; width: auto; }
 .brand-logo { flex-shrink: 0; }
@@ -134,13 +134,13 @@
 .trust-group {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
   margin-left: auto;
   padding-left: var(--space-3);
   border-left: 1px solid var(--color-gray-200);
   flex-shrink: 0;
 }
-.trust-group img { height: 42px; width: auto; }
+.trust-group img { height: 66px; width: auto; object-fit: contain; }
 
 .header-cta { flex-shrink: 0; }
 .mobile-header-cta { display: none; }
@@ -189,6 +189,39 @@
 .task-card h3 { font-size: var(--fs-md); margin-bottom: var(--space-1); }
 .task-card p { color: var(--color-gray-700); font-size: var(--fs-sm); flex: 1; margin-bottom: var(--space-3); }
 .task-card .task-link { font-weight: 700; font-size: var(--fs-sm); }
+
+/* ===== Impact stats band ===== */
+.impact-stats { background: var(--color-white); padding: var(--space-6) 0; }
+.impact-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+}
+.impact-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-4);
+  border-left: 1px solid var(--color-gray-200);
+}
+.impact-stat:first-child { border-left: none; }
+.impact-stat-number {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--color-navy-900);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+}
+.impact-stat span {
+  font-size: var(--fs-sm);
+  color: var(--color-navy-700);
+  font-weight: 600;
+}
 
 /* ===== Pagination ===== */
 .pagination { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; margin-top: var(--space-6); }
