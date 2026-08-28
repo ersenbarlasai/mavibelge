@@ -67,7 +67,7 @@ Her iki rapor aşağıdaki konularda büyük ölçüde aynı sonuca ulaşmışt�
 - Güvenlik başlıkları, HTTP cache ve ana sayfa varlık yükü incelenmiştir.
 - KVKK'da aydınlatma ile açık rızanın her durumda aynı şey olmadığına dikkat edilmiştir.
 - Admin rolleri, yayın akışı, denetim izi, dosya güvenliği ve kabul kriterleri güçlüdür.
-- Uygulama kapsamını aşamalara ayırır ve eski 145 URL'nin tek tek doğrulanmasını kabul ölçütü yapar.
+- Uygulama kapsamını aşamalara ayırır ve başlangıç kapsamındaki 145 temel URL'nin tek tek doğrulanmasını kabul ölçütü yapar (nihai eski URL envanteri sitemap, kategori/etiket, medya, mevcut yönlendirme, Search Console, sunucu kayıtları, analitik ve backlink kaynakları birleştirildikten sonra kesinleşir).
 
 ### 3.3. Claude raporunun güçlü tarafları
 
@@ -522,6 +522,8 @@ Mevcut hosting kullanılacaktır. Bu nedenle kodlama başlamadan önce hosting �
 
 Admin panelinde hazır bir Laravel kütüphanesi kullanılacaktır. Kesin kütüphane, Laravel sürümü ve mevcut hosting uyumluluğu doğrulandıktan sonra seçilecektir.
 
+> **Netleştirme:** Admin paneli kütüphanesi mimari olarak **Filament** olarak kararlaştırılmıştır. Filament ana sürümü şimdiden sabitlenmez; kullanılacak Laravel, PHP ve Filament sürümleri hosting firmasının desteklediği PHP sürümü doğrulandıktan sonra, birbiriyle uyumlu güncel kararlı sürümler arasından seçilecektir (bkz. `seo-icerik-modeli-taslagi.md`).
+
 ### 11.3. Ön yüz
 
 - Blade bileşenleri.
@@ -790,6 +792,8 @@ Toplu şekilde her şeyi ana sayfaya yönlendirmek yapılmamalıdır.
 
 Yeterlilik sayfaları için `Course` şeması otomatik seçilmemelidir; içerik gerçekten eğitim kursu değil belgelendirme programıdır. Yayından önce uygun schema türü doğrulanmalıdır.
 
+> Bu bölümün ve §16.3'ün uygulama seviyesindeki görev sahipliği, crawler politikası, içerik modeli ve kalite kapıları için ayrı bir görev alanı ve agent tanımlanmıştır. Merkezi kayıt: [`agent-mimarisi.md`](./agent-mimarisi.md); görev kartı: [`seo-aio-agent-gorev-karti.md`](./seo-aio-agent-gorev-karti.md); içerik modeli: [`seo-icerik-modeli-taslagi.md`](./seo-icerik-modeli-taslagi.md).
+
 ### 16.3. AIO / GEO — yapay zekâ tabanlı aramalarda görünürlük
 
 Yeni sitenin içerik ve teknik SEO yaklaşımı; ChatGPT, Google Gemini, Perplexity, Google AI Overviews ve benzeri yanıt motorlarının içeriği doğru anlayabilmesini hedefleyecektir. Bu hedef klasik SEO'nun alternatifi değil, onun üzerine kurulan ek bir görünürlük katmanıdır.
@@ -882,7 +886,7 @@ Bu karar verilene kadar zorunlu olmayan analitik veya pazarlama çerezi varsayı
 - Karakter ve yazım düzeltmeleri.
 - PDF/görsel taşıma ve hash kontrolü.
 - 83 yeterlilik eşleştirmesi.
-- 145 eski URL kararının uygulanması.
+- Başlangıç kapsamındaki 145 eski URL kararının uygulanması ve sitemap/kategori-etiket/medya/mevcut yönlendirme/Search Console/sunucu kayıtları/analitik/backlink kaynaklarıyla birleştirilerek kesinleşen nihai eski URL envanterinin uygulanması.
 - İçerik sahibi onayı.
 
 ### Faz 6 — Kabul ve yayın
@@ -908,7 +912,7 @@ Süre tahmini, bu fazların kapsamı ve Claude ile uygulanacak iş paketleri kes
 |---|---|
 | Hosting | Mevcut hosting kullanılacak; Laravel teknik uygunluğu doğrulanacak |
 | Backend | Laravel |
-| Admin paneli | Hazır Laravel admin kütüphanesi |
+| Admin paneli | Filament (sürüm henüz kilitlenmedi, bkz. §18.2 madde 2-3) |
 | Başvuru | Tam belge yükleme ve durum yönetimi |
 | Sınav takvimi | Yalnızca mevcut dış bağlantı |
 | Aday portalı | İlk sürümde yok |
@@ -926,8 +930,8 @@ Süre tahmini, bu fazların kapsamı ve Claude ile uygulanacak iş paketleri kes
 ### 18.2. Teknik incelemeyle netleştirilecekler
 
 1. Mevcut hostingin Laravel, queue, cron, private depolama ve e-posta gereksinimlerini karşılayıp karşılamadığı.
-2. Kullanılacak Laravel admin kütüphanesi.
-3. Laravel/PHP/veritabanı sürüm kilidi.
+2. Filament ana sürümü (kütüphane kararlaştı, sürüm henüz kilitlenmedi).
+3. Laravel/PHP/veritabanı sürüm kilidi (Filament sürümüyle uyumlu olacak şekilde).
 4. E-posta servisinin gönderim kotası ve teslim güvenilirliği.
 5. Tam başvuruda zorunlu alanlar, belge türleri, dosya boyutları ve saklama süreleri.
 6. Başvuru durumları, izin verilen geçişler ve sorumlu roller.
@@ -995,7 +999,7 @@ Aşağıdaki ilkeler iki rapordan çıkan ve şimdiden güvenle kabul edilebilec
 Yeni site yayınlanmadan önce:
 
 - 83 görünür yeterliliğin tamamı eşleştirilmiş veya kaldırma kararı onaylanmış olmalı.
-- 145 eski temel URL'nin her biri 200, doğru 301 veya bilinçli 410 sonucu vermeli.
+- Başlangıç kapsamındaki 145 eski temel URL'nin ve nihai envanterde sonradan bulunan diğer eski URL'lerin her biri 200, doğru 301 veya bilinçli 410 sonucu vermeli.
 - Meslek adı, MYK kodu, seviye ve sektörle arama çalışmalı.
 - Ücretler erişilebilir HTML tablo olarak yönetilebilmeli.
 - Her sayfada benzersiz title, description ve anlamlı H1 bulunmalı.

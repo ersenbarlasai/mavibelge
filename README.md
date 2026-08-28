@@ -55,6 +55,10 @@ npx serve .
 
 Ayrıntılı site yapısı, sayfa listesi ve demo işlemler için: `tanitim-site/README.md`.
 
+## Görev alanları (Laravel aşaması için agent mimarisi)
+
+Laravel + Filament sistemine geçişte iş, ayrı sorumlulukları olan agentlara bölünecektir. Merkezi kayıt ve yönetişim belgesi: [`raporlar/agent-mimarisi.md`](raporlar/agent-mimarisi.md). Şu an ayrıntılı görev kartı hazır olan tek agent `seo-aio-agent`dır (SEO, AIO/GEO ve Yapay Zekâ Ajanı Uyumluluğu) — kartı orada bağlantılıdır.
+
 ## Doğrulanmamış iddialar hakkında
 
 Bu README ve site içeriğinde doğrulanmamış başarı rakamı, müşteri sayısı veya sertifika iddiası bulunmamaktadır. Gerçek veri bulunmayan alanlar açıkça "temsili" veya "Bilgi güncellenecektir" şeklinde işaretlenmiştir.
