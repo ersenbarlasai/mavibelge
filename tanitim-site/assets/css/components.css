@@ -2,6 +2,7 @@
 .icon-24 { width: 24px; height: 24px; }
 .icon-22 { width: 22px; height: 22px; }
 .icon-20 { width: 20px; height: 20px; }
+.icon-18 { width: 18px; height: 18px; }
 .icon-14 { width: 14px; height: 14px; }
 .task-icon svg, .sector-icon svg, .doc-icon svg { width: 24px; height: 24px; }
 .bullet svg { width: 12px; height: 12px; }
@@ -208,7 +209,7 @@
 .impact-stats { background: var(--color-white); padding: var(--space-6) 0; }
 .impact-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   align-items: start;
 }
 .impact-stat {
@@ -526,8 +527,40 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 .breadcrumb a { color: var(--color-gray-500); }
 .breadcrumb .sep { margin: 0 6px; }
 
+/* ===== Fee price / detail disclosure ===== */
+.fee-price-single { font-weight: 700; color: var(--color-navy-900); white-space: nowrap; }
+.fee-price-details { min-width: 160px; }
+.fee-price-details > summary {
+  cursor: pointer; font-weight: 700; color: var(--color-blue-600); list-style: none;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.fee-price-details > summary::-webkit-details-marker { display: none; }
+.fee-price-details > summary::after { content: "▾"; font-size: 10px; }
+.fee-price-details[open] > summary::after { content: "▴"; }
+.fee-price-options { margin: var(--space-2) 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.fee-price-options li { display: flex; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); border-bottom: 1px dashed var(--color-gray-200); padding-bottom: 4px; }
+.fee-price-options li span:last-child { font-weight: 700; color: var(--color-navy-900); white-space: nowrap; }
+
+.fee-detail-toggle > summary { cursor: pointer; color: var(--color-blue-600); font-weight: 600; font-size: var(--fs-sm); list-style: none; display: inline-flex; align-items: center; gap: 4px; }
+.fee-detail-toggle > summary::-webkit-details-marker { display: none; }
+.fee-detail-toggle > summary::after { content: "▾"; font-size: 10px; }
+.fee-detail-toggle[open] > summary::after { content: "▴"; }
+.fee-detail-body { margin-top: var(--space-2); font-size: var(--fs-xs); color: var(--color-gray-700); display: flex; flex-direction: column; gap: 4px; min-width: 220px; }
+.fee-detail-body dt { font-weight: 600; color: var(--color-navy-900); }
+.fee-detail-body dd { margin: 0 0 4px; }
+
+.fee-card-options { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.fee-card-options .fee-card-row { padding: 4px 0; }
+
 /* ===== Location cards ===== */
 .location-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg); padding: var(--space-5); }
+.location-card .directions-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-3);
+  font-weight: 700; color: var(--color-blue-600); font-size: var(--fs-sm);
+}
+.location-card .directions-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+.site-footer .directions-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: var(--fs-xs); color: var(--color-blue-200, #a9c9f5); font-weight: 700; }
+.site-footer .directions-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 .map-placeholder {
   aspect-ratio: 16/9;
   background: repeating-linear-gradient(135deg, var(--color-gray-100), var(--color-gray-100) 10px, var(--color-gray-50) 10px, var(--color-gray-50) 20px);
@@ -548,7 +581,20 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 .site-footer h3 { color: var(--color-white); font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
 .site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
 .site-footer ul li a { font-size: var(--fs-sm); }
-.footer-locations { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,0.12); margin-bottom: var(--space-5); }
+.footer-social { margin-top: var(--space-4); }
+.footer-social-label { display: block; color: var(--color-white); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
+ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+.footer-social-list a {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); color: var(--color-gray-200);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.footer-social-list a:hover, .footer-social-list a:focus-visible {
+  background: var(--color-blue-500); color: var(--color-white);
+  outline: 2px solid var(--color-blue-500); outline-offset: 2px;
+}
+.footer-locations { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,0.12); margin-bottom: var(--space-5); }
 .footer-locations h4 { color: var(--color-white); font-size: var(--fs-sm); margin-bottom: var(--space-2); }
 .footer-locations p { color: var(--color-gray-300); font-size: var(--fs-xs); margin: 0 0 var(--space-1); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-500); }
@@ -595,7 +641,7 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 
 /* Cards grid generic */
 .card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-.card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+.card-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-5); }
 
 /* Referanslarımız logo slider ve grid — bkz. assets/data/references.js, assets/js/reference-slider.js */
 .ref-slider {

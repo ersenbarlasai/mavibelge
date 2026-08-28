@@ -1,6 +1,8 @@
 // Mavi Belge — Yeterlilik/meslek verisi
 // Kaynak: mavibelge.com.tr sektör sayfaları (2026-08-18 tarihinde doğrulanmıştır).
 // Yalnızca kaynak sitede görülen MYK kodu/seviye bilgileri kullanılmıştır; uydurma kayıt yoktur.
+// 2026-08-28: Elektrik→Enerji yeniden adlandırıldı; Ulaştırma & Lojistik → Lojistik/İş Makineleri, Maden & Mermer → Maden/Mermer olarak
+// içerik bakımından yeniden sınıflandırıldı. Toplam 83 kayıt korunmuştur, kayıt eklenmemiş/silinmemiştir (bkz. YETERLILIK_ESLESTIRME_RAPORU.md).
 window.MB_QUALIFICATIONS = [
   // Makine
   { code: "10UY0002-3/03", name: "Makine Bakımcı", level: 3, sector: "makine" },
@@ -30,29 +32,30 @@ window.MB_QUALIFICATIONS = [
   { code: "11UY0014-3/02", name: "Alüminyum Kaynakçısı", level: 3, sector: "metal" },
   { code: "11UY0016-4/03", name: "Kaynak Operatörü", level: 4, sector: "metal" },
   { code: "11UY0015-4/03", name: "Direnç Kaynak Ayarcısı", level: 4, sector: "metal" },
-  // Ulaştırma & Lojistik
-  { code: "15UY0218-2/01", name: "İşaretçi", level: 2, sector: "ulastirma-lojistik" },
-  { code: "12UY0061-3/04", name: "Mobil Vinç Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "12UY0088-3/04", name: "Liman Forklift Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "13UY0170-3/02", name: "Liman Kuru Yük Operasyon Elemanı/Puantör", level: 3, sector: "ulastirma-lojistik" },
-  { code: "13UY0145-3", name: "Endüstriyel Taşımacı", level: 3, sector: "ulastirma-lojistik" },
-  { code: "15UY0220-4", name: "Liman Operasyon Planlamacısı", level: 4, sector: "ulastirma-lojistik" },
-  { code: "12UY0063-3", name: "Liman Pompa ve Tank Saha Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "17UY0268-3", name: "Liman RTG Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "12UY0064-3", name: "Liman Saha İstif Makineleri Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "17UY0269-3", name: "Liman SSG Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "15UY0221-3", name: "Terminal Çekici Operatörü", level: 3, sector: "ulastirma-lojistik" },
-  { code: "17UY0328-3", name: "Servis Aracı Şoförü", level: 3, sector: "ulastirma-lojistik" },
+  // Lojistik (operasyon/taşıma/planlama meslekleri — eski "Ulaştırma & Lojistik")
+  { code: "15UY0218-2/01", name: "İşaretçi", level: 2, sector: "lojistik" },
+  { code: "13UY0170-3/02", name: "Liman Kuru Yük Operasyon Elemanı/Puantör", level: 3, sector: "lojistik" },
+  { code: "13UY0145-3", name: "Endüstriyel Taşımacı", level: 3, sector: "lojistik" },
+  { code: "15UY0220-4", name: "Liman Operasyon Planlamacısı", level: 4, sector: "lojistik" },
+  { code: "12UY0063-3", name: "Liman Pompa ve Tank Saha Operatörü", level: 3, sector: "lojistik" },
+  { code: "17UY0328-3", name: "Servis Aracı Şoförü", level: 3, sector: "lojistik" },
+  // İş Makineleri (vinç/forklift/istif/saha makineleri operatörlüğü — eski "Ulaştırma & Lojistik")
+  { code: "12UY0061-3/04", name: "Mobil Vinç Operatörü", level: 3, sector: "is-makineleri" },
+  { code: "12UY0088-3/04", name: "Liman Forklift Operatörü", level: 3, sector: "is-makineleri" },
+  { code: "17UY0268-3", name: "Liman RTG Operatörü", level: 3, sector: "is-makineleri" },
+  { code: "12UY0064-3", name: "Liman Saha İstif Makineleri Operatörü", level: 3, sector: "is-makineleri" },
+  { code: "17UY0269-3", name: "Liman SSG Operatörü", level: 3, sector: "is-makineleri" },
+  { code: "15UY0221-3", name: "Terminal Çekici Operatörü", level: 3, sector: "is-makineleri" },
   // Plastik (mavibelge.com.tr/plastik-meslekleri/ — 2026-08-18 doğrulandı)
   { code: "12UY0069-3/02", name: "Plastik Enjeksiyon Üretim Elemanı", level: 3, sector: "plastik" },
   { code: "13UY0143-3/01", name: "Plastik Şişirme Film Üretim Operatörü (Ekstrüzyon)", level: 3, sector: "plastik" },
   { code: "13UY0142-3/01", name: "Plastik Profil Üretim Operatörü (Ekstrüzyon)", level: 3, sector: "plastik" },
-  // Elektrik
-  { code: "12UY0075-3", name: "Elektrik Pano Montajcısı", level: 3, sector: "elektrik" },
-  { code: "15UY0241-3", name: "Elektrik Tesisatçısı", level: 3, sector: "elektrik" },
-  { code: "15UY0241-4", name: "Elektrik Tesisatçısı", level: 4, sector: "elektrik" },
-  { code: "15UY0206-3", name: "Elektro-Mekanik Montaj İşçisi", level: 3, sector: "elektrik" },
-  { code: "13UY0121-5", name: "İşletme Elektrik Bakımcısı", level: 5, sector: "elektrik" },
+  // Enerji (eski Elektrik)
+  { code: "12UY0075-3", name: "Elektrik Pano Montajcısı", level: 3, sector: "enerji" },
+  { code: "15UY0241-3", name: "Elektrik Tesisatçısı", level: 3, sector: "enerji" },
+  { code: "15UY0241-4", name: "Elektrik Tesisatçısı", level: 4, sector: "enerji" },
+  { code: "15UY0206-3", name: "Elektro-Mekanik Montaj İşçisi", level: 3, sector: "enerji" },
+  { code: "13UY0121-5", name: "İşletme Elektrik Bakımcısı", level: 5, sector: "enerji" },
   // Cam
   { code: "18UY0356-4", name: "Endüstriyel Cam Isıl İşlem Elemanı", level: 4, sector: "cam" },
   { code: "18UY0357-4", name: "Endüstriyel Cam İşleme Elemanı", level: 4, sector: "cam" },
@@ -81,14 +84,15 @@ window.MB_QUALIFICATIONS = [
   { code: "17UY0301-3/00", name: "Ahşap Mobilya İmalatçısı", level: 3, sector: "mobilya" },
   { code: "17UY0301-4/00", name: "Ahşap Mobilya İmalatçısı", level: 4, sector: "mobilya" },
   { code: "17UY0300-3/00", name: "Mobilya Döşemecisi", level: 3, sector: "mobilya" },
-  // Maden & Mermer
-  { code: "16UY0266-3/01", name: "Mermer Doğaltaş Ocakçısı", level: 3, sector: "maden-mermer" },
-  { code: "17UY0315-3/00", name: "Mermer-Doğaltaş İmalat Elemanı", level: 3, sector: "maden-mermer" },
-  { code: "18UY0363-4", name: "Mekanizasyon İşçisi (Maden)", level: 4, sector: "maden-mermer" },
-  { code: "16UY0267-4/01", name: "Mermer-Doğaltaş Özel İmalat Elemanı", level: 4, sector: "maden-mermer" },
-  { code: "18UY0379-4", name: "Yeraltı Hazırlık İşçisi", level: 4, sector: "maden-mermer" },
-  { code: "18UY0379-3", name: "Yeraltı Hazırlık İşçisi", level: 3, sector: "maden-mermer" },
-  { code: "16UY0265-3", name: "Kırma Eleme Tesis Operatörü", level: 3, sector: "maden-mermer" },
+  // Maden
+  { code: "18UY0363-4", name: "Mekanizasyon İşçisi (Maden)", level: 4, sector: "maden" },
+  { code: "18UY0379-4", name: "Yeraltı Hazırlık İşçisi", level: 4, sector: "maden" },
+  { code: "18UY0379-3", name: "Yeraltı Hazırlık İşçisi", level: 3, sector: "maden" },
+  { code: "16UY0265-3", name: "Kırma Eleme Tesis Operatörü", level: 3, sector: "maden" },
+  // Mermer
+  { code: "16UY0266-3/01", name: "Mermer Doğaltaş Ocakçısı", level: 3, sector: "mermer" },
+  { code: "17UY0315-3/00", name: "Mermer-Doğaltaş İmalat Elemanı", level: 3, sector: "mermer" },
+  { code: "16UY0267-4/01", name: "Mermer-Doğaltaş Özel İmalat Elemanı", level: 4, sector: "mermer" },
   // Güzellik ve Saç Bakım
   { code: "18UY0344-4/00", name: "Epilasyon Uzmanı", level: 4, sector: "guzellik-sac-bakim" },
   { code: "16UY0244-4/02", name: "Güzellik Uzmanı", level: 4, sector: "guzellik-sac-bakim" },

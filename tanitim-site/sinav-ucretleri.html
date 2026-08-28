@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sınav Ücretleri — Mavi Belge</title>
   <meta name="description" content="Meslek ve sektöre göre filtrelenebilir, erişilebilir HTML sınav ücret tablosu.">
+  <link rel="icon" type="image/png" href="assets/images/logos/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/logos/favicon.png">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -64,21 +66,61 @@
 </section>
 <section class="section-tight">
   <div class="container">
-    <div class="demo-notice">Kaynak sitede 2026 ücret tarifesi yalnızca görsel (JPG) olarak yayınlanmaktadır; okunabilir rakamlar tespit edilemediği için tutarlar bu tanıtım sürümünde "Bilgi güncellenecektir" olarak gösterilir. Yazılım aşamasında ücretler veritabanından çekilecektir.</div>
+    <div class="demo-notice">2026 yılı sınav ücretlerine %20 KDV dahildir. MYK belge basım ücreti olan 1.500 TL fiyatlara dahil değildir. Birim seçimine göre toplam ücret değişebilir.</div>
     <div class="filter-bar">
+      <div class="form-field">
+        <label for="fee-filter-search">Meslek adına göre ara</label>
+        <input type="search" id="fee-filter-search" placeholder="Örn. Kaynakçı, Kuaför">
+      </div>
       <div class="form-field">
         <label for="fee-filter-sector">Sektöre göre filtrele</label>
         <select id="fee-filter-sector"><option value="">Tüm sektörler</option></select>
       </div>
+      <div class="form-field">
+        <label for="fee-filter-level">Seviyeye göre filtrele</label>
+        <select id="fee-filter-level">
+          <option value="">Tüm seviyeler</option>
+          <option value="2">Seviye 2</option>
+          <option value="3">Seviye 3</option>
+          <option value="4">Seviye 4</option>
+          <option value="5">Seviye 5</option>
+        </select>
+      </div>
+      <div class="form-field" style="min-width:auto">
+        <label for="fee-filter-haspricing" style="display:flex;align-items:center;gap:6px;font-weight:500">
+          <input type="checkbox" id="fee-filter-haspricing"> Fiyatı bulunanlar
+        </label>
+      </div>
+      <button type="button" class="btn btn-secondary btn-sm" id="fee-filter-clear">Tüm filtreleri temizle</button>
     </div>
+    <p id="fee-count" class="sug-empty" style="margin-bottom:12px"></p>
     <div class="table-wrap fee-table-wrap">
       <table class="data-table">
         <caption class="visually-hidden">Meslek bazlı sınav ücret tablosu</caption>
-        <thead><tr><th scope="col">Meslek</th><th scope="col">MYK Kodu</th><th scope="col">Seviye</th><th scope="col">Sektör</th><th scope="col">Ücret</th></tr></thead>
+        <thead><tr><th scope="col">Meslek</th><th scope="col">MYK Kodu</th><th scope="col">Seviye</th><th scope="col">Sektör</th><th scope="col">Ücret</th><th scope="col">Detay</th></tr></thead>
         <tbody id="fee-table-body"></tbody>
       </table>
     </div>
     <div class="fee-cards" id="fee-cards"></div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="container" style="max-width:760px">
+    <div class="section-title" style="text-align:left;margin-bottom:var(--space-4)">
+      <h2>Kaynak Tarifeler</h2>
+      <p>Bu sayfadaki ücretlerin dayandığı resmi tarife belgeleri.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <a class="doc-card" href="ucret/2026%20G%C3%9CZELL%C4%B0K%20F%C4%B0YAT%20L%C4%B0STES%C4%B0%20(1)%20(1).pdf" target="_blank" rel="noopener noreferrer">
+        <span class="doc-icon"><svg class="icon-24" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 16.5h6"/></svg></span>
+        <span><strong>2026 Güzellik ve Kuaförlük Fiyat Listesi</strong><span class="doc-meta">PDF belge · yeni sekmede açılır</span></span>
+      </a>
+      <a class="doc-card" href="ucret/2026%20YEN%C4%B0%20MESLEKL%C4%B0%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf" target="_blank" rel="noopener noreferrer">
+        <span class="doc-icon"><svg class="icon-24" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 16.5h6"/></svg></span>
+        <span><strong>2026 Yeni Meslekler Ücret Tarifesi</strong><span class="doc-meta">PDF belge · yeni sekmede açılır</span></span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -122,6 +164,15 @@
           <li><a href="tel:05426186284">0542 618 62 84</a></li>
           <li><a href="mailto:info@mavibelge.com.tr">info@mavibelge.com.tr</a></li>
         </ul>
+        <div class="footer-social">
+          <span class="footer-social-label">Sosyal Medya</span>
+          <ul class="footer-social-list">
+            <li><a href="http://www.facebook.com/mavibelge31" target="_blank" rel="noopener noreferrer" aria-label="Mavi Belge Facebook hesabı"><svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3v-1.9c0-.9.2-1.5 1.5-1.5h1.6V4.3C15.9 4.2 15 4.1 14 4.1c-2.4 0-4 1.5-4 4.1v2.3H7.4v3H10V21h3.5z"/></svg></a></li>
+            <li><a href="http://www.instagram.com/mavi_belge" target="_blank" rel="noopener noreferrer" aria-label="Mavi Belge Instagram hesabı"><svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a></li>
+            <li><a href="http://twitter.com/mavibelge31" target="_blank" rel="noopener noreferrer" aria-label="Mavi Belge X (Twitter) hesabı"><svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.6 7.6L22 21h-6.2l-4.9-6.4L4.9 21H2.8l7-8.1L2 3h6.3l4.4 5.9L18.9 3zm-1.1 16.2h1.2L7.3 4.7H6l11.8 14.5z"/></svg></a></li>
+          </ul>
+        </div>
+
       </div>
     </div>
     <div class="footer-locations">
@@ -138,6 +189,15 @@
         <p>Siteler Mahallesi, 35800 Aliağa / İzmir</p>
         <p><a href="tel:05426196284">0542 619 62 84</a></p>
       </div>
+      <div>
+        <h4>Ankara Ofisi</h4>
+        <p>1176 Sokak, No: 28, Ostim / ANKARA</p>
+        <p><a href="tel:+905426196284">0542 619 62 84</a><br><a href="tel:+905426226284">0542 622 62 84</a></p>
+        <a class="directions-link" href="https://www.google.com/maps/search/?api=1&query=1176%20Sokak%20No%3A28%20Ostim%20Ankara" target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.4 7-11.5A7 7 0 005 9.5C5 14.6 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+          Yol Tarifi Al
+        </a>
+      </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; <span data-year>2026</span> Mavi Belge. Tüm hakları saklıdır.</span>
@@ -153,6 +213,7 @@
 
   <script src="assets/data/sectors.js" defer></script>
   <script src="assets/data/qualifications.js" defer></script>
+  <script src="assets/data/fees.js" defer></script>
   <script src="assets/data/news.js" defer></script>
   <script src="assets/js/navigation.js" defer></script>
   <script src="assets/js/search.js" defer></script>

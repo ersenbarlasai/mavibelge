@@ -186,6 +186,19 @@
   if (feeTableBody) {
     var feeCards = document.getElementById("fee-cards");
     var feeSector = document.getElementById("fee-filter-sector");
+    var feeLevel = document.getElementById("fee-filter-level");
+    var feeSearch = document.getElementById("fee-filter-search");
+    var feeHasPricing = document.getElementById("fee-filter-haspricing");
+    var feeClear = document.getElementById("fee-filter-clear");
+    var feeCountEl = document.getElementById("fee-count");
+
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+      });
+    }
+    function formatTRY(n) { return n.toLocaleString("tr-TR") + " TL"; }
+
     if (feeSector) {
       (window.MB_SECTORS || []).forEach(function (s) {
         var o = document.createElement("option");
@@ -193,25 +206,94 @@
         feeSector.appendChild(o);
       });
     }
-    function renderFees() {
-      var sec = feeSector ? feeSector.value : "";
-      var rows = (window.MB_QUALIFICATIONS || []).filter(function (q) { return !sec || q.sector === sec; });
-      feeTableBody.innerHTML = rows.map(function (q) {
-        return "<tr><td>" + q.name + "</td><td>" + q.code + "</td><td>Seviye " + q.level + "</td><td>" + sectorName(q.sector) + "</td><td>Bilgi güncellenecektir</td></tr>";
+
+    function priceCellHtml(fee) {
+      if (fee.options.length === 1) {
+        return '<span class="fee-price-single">' + formatTRY(fee.options[0].amount) + '</span>';
+      }
+      var opts = fee.options.map(function (o) {
+        return '<li><span>' + esc(o.label) + '</span><span>' + formatTRY(o.amount) + '</span></li>';
       }).join("");
+      return '<details class="fee-price-details"><summary>' + fee.options.length + ' fiyat seçeneğini gör</summary>' +
+        '<ul class="fee-price-options">' + opts + '</ul></details>';
+    }
+
+    function detailCellHtml(fee) {
+      var codeText = fee.qualificationCode ? esc(fee.qualificationCode) : "PDF'de belirtilmemiştir";
+      return '<details class="fee-detail-toggle"><summary>Detay</summary>' +
+        '<dl class="fee-detail-body">' +
+        '<dt>Meslek</dt><dd>' + esc(fee.name) + '</dd>' +
+        '<dt>Seviye</dt><dd>Seviye ' + fee.level + '</dd>' +
+        '<dt>MYK Kodu</dt><dd>' + codeText + '</dd>' +
+        '<dt>Sektör</dt><dd>' + esc(sectorName(fee.sector)) + '</dd>' +
+        '<dt>KDV Durumu</dt><dd>' + (fee.vatIncluded ? "Fiyatlara %20 KDV dahildir." : "KDV hariçtir.") + '</dd>' +
+        '<dt>Belge Basım Ücreti</dt><dd>' + formatTRY(fee.certificatePrintFeeExcluded) + ' hariçtir.</dd>' +
+        '<dt>Kaynak</dt><dd>' + esc(fee.source) + ', sayfa ' + fee.sourcePage + '</dd>' +
+        '</dl></details>';
+    }
+
+    function renderFees() {
+      var q = feeSearch ? norm(feeSearch.value) : "";
+      var sec = feeSector ? feeSector.value : "";
+      var lvl = feeLevel ? feeLevel.value : "";
+      var onlyPriced = feeHasPricing ? feeHasPricing.checked : false;
+
+      var rows = (window.MB_FEES || []).filter(function (f) {
+        var hay = norm(f.name + " " + (f.qualificationCode || "") + " " + sectorName(f.sector));
+        var okQ = !q || hay.indexOf(q) !== -1;
+        var okSec = !sec || f.sector === sec;
+        var okLvl = !lvl || String(f.level) === lvl;
+        var okPriced = !onlyPriced || f.options.some(function (o) { return o.amount > 0; });
+        return okQ && okSec && okLvl && okPriced;
+      });
+
+      feeTableBody.innerHTML = rows.map(function (f) {
+        var codeText = f.qualificationCode ? esc(f.qualificationCode) : "—";
+        return "<tr><td>" + esc(f.name) + "</td><td>" + codeText + "</td><td>Seviye " + f.level + "</td><td>" +
+          esc(sectorName(f.sector)) + "</td><td>" + priceCellHtml(f) + "</td><td>" + detailCellHtml(f) + "</td></tr>";
+      }).join("");
+
+      if (feeCountEl) {
+        feeCountEl.textContent = rows.length === 0
+          ? "Aramanızla eşleşen ücret kaydı bulunamadı."
+          : "Toplam " + rows.length + " meslek gösteriliyor.";
+      }
+
       if (feeCards) {
-        feeCards.innerHTML = rows.map(function (q) {
+        feeCards.innerHTML = rows.map(function (f) {
+          var optionsHtml = f.options.map(function (o) {
+            return '<div class="fee-card-row"><span class="fee-card-label">' + esc(o.label) + '</span><span class="fee-card-value fee-card-price">' + formatTRY(o.amount) + '</span></div>';
+          }).join("");
+          var codeText = f.qualificationCode ? esc(f.qualificationCode) : "PDF'de belirtilmemiştir";
           return '<div class="fee-card">' +
-            '<div class="fee-card-row"><span class="fee-card-label">Meslek</span><span class="fee-card-value">' + q.name + '</span></div>' +
-            '<div class="fee-card-row"><span class="fee-card-label">MYK Kodu</span><span class="fee-card-value">' + q.code + '</span></div>' +
-            '<div class="fee-card-row"><span class="fee-card-label">Seviye</span><span class="fee-card-value">' + q.level + '</span></div>' +
-            '<div class="fee-card-row"><span class="fee-card-label">Sektör</span><span class="fee-card-value">' + sectorName(q.sector) + '</span></div>' +
-            '<div class="fee-card-row"><span class="fee-card-label">Ücret</span><span class="fee-card-value fee-card-price">Bilgi güncellenecektir</span></div>' +
+            '<div class="fee-card-row"><span class="fee-card-label">Meslek</span><span class="fee-card-value">' + esc(f.name) + '</span></div>' +
+            '<div class="fee-card-row"><span class="fee-card-label">Seviye</span><span class="fee-card-value">Seviye ' + f.level + '</span></div>' +
+            '<div class="fee-card-row"><span class="fee-card-label">Sektör</span><span class="fee-card-value">' + esc(sectorName(f.sector)) + '</span></div>' +
+            '<div class="fee-card-row"><span class="fee-card-label">MYK Kodu</span><span class="fee-card-value">' + codeText + '</span></div>' +
+            '<div class="fee-card-options">' + optionsHtml + '</div>' +
+            '<details class="fee-detail-toggle"><summary>Detay</summary><dl class="fee-detail-body">' +
+            '<dt>KDV Durumu</dt><dd>' + (f.vatIncluded ? "Fiyatlara %20 KDV dahildir." : "KDV hariçtir.") + '</dd>' +
+            '<dt>Belge Basım Ücreti</dt><dd>' + formatTRY(f.certificatePrintFeeExcluded) + ' hariçtir.</dd>' +
+            '<dt>Kaynak</dt><dd>' + esc(f.source) + ', sayfa ' + f.sourcePage + '</dd>' +
+            '</dl></details>' +
             '</div>';
         }).join("") || '<p class="sug-empty">Aramanızla eşleşen ücret kaydı bulunamadı.</p>';
       }
     }
-    if (feeSector) feeSector.addEventListener("change", renderFees);
+
+    [feeSearch, feeSector, feeLevel, feeHasPricing].forEach(function (el) {
+      if (el) el.addEventListener("input", renderFees);
+      if (el) el.addEventListener("change", renderFees);
+    });
+    if (feeClear) {
+      feeClear.addEventListener("click", function () {
+        if (feeSearch) feeSearch.value = "";
+        if (feeSector) feeSector.value = "";
+        if (feeLevel) feeLevel.value = "";
+        if (feeHasPricing) feeHasPricing.checked = false;
+        renderFees();
+      });
+    }
     renderFees();
   }
 

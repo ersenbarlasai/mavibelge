@@ -14,6 +14,9 @@
     if (format === "tr") {
       return rounded.toLocaleString("tr-TR");
     }
+    if (format === "tr-plus") {
+      return rounded.toLocaleString("tr-TR") + "+";
+    }
     return String(rounded);
   }
 
