@@ -1,0 +1,1807 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "mapping",
+  "count": 200,
+  "rows": [
+    {
+      "type": "sector",
+      "source_index": 0,
+      "source_key": "sector:makine",
+      "natural_key": "makine",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 1,
+      "source_key": "sector:metalurji",
+      "natural_key": "metalurji",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 2,
+      "source_key": "sector:metal",
+      "natural_key": "metal",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 3,
+      "source_key": "sector:lojistik",
+      "natural_key": "lojistik",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 4,
+      "source_key": "sector:is-makineleri",
+      "natural_key": "is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 5,
+      "source_key": "sector:plastik",
+      "natural_key": "plastik",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 6,
+      "source_key": "sector:enerji",
+      "natural_key": "enerji",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 7,
+      "source_key": "sector:cam",
+      "natural_key": "cam",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 8,
+      "source_key": "sector:tekstil",
+      "natural_key": "tekstil",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 9,
+      "source_key": "sector:insaat",
+      "natural_key": "insaat",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 10,
+      "source_key": "sector:mobilya",
+      "natural_key": "mobilya",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 11,
+      "source_key": "sector:maden",
+      "natural_key": "maden",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 12,
+      "source_key": "sector:mermer",
+      "natural_key": "mermer",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "sector",
+      "source_index": 13,
+      "source_key": "sector:guzellik-sac-bakim",
+      "natural_key": "guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 0,
+      "source_key": "qualification:10UY0002-3/03",
+      "natural_key": "10UY0002-3/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 1,
+      "source_key": "qualification:10UY0002-4/03",
+      "natural_key": "10UY0002-4/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 2,
+      "source_key": "qualification:10UY0002-5/03",
+      "natural_key": "10UY0002-5/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 3,
+      "source_key": "qualification:12UY0105-3/00",
+      "natural_key": "12UY0105-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 4,
+      "source_key": "qualification:12UY0083-3/02",
+      "natural_key": "12UY0083-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 5,
+      "source_key": "qualification:12UY0084-4/02",
+      "natural_key": "12UY0084-4/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 6,
+      "source_key": "qualification:12UY0086-3/02",
+      "natural_key": "12UY0086-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 7,
+      "source_key": "qualification:12UY0087-4/02",
+      "natural_key": "12UY0087-4/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 8,
+      "source_key": "qualification:14UY0202-3/01",
+      "natural_key": "14UY0202-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 9,
+      "source_key": "qualification:14UY0202-4/01",
+      "natural_key": "14UY0202-4/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 10,
+      "source_key": "qualification:18UY0351-4/00",
+      "natural_key": "18UY0351-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 11,
+      "source_key": "qualification:15UY0227-3/00",
+      "natural_key": "15UY0227-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 12,
+      "source_key": "qualification:12UY0081-3/00",
+      "natural_key": "12UY0081-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:makine",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 13,
+      "source_key": "qualification:13UY0148-3/01",
+      "natural_key": "13UY0148-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 14,
+      "source_key": "qualification:13UY0148-4/01",
+      "natural_key": "13UY0148-4/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 15,
+      "source_key": "qualification:12UY0070-3/00",
+      "natural_key": "12UY0070-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 16,
+      "source_key": "qualification:12UY0070-4/00",
+      "natural_key": "12UY0070-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 17,
+      "source_key": "qualification:13UY0149-4/00",
+      "natural_key": "13UY0149-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 18,
+      "source_key": "qualification:13UY0178-3/00",
+      "natural_key": "13UY0178-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 19,
+      "source_key": "qualification:13UY0173-4/00",
+      "natural_key": "13UY0173-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:metalurji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 20,
+      "source_key": "qualification:11UY0013-3/02",
+      "natural_key": "11UY0013-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:metal",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 21,
+      "source_key": "qualification:11UY0010-3/04",
+      "natural_key": "11UY0010-3/04",
+      "resolution": "mapped",
+      "target_source_key": "sector:metal",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 22,
+      "source_key": "qualification:11UY0014-3/02",
+      "natural_key": "11UY0014-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:metal",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 23,
+      "source_key": "qualification:11UY0016-4/03",
+      "natural_key": "11UY0016-4/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:metal",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 24,
+      "source_key": "qualification:11UY0015-4/03",
+      "natural_key": "11UY0015-4/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:metal",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 25,
+      "source_key": "qualification:15UY0218-2/01",
+      "natural_key": "15UY0218-2/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 26,
+      "source_key": "qualification:13UY0170-3/02",
+      "natural_key": "13UY0170-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 27,
+      "source_key": "qualification:13UY0145-3",
+      "natural_key": "13UY0145-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 28,
+      "source_key": "qualification:15UY0220-4",
+      "natural_key": "15UY0220-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 29,
+      "source_key": "qualification:12UY0063-3",
+      "natural_key": "12UY0063-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 30,
+      "source_key": "qualification:17UY0328-3",
+      "natural_key": "17UY0328-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:lojistik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 31,
+      "source_key": "qualification:12UY0061-3/04",
+      "natural_key": "12UY0061-3/04",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 32,
+      "source_key": "qualification:12UY0088-3/04",
+      "natural_key": "12UY0088-3/04",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 33,
+      "source_key": "qualification:17UY0268-3",
+      "natural_key": "17UY0268-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 34,
+      "source_key": "qualification:12UY0064-3",
+      "natural_key": "12UY0064-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 35,
+      "source_key": "qualification:17UY0269-3",
+      "natural_key": "17UY0269-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 36,
+      "source_key": "qualification:15UY0221-3",
+      "natural_key": "15UY0221-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:is-makineleri",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 37,
+      "source_key": "qualification:12UY0069-3/02",
+      "natural_key": "12UY0069-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:plastik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 38,
+      "source_key": "qualification:13UY0143-3/01",
+      "natural_key": "13UY0143-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:plastik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 39,
+      "source_key": "qualification:13UY0142-3/01",
+      "natural_key": "13UY0142-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:plastik",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 40,
+      "source_key": "qualification:12UY0075-3",
+      "natural_key": "12UY0075-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:enerji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 41,
+      "source_key": "qualification:15UY0241-3",
+      "natural_key": "15UY0241-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:enerji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 42,
+      "source_key": "qualification:15UY0241-4",
+      "natural_key": "15UY0241-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:enerji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 43,
+      "source_key": "qualification:15UY0206-3",
+      "natural_key": "15UY0206-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:enerji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 44,
+      "source_key": "qualification:13UY0121-5",
+      "natural_key": "13UY0121-5",
+      "resolution": "mapped",
+      "target_source_key": "sector:enerji",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 45,
+      "source_key": "qualification:18UY0356-4",
+      "natural_key": "18UY0356-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:cam",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 46,
+      "source_key": "qualification:18UY0357-4",
+      "natural_key": "18UY0357-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:cam",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 47,
+      "source_key": "qualification:18UY0358-4",
+      "natural_key": "18UY0358-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:cam",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 48,
+      "source_key": "qualification:11UY0036-2/01",
+      "natural_key": "11UY0036-2/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 49,
+      "source_key": "qualification:11UY0037-2/01",
+      "natural_key": "11UY0037-2/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 50,
+      "source_key": "qualification:11UY0039-3/02",
+      "natural_key": "11UY0039-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 51,
+      "source_key": "qualification:13UY0137-3/01",
+      "natural_key": "13UY0137-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 52,
+      "source_key": "qualification:13UY0138-3/01",
+      "natural_key": "13UY0138-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 53,
+      "source_key": "qualification:13UY0139-3/01",
+      "natural_key": "13UY0139-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:tekstil",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 54,
+      "source_key": "qualification:11UY0011-3/03",
+      "natural_key": "11UY0011-3/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 55,
+      "source_key": "qualification:11UY0012-3/03",
+      "natural_key": "11UY0012-3/03",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 56,
+      "source_key": "qualification:11UY0024-3/02",
+      "natural_key": "11UY0024-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 57,
+      "source_key": "qualification:11UY0023-3/02",
+      "natural_key": "11UY0023-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 58,
+      "source_key": "qualification:12UY0054-3/00",
+      "natural_key": "12UY0054-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 59,
+      "source_key": "qualification:12UY0055-3/00",
+      "natural_key": "12UY0055-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 60,
+      "source_key": "qualification:12UY0048-3/01",
+      "natural_key": "12UY0048-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 61,
+      "source_key": "qualification:16UY0253-2/00",
+      "natural_key": "16UY0253-2/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 62,
+      "source_key": "qualification:14UY0195-3/00",
+      "natural_key": "14UY0195-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 63,
+      "source_key": "qualification:12UY0051-3/01",
+      "natural_key": "12UY0051-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 64,
+      "source_key": "qualification:12UY0057-3/01",
+      "natural_key": "12UY0057-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 65,
+      "source_key": "qualification:12UY0056-3/01",
+      "natural_key": "12UY0056-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:insaat",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 66,
+      "source_key": "qualification:17UY0301-3/00",
+      "natural_key": "17UY0301-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:mobilya",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 67,
+      "source_key": "qualification:17UY0301-4/00",
+      "natural_key": "17UY0301-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:mobilya",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 68,
+      "source_key": "qualification:17UY0300-3/00",
+      "natural_key": "17UY0300-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:mobilya",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 69,
+      "source_key": "qualification:18UY0363-4",
+      "natural_key": "18UY0363-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:maden",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 70,
+      "source_key": "qualification:18UY0379-4",
+      "natural_key": "18UY0379-4",
+      "resolution": "mapped",
+      "target_source_key": "sector:maden",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 71,
+      "source_key": "qualification:18UY0379-3",
+      "natural_key": "18UY0379-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:maden",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 72,
+      "source_key": "qualification:16UY0265-3",
+      "natural_key": "16UY0265-3",
+      "resolution": "mapped",
+      "target_source_key": "sector:maden",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 73,
+      "source_key": "qualification:16UY0266-3/01",
+      "natural_key": "16UY0266-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:mermer",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 74,
+      "source_key": "qualification:17UY0315-3/00",
+      "natural_key": "17UY0315-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:mermer",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 75,
+      "source_key": "qualification:16UY0267-4/01",
+      "natural_key": "16UY0267-4/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:mermer",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 76,
+      "source_key": "qualification:18UY0344-4/00",
+      "natural_key": "18UY0344-4/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 77,
+      "source_key": "qualification:16UY0244-4/02",
+      "natural_key": "16UY0244-4/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 78,
+      "source_key": "qualification:16UY0245-4/02",
+      "natural_key": "16UY0245-4/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 79,
+      "source_key": "qualification:17UY0280-3/01",
+      "natural_key": "17UY0280-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 80,
+      "source_key": "qualification:17UY0286-3/01",
+      "natural_key": "17UY0286-3/01",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 81,
+      "source_key": "qualification:16UY0242-3/02",
+      "natural_key": "16UY0242-3/02",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "qualification",
+      "source_index": 82,
+      "source_key": "qualification:16UY0247-3/00",
+      "natural_key": "16UY0247-3/00",
+      "resolution": "mapped",
+      "target_source_key": "sector:guzellik-sac-bakim",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 0,
+      "source_key": "fee:guzellik-sac-bakim:4:guzellik-uzmani",
+      "natural_key": "Güzellik Uzmanı|4|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0244-4/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 1,
+      "source_key": "fee:guzellik-sac-bakim:4:epilasyon-uzmani",
+      "natural_key": "Epilasyon Uzmanı|4|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0344-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 2,
+      "source_key": "fee:guzellik-sac-bakim:4:kuafor",
+      "natural_key": "Kuaför|4|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0245-4/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 3,
+      "source_key": "fee:guzellik-sac-bakim:3:cilt-bakim-uygulayicisi",
+      "natural_key": "Cilt Bakım Uygulayıcısı|3|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0280-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 4,
+      "source_key": "fee:guzellik-sac-bakim:3:makyaj-uygulayicisi",
+      "natural_key": "Makyaj Uygulayıcısı|3|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0242-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 5,
+      "source_key": "fee:guzellik-sac-bakim:3:protez-tirnak-uygulayicisi",
+      "natural_key": "Protez Tırnak Uygulayıcısı|3|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0247-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 6,
+      "source_key": "fee:guzellik-sac-bakim:3:kozmetik-urunler-tanitim-ve-uygulama-elemani",
+      "natural_key": "Kozmetik Ürünler Tanıtım ve Uygulama Elemanı|3|guzellik-sac-bakim",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0286-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 7,
+      "source_key": "fee:makine:3:makine-bakimci",
+      "natural_key": "Makine Bakımcı|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:10UY0002-3/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 8,
+      "source_key": "fee:makine:4:makine-bakimci",
+      "natural_key": "Makine Bakımcı|4|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:10UY0002-4/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 9,
+      "source_key": "fee:makine:5:makine-bakimci",
+      "natural_key": "Makine Bakımcı|5|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:10UY0002-5/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 10,
+      "source_key": "fee:makine:3:nc-cnc-tezg-h-iscisi",
+      "natural_key": "NC/CNC Tezgâh İşçisi|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:14UY0202-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 11,
+      "source_key": "fee:makine:4:nc-cnc-tezg-h-iscisi",
+      "natural_key": "NC/CNC Tezgâh İşçisi|4|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:14UY0202-4/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 12,
+      "source_key": "fee:makine:4:tel-makineleri-operatoru",
+      "natural_key": "Tel Makineleri Operatörü|4|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0351-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 13,
+      "source_key": "fee:makine:3:makine-montajcisi",
+      "natural_key": "Makine Montajcısı|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0105-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 14,
+      "source_key": "fee:makine:3:tornaci",
+      "natural_key": "Tornacı|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0227-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 15,
+      "source_key": "fee:makine:3:frezeci",
+      "natural_key": "Frezeci|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0081-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 16,
+      "source_key": "fee:enerji:3:sicak-su-kazani-operatoru",
+      "natural_key": "Sıcak Su Kazanı Operatörü|3|enerji",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 17,
+      "source_key": "fee:enerji:4:kizgin-yag-operatoru",
+      "natural_key": "Kızgın Yağ Operatörü|4|enerji",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 18,
+      "source_key": "fee:enerji:4:buhar-kazani-operatoru",
+      "natural_key": "Buhar Kazanı Operatörü|4|enerji",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 19,
+      "source_key": "fee:lojistik:3:koprulu-vinc-operatoru",
+      "natural_key": "Köprülü Vinç Operatörü|3|lojistik",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 20,
+      "source_key": "fee:lojistik:3:endustriyel-tasimaci",
+      "natural_key": "Endüstriyel Taşımacı|3|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0145-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 21,
+      "source_key": "fee:lojistik:3:servis-araci-soforu",
+      "natural_key": "Servis Aracı Şoförü|3|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0328-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 22,
+      "source_key": "fee:lojistik:2:isaretci",
+      "natural_key": "İşaretçi|2|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0218-2/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 23,
+      "source_key": "fee:lojistik:3:liman-kuru-yuk-operasyon-elemani-puantor",
+      "natural_key": "Liman Kuru Yük Operasyon Elemanı/Puantör|3|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0170-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 24,
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-mhc-sahil-ve-gemi-vinci",
+      "natural_key": "Mobil Vinç Operatörü (MHC, Sahil ve Gemi Vinci)|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0061-3/04",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 25,
+      "source_key": "fee:is-makineleri:3:liman-rtg-operatoru",
+      "natural_key": "Liman RTG Operatörü|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0268-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 26,
+      "source_key": "fee:is-makineleri:3:liman-forklift-operatoru",
+      "natural_key": "Liman Forklift Operatörü|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0088-3/04",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 27,
+      "source_key": "fee:lojistik:3:liman-pompa-ve-tank-saha-operatoru",
+      "natural_key": "Liman Pompa ve Tank Saha Operatörü|3|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0063-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 28,
+      "source_key": "fee:lojistik:4:liman-operasyon-planlamacisi",
+      "natural_key": "Liman Operasyon Planlamacısı|4|lojistik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0220-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 29,
+      "source_key": "fee:is-makineleri:3:liman-saha-istif-makineleri-operatoru-crs-ve-ecs",
+      "natural_key": "Liman Saha İstif Makineleri Operatörü (CRS ve ECS)|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0064-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 30,
+      "source_key": "fee:is-makineleri:3:liman-ssg-operatoru",
+      "natural_key": "Liman SSG Operatörü|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0269-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 31,
+      "source_key": "fee:is-makineleri:3:terminal-cekici-operatoru",
+      "natural_key": "Terminal Çekici Operatörü|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0221-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 32,
+      "source_key": "fee:metalurji:3:haddeci",
+      "natural_key": "Haddeci|3|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0148-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 33,
+      "source_key": "fee:metalurji:4:haddeci",
+      "natural_key": "Haddeci|4|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0148-4/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 34,
+      "source_key": "fee:metalurji:4:dokumcu",
+      "natural_key": "Dökümcü|4|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0173-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 35,
+      "source_key": "fee:metalurji:3:macaci",
+      "natural_key": "Maçacı|3|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0178-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 36,
+      "source_key": "fee:metalurji:3:refrakterci",
+      "natural_key": "Refrakterci|3|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0070-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 37,
+      "source_key": "fee:metalurji:4:refrakterci",
+      "natural_key": "Refrakterci|4|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0070-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 38,
+      "source_key": "fee:metalurji:4:izabeci",
+      "natural_key": "İzabeci|4|metalurji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0149-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 39,
+      "source_key": "fee:maden:3:kirma-eleme-tesis-operatoru",
+      "natural_key": "Kırma Eleme Tesis Operatörü|3|maden",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0265-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 40,
+      "source_key": "fee:mermer:3:mermer-dogaltas-ocakcisi",
+      "natural_key": "Mermer-Doğaltaş Ocakçısı|3|mermer",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0266-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 41,
+      "source_key": "fee:mermer:3:mermer-dogaltas-imalat-elemani",
+      "natural_key": "Mermer-Doğaltaş İmalat Elemanı|3|mermer",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0315-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 42,
+      "source_key": "fee:mermer:4:mermer-dogaltas-ozel-imalat-elemani",
+      "natural_key": "Mermer-Doğaltaş Özel İmalat Elemanı|4|mermer",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0267-4/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 43,
+      "source_key": "fee:maden:3:yeralti-hazirlik-iscisi",
+      "natural_key": "Yeraltı Hazırlık İşçisi|3|maden",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0379-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 44,
+      "source_key": "fee:maden:4:yeralti-hazirlik-iscisi",
+      "natural_key": "Yeraltı Hazırlık İşçisi|4|maden",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0379-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 45,
+      "source_key": "fee:maden:4:mekanizasyon-iscisi-maden",
+      "natural_key": "Mekanizasyon İşçisi (Maden)|4|maden",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0363-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 46,
+      "source_key": "fee:mobilya:3:ahsap-mobilya-imalatcisi",
+      "natural_key": "Ahşap Mobilya İmalatçısı|3|mobilya",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0301-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 47,
+      "source_key": "fee:mobilya:4:ahsap-mobilya-imalatcisi",
+      "natural_key": "Ahşap Mobilya İmalatçısı|4|mobilya",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0301-4/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 48,
+      "source_key": "fee:mobilya:3:mobilya-dosemecisi",
+      "natural_key": "Mobilya Döşemecisi|3|mobilya",
+      "resolution": "mapped",
+      "target_source_key": "qualification:17UY0300-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 49,
+      "source_key": "fee:enerji:5:isletme-elektrik-bakimcisi",
+      "natural_key": "İşletme Elektrik Bakımcısı|5|enerji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0121-5",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 50,
+      "source_key": "fee:enerji:3:elektrik-pano-montajcisi",
+      "natural_key": "Elektrik Pano Montajcısı|3|enerji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0075-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 51,
+      "source_key": "fee:enerji:3:elektrik-tesisatcisi",
+      "natural_key": "Elektrik Tesisatçısı|3|enerji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0241-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 52,
+      "source_key": "fee:enerji:4:elektrik-tesisatcisi",
+      "natural_key": "Elektrik Tesisatçısı|4|enerji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0241-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 53,
+      "source_key": "fee:enerji:3:elektro-mekanik-montaj-iscisi",
+      "natural_key": "Elektro-Mekanik Montaj İşçisi|3|enerji",
+      "resolution": "mapped",
+      "target_source_key": "qualification:15UY0206-3",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 54,
+      "source_key": "fee:plastik:3:plastik-enjeksiyon-uretim-elemani",
+      "natural_key": "Plastik Enjeksiyon Üretim Elemanı|3|plastik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0069-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 55,
+      "source_key": "fee:plastik:3:plastik-sisirme-film-uretim-operatoru-ekstruzyon",
+      "natural_key": "Plastik Şişirme Film Üretim Operatörü (Ekstrüzyon)|3|plastik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0143-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 56,
+      "source_key": "fee:plastik:3:plastik-profil-uretim-operatoru-ekstruzyon",
+      "natural_key": "Plastik Profil Üretim Operatörü (Ekstrüzyon)|3|plastik",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0142-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 57,
+      "source_key": "fee:cam:4:endustriyel-cam-isil-islem-elemani",
+      "natural_key": "Endüstriyel Cam Isıl İşlem Elemanı|4|cam",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0356-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 58,
+      "source_key": "fee:cam:4:endustriyel-cam-isleme-elemani",
+      "natural_key": "Endüstriyel Cam İşleme Elemanı|4|cam",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0357-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 59,
+      "source_key": "fee:cam:4:endustriyel-cam-kesim-elemani",
+      "natural_key": "Endüstriyel Cam Kesim Elemanı|4|cam",
+      "resolution": "mapped",
+      "target_source_key": "qualification:18UY0358-4",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 60,
+      "source_key": "fee:metal:3:celik-kaynakcisi",
+      "natural_key": "Çelik Kaynakçısı|3|metal",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0010-3/04",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 61,
+      "source_key": "fee:metal:3:aluminyum-kaynakcisi",
+      "natural_key": "Alüminyum Kaynakçısı|3|metal",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0014-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 62,
+      "source_key": "fee:metal:4:direnc-kaynak-ayarcisi",
+      "natural_key": "Direnç Kaynak Ayarcısı|4|metal",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0015-4/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 63,
+      "source_key": "fee:metal:4:kaynak-operatoru",
+      "natural_key": "Kaynak Operatörü|4|metal",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0016-4/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 64,
+      "source_key": "fee:metal:3:endustriyel-boru-montajcisi",
+      "natural_key": "Endüstriyel Boru Montajcısı|3|metal",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0013-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 65,
+      "source_key": "fee:makine:3:metal-kesimci",
+      "natural_key": "Metal Kesimci|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0083-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 66,
+      "source_key": "fee:makine:4:metal-kesim-operatoru",
+      "natural_key": "Metal Kesim Operatörü|4|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0084-4/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 67,
+      "source_key": "fee:makine:3:metal-levha-isleme-tezg-h-iscisi",
+      "natural_key": "Metal Levha İşleme Tezgâh İşçisi|3|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0086-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 68,
+      "source_key": "fee:makine:4:metal-levha-isleme-tezg-h-operatoru",
+      "natural_key": "Metal Levha İşleme Tezgâh Operatörü|4|makine",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0087-4/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 69,
+      "source_key": "fee:metal:3:metal-kumlama-iscisi",
+      "natural_key": "Metal Kumlama İşçisi|3|metal",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 70,
+      "source_key": "fee:metal:4:metal-yuzey-kaplamaci",
+      "natural_key": "Metal Yüzey Kaplamacı|4|metal",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 71,
+      "source_key": "fee:insaat:3:ahsap-kalipci",
+      "natural_key": "Ahşap Kalıpçı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0011-3/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 72,
+      "source_key": "fee:insaat:3:alci-levha-uygulayicisi",
+      "natural_key": "Alçı Levha Uygulayıcısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0054-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 73,
+      "source_key": "fee:insaat:3:alci-siva-uygulayicisi",
+      "natural_key": "Alçı Sıva Uygulayıcısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0055-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 74,
+      "source_key": "fee:insaat:3:betonarme-demircisi",
+      "natural_key": "Betonarme Demircisi|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0012-3/03",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 75,
+      "source_key": "fee:insaat:3:duvarci",
+      "natural_key": "Duvarcı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0048-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 76,
+      "source_key": "fee:insaat:3:insaat-boyacisi",
+      "natural_key": "İnşaat Boyacısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0023-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 77,
+      "source_key": "fee:insaat:2:insaat-iscisi",
+      "natural_key": "İnşaat İşçisi|2|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:16UY0253-2/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 78,
+      "source_key": "fee:insaat:3:isi-yalitimcisi",
+      "natural_key": "Isı Yalıtımcısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0057-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 79,
+      "source_key": "fee:insaat:3:iskele-kurulum-elemani",
+      "natural_key": "İskele Kurulum Elemanı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0056-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 80,
+      "source_key": "fee:insaat:3:pvc-dograma-montajcisi",
+      "natural_key": "PVC Doğrama Montajcısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:14UY0195-3/00",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 81,
+      "source_key": "fee:insaat:3:seramik-karo-kaplamacisi",
+      "natural_key": "Seramik Karo Kaplamacısı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0051-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 82,
+      "source_key": "fee:insaat:3:sivaci",
+      "natural_key": "Sıvacı|3|insaat",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0024-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 83,
+      "source_key": "fee:is-makineleri:3:kule-vinc-operatoru",
+      "natural_key": "Kule Vinç Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 84,
+      "source_key": "fee:is-makineleri:3:ekskavator-operatoru",
+      "natural_key": "Ekskavatör Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 85,
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-is-makineleri-grubu",
+      "natural_key": "Mobil Vinç Operatörü (İş Makineleri Grubu)|3|is-makineleri",
+      "resolution": "mapped",
+      "target_source_key": "qualification:12UY0061-3/04",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 86,
+      "source_key": "fee:is-makineleri:3:kazici-yukleyici-beko-loder-operatoru",
+      "natural_key": "Kazıcı Yükleyici (Beko Loder) Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 87,
+      "source_key": "fee:is-makineleri:3:beton-santral-operatoru",
+      "natural_key": "Beton Santral Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 88,
+      "source_key": "fee:is-makineleri:3:beton-transmikser-operatoru",
+      "natural_key": "Beton Transmikser Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 89,
+      "source_key": "fee:is-makineleri:3:beton-pompa-operatoru",
+      "natural_key": "Beton Pompa Operatörü|3|is-makineleri",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 90,
+      "source_key": "fee:tekstil:3:on-terbiye-operatoru",
+      "natural_key": "Ön Terbiye Operatörü|3|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0139-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 91,
+      "source_key": "fee:tekstil:3:boyama-operatoru",
+      "natural_key": "Boyama Operatörü|3|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0138-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 92,
+      "source_key": "fee:tekstil:3:bitim-islemleri-operatoru",
+      "natural_key": "Bitim İşlemleri Operatörü|3|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:13UY0137-3/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 93,
+      "source_key": "fee:tekstil:3:on-iplik-operatoru",
+      "natural_key": "Ön İplik Operatörü|3|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0039-3/02",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 94,
+      "source_key": "fee:tekstil:2:iplik-egirme-operatoru",
+      "natural_key": "İplik Eğirme Operatörü|2|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0037-2/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 95,
+      "source_key": "fee:tekstil:2:iplik-bitim-isleri-operatoru",
+      "natural_key": "İplik Bitim İşleri Operatörü|2|tekstil",
+      "resolution": "mapped",
+      "target_source_key": "qualification:11UY0036-2/01",
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 96,
+      "source_key": "fee:tekstil:3:dokuma-operatoru",
+      "natural_key": "Dokuma Operatörü|3|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 97,
+      "source_key": "fee:tekstil:4:dokuma-operatoru",
+      "natural_key": "Dokuma Operatörü|4|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 98,
+      "source_key": "fee:tekstil:3:tahar-operatoru",
+      "natural_key": "Tahar Operatörü|3|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 99,
+      "source_key": "fee:tekstil:3:cozgu-operatoru",
+      "natural_key": "Çözgü Operatörü|3|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 100,
+      "source_key": "fee:tekstil:4:orme-operatoru",
+      "natural_key": "Örme Operatörü|4|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 101,
+      "source_key": "fee:tekstil:3:cozgulu-orme-operatoru",
+      "natural_key": "Çözgülü Örme Operatörü|3|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    },
+    {
+      "type": "fee",
+      "source_index": 102,
+      "source_key": "fee:tekstil:3:atkili-orme-operatoru",
+      "natural_key": "Atkılı Örme Operatörü|3|tekstil",
+      "resolution": "unmatched",
+      "target_source_key": null,
+      "validation_status": "valid"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/unmatched-fee.schema.json",
+  "title": "Mavi Belge Faz 6A Bağlantısız Ücret Kaydı",
+  "description": "wordpress-site/data/mapping/unmatched-fees.manifest.json içindeki her 'records[]' elemanının şekli. Bkz. raporlar/veri-aktarim-raporlari/faz6a-kodsuz-ucret-raporu.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_index", "source_key", "profession_name", "level", "sector_slug", "note"],
+  "properties": {
+    "source_index": { "type": "integer", "minimum": 0 },
+    "source_key": { "type": "string", "pattern": "^fee:[a-z0-9]+(-[a-z0-9]+)*:[1-8]:[a-z0-9]+(-[a-z0-9]+)*$" },
+    "profession_name": { "type": "string", "minLength": 1 },
+    "level": { "type": "integer", "minimum": 1, "maximum": 8 },
+    "sector_slug": { "type": "string" },
+    "note": { "type": "string", "minLength": 1 }
+  }
+}

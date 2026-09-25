@@ -1,0 +1,38 @@
+# Scope: wordpress-site/ only. Root .gitignore is not modified by this file.
+
+# WordPress core / runtime — never committed here; this repo holds only
+# the custom theme and plugin under wp-content/.
+/wp-admin/
+/wp-includes/
+/index.php
+/wp-*.php
+wp-config.php
+wp-config-local.php
+.env
+.env.*
+!.env.example
+!.env*.example
+
+# Uploads, cache, upgrade, backup, logs
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup*/
+wp-content/*.log
+*.log
+
+# Dependencies
+vendor/
+node_modules/
+
+# Build/package output (deploy/README.md is kept)
+deploy/*
+!deploy/README.md
+*.zip
+*.tar.gz
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

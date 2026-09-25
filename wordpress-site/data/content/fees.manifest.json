@@ -1,0 +1,3809 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "fee",
+  "count": 103,
+  "counts": {
+    "total": 103,
+    "priceOptionsTotal": 145,
+    "pricingSingle": 87,
+    "pricingMulti": 16,
+    "multiOptionsTotal": 58,
+    "feesWithCode": 84,
+    "feesWithoutCode": 19,
+    "linkedCount": 84
+  },
+  "source": {
+    "file": "tanitim-site/assets/data/fees.js",
+    "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+  },
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:4:guzellik-uzmani",
+      "source_index": 0,
+      "profession_name": "Güzellik Uzmanı",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "16UY0244-4/02",
+      "qualification_source_key": "qualification:16UY0244-4/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [
+            "A1",
+            "A2",
+            "A3",
+            "A4"
+          ],
+          "amount_kurus": 1700000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1700000,
+      "max_amount_kurus": 1700000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:4:epilasyon-uzmani",
+      "source_index": 1,
+      "profession_name": "Epilasyon Uzmanı",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "18UY0344-4/00",
+      "qualification_source_key": "qualification:18UY0344-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [
+            "A1",
+            "B1",
+            "B2"
+          ],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:4:kuafor",
+      "source_index": 2,
+      "profession_name": "Kuaför",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "16UY0245-4/02",
+      "qualification_source_key": "qualification:16UY0245-4/02",
+      "pricing_type": "package",
+      "price_options": [
+        {
+          "label": "A1+B1+B2",
+          "units": [
+            "A1",
+            "B1",
+            "B2"
+          ],
+          "amount_kurus": 1575000,
+          "sort_order": 0
+        },
+        {
+          "label": "A1+B1+B2+B4+B5",
+          "units": [
+            "A1",
+            "B1",
+            "B2",
+            "B4",
+            "B5"
+          ],
+          "amount_kurus": 2475000,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 1575000,
+      "max_amount_kurus": 2475000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:3:cilt-bakim-uygulayicisi",
+      "source_index": 3,
+      "profession_name": "Cilt Bakım Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "17UY0280-3/01",
+      "qualification_source_key": "qualification:17UY0280-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [
+            "A1",
+            "A2"
+          ],
+          "amount_kurus": 825000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 825000,
+      "max_amount_kurus": 825000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:3:makyaj-uygulayicisi",
+      "source_index": 4,
+      "profession_name": "Makyaj Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "16UY0242-3/02",
+      "qualification_source_key": "qualification:16UY0242-3/02",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "Standart Makyaj Uygulayıcısı (A1+B1)",
+          "units": [
+            "A1",
+            "B1"
+          ],
+          "amount_kurus": 975000,
+          "sort_order": 0
+        },
+        {
+          "label": "Kalıcı Makyaj Uygulayıcısı (A1+B2)",
+          "units": [
+            "A1",
+            "B2"
+          ],
+          "amount_kurus": 975000,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 975000,
+      "max_amount_kurus": 975000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:3:protez-tirnak-uygulayicisi",
+      "source_index": 5,
+      "profession_name": "Protez Tırnak Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "16UY0247-3/00",
+      "qualification_source_key": "qualification:16UY0247-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [
+            "A1",
+            "A2"
+          ],
+          "amount_kurus": 1425000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1425000,
+      "max_amount_kurus": 1425000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:guzellik-sac-bakim:3:kozmetik-urunler-tanitim-ve-uygulama-elemani",
+      "source_index": 6,
+      "profession_name": "Kozmetik Ürünler Tanıtım ve Uygulama Elemanı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "qualification_code": "17UY0286-3/01",
+      "qualification_source_key": "qualification:17UY0286-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [
+            "A1",
+            "A2"
+          ],
+          "amount_kurus": 645000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 645000,
+      "max_amount_kurus": 645000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Güzellik Fiyat Listesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:makine-bakimci",
+      "source_index": 7,
+      "profession_name": "Makine Bakımcı",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "10UY0002-3/03",
+      "qualification_source_key": "qualification:10UY0002-3/03",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "Tek birim fiyatı (B1 veya B2)",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        },
+        {
+          "label": "B1+B2 (birlikte)",
+          "units": [],
+          "amount_kurus": 2025000,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 2025000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:4:makine-bakimci",
+      "source_index": 8,
+      "profession_name": "Makine Bakımcı",
+      "level": 4,
+      "sector_slug": "makine",
+      "qualification_code": "10UY0002-4/03",
+      "qualification_source_key": "qualification:10UY0002-4/03",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Önleyici Bakım",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Düzeltici Bakım",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 1
+        },
+        {
+          "label": "B1+B2 (birlikte)",
+          "units": [],
+          "amount_kurus": 2250000,
+          "sort_order": 2
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 2250000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:5:makine-bakimci",
+      "source_index": 9,
+      "profession_name": "Makine Bakımcı",
+      "level": 5,
+      "sector_slug": "makine",
+      "qualification_code": "10UY0002-5/03",
+      "qualification_source_key": "qualification:10UY0002-5/03",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Önleyici Bakım (tek birim)",
+          "units": [],
+          "amount_kurus": 1425000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Düzeltici Bakım (tek birim)",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Kestirme (tek birim)",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 2
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:nc-cnc-tezg-h-iscisi",
+      "source_index": 10,
+      "profession_name": "NC/CNC Tezgâh İşçisi",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "14UY0202-3/01",
+      "qualification_source_key": "qualification:14UY0202-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-Tornalama, B2-Frezeleme)",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:4:nc-cnc-tezg-h-iscisi",
+      "source_index": 11,
+      "profession_name": "NC/CNC Tezgâh İşçisi",
+      "level": 4,
+      "sector_slug": "makine",
+      "qualification_code": "14UY0202-4/01",
+      "qualification_source_key": "qualification:14UY0202-4/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-Tornalama, B2-Frezeleme)",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 1125000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:4:tel-makineleri-operatoru",
+      "source_index": 12,
+      "profession_name": "Tel Makineleri Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "qualification_code": "18UY0351-4/00",
+      "qualification_source_key": "qualification:18UY0351-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-Tel Çekme, B2-Tel Örme)",
+          "units": [],
+          "amount_kurus": 1365000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1365000,
+      "max_amount_kurus": 1365000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:makine-montajcisi",
+      "source_index": 13,
+      "profession_name": "Makine Montajcısı",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0105-3/00",
+      "qualification_source_key": "qualification:12UY0105-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:tornaci",
+      "source_index": 14,
+      "profession_name": "Tornacı",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "15UY0227-3/00",
+      "qualification_source_key": "qualification:15UY0227-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1300000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1300000,
+      "max_amount_kurus": 1300000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:frezeci",
+      "source_index": 15,
+      "profession_name": "Frezeci",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0081-3/00",
+      "qualification_source_key": "qualification:12UY0081-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1080000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1080000,
+      "max_amount_kurus": 1080000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:3:sicak-su-kazani-operatoru",
+      "source_index": 16,
+      "profession_name": "Sıcak Su Kazanı Operatörü",
+      "level": 3,
+      "sector_slug": "enerji",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim fiyatı (B1/B2/B3 — yakıt tipine göre)",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 1125000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:4:kizgin-yag-operatoru",
+      "source_index": 17,
+      "profession_name": "Kızgın Yağ Operatörü",
+      "level": 4,
+      "sector_slug": "enerji",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim fiyatı (B1/B2/B3 — yakıt tipine göre)",
+          "units": [],
+          "amount_kurus": 1325000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1325000,
+      "max_amount_kurus": 1325000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:4:buhar-kazani-operatoru",
+      "source_index": 18,
+      "profession_name": "Buhar Kazanı Operatörü",
+      "level": 4,
+      "sector_slug": "enerji",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim fiyatı (B1/B2/B3 — yakıt tipine göre)",
+          "units": [],
+          "amount_kurus": 1450000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1450000,
+      "max_amount_kurus": 1450000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:3:koprulu-vinc-operatoru",
+      "source_index": 19,
+      "profession_name": "Köprülü Vinç Operatörü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:3:endustriyel-tasimaci",
+      "source_index": 20,
+      "profession_name": "Endüstriyel Taşımacı",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "qualification_code": "13UY0145-3",
+      "qualification_source_key": "qualification:13UY0145-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-B5 birimlerinden seçime göre)",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:3:servis-araci-soforu",
+      "source_index": 21,
+      "profession_name": "Servis Aracı Şoförü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "qualification_code": "17UY0328-3",
+      "qualification_source_key": "qualification:17UY0328-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:2:isaretci",
+      "source_index": 22,
+      "profession_name": "İşaretçi",
+      "level": 2,
+      "sector_slug": "lojistik",
+      "qualification_code": "15UY0218-2/01",
+      "qualification_source_key": "qualification:15UY0218-2/01",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "A2-Liman Sapancılık İşlemleri",
+          "units": [],
+          "amount_kurus": 645000,
+          "sort_order": 0
+        },
+        {
+          "label": "B1-İş Organizasyonu ve Elleçleme İşlemleri",
+          "units": [],
+          "amount_kurus": 910000,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 645000,
+      "max_amount_kurus": 910000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:3:liman-kuru-yuk-operasyon-elemani-puantor",
+      "source_index": 23,
+      "profession_name": "Liman Kuru Yük Operasyon Elemanı/Puantör",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "qualification_code": "13UY0170-3/02",
+      "qualification_source_key": "qualification:13UY0170-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Gemi, B2-Saha, B3-Ambar ve CFS Puantörlüğü)",
+          "units": [],
+          "amount_kurus": 1020000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1020000,
+      "max_amount_kurus": 1020000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-mhc-sahil-ve-gemi-vinci",
+      "source_index": 24,
+      "profession_name": "Mobil Vinç Operatörü (MHC, Sahil ve Gemi Vinci)",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "12UY0061-3/04",
+      "qualification_source_key": "qualification:12UY0061-3/04",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-İş Organizasyonu, Gemi/Yük ve Liman Elleçleme Sahalarını Tanıma",
+          "units": [],
+          "amount_kurus": 1480000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Mobil Vinci Yürütme, Konumlandırma ve Yük Elleçleme",
+          "units": [],
+          "amount_kurus": 1480000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Çok Amaçlı Vinçleri Kullanma",
+          "units": [],
+          "amount_kurus": 1020000,
+          "sort_order": 2
+        },
+        {
+          "label": "B4-Sahil ve/veya Gemi Vincini Kullanma",
+          "units": [],
+          "amount_kurus": 1480000,
+          "sort_order": 3
+        }
+      ],
+      "min_amount_kurus": 1020000,
+      "max_amount_kurus": 1480000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:liman-rtg-operatoru",
+      "source_index": 25,
+      "profession_name": "Liman RTG Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "17UY0268-3",
+      "qualification_source_key": "qualification:17UY0268-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1250000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1250000,
+      "max_amount_kurus": 1250000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:liman-forklift-operatoru",
+      "source_index": 26,
+      "profession_name": "Liman Forklift Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "12UY0088-3/04",
+      "qualification_source_key": "qualification:12UY0088-3/04",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:3:liman-pompa-ve-tank-saha-operatoru",
+      "source_index": 27,
+      "profession_name": "Liman Pompa ve Tank Saha Operatörü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "qualification_code": "12UY0063-3",
+      "qualification_source_key": "qualification:12UY0063-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1250000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1250000,
+      "max_amount_kurus": 1250000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:lojistik:4:liman-operasyon-planlamacisi",
+      "source_index": 28,
+      "profession_name": "Liman Operasyon Planlamacısı",
+      "level": 4,
+      "sector_slug": "lojistik",
+      "qualification_code": "15UY0220-4",
+      "qualification_source_key": "qualification:15UY0220-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:liman-saha-istif-makineleri-operatoru-crs-ve-ecs",
+      "source_index": 29,
+      "profession_name": "Liman Saha İstif Makineleri Operatörü (CRS ve ECS)",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "12UY0064-3",
+      "qualification_source_key": "qualification:12UY0064-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1215000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1215000,
+      "max_amount_kurus": 1215000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:liman-ssg-operatoru",
+      "source_index": 30,
+      "profession_name": "Liman SSG Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "17UY0269-3",
+      "qualification_source_key": "qualification:17UY0269-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1250000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1250000,
+      "max_amount_kurus": 1250000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:terminal-cekici-operatoru",
+      "source_index": 31,
+      "profession_name": "Terminal Çekici Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "15UY0221-3",
+      "qualification_source_key": "qualification:15UY0221-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1215000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1215000,
+      "max_amount_kurus": 1215000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:3:haddeci",
+      "source_index": 32,
+      "profession_name": "Haddeci",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "qualification_code": "13UY0148-3/01",
+      "qualification_source_key": "qualification:13UY0148-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:4:haddeci",
+      "source_index": 33,
+      "profession_name": "Haddeci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "qualification_code": "13UY0148-4/01",
+      "qualification_source_key": "qualification:13UY0148-4/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-Sıcak Haddeleme, B2-Soğuk Haddeleme)",
+          "units": [],
+          "amount_kurus": 1300000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1300000,
+      "max_amount_kurus": 1300000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:4:dokumcu",
+      "source_index": 34,
+      "profession_name": "Dökümcü",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "qualification_code": "13UY0173-4/00",
+      "qualification_source_key": "qualification:13UY0173-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B1-Ergitmek, B2-Döküm Yapmak)",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:3:macaci",
+      "source_index": 35,
+      "profession_name": "Maçacı",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "qualification_code": "13UY0178-3/00",
+      "qualification_source_key": "qualification:13UY0178-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1410000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1410000,
+      "max_amount_kurus": 1410000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:3:refrakterci",
+      "source_index": 36,
+      "profession_name": "Refrakterci",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "qualification_code": "12UY0070-3/00",
+      "qualification_source_key": "qualification:12UY0070-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:4:refrakterci",
+      "source_index": 37,
+      "profession_name": "Refrakterci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "qualification_code": "12UY0070-4/00",
+      "qualification_source_key": "qualification:12UY0070-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 1125000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metalurji:4:izabeci",
+      "source_index": 38,
+      "profession_name": "İzabeci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "qualification_code": "13UY0149-4/00",
+      "qualification_source_key": "qualification:13UY0149-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 1,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:maden:3:kirma-eleme-tesis-operatoru",
+      "source_index": 39,
+      "profession_name": "Kırma Eleme Tesis Operatörü",
+      "level": 3,
+      "sector_slug": "maden",
+      "qualification_code": "16UY0265-3",
+      "qualification_source_key": "qualification:16UY0265-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 780000,
+      "max_amount_kurus": 780000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mermer:3:mermer-dogaltas-ocakcisi",
+      "source_index": 40,
+      "profession_name": "Mermer-Doğaltaş Ocakçısı",
+      "level": 3,
+      "sector_slug": "mermer",
+      "qualification_code": "16UY0266-3/01",
+      "qualification_source_key": "qualification:16UY0266-3/01",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Elmas Tel ile Blok Üretme",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Ana Kütlede Elmas Tel ile Büyük Kesim",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Ana Kütlede Delik Açma",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 2
+        },
+        {
+          "label": "B4-Kollu Kesme Yöntemi ile Kesim",
+          "units": [],
+          "amount_kurus": 975000,
+          "sort_order": 3
+        }
+      ],
+      "min_amount_kurus": 975000,
+      "max_amount_kurus": 1125000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mermer:3:mermer-dogaltas-imalat-elemani",
+      "source_index": 41,
+      "profession_name": "Mermer-Doğaltaş İmalat Elemanı",
+      "level": 3,
+      "sector_slug": "mermer",
+      "qualification_code": "17UY0315-3/00",
+      "qualification_source_key": "qualification:17UY0315-3/00",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Mini Sayalama, Monotel veya Monolama ile Kesim ve Blok Ebatlama ve Şekillendirme",
+          "units": [],
+          "amount_kurus": 1035000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Levha Plakadan Ebatlı Taş Üretme",
+          "units": [],
+          "amount_kurus": 1035000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Yüzey İşleme",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 2
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 1035000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mermer:4:mermer-dogaltas-ozel-imalat-elemani",
+      "source_index": 42,
+      "profession_name": "Mermer-Doğaltaş Özel İmalat Elemanı",
+      "level": 4,
+      "sector_slug": "mermer",
+      "qualification_code": "16UY0267-4/01",
+      "qualification_source_key": "qualification:16UY0267-4/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1215000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1215000,
+      "max_amount_kurus": 1215000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:maden:3:yeralti-hazirlik-iscisi",
+      "source_index": 43,
+      "profession_name": "Yeraltı Hazırlık İşçisi",
+      "level": 3,
+      "sector_slug": "maden",
+      "qualification_code": "18UY0379-3",
+      "qualification_source_key": "qualification:18UY0379-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Klasik Sistemde Galeri Açma, B3-Çelik Bağ, B4-Ahşap Bağ ile Tahkimat)",
+          "units": [],
+          "amount_kurus": 1365000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1365000,
+      "max_amount_kurus": 1365000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:maden:4:yeralti-hazirlik-iscisi",
+      "source_index": 44,
+      "profession_name": "Yeraltı Hazırlık İşçisi",
+      "level": 4,
+      "sector_slug": "maden",
+      "qualification_code": "18UY0379-4",
+      "qualification_source_key": "qualification:18UY0379-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Klasik Sistemde Galeri Açma İşlemini Yürütme, B3-Çelik Bağ, B4-Ahşap Bağ ile Tahkimat Yaptırma)",
+          "units": [],
+          "amount_kurus": 1425000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1425000,
+      "max_amount_kurus": 1425000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:maden:4:mekanizasyon-iscisi-maden",
+      "source_index": 45,
+      "profession_name": "Mekanizasyon İşçisi (Maden)",
+      "level": 4,
+      "sector_slug": "maden",
+      "qualification_code": "18UY0363-4",
+      "qualification_source_key": "qualification:18UY0363-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mobilya:3:ahsap-mobilya-imalatcisi",
+      "source_index": 46,
+      "profession_name": "Ahşap Mobilya İmalatçısı",
+      "level": 3,
+      "sector_slug": "mobilya",
+      "qualification_code": "17UY0301-3/00",
+      "qualification_source_key": "qualification:17UY0301-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mobilya:4:ahsap-mobilya-imalatcisi",
+      "source_index": 47,
+      "profession_name": "Ahşap Mobilya İmalatçısı",
+      "level": 4,
+      "sector_slug": "mobilya",
+      "qualification_code": "17UY0301-4/00",
+      "qualification_source_key": "qualification:17UY0301-4/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1100000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1100000,
+      "max_amount_kurus": 1100000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:mobilya:3:mobilya-dosemecisi",
+      "source_index": 48,
+      "profession_name": "Mobilya Döşemecisi",
+      "level": 3,
+      "sector_slug": "mobilya",
+      "qualification_code": "17UY0300-3/00",
+      "qualification_source_key": "qualification:17UY0300-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Levha ve Kolan Üzerine Döşeme, B2-Yay Üzerine Döşeme)",
+          "units": [],
+          "amount_kurus": 975000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 975000,
+      "max_amount_kurus": 975000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:5:isletme-elektrik-bakimcisi",
+      "source_index": 49,
+      "profession_name": "İşletme Elektrik Bakımcısı",
+      "level": 5,
+      "sector_slug": "enerji",
+      "qualification_code": "13UY0121-5",
+      "qualification_source_key": "qualification:13UY0121-5",
+      "pricing_type": "multiple",
+      "price_options": [
+        {
+          "label": "Tek birim fiyatı",
+          "units": [],
+          "amount_kurus": 1300000,
+          "sort_order": 0
+        },
+        {
+          "label": "B1-AG Tesislerinde Bakım Onarım + B2-Kurulum ve Söküm (birlikte)",
+          "units": [],
+          "amount_kurus": 2510000,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 1300000,
+      "max_amount_kurus": 2510000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:3:elektrik-pano-montajcisi",
+      "source_index": 50,
+      "profession_name": "Elektrik Pano Montajcısı",
+      "level": 3,
+      "sector_slug": "enerji",
+      "qualification_code": "12UY0075-3",
+      "qualification_source_key": "qualification:12UY0075-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1125000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1125000,
+      "max_amount_kurus": 1125000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:3:elektrik-tesisatcisi",
+      "source_index": 51,
+      "profession_name": "Elektrik Tesisatçısı",
+      "level": 3,
+      "sector_slug": "enerji",
+      "qualification_code": "15UY0241-3",
+      "qualification_source_key": "qualification:15UY0241-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:4:elektrik-tesisatcisi",
+      "source_index": 52,
+      "profession_name": "Elektrik Tesisatçısı",
+      "level": 4,
+      "sector_slug": "enerji",
+      "qualification_code": "15UY0241-4",
+      "qualification_source_key": "qualification:15UY0241-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:enerji:3:elektro-mekanik-montaj-iscisi",
+      "source_index": 53,
+      "profession_name": "Elektro-Mekanik Montaj İşçisi",
+      "level": 3,
+      "sector_slug": "enerji",
+      "qualification_code": "15UY0206-3",
+      "qualification_source_key": "qualification:15UY0206-3",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:plastik:3:plastik-enjeksiyon-uretim-elemani",
+      "source_index": 54,
+      "profession_name": "Plastik Enjeksiyon Üretim Elemanı",
+      "level": 3,
+      "sector_slug": "plastik",
+      "qualification_code": "12UY0069-3/02",
+      "qualification_source_key": "qualification:12UY0069-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:plastik:3:plastik-sisirme-film-uretim-operatoru-ekstruzyon",
+      "source_index": 55,
+      "profession_name": "Plastik Şişirme Film Üretim Operatörü (Ekstrüzyon)",
+      "level": 3,
+      "sector_slug": "plastik",
+      "qualification_code": "13UY0143-3/01",
+      "qualification_source_key": "qualification:13UY0143-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:plastik:3:plastik-profil-uretim-operatoru-ekstruzyon",
+      "source_index": 56,
+      "profession_name": "Plastik Profil Üretim Operatörü (Ekstrüzyon)",
+      "level": 3,
+      "sector_slug": "plastik",
+      "qualification_code": "13UY0142-3/01",
+      "qualification_source_key": "qualification:13UY0142-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1250000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1250000,
+      "max_amount_kurus": 1250000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:cam:4:endustriyel-cam-isil-islem-elemani",
+      "source_index": 57,
+      "profession_name": "Endüstriyel Cam Isıl İşlem Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "qualification_code": "18UY0356-4",
+      "qualification_source_key": "qualification:18UY0356-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Düz Cam, B2-Bombeli Cam Isıl İşlem Uygulamaları)",
+          "units": [],
+          "amount_kurus": 870000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 870000,
+      "max_amount_kurus": 870000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:cam:4:endustriyel-cam-isleme-elemani",
+      "source_index": 58,
+      "profession_name": "Endüstriyel Cam İşleme Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "qualification_code": "18UY0357-4",
+      "qualification_source_key": "qualification:18UY0357-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Kenar İşleme, B3-Asit, B4-Kum, B5-Boyama Uygulamaları)",
+          "units": [],
+          "amount_kurus": 1000000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1000000,
+      "max_amount_kurus": 1000000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:cam:4:endustriyel-cam-kesim-elemani",
+      "source_index": 59,
+      "profession_name": "Endüstriyel Cam Kesim Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "qualification_code": "18UY0358-4",
+      "qualification_source_key": "qualification:18UY0358-4",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Düz Cam, B2-Lamine Cam Kesim Uygulamaları)",
+          "units": [],
+          "amount_kurus": 925000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 925000,
+      "max_amount_kurus": 925000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 2,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:3:celik-kaynakcisi",
+      "source_index": 60,
+      "profession_name": "Çelik Kaynakçısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "qualification_code": "11UY0010-3/04",
+      "qualification_source_key": "qualification:11UY0010-3/04",
+      "pricing_type": "multiple",
+      "price_options": [
+        {
+          "label": "Ana sınav ücreti (B1-Elektrotla Ark, B6-Metal-Ark Aktif Gaz (135), B7-Özlü Tel Metal Ark, B9-TIG Kaynağı)",
+          "units": [],
+          "amount_kurus": 750000,
+          "sort_order": 0
+        },
+        {
+          "label": "Sınavlı yenileme",
+          "units": [],
+          "amount_kurus": 600000,
+          "sort_order": 1
+        },
+        {
+          "label": "İlave birim",
+          "units": [],
+          "amount_kurus": 600000,
+          "sort_order": 2
+        }
+      ],
+      "min_amount_kurus": 600000,
+      "max_amount_kurus": 750000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:3:aluminyum-kaynakcisi",
+      "source_index": 61,
+      "profession_name": "Alüminyum Kaynakçısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "qualification_code": "11UY0014-3/02",
+      "qualification_source_key": "qualification:11UY0014-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:4:direnc-kaynak-ayarcisi",
+      "source_index": 62,
+      "profession_name": "Direnç Kaynak Ayarcısı",
+      "level": 4,
+      "sector_slug": "metal",
+      "qualification_code": "11UY0015-4/03",
+      "qualification_source_key": "qualification:11UY0015-4/03",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 775000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 775000,
+      "max_amount_kurus": 775000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:4:kaynak-operatoru",
+      "source_index": 63,
+      "profession_name": "Kaynak Operatörü",
+      "level": 4,
+      "sector_slug": "metal",
+      "qualification_code": "11UY0016-4/03",
+      "qualification_source_key": "qualification:11UY0016-4/03",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 800000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 800000,
+      "max_amount_kurus": 800000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:3:endustriyel-boru-montajcisi",
+      "source_index": 64,
+      "profession_name": "Endüstriyel Boru Montajcısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "qualification_code": "11UY0013-3/02",
+      "qualification_source_key": "qualification:11UY0013-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:metal-kesimci",
+      "source_index": 65,
+      "profession_name": "Metal Kesimci",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0083-3/02",
+      "qualification_source_key": "qualification:12UY0083-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Giyotin, B2-Oksi-Gaz, B3-Şerit Testere, B4-Daire Testere, B6-Lazer, B7-Plazma Kesim)",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:4:metal-kesim-operatoru",
+      "source_index": 66,
+      "profession_name": "Metal Kesim Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0084-4/02",
+      "qualification_source_key": "qualification:12UY0084-4/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Sac Kesme-Dilimleme, B3-Plazma Kesim)",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:3:metal-levha-isleme-tezg-h-iscisi",
+      "source_index": 67,
+      "profession_name": "Metal Levha İşleme Tezgâh İşçisi",
+      "level": 3,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0086-3/02",
+      "qualification_source_key": "qualification:12UY0086-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti (B2-Pres)",
+          "units": [],
+          "amount_kurus": 975000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 975000,
+      "max_amount_kurus": 975000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:makine:4:metal-levha-isleme-tezg-h-operatoru",
+      "source_index": 68,
+      "profession_name": "Metal Levha İşleme Tezgâh Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "qualification_code": "12UY0087-4/02",
+      "qualification_source_key": "qualification:12UY0087-4/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Abkant Pres, B2-Açık Profil Çekme/Rollform, B4-Punch Pres)",
+          "units": [],
+          "amount_kurus": 1050000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1050000,
+      "max_amount_kurus": 1050000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:3:metal-kumlama-iscisi",
+      "source_index": 69,
+      "profession_name": "Metal Kumlama İşçisi",
+      "level": 3,
+      "sector_slug": "metal",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Püskürtme, B2-Makine/Tamburda Metal Kumlama)",
+          "units": [],
+          "amount_kurus": 975000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 975000,
+      "max_amount_kurus": 975000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:metal:4:metal-yuzey-kaplamaci",
+      "source_index": 70,
+      "profession_name": "Metal Yüzey Kaplamacı",
+      "level": 4,
+      "sector_slug": "metal",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Eloksal, B2-Elektroliz, B3-Plastik, B4-Beton, B5-Sıcak Daldırma Kaplama)",
+          "units": [],
+          "amount_kurus": 1550000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1550000,
+      "max_amount_kurus": 1550000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:ahsap-kalipci",
+      "source_index": 71,
+      "profession_name": "Ahşap Kalıpçı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "11UY0011-3/03",
+      "qualification_source_key": "qualification:11UY0011-3/03",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:alci-levha-uygulayicisi",
+      "source_index": 72,
+      "profession_name": "Alçı Levha Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0054-3/00",
+      "qualification_source_key": "qualification:12UY0054-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:alci-siva-uygulayicisi",
+      "source_index": 73,
+      "profession_name": "Alçı Sıva Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0055-3/00",
+      "qualification_source_key": "qualification:12UY0055-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:betonarme-demircisi",
+      "source_index": 74,
+      "profession_name": "Betonarme Demircisi",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "11UY0012-3/03",
+      "qualification_source_key": "qualification:11UY0012-3/03",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:duvarci",
+      "source_index": 75,
+      "profession_name": "Duvarcı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0048-3/01",
+      "qualification_source_key": "qualification:12UY0048-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1450000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1450000,
+      "max_amount_kurus": 1450000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:insaat-boyacisi",
+      "source_index": 76,
+      "profession_name": "İnşaat Boyacısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "11UY0023-3/02",
+      "qualification_source_key": "qualification:11UY0023-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1200000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1200000,
+      "max_amount_kurus": 1200000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:2:insaat-iscisi",
+      "source_index": 77,
+      "profession_name": "İnşaat İşçisi",
+      "level": 2,
+      "sector_slug": "insaat",
+      "qualification_code": "16UY0253-2/00",
+      "qualification_source_key": "qualification:16UY0253-2/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 900000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:isi-yalitimcisi",
+      "source_index": 78,
+      "profession_name": "Isı Yalıtımcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0057-3/01",
+      "qualification_source_key": "qualification:12UY0057-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:iskele-kurulum-elemani",
+      "source_index": 79,
+      "profession_name": "İskele Kurulum Elemanı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0056-3/01",
+      "qualification_source_key": "qualification:12UY0056-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1350000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1350000,
+      "max_amount_kurus": 1350000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:pvc-dograma-montajcisi",
+      "source_index": 80,
+      "profession_name": "PVC Doğrama Montajcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "14UY0195-3/00",
+      "qualification_source_key": "qualification:14UY0195-3/00",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1450000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1450000,
+      "max_amount_kurus": 1450000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:seramik-karo-kaplamacisi",
+      "source_index": 81,
+      "profession_name": "Seramik Karo Kaplamacısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "12UY0051-3/01",
+      "qualification_source_key": "qualification:12UY0051-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:insaat:3:sivaci",
+      "source_index": 82,
+      "profession_name": "Sıvacı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "qualification_code": "11UY0024-3/02",
+      "qualification_source_key": "qualification:11UY0024-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 1500000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1500000,
+      "max_amount_kurus": 1500000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:kule-vinc-operatoru",
+      "source_index": 83,
+      "profession_name": "Kule Vinç Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 3400000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 3400000,
+      "max_amount_kurus": 3400000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:ekskavator-operatoru",
+      "source_index": 84,
+      "profession_name": "Ekskavatör Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 3100000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 3100000,
+      "max_amount_kurus": 3100000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-is-makineleri-grubu",
+      "source_index": 85,
+      "profession_name": "Mobil Vinç Operatörü (İş Makineleri Grubu)",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "12UY0061-3/04",
+      "qualification_source_key": "qualification:12UY0061-3/04",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 950000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 950000,
+      "max_amount_kurus": 950000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:kazici-yukleyici-beko-loder-operatoru",
+      "source_index": 86,
+      "profession_name": "Kazıcı Yükleyici (Beko Loder) Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 2300000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 2300000,
+      "max_amount_kurus": 2300000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:beton-santral-operatoru",
+      "source_index": 87,
+      "profession_name": "Beton Santral Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 3300000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 3300000,
+      "max_amount_kurus": 3300000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:beton-transmikser-operatoru",
+      "source_index": 88,
+      "profession_name": "Beton Transmikser Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 3000000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 3000000,
+      "max_amount_kurus": 3000000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:is-makineleri:3:beton-pompa-operatoru",
+      "source_index": 89,
+      "profession_name": "Beton Pompa Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 3150000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 3150000,
+      "max_amount_kurus": 3150000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 3,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:on-terbiye-operatoru",
+      "source_index": 90,
+      "profession_name": "Ön Terbiye Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "13UY0139-3/01",
+      "qualification_source_key": "qualification:13UY0139-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Yakma, B2-Yıkama, B3-Merserizasyon, B4-Karbonizasyon, B5-Ağartma, B6-Haşıl Sökme)",
+          "units": [],
+          "amount_kurus": 1220000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 1220000,
+      "max_amount_kurus": 1220000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:boyama-operatoru",
+      "source_index": 91,
+      "profession_name": "Boyama Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "13UY0138-3/01",
+      "qualification_source_key": "qualification:13UY0138-3/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Bobin, B2-Çile, B3-Elyaf-Tops, B4-Jet, B5-Jigger, B6-Pad-Batch, B7-Pad-Steam, B8-Parça Boyama)",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 780000,
+      "max_amount_kurus": 780000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:bitim-islemleri-operatoru",
+      "source_index": 92,
+      "profession_name": "Bitim İşlemleri Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "13UY0137-3/01",
+      "qualification_source_key": "qualification:13UY0137-3/01",
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Dekatür",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Kalandır",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Sanfor",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 2
+        },
+        {
+          "label": "B4-Şardon",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 3
+        },
+        {
+          "label": "B5-Traşlama",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 4
+        },
+        {
+          "label": "B6-Zımpara",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 5
+        },
+        {
+          "label": "B7-Lisa",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 6
+        },
+        {
+          "label": "B8-Balon Sıkma",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 7
+        },
+        {
+          "label": "B9-Santrifuj",
+          "units": [],
+          "amount_kurus": 900000,
+          "sort_order": 8
+        },
+        {
+          "label": "B10-Fikse",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 9
+        },
+        {
+          "label": "B11-Kurutma",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 10
+        },
+        {
+          "label": "B12-Dinkleme",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 11
+        },
+        {
+          "label": "B13-Ram",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 12
+        },
+        {
+          "label": "B14-Kaplama",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 13
+        }
+      ],
+      "min_amount_kurus": 780000,
+      "max_amount_kurus": 900000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:on-iplik-operatoru",
+      "source_index": 93,
+      "profession_name": "Ön İplik Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "11UY0039-3/02",
+      "qualification_source_key": "qualification:11UY0039-3/02",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-B9 hazırlık/şerit/fitil birimlerinden seçime göre)",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 780000,
+      "max_amount_kurus": 780000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:2:iplik-egirme-operatoru",
+      "source_index": 94,
+      "profession_name": "İplik Eğirme Operatörü",
+      "level": 2,
+      "sector_slug": "tekstil",
+      "qualification_code": "11UY0037-2/01",
+      "qualification_source_key": "qualification:11UY0037-2/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Ring, B2-Open End, B3-Hava Jetli İplik Eğirme)",
+          "units": [],
+          "amount_kurus": 650000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 650000,
+      "max_amount_kurus": 650000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:2:iplik-bitim-isleri-operatoru",
+      "source_index": 95,
+      "profession_name": "İplik Bitim İşleri Operatörü",
+      "level": 2,
+      "sector_slug": "tekstil",
+      "qualification_code": "11UY0036-2/01",
+      "qualification_source_key": "qualification:11UY0036-2/01",
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Bobinleme, B2-Katlama, B3-Büküm, B4-Fikseleme)",
+          "units": [],
+          "amount_kurus": 650000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 650000,
+      "max_amount_kurus": 650000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:dokuma-operatoru",
+      "source_index": 96,
+      "profession_name": "Dokuma Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 645000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 645000,
+      "max_amount_kurus": 645000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:4:dokuma-operatoru",
+      "source_index": 97,
+      "profession_name": "Dokuma Operatörü",
+      "level": 4,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Sınav ücreti",
+          "units": [],
+          "amount_kurus": 840000,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 840000,
+      "max_amount_kurus": 840000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:tahar-operatoru",
+      "source_index": 98,
+      "profession_name": "Tahar Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-El ile Tahar Yapma",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Makine ile Tahar Yapma",
+          "units": [],
+          "amount_kurus": 840000,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Çözgü İpliği Düğümleme",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 2
+        },
+        {
+          "label": "B4-Jakar Dizilimi Yapma",
+          "units": [],
+          "amount_kurus": 840000,
+          "sort_order": 3
+        }
+      ],
+      "min_amount_kurus": 780000,
+      "max_amount_kurus": 840000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:cozgu-operatoru",
+      "source_index": 99,
+      "profession_name": "Çözgü Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "single",
+      "price_options": [
+        {
+          "label": "Tek birim (B1-Seri, B2-Konik Çözgü Hazırlama, B3-Haşıllama, B4-Halat Sarma, B5-Halat Açma)",
+          "units": [],
+          "amount_kurus": 712500,
+          "sort_order": 0
+        }
+      ],
+      "min_amount_kurus": 712500,
+      "max_amount_kurus": 712500,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:4:orme-operatoru",
+      "source_index": 100,
+      "profession_name": "Örme Operatörü",
+      "level": 4,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Raşel/Trikot Örme",
+          "units": [],
+          "amount_kurus": 840000,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Kroşet Örme",
+          "units": [],
+          "amount_kurus": 712500,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Yuvarlak Örme",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 2
+        },
+        {
+          "label": "B4-Düz (Triko) Örme",
+          "units": [],
+          "amount_kurus": 780000,
+          "sort_order": 3
+        },
+        {
+          "label": "B5-Çorap Örme",
+          "units": [],
+          "amount_kurus": 712500,
+          "sort_order": 4
+        }
+      ],
+      "min_amount_kurus": 712500,
+      "max_amount_kurus": 840000,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:cozgulu-orme-operatoru",
+      "source_index": 101,
+      "profession_name": "Çözgülü Örme Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Raşel/Trikot Örme",
+          "units": [],
+          "amount_kurus": 712500,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Kroşet Örme",
+          "units": [],
+          "amount_kurus": 712500,
+          "sort_order": 1
+        }
+      ],
+      "min_amount_kurus": 712500,
+      "max_amount_kurus": 712500,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "fee:tekstil:3:atkili-orme-operatoru",
+      "source_index": 102,
+      "profession_name": "Atkılı Örme Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "qualification_code": "",
+      "qualification_source_key": null,
+      "pricing_type": "unit",
+      "price_options": [
+        {
+          "label": "B1-Yuvarlak Örme",
+          "units": [],
+          "amount_kurus": 652500,
+          "sort_order": 0
+        },
+        {
+          "label": "B2-Düz (Triko) Örme",
+          "units": [],
+          "amount_kurus": 652500,
+          "sort_order": 1
+        },
+        {
+          "label": "B3-Çorap Örme",
+          "units": [],
+          "amount_kurus": 652500,
+          "sort_order": 2
+        }
+      ],
+      "min_amount_kurus": 652500,
+      "max_amount_kurus": 652500,
+      "vat_included": true,
+      "certificate_print_fee_kurus": 150000,
+      "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+      "source_page": 4,
+      "source_attachment_id": 0,
+      "planned_tariff_period": "2026",
+      "planned_record_status": "draft",
+      "planned_valid_from": "",
+      "planned_valid_until": "",
+      "source": {
+        "file": "tanitim-site/assets/data/fees.js",
+        "sha256": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+      }
+    }
+  ]
+}

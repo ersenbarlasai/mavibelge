@@ -1,0 +1,56 @@
+/*
+ * Footer — ported from tanitim-site/assets/css/components.css
+ * (.site-footer and its descendants, .back-to-top). .footer-col-toggle
+ * mobile-accordion helper from layout.css is intentionally NOT carried
+ * over — the static site never activates it with JS (no toggle script
+ * exists for it either), so porting only the inert CSS rule would add
+ * dead weight; see docs/design-system.md.
+ */
+.site-footer { background: var(--color-navy-950); color: var(--color-gray-200); padding: var(--space-7) 0 var(--space-5); }
+.site-footer a { color: var(--color-gray-200); }
+.site-footer a:hover { color: var(--color-white); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6); }
+.footer-brand img { height: 44px; margin-bottom: var(--space-3); filter: brightness(0) invert(1); }
+.footer-brand p { color: var(--color-gray-300); font-size: var(--fs-sm); }
+.site-footer h3 { color: var(--color-white); font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.site-footer ul li a { font-size: var(--fs-sm); }
+.footer-social { margin-top: var(--space-4); }
+.footer-social-label { display: block; color: var(--color-white); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2); }
+ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+.footer-social-list a {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); color: var(--color-gray-200);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.footer-social-list a:hover, .footer-social-list a:focus-visible {
+  background: var(--color-blue-500); color: var(--color-white);
+  outline: 2px solid var(--color-blue-500); outline-offset: 2px;
+}
+.footer-locations { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid rgba(255,255,255,0.12); margin-bottom: var(--space-5); }
+.footer-locations h4 { color: var(--color-white); font-size: var(--fs-sm); margin-bottom: var(--space-2); }
+.footer-locations p { color: var(--color-gray-300); font-size: var(--fs-xs); margin: 0 0 var(--space-1); }
+.site-footer .directions-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: var(--fs-xs); color: var(--color-blue-200, #a9c9f5); font-weight: 700; }
+.site-footer .directions-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-500); }
+.footer-legal { display: flex; gap: var(--space-4); list-style: none; padding: 0; margin: 0; flex-direction: row; }
+
+.back-to-top {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--color-navy-900);
+  color: var(--color-white);
+  border: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 90;
+  font-size: 20px;
+}
+.back-to-top.is-visible { display: flex; }

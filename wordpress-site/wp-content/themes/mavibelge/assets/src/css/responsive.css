@@ -1,0 +1,139 @@
+/*
+ * Responsive overrides. Faz 3 kept this to header/footer/global
+ * components only. Faz 4 adds the page-specific grid rules (.task-grid,
+ * .sector-grid, .hero, .qual-list, .news-grid, .ref-grid, .process-steps,
+ * .impact-stats-grid, .qual-detail-grid) now that the templates emitting
+ * them exist — see docs/design-system.md.
+ */
+
+/* ===== Tablet (<=1024px) ===== */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-locations { grid-template-columns: 1fr; }
+
+  .task-grid { grid-template-columns: repeat(3, 1fr); }
+  .sector-grid { grid-template-columns: repeat(3, 1fr); }
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .qual-list { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .ref-grid { grid-template-columns: repeat(3, 1fr); }
+  .qual-detail-grid { grid-template-columns: 1fr; }
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-search-panel { margin-top: var(--space-6); }
+
+  .header-main { gap: var(--space-3); min-height: 84px; }
+  .main-nav > ul { gap: var(--space-3); }
+  .main-nav > ul > li > a,
+  .main-nav > ul > li > .nav-parent-link,
+  .main-nav > ul > li > button.nav-toggle { padding: var(--space-3) 2px; font-size: 0.8125rem; }
+  .trust-logo-item img { height: 56px; }
+  .trust-code { font-size: 11px; }
+}
+
+/* ===== Small tablet (<=768px) ===== */
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+  .container { padding: 0 var(--space-4); }
+  section { padding: var(--space-6) 0; }
+
+  .trust-bar .container { justify-content: center; text-align: center; }
+  .trust-bar ul { justify-content: center; }
+
+  .header-main { flex-wrap: wrap; padding: var(--space-2) 0; min-height: 0; align-items: center; }
+  .brand-logo img { height: 38px; }
+  .brand-logo { order: 1; }
+  .menu-toggle { display: inline-flex; order: 3; }
+  .trust-group { order: 2; border-left: none; padding-left: 0; gap: 8px; margin-left: auto; margin-right: var(--space-2); }
+  .trust-logo-item img { height: 40px; }
+  .trust-code { font-size: 9px; letter-spacing: 0.02em; }
+  .header-cta { display: none; }
+
+  .main-nav {
+    order: 5;
+    flex-basis: 100%;
+    display: none;
+    background: var(--color-white);
+    border-top: 1px solid var(--color-gray-200);
+  }
+  .main-nav.is-open { display: block; }
+  .main-nav > ul { flex-direction: column; gap: 0; padding: var(--space-2) 0; }
+  .main-nav > ul > li { width: 100%; flex-wrap: wrap; }
+  .main-nav > ul > li > a,
+  .main-nav > ul > li > .nav-parent-link {
+    flex: 1 1 auto;
+    width: auto;
+    padding: var(--space-3) var(--space-2);
+  }
+  /*
+   * On mobile the link and the toggle are independent, full-height
+   * controls sitting side by side on the same row: tapping the label
+   * navigates, tapping the toggle (own >=44px square) opens the
+   * submenu — neither overlaps or requires guessing which part of a
+   * merged control does what.
+   */
+  .main-nav > ul > li > button.nav-toggle {
+    flex: 0 0 auto;
+    width: 44px;
+    justify-content: center;
+    padding: var(--space-3);
+  }
+  .main-nav > ul > li:not(.menu-item-has-children) > a { width: 100%; }
+  .submenu { position: static; box-shadow: none; border: none; border-left: 2px solid var(--color-blue-100); margin-left: var(--space-3); display: none; flex-basis: 100%; }
+  .main-nav li.is-open > .submenu { display: block; }
+  .mobile-header-cta { display: block; padding: var(--space-3) var(--space-2); }
+
+  .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+  .hero { padding: var(--space-7) 0 var(--space-6); }
+  .hero h1 { font-size: var(--fs-xl); }
+  .hero .container { gap: var(--space-5); }
+  .task-grid { grid-template-columns: 1fr 1fr; }
+  .sector-grid { grid-template-columns: 1fr 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
+  .qual-list { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .ref-grid { grid-template-columns: repeat(2, 1fr); }
+  .impact-stats { padding: var(--space-5) 0; }
+  .impact-stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-5); }
+  .impact-stat { padding: 0 var(--space-2); border-left: none; }
+  .impact-stat-number { font-size: 36px; }
+  .layout-with-sidebar { grid-template-columns: 1fr; }
+  .side-nav { position: static; }
+
+  .catalog-filter-form .filter-row { flex-direction: column; align-items: stretch; }
+  .catalog-filter-form .form-field { flex-basis: auto; }
+  .catalog-filter-form .filter-actions { justify-content: flex-start; }
+
+  /* Faz 5: fee-table.php (desktop) and fee-cards.php (mobile) render the
+     SAME data — only one is ever visible, and display:none removes the
+     hidden one from the accessibility tree in every mainstream
+     browser/AT, so nothing is ever announced twice. See
+     docs/template-architecture.md. */
+  .fee-table-wrap { display: none; }
+  .fee-cards { display: flex; }
+
+  .hero-search-form { flex-direction: column; }
+}
+
+/* ===== Mobile (<=480px) ===== */
+@media (max-width: 480px) {
+  .btn { width: 100%; }
+  h1 { font-size: var(--fs-xl); }
+  h2 { font-size: var(--fs-lg); }
+
+  .hero-actions .btn, .cta-actions .btn, .error-actions .btn { width: 100%; }
+  .task-grid { grid-template-columns: 1fr 1fr; }
+  .sector-grid { grid-template-columns: 1fr 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .ref-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: var(--fs-lg); }
+  .stat-row { gap: var(--space-4); }
+  .impact-stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-4); column-gap: var(--space-1); }
+  .impact-stat { padding: 0 2px; border-left: none; }
+  .impact-stat-number { font-size: 24px; }
+  .impact-stat span { font-size: 11px; }
+}

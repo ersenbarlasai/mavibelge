@@ -1,0 +1,210 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "sector",
+  "count": 14,
+  "source": {
+    "file": "tanitim-site/assets/data/sectors.js",
+    "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+  },
+  "notes": [
+    "maden ve mermer sektörleri aynı görseli paylaşıyor (assets/images/content/real-mermer.png) — kurum onayı bekliyor, bkz. raporlar/proje-durumu.md."
+  ],
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:makine",
+      "source_index": 0,
+      "slug": "makine",
+      "name": "Makine",
+      "description": "Makine bakım, montaj, kesim ve CNC/NC tezgâh meslekleri.",
+      "icon": "gear",
+      "image": "assets/images/content/real-makine.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:metalurji",
+      "source_index": 1,
+      "slug": "metalurji",
+      "name": "Metalurji",
+      "description": "Haddecilik, döküm, izabe ve refrakter meslekleri.",
+      "icon": "flame",
+      "image": "assets/images/content/real-haddeci.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:metal",
+      "source_index": 2,
+      "slug": "metal",
+      "name": "Metal",
+      "description": "Metal kesim ve levha işleme meslekleri.",
+      "icon": "layers",
+      "image": "assets/images/content/real-metal-isleme.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:lojistik",
+      "source_index": 3,
+      "slug": "lojistik",
+      "name": "Lojistik",
+      "description": "İşaretçilik, taşımacılık, terminal planlama ve sevkiyat meslekleri.",
+      "icon": "truck",
+      "image": "assets/images/content/real-liman.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:is-makineleri",
+      "source_index": 4,
+      "slug": "is-makineleri",
+      "name": "İş Makineleri",
+      "description": "Vinç, forklift, istif ve saha makineleri operatörlüğü meslekleri.",
+      "icon": "crane",
+      "image": "",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:plastik",
+      "source_index": 5,
+      "slug": "plastik",
+      "name": "Plastik",
+      "description": "Plastik enjeksiyon üretim meslekleri.",
+      "icon": "drop",
+      "image": "",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:enerji",
+      "source_index": 6,
+      "slug": "enerji",
+      "name": "Enerji",
+      "description": "Elektrik pano, tesisat, elektro-mekanik montaj ve işletme bakım meslekleri.",
+      "icon": "bolt",
+      "image": "assets/images/content/real-elektrik-1.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:cam",
+      "source_index": 7,
+      "slug": "cam",
+      "name": "Cam",
+      "description": "Endüstriyel cam kesim, işleme ve ısıl işlem meslekleri.",
+      "icon": "square",
+      "image": "assets/images/content/real-cam.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:tekstil",
+      "source_index": 8,
+      "slug": "tekstil",
+      "name": "Tekstil",
+      "description": "İplik, boyama ve terbiye operatörlüğü meslekleri.",
+      "icon": "thread",
+      "image": "assets/images/content/real-tekstil-iplik.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:insaat",
+      "source_index": 9,
+      "slug": "insaat",
+      "name": "İnşaat",
+      "description": "Kalıpçı, demirci, sıvacı, duvarcı ve yalıtım meslekleri.",
+      "icon": "building",
+      "image": "assets/images/content/real-insaat.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:mobilya",
+      "source_index": 10,
+      "slug": "mobilya",
+      "name": "Mobilya",
+      "description": "Mobilya döşemeciliği ve imalat meslekleri.",
+      "icon": "chair",
+      "image": "",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:maden",
+      "source_index": 11,
+      "slug": "maden",
+      "name": "Maden",
+      "description": "Mekanizasyon, yeraltı hazırlık ve kırma-eleme tesis meslekleri.",
+      "icon": "pickaxe",
+      "image": "assets/images/content/real-mermer.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:mermer",
+      "source_index": 12,
+      "slug": "mermer",
+      "name": "Mermer",
+      "description": "Ocakçılık ve mermer-doğaltaş imalat meslekleri.",
+      "icon": "mountain",
+      "image": "assets/images/content/real-mermer.png",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "sector:guzellik-sac-bakim",
+      "source_index": 13,
+      "slug": "guzellik-sac-bakim",
+      "name": "Güzellik ve Saç Bakım",
+      "description": "Kuaförlük, güzellik uzmanlığı ve cilt bakım meslekleri.",
+      "icon": "scissors",
+      "image": "",
+      "source": {
+        "file": "tanitim-site/assets/data/sectors.js",
+        "sha256": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1425 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "qualification",
+  "count": 83,
+  "source": {
+    "file": "tanitim-site/assets/data/qualifications.js",
+    "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+  },
+  "notes": [
+    "20 kayıtta MYK kodu revizyon eki (/NN) taşımıyor (ör. \"13UY0145-3\") — Faz 6A Güvenlik/Şema/Sözleşme Kapanışı'nda MaviBelge_Core_Validator::is_valid_myk_code_format() revizyonu OPSİYONEL kabul edecek şekilde güncellendi, bu kayıtlar artık eklenti tarafından KABUL EDİLİYOR; bkz. faz6a-manifest-sozlesmesi.md \"Bloklayıcı sözleşme açığı #1\" (çözüldü). Kod uydurulmadı; matches_legacy_revision_required_format alanı yalnız tarihsel/bilgi amaçlıdır, artık bir engel değildir."
+  ],
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:10UY0002-3/03",
+      "source_index": 0,
+      "code": "10UY0002-3/03",
+      "name": "Makine Bakımcı",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:10UY0002-4/03",
+      "source_index": 1,
+      "code": "10UY0002-4/03",
+      "name": "Makine Bakımcı",
+      "level": 4,
+      "sector_slug": "makine",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:10UY0002-5/03",
+      "source_index": 2,
+      "code": "10UY0002-5/03",
+      "name": "Makine Bakımcı",
+      "level": 5,
+      "sector_slug": "makine",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0105-3/00",
+      "source_index": 3,
+      "code": "12UY0105-3/00",
+      "name": "Makine Montajcısı",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0083-3/02",
+      "source_index": 4,
+      "code": "12UY0083-3/02",
+      "name": "Metal Kesimci",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0084-4/02",
+      "source_index": 5,
+      "code": "12UY0084-4/02",
+      "name": "Metal Kesim Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0086-3/02",
+      "source_index": 6,
+      "code": "12UY0086-3/02",
+      "name": "Metal Levha İşleme Tezgâh İşçisi",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0087-4/02",
+      "source_index": 7,
+      "code": "12UY0087-4/02",
+      "name": "Metal Levha İşleme Tezgâh Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:14UY0202-3/01",
+      "source_index": 8,
+      "code": "14UY0202-3/01",
+      "name": "NC/CNC Tezgâh İşçisi",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:14UY0202-4/01",
+      "source_index": 9,
+      "code": "14UY0202-4/01",
+      "name": "NC/CNC Tezgâh İşçisi",
+      "level": 4,
+      "sector_slug": "makine",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0351-4/00",
+      "source_index": 10,
+      "code": "18UY0351-4/00",
+      "name": "Tel Makineleri Operatörü",
+      "level": 4,
+      "sector_slug": "makine",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0227-3/00",
+      "source_index": 11,
+      "code": "15UY0227-3/00",
+      "name": "Tornacı",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0081-3/00",
+      "source_index": 12,
+      "code": "12UY0081-3/00",
+      "name": "Frezeci",
+      "level": 3,
+      "sector_slug": "makine",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0148-3/01",
+      "source_index": 13,
+      "code": "13UY0148-3/01",
+      "name": "Haddeci",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0148-4/01",
+      "source_index": 14,
+      "code": "13UY0148-4/01",
+      "name": "Haddeci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0070-3/00",
+      "source_index": 15,
+      "code": "12UY0070-3/00",
+      "name": "Refrakterci",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0070-4/00",
+      "source_index": 16,
+      "code": "12UY0070-4/00",
+      "name": "Refrakterci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0149-4/00",
+      "source_index": 17,
+      "code": "13UY0149-4/00",
+      "name": "İzabeci",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0178-3/00",
+      "source_index": 18,
+      "code": "13UY0178-3/00",
+      "name": "Maçacı",
+      "level": 3,
+      "sector_slug": "metalurji",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0173-4/00",
+      "source_index": 19,
+      "code": "13UY0173-4/00",
+      "name": "Dökümcü",
+      "level": 4,
+      "sector_slug": "metalurji",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0013-3/02",
+      "source_index": 20,
+      "code": "11UY0013-3/02",
+      "name": "Endüstriyel Boru Montajcısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0010-3/04",
+      "source_index": 21,
+      "code": "11UY0010-3/04",
+      "name": "Çelik Kaynakçısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "revision": "04",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0014-3/02",
+      "source_index": 22,
+      "code": "11UY0014-3/02",
+      "name": "Alüminyum Kaynakçısı",
+      "level": 3,
+      "sector_slug": "metal",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0016-4/03",
+      "source_index": 23,
+      "code": "11UY0016-4/03",
+      "name": "Kaynak Operatörü",
+      "level": 4,
+      "sector_slug": "metal",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0015-4/03",
+      "source_index": 24,
+      "code": "11UY0015-4/03",
+      "name": "Direnç Kaynak Ayarcısı",
+      "level": 4,
+      "sector_slug": "metal",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0218-2/01",
+      "source_index": 25,
+      "code": "15UY0218-2/01",
+      "name": "İşaretçi",
+      "level": 2,
+      "sector_slug": "lojistik",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0170-3/02",
+      "source_index": 26,
+      "code": "13UY0170-3/02",
+      "name": "Liman Kuru Yük Operasyon Elemanı/Puantör",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0145-3",
+      "source_index": 27,
+      "code": "13UY0145-3",
+      "name": "Endüstriyel Taşımacı",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0220-4",
+      "source_index": 28,
+      "code": "15UY0220-4",
+      "name": "Liman Operasyon Planlamacısı",
+      "level": 4,
+      "sector_slug": "lojistik",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0063-3",
+      "source_index": 29,
+      "code": "12UY0063-3",
+      "name": "Liman Pompa ve Tank Saha Operatörü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0328-3",
+      "source_index": 30,
+      "code": "17UY0328-3",
+      "name": "Servis Aracı Şoförü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0061-3/04",
+      "source_index": 31,
+      "code": "12UY0061-3/04",
+      "name": "Mobil Vinç Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "04",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0088-3/04",
+      "source_index": 32,
+      "code": "12UY0088-3/04",
+      "name": "Liman Forklift Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "04",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0268-3",
+      "source_index": 33,
+      "code": "17UY0268-3",
+      "name": "Liman RTG Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0064-3",
+      "source_index": 34,
+      "code": "12UY0064-3",
+      "name": "Liman Saha İstif Makineleri Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0269-3",
+      "source_index": 35,
+      "code": "17UY0269-3",
+      "name": "Liman SSG Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0221-3",
+      "source_index": 36,
+      "code": "15UY0221-3",
+      "name": "Terminal Çekici Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0069-3/02",
+      "source_index": 37,
+      "code": "12UY0069-3/02",
+      "name": "Plastik Enjeksiyon Üretim Elemanı",
+      "level": 3,
+      "sector_slug": "plastik",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0143-3/01",
+      "source_index": 38,
+      "code": "13UY0143-3/01",
+      "name": "Plastik Şişirme Film Üretim Operatörü (Ekstrüzyon)",
+      "level": 3,
+      "sector_slug": "plastik",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0142-3/01",
+      "source_index": 39,
+      "code": "13UY0142-3/01",
+      "name": "Plastik Profil Üretim Operatörü (Ekstrüzyon)",
+      "level": 3,
+      "sector_slug": "plastik",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0075-3",
+      "source_index": 40,
+      "code": "12UY0075-3",
+      "name": "Elektrik Pano Montajcısı",
+      "level": 3,
+      "sector_slug": "enerji",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0241-3",
+      "source_index": 41,
+      "code": "15UY0241-3",
+      "name": "Elektrik Tesisatçısı",
+      "level": 3,
+      "sector_slug": "enerji",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0241-4",
+      "source_index": 42,
+      "code": "15UY0241-4",
+      "name": "Elektrik Tesisatçısı",
+      "level": 4,
+      "sector_slug": "enerji",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:15UY0206-3",
+      "source_index": 43,
+      "code": "15UY0206-3",
+      "name": "Elektro-Mekanik Montaj İşçisi",
+      "level": 3,
+      "sector_slug": "enerji",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0121-5",
+      "source_index": 44,
+      "code": "13UY0121-5",
+      "name": "İşletme Elektrik Bakımcısı",
+      "level": 5,
+      "sector_slug": "enerji",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0356-4",
+      "source_index": 45,
+      "code": "18UY0356-4",
+      "name": "Endüstriyel Cam Isıl İşlem Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0357-4",
+      "source_index": 46,
+      "code": "18UY0357-4",
+      "name": "Endüstriyel Cam İşleme Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0358-4",
+      "source_index": 47,
+      "code": "18UY0358-4",
+      "name": "Endüstriyel Cam Kesim Elemanı",
+      "level": 4,
+      "sector_slug": "cam",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0036-2/01",
+      "source_index": 48,
+      "code": "11UY0036-2/01",
+      "name": "İplik Bitim İşleri Operatörü",
+      "level": 2,
+      "sector_slug": "tekstil",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0037-2/01",
+      "source_index": 49,
+      "code": "11UY0037-2/01",
+      "name": "İplik Eğirme Operatörü",
+      "level": 2,
+      "sector_slug": "tekstil",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0039-3/02",
+      "source_index": 50,
+      "code": "11UY0039-3/02",
+      "name": "Ön İplik Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0137-3/01",
+      "source_index": 51,
+      "code": "13UY0137-3/01",
+      "name": "Bitim İşlemleri Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0138-3/01",
+      "source_index": 52,
+      "code": "13UY0138-3/01",
+      "name": "Boyama Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:13UY0139-3/01",
+      "source_index": 53,
+      "code": "13UY0139-3/01",
+      "name": "Ön Terbiye Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0011-3/03",
+      "source_index": 54,
+      "code": "11UY0011-3/03",
+      "name": "Ahşap Kalıpçı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0012-3/03",
+      "source_index": 55,
+      "code": "11UY0012-3/03",
+      "name": "Betonarme Demircisi",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "03",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0024-3/02",
+      "source_index": 56,
+      "code": "11UY0024-3/02",
+      "name": "Sıvacı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:11UY0023-3/02",
+      "source_index": 57,
+      "code": "11UY0023-3/02",
+      "name": "İnşaat Boyacısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0054-3/00",
+      "source_index": 58,
+      "code": "12UY0054-3/00",
+      "name": "Alçı Levha Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0055-3/00",
+      "source_index": 59,
+      "code": "12UY0055-3/00",
+      "name": "Alçı Sıva Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0048-3/01",
+      "source_index": 60,
+      "code": "12UY0048-3/01",
+      "name": "Duvarcı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0253-2/00",
+      "source_index": 61,
+      "code": "16UY0253-2/00",
+      "name": "İnşaat İşçisi",
+      "level": 2,
+      "sector_slug": "insaat",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:14UY0195-3/00",
+      "source_index": 62,
+      "code": "14UY0195-3/00",
+      "name": "PVC Doğrama Montajcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0051-3/01",
+      "source_index": 63,
+      "code": "12UY0051-3/01",
+      "name": "Seramik Karo Kaplamacısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0057-3/01",
+      "source_index": 64,
+      "code": "12UY0057-3/01",
+      "name": "Isı Yalıtımcısı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:12UY0056-3/01",
+      "source_index": 65,
+      "code": "12UY0056-3/01",
+      "name": "İskele Kurulum Elemanı",
+      "level": 3,
+      "sector_slug": "insaat",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0301-3/00",
+      "source_index": 66,
+      "code": "17UY0301-3/00",
+      "name": "Ahşap Mobilya İmalatçısı",
+      "level": 3,
+      "sector_slug": "mobilya",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0301-4/00",
+      "source_index": 67,
+      "code": "17UY0301-4/00",
+      "name": "Ahşap Mobilya İmalatçısı",
+      "level": 4,
+      "sector_slug": "mobilya",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0300-3/00",
+      "source_index": 68,
+      "code": "17UY0300-3/00",
+      "name": "Mobilya Döşemecisi",
+      "level": 3,
+      "sector_slug": "mobilya",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0363-4",
+      "source_index": 69,
+      "code": "18UY0363-4",
+      "name": "Mekanizasyon İşçisi (Maden)",
+      "level": 4,
+      "sector_slug": "maden",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0379-4",
+      "source_index": 70,
+      "code": "18UY0379-4",
+      "name": "Yeraltı Hazırlık İşçisi",
+      "level": 4,
+      "sector_slug": "maden",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0379-3",
+      "source_index": 71,
+      "code": "18UY0379-3",
+      "name": "Yeraltı Hazırlık İşçisi",
+      "level": 3,
+      "sector_slug": "maden",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0265-3",
+      "source_index": 72,
+      "code": "16UY0265-3",
+      "name": "Kırma Eleme Tesis Operatörü",
+      "level": 3,
+      "sector_slug": "maden",
+      "revision": "",
+      "has_revision": false,
+      "matches_legacy_revision_required_format": false,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0266-3/01",
+      "source_index": 73,
+      "code": "16UY0266-3/01",
+      "name": "Mermer Doğaltaş Ocakçısı",
+      "level": 3,
+      "sector_slug": "mermer",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0315-3/00",
+      "source_index": 74,
+      "code": "17UY0315-3/00",
+      "name": "Mermer-Doğaltaş İmalat Elemanı",
+      "level": 3,
+      "sector_slug": "mermer",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0267-4/01",
+      "source_index": 75,
+      "code": "16UY0267-4/01",
+      "name": "Mermer-Doğaltaş Özel İmalat Elemanı",
+      "level": 4,
+      "sector_slug": "mermer",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:18UY0344-4/00",
+      "source_index": 76,
+      "code": "18UY0344-4/00",
+      "name": "Epilasyon Uzmanı",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0244-4/02",
+      "source_index": 77,
+      "code": "16UY0244-4/02",
+      "name": "Güzellik Uzmanı",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0245-4/02",
+      "source_index": 78,
+      "code": "16UY0245-4/02",
+      "name": "Kuaför",
+      "level": 4,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0280-3/01",
+      "source_index": 79,
+      "code": "17UY0280-3/01",
+      "name": "Cilt Bakım Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:17UY0286-3/01",
+      "source_index": 80,
+      "code": "17UY0286-3/01",
+      "name": "Kozmetik Ürünler Tanıtım ve Uygulama Elemanı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "01",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0242-3/02",
+      "source_index": 81,
+      "code": "16UY0242-3/02",
+      "name": "Makyaj Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "02",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "qualification:16UY0247-3/00",
+      "source_index": 82,
+      "code": "16UY0247-3/00",
+      "name": "Protez Tırnak Uygulayıcısı",
+      "level": 3,
+      "sector_slug": "guzellik-sac-bakim",
+      "revision": "00",
+      "has_revision": true,
+      "matches_legacy_revision_required_format": true,
+      "planned_record_status": "active",
+      "source": {
+        "file": "tanitim-site/assets/data/qualifications.js",
+        "sha256": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+      }
+    }
+  ]
+}

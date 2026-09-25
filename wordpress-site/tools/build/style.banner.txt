@@ -1,0 +1,10 @@
+/*
+ * Mavi Belge tema — üretime hazır, tek dosya CSS paketi.
+ * Node/derleme aracı GEREKTİRMEZ; src/css/*.css dosyalarının basit
+ * sırayla birleştirilmesiyle üretilmiştir (tokens, base, layout,
+ * components, pages, header, footer, responsive). editor.css BU pakete
+ * dahil DEĞİLDİR — yalnız add_editor_style() ile ayrı yüklenir.
+ * pages.css Faz 4'te eklendi (sayfa şablonu stilleri).
+ * Senkronizasyon yöntemi: docs/design-system.md.
+ */
+

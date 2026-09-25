@@ -1,0 +1,7 @@
+/*
+ * Mavi Belge tema — üretime hazır, tek dosya JS paketi.
+ * Node/derleme aracı GEREKTİRMEZ; src/js/*.js dosyalarının basit
+ * sırayla birleştirilmesiyle üretilmiştir (navigation, components, main).
+ * Senkronizasyon yöntemi: docs/design-system.md.
+ */
+

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/qualification.schema.json",
+  "title": "Mavi Belge Faz 6A Yeterlilik Manifest Kaydı",
+  "description": "wordpress-site/data/content/qualifications.manifest.json içindeki her 'records[]' elemanının şekli. Bkz. raporlar/veri-aktarim-raporlari/faz6a-manifest-sozlesmesi.md §4.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "source_key", "source_index", "code", "name", "level",
+    "sector_slug", "revision", "has_revision", "matches_legacy_revision_required_format",
+    "planned_record_status", "source"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "source_key": { "type": "string", "pattern": "^qualification:[0-9]{2}UY[0-9]{4}-[0-9]{1,2}(/[0-9]{2})?$" },
+    "source_index": { "type": "integer", "minimum": 0 },
+    "code": { "type": "string", "pattern": "^[0-9]{2}UY[0-9]{4}-[0-9]{1,2}(/[0-9]{2})?$" },
+    "name": { "type": "string", "minLength": 1 },
+    "level": { "type": "integer", "minimum": 1, "maximum": 8 },
+    "sector_slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "revision": { "type": "string", "pattern": "^([0-9]{2})?$" },
+    "has_revision": { "type": "boolean" },
+    "matches_legacy_revision_required_format": {
+      "type": "boolean",
+      "description": "Faz 6A Son Kabul Düzeltmesi'nde yeniden adlandırıldı (eski adı: myk_code_matches_current_plugin_format) — GÜNCEL eklenti davranışını YANSITMAZ, yalnız tarihsel bilgidir: false ise bu kod, artık KAPATILMIŞ eski/ZORUNLU-revizyon regex'ine (^[0-9]{2}UY[0-9]{4}-[0-9]{1,2}/[0-9]{2}$) uymuyordu. Güncel MaviBelge_Core_Validator::is_valid_myk_code_format() revizyonu opsiyonel kabul eder ve bu kayıtları KABUL EDER — bkz. sözleşme belgesi Bulgu #1 (çözüldü)."
+    },
+    "planned_record_status": { "type": "string", "enum": ["active", "passive"] },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

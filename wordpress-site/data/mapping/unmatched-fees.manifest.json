@@ -1,0 +1,159 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "unmatched_fee",
+  "count": 19,
+  "records": [
+    {
+      "source_index": 16,
+      "source_key": "fee:enerji:3:sicak-su-kazani-operatoru",
+      "profession_name": "Sıcak Su Kazanı Operatörü",
+      "level": 3,
+      "sector_slug": "enerji",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 17,
+      "source_key": "fee:enerji:4:kizgin-yag-operatoru",
+      "profession_name": "Kızgın Yağ Operatörü",
+      "level": 4,
+      "sector_slug": "enerji",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 18,
+      "source_key": "fee:enerji:4:buhar-kazani-operatoru",
+      "profession_name": "Buhar Kazanı Operatörü",
+      "level": 4,
+      "sector_slug": "enerji",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 19,
+      "source_key": "fee:lojistik:3:koprulu-vinc-operatoru",
+      "profession_name": "Köprülü Vinç Operatörü",
+      "level": 3,
+      "sector_slug": "lojistik",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 69,
+      "source_key": "fee:metal:3:metal-kumlama-iscisi",
+      "profession_name": "Metal Kumlama İşçisi",
+      "level": 3,
+      "sector_slug": "metal",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 70,
+      "source_key": "fee:metal:4:metal-yuzey-kaplamaci",
+      "profession_name": "Metal Yüzey Kaplamacı",
+      "level": 4,
+      "sector_slug": "metal",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 83,
+      "source_key": "fee:is-makineleri:3:kule-vinc-operatoru",
+      "profession_name": "Kule Vinç Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 84,
+      "source_key": "fee:is-makineleri:3:ekskavator-operatoru",
+      "profession_name": "Ekskavatör Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 86,
+      "source_key": "fee:is-makineleri:3:kazici-yukleyici-beko-loder-operatoru",
+      "profession_name": "Kazıcı Yükleyici (Beko Loder) Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 87,
+      "source_key": "fee:is-makineleri:3:beton-santral-operatoru",
+      "profession_name": "Beton Santral Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 88,
+      "source_key": "fee:is-makineleri:3:beton-transmikser-operatoru",
+      "profession_name": "Beton Transmikser Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 89,
+      "source_key": "fee:is-makineleri:3:beton-pompa-operatoru",
+      "profession_name": "Beton Pompa Operatörü",
+      "level": 3,
+      "sector_slug": "is-makineleri",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 96,
+      "source_key": "fee:tekstil:3:dokuma-operatoru",
+      "profession_name": "Dokuma Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 97,
+      "source_key": "fee:tekstil:4:dokuma-operatoru",
+      "profession_name": "Dokuma Operatörü",
+      "level": 4,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 98,
+      "source_key": "fee:tekstil:3:tahar-operatoru",
+      "profession_name": "Tahar Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 99,
+      "source_key": "fee:tekstil:3:cozgu-operatoru",
+      "profession_name": "Çözgü Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 100,
+      "source_key": "fee:tekstil:4:orme-operatoru",
+      "profession_name": "Örme Operatörü",
+      "level": 4,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 101,
+      "source_key": "fee:tekstil:3:cozgulu-orme-operatoru",
+      "profession_name": "Çözgülü Örme Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    },
+    {
+      "source_index": 102,
+      "source_key": "fee:tekstil:3:atkili-orme-operatoru",
+      "profession_name": "Atkılı Örme Operatörü",
+      "level": 3,
+      "sector_slug": "tekstil",
+      "note": "qualificationCode kaynakta boş bırakılmış (PDF'de MYK kodu yok); tahmin/fuzzy eşleştirme yapılmadı, qualification_source_key kasıtlı olarak null."
+    }
+  ]
+}

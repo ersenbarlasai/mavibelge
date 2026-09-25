@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "validation_summary",
+  "total_checks": 32,
+  "passed": 32,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "recompute",
+      "label": "Kaynaktan manifest yeniden hesaplanabildi (extract-source.js güvenlik kapıları dahil)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "in_memory_determinism",
+      "label": "İki ardışık bellek-içi üretim byte-eşit (disk I/O olmadan)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "disk_matches_recompute",
+      "label": "Diskteki manifest dosyaları, kaynaktan yeniden hesaplanan sonuçla byte-eşit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "shared_validator",
+      "label": "Paylaşılan doğrulayıcı (şema+zarf+çapraz-alan+kaynak karşılaştırması) hatasız",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "source_sha256_sectors",
+      "label": "sectors.js SHA-256",
+      "ok": true,
+      "detail": "c28688d352aa5c77cd2082581cd9111c3a89f3766353d3cdd5090c42cc5e53e1"
+    },
+    {
+      "id": "source_sha256_qualifications",
+      "label": "qualifications.js SHA-256",
+      "ok": true,
+      "detail": "649deee25873e91242649861691dd320afb92d7d154d05437f716676c594bd4a"
+    },
+    {
+      "id": "source_sha256_fees",
+      "label": "fees.js SHA-256",
+      "ok": true,
+      "detail": "ccb170bf838246971f68d6054aea2b279fbf2cd78e1fa3e72dc30b7e848f4bdb"
+    },
+    {
+      "id": "count_sectors",
+      "label": "Sektör sayısı = 14",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "id": "count_qualifications",
+      "label": "Yeterlilik sayısı = 83",
+      "ok": true,
+      "detail": "83"
+    },
+    {
+      "id": "count_fees",
+      "label": "Ücret ana kayıt sayısı = 103",
+      "ok": true,
+      "detail": "103"
+    },
+    {
+      "id": "count_price_options",
+      "label": "Toplam fiyat seçeneği = 145",
+      "ok": true,
+      "detail": "145"
+    },
+    {
+      "id": "count_pricing_single",
+      "label": "\"single\" kayıt sayısı = 87",
+      "ok": true,
+      "detail": "87"
+    },
+    {
+      "id": "count_pricing_multi",
+      "label": "Çok-fiyatlı kayıt sayısı = 16",
+      "ok": true,
+      "detail": "16"
+    },
+    {
+      "id": "count_multi_options",
+      "label": "Çok-fiyatlı seçenek toplamı = 58",
+      "ok": true,
+      "detail": "58"
+    },
+    {
+      "id": "count_fees_with_code",
+      "label": "Dolu qualificationCode sayısı = 84",
+      "ok": true,
+      "detail": "84"
+    },
+    {
+      "id": "count_fees_without_code",
+      "label": "Boş qualificationCode sayısı = 19",
+      "ok": true,
+      "detail": "19"
+    },
+    {
+      "id": "count_unmatched_report",
+      "label": "unmatched-fees.manifest.json kayıt sayısı = 19",
+      "ok": true,
+      "detail": "19"
+    },
+    {
+      "id": "unique_sector_slugs",
+      "label": "Sektör slug benzersizliği",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "unique_myk_codes",
+      "label": "MYK kodu benzersizliği",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "unique_fee_source_keys",
+      "label": "Ücret source_key benzersizliği",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "qualification_sector_refs",
+      "label": "Her yeterlilik kaydının sector_slug'ı gerçek sektör manifestinde var",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "fee_sector_refs",
+      "label": "Her ücret kaydının sector_slug'ı gerçek sektör manifestinde var",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "linked_fees_valid_targets",
+      "label": "Bağlantılı (dolu kodlu) ücretlerin hepsi gerçek bir yeterliliğe işaret ediyor",
+      "ok": true,
+      "detail": "84"
+    },
+    {
+      "id": "null_linked_fees_count",
+      "label": "qualification_source_key=null olan kayıt sayısı = 19",
+      "ok": true,
+      "detail": "19"
+    },
+    {
+      "id": "index_sequence_sectors",
+      "label": "sectors: source_index 0..n-1 aralığında atlama/tekrar yok",
+      "ok": true,
+      "detail": "0,1,2,3,4,5,6,7,8,9,10,11,12,13"
+    },
+    {
+      "id": "index_sequence_qualifications",
+      "label": "qualifications: source_index 0..n-1 aralığında atlama/tekrar yok",
+      "ok": true,
+      "detail": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82"
+    },
+    {
+      "id": "index_sequence_fees",
+      "label": "fees: source_index 0..n-1 aralığında atlama/tekrar yok",
+      "ok": true,
+      "detail": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102"
+    },
+    {
+      "id": "price_option_integrity",
+      "label": "Fiyat seçeneklerinin alan/sınır bütünlüğü",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "money_reversible",
+      "label": "Tüm para dönüşümleri tam sayı ve /100 ile geri çevrilebilir (kayıpsız kuruş)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "mapping_row_count",
+      "label": "Eşleştirme dosyası satır sayısı = sektör+yeterlilik+ücret toplamı",
+      "ok": true,
+      "detail": "200 / 200"
+    },
+    {
+      "id": "no_forbidden_content",
+      "label": "Manifestte mutlak yol / gizli bilgi / çalışma-zamanına-bağlı alan yok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "no_unexpected_manifest_files",
+      "label": "data/content ve data/mapping altında beklenen 5 dosya dışında \"*.manifest.json\" yok",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

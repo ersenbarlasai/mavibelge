@@ -1,0 +1,20 @@
+{
+	"name": "mavibelge/wordpress-site",
+	"description": "Mavi Belge WordPress ozel tema ve ozel eklenti kaynagi. Uygulama calisma zamani bagimliligi yoktur.",
+	"type": "project",
+	"license": "proprietary",
+	"require": {
+		"php": ">=7.3"
+	},
+	"config": {
+		"platform": {
+			"php": "7.3.33"
+		}
+	},
+	"extra": {
+		"notes": [
+			"config.platform.php = 7.3.33 gercek sunucu patch surumu iddiasi degildir; yalnizca bagimlilik cozumlemesinin PHP 8 paketi secmesini onlemek icin PHP 7.3 dalinin bilinen son surumune sabitlenmistir.",
+			"PHPCS/PHPCompatibility paket surumu henuz secilmedi; surum dogrulamasi bekliyor (bkz. raporlar/karar-kaydi-wordpress-php73.md)."
+		]
+	}
+}

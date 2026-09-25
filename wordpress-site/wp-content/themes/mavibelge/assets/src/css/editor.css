@@ -1,0 +1,24 @@
+/*
+ * Minimal block-editor content styles (loaded via add_editor_style()
+ * in inc/setup.php, NOT part of the front-end assets/dist/style.css
+ * bundle). Keeps the editor's typography roughly matching the front
+ * end so authors aren't surprised; no custom blocks, no block styles.
+ */
+.editor-styles-wrapper {
+  font-family: var(--font-sans, "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif);
+  color: var(--color-gray-900, #1a1e29);
+}
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-navy-900, #2b3e50);
+}
+.editor-styles-wrapper a {
+  color: var(--color-blue-600, #066aab);
+}
+.editor-styles-wrapper .wp-block {
+  max-width: 720px;
+}

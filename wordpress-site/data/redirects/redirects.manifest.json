@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "redirect_rules",
+  "source": {
+    "method": "depoda metin olarak kayıtlı mavibelge.com.tr adresleri (wordpress-site/, tmp/, node_modules/, .git/ hariç); ağ erişimi yok",
+    "old_url_count": 57,
+    "old_url_list_sha256": "924e45f1ebd011ec2ffc3968793e0a87331573419b73e1b1b3e34f91a179b14e",
+    "complete": false,
+    "note": "Nihai eski URL envanteri en az 145 adrestir; canlı sitemap, Search Console, sunucu kayıtları, analitik ve backlink kaynakları olmadan tamamlanamaz."
+  },
+  "counts": {
+    "rules": 29,
+    "active_rules": 2,
+    "keep": 9,
+    "redirect": 29,
+    "infrastructure": 6,
+    "needs_decision": 13
+  },
+  "rules": [
+    {
+      "source": "/6-dilde-myk-belgesi-gecerliligi/",
+      "target": "/haberler/6-dilde-myk-belgesi-gecerliligi/",
+      "status": 301,
+      "origin": "verified",
+      "active": true,
+      "note": "Yol, statik referanstaki (tanitim-site/assets/data/news.js) haber slug'ıyla BİREBİR aynı; haber içe aktarılıp yayınlanınca hedef oluşur."
+    },
+    {
+      "source": "/belge-yenileme-sureci/",
+      "target": "/belge-yenileme/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik belge-yenileme sayfası süreci anlatıyor; onay bekliyor."
+    },
+    {
+      "source": "/bilgilendirme/",
+      "target": "/haberler/bilgilendirme-subat-2023/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez."
+    },
+    {
+      "source": "/cam/",
+      "target": "/sektor/cam/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/fiyat-list/",
+      "target": "/sinav-ucretleri/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Fiyat listesi -> sınav ücretleri sayfası; onay bekliyor."
+    },
+    {
+      "source": "/gecerlilik-suresi-dolan-myk-mesleki-yeterlilik-belgelerinin-yenilenmesi-ve-gozetim-ile-ilgili-duyurular/",
+      "target": "/haberler/gecerlilik-suresi-dolan-belgelerin-yenilenmesi/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez."
+    },
+    {
+      "source": "/gizlilik-politikamiz/",
+      "target": "/gizlilik-politikasi/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı konu, farklı slug (statik gizlilik-politikasi); onay bekliyor."
+    },
+    {
+      "source": "/guzellik-ve-sac-bakim/",
+      "target": "/sektor/guzellik-sac-bakim/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik sektör guzellik-sac-bakim; onay bekliyor."
+    },
+    {
+      "source": "/insaat-meslekleri/",
+      "target": "/sektor/insaat/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/itiraz-ve-sikayetler/",
+      "target": "/itiraz-sikayet/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı konu, farklı slug (statik itiraz-sikayet); onay bekliyor."
+    },
+    {
+      "source": "/kvkk-2/",
+      "target": "/kvkk/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "WordPress çift slug (-2) — statik kvkk sayfası; onay bekliyor."
+    },
+    {
+      "source": "/makine/",
+      "target": "/sektor/makine/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/mermer-meslekleri/",
+      "target": "/sektor/mermer/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/mesleki-yeterlilik-kurumu-myk/",
+      "target": "/myk/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik myk sayfası; onay bekliyor."
+    },
+    {
+      "source": "/mesleklerimiz/",
+      "target": "/yeterlilikler/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Meslek listesi -> yeterlilik arşivi; onay bekliyor."
+    },
+    {
+      "source": "/metal-meslekleri/",
+      "target": "/sektor/metal/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/metalurji/",
+      "target": "/sektor/metalurji/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/misyonumuz/",
+      "target": "/misyon-vizyon/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik misyon-vizyon sayfası; onay bekliyor."
+    },
+    {
+      "source": "/mobilya-meslekleri/",
+      "target": "/sektor/mobilya/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/mobilya-sektoru-belge-zorunlulugu/",
+      "target": "/haberler/mobilya-sektoru-belge-zorunlulugu/",
+      "status": 301,
+      "origin": "verified",
+      "active": true,
+      "note": "Yol, statik referanstaki (tanitim-site/assets/data/news.js) haber slug'ıyla BİREBİR aynı; haber içe aktarılıp yayınlanınca hedef oluşur."
+    },
+    {
+      "source": "/myk-belgesi-zorunlulugu-getirilen-yeni-meslekler-2/",
+      "target": "/haberler/myk-belgesi-zorunlulugu-yeni-meslekler-2021/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez. (WordPress çift slug -2)."
+    },
+    {
+      "source": "/myk-belgesi-zorunlulugu-getirilen-yeni-meslekler/",
+      "target": "/haberler/myk-belgesi-zorunlulugu-yeni-meslekler-2021/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez."
+    },
+    {
+      "source": "/plastik-meslekleri/",
+      "target": "/sektor/plastik/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/sinav-ve-belgelendirme-sureci/",
+      "target": "/sinav-surecleri/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik sinav-surecleri sayfası; onay bekliyor."
+    },
+    {
+      "source": "/sirket-hakkinda/",
+      "target": "/hakkimizda/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik hakkimizda sayfası; onay bekliyor."
+    },
+    {
+      "source": "/tekstil/",
+      "target": "/sektor/tekstil/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor."
+    },
+    {
+      "source": "/turk-akreditasyon-kurumu-turkak/",
+      "target": "/turkak/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik turkak sayfası; onay bekliyor."
+    },
+    {
+      "source": "/ust-yonetimin-tarafsizlik-beyani/",
+      "target": "/tarafsizlik-beyani/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik tarafsizlik-beyani sayfası; onay bekliyor."
+    },
+    {
+      "source": "/yetki-belgelerimiz/",
+      "target": "/yetki-akreditasyon/",
+      "status": 301,
+      "origin": "proposed",
+      "active": false,
+      "note": "Statik yetki-akreditasyon sayfası; onay bekliyor."
+    }
+  ]
+}

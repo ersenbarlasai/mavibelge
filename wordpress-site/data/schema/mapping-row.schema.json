@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/mapping-row.schema.json",
+  "title": "Mavi Belge Faz 6A Eşleştirme Satırı",
+  "description": "wordpress-site/data/mapping/mapping.manifest.json içindeki her 'rows[]' elemanının şekli.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "source_index", "source_key", "natural_key", "resolution", "target_source_key", "validation_status"],
+  "properties": {
+    "type": { "type": "string", "enum": ["sector", "qualification", "fee"] },
+    "source_index": { "type": "integer", "minimum": 0 },
+    "source_key": { "type": "string" },
+    "natural_key": { "type": "string" },
+    "resolution": { "type": "string", "enum": ["mapped", "unmatched"] },
+    "target_source_key": { "type": ["string", "null"] },
+    "validation_status": { "type": "string", "enum": ["valid", "invalid"] }
+  }
+}

@@ -1,0 +1,41 @@
+# Faz 6B2 runtime doğrulaması — yerel, izole, silinebilir ortam.
+# - Yalnız 127.0.0.1'e yayınlanır; veritabanı dışarı açılmaz.
+# - Parolalar depoda DEĞİL: `--env-file <depo dışı dosya>` ile verilir.
+# - Eklenti, tema ve manifestler SALT OKUNUR bağlanır.
+# - Canlı/staging veritabanı veya dosyalarıyla hiçbir bağlantı yoktur.
+# Kaldırma: docker compose -p mbruntime6b2 down -v
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: wp
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD gerekli}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD gerekli}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  wp:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:18673:80"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - wp_core:/var/www/html
+      - ../../wp-content/plugins/mavibelge-core:/var/www/html/wp-content/plugins/mavibelge-core:ro
+      - ../../wp-content/themes/mavibelge:/var/www/html/wp-content/themes/mavibelge:ro
+      - ../../data:/var/www/html/data:ro
+      - ./scripts:/opt/mb-runtime:ro
+
+volumes:
+  db_data:
+  wp_core:

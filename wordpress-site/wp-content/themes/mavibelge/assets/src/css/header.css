@@ -1,0 +1,205 @@
+/*
+ * Header — ported from tanitim-site/assets/css/components.css
+ * (.trust-bar / .site-header / .header-main / .brand-logo / .main-nav /
+ * .submenu / .trust-group / .trust-logo-item / .trust-code /
+ * .header-cta / .mobile-header-cta / .menu-toggle). Selectors and
+ * values kept as-is; see docs/design-system.md for the header ASCII
+ * layout and sign-off.
+ */
+
+/* ===== Trust bar ===== */
+.trust-bar {
+  background: var(--color-navy-950);
+  color: var(--color-gray-200);
+  font-size: var(--fs-xs);
+}
+.trust-bar .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+.trust-bar a { color: var(--color-gray-200); }
+.trust-bar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-5); flex-wrap: wrap; }
+.trust-bar li { display: flex; align-items: center; gap: 6px; }
+
+/* ===== Header ===== */
+.site-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-2) 0;
+  min-height: 96px;
+}
+.brand-logo img { height: 44px; width: auto; }
+.brand-logo { flex-shrink: 0; }
+
+.main-nav { flex: 1 1 auto; min-width: 0; }
+.main-nav > ul {
+  display: flex;
+  list-style: none;
+  margin: 0; padding: 0;
+  gap: var(--space-5);
+  justify-content: center;
+}
+.main-nav > ul > li {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+/*
+ * Top-level items with children render TWO controls side by side: a real
+ * link (.nav-parent-link, the item's own destination) and a toggle
+ * (.nav-toggle, opens/closes .submenu only). Each keeps its own >=44px
+ * hit area rather than being merged into one box, so the link's click
+ * target never overlaps the toggle's.
+ */
+.main-nav > ul > li > a,
+.main-nav > ul > li > .nav-parent-link,
+.main-nav > ul > li > button.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-3) var(--space-1);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--color-navy-900);
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+  white-space: nowrap;
+}
+.main-nav > ul > li > button.nav-toggle {
+  min-width: 32px;
+  padding-left: var(--space-1);
+  padding-right: var(--space-1);
+  justify-content: center;
+}
+.main-nav > ul > li > a:hover,
+.main-nav > ul > li > .nav-parent-link:hover,
+.main-nav .nav-toggle:hover,
+.main-nav > ul > li.is-open > .nav-toggle { color: var(--color-blue-600); text-decoration: none; }
+.main-nav > ul > li > a:focus-visible,
+.main-nav > ul > li > .nav-parent-link:focus-visible,
+.main-nav > ul > li > button.nav-toggle:focus-visible {
+  outline: 2px solid var(--color-blue-600);
+  outline-offset: -2px;
+}
+.main-nav > ul > li > .nav-parent-link.is-active,
+.main-nav > ul > li > .nav-parent-link[aria-current="page"] {
+  color: var(--color-blue-600);
+}
+.main-nav > ul > li > button.nav-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+.main-nav > ul > li > button.nav-toggle svg {
+  transition: transform 0.15s ease;
+}
+
+/* Screen-reader-only text (e.g. the .nav-toggle accessible-name span) —
+   visually hidden, still reachable by assistive tech. Standard WP
+   pattern; kept local to this file since it is only used in the header
+   at this phase. */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-3);
+  list-style: none;
+  margin: 0;
+  z-index: 50;
+}
+.main-nav li.is-open > .submenu,
+.main-nav li:hover > .submenu,
+.main-nav li:focus-within > .submenu { display: block; }
+.submenu li a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-gray-900);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.submenu li a:hover { background: var(--color-blue-50); color: var(--color-blue-600); text-decoration: none; }
+.submenu li a:focus-visible { background: var(--color-blue-50); color: var(--color-blue-600); }
+
+.trust-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-gray-200);
+  flex-shrink: 0;
+}
+.trust-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.trust-logo-item img { height: 66px; width: auto; object-fit: contain; }
+.trust-code {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-navy-900);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.header-cta { flex-shrink: 0; }
+.mobile-header-cta { display: none; }
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  cursor: pointer;
+}
+.menu-toggle span, .menu-toggle::before, .menu-toggle::after {
+  content: ""; display: block; width: 20px; height: 2px; background: var(--color-navy-900); position: relative;
+}
+.menu-toggle { flex-direction: column; gap: 4px; }
+
+/* Applied to <body> by navigation.js while the mobile menu is open, to
+   stop background scroll behind the open panel (only takes effect at
+   widths where .menu-toggle is visible). */
+body.mavibelge-nav-open {
+  overflow: hidden;
+}

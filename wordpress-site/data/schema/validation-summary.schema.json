@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/validation-summary.schema.json",
+  "title": "Mavi Belge Faz 6A Doğrulama Özeti",
+  "description": "wordpress-site/data/mapping/validation-summary.json'ın gerçek şekli — manifest-envelope.schema.json'daki 'records'/'rows'/'count' beklentisiyle KARIŞTIRILMAMALI; bu bir çalıştırma raporudur, içerik manifesti değildir.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "total_checks", "passed", "failed", "checks"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "record_type": { "type": "string", "const": "validation_summary" },
+    "total_checks": { "type": "integer", "minimum": 0 },
+    "passed": { "type": "integer", "minimum": 0 },
+    "failed": { "type": "integer", "minimum": 0 },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "ok", "detail"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "ok": { "type": "boolean" },
+          "detail": { "type": "string" }
+        }
+      }
+    }
+  }
+}

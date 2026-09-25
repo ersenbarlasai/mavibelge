@@ -1,0 +1,10 @@
+{
+	"name": "mavibelge-wordpress-site",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Mavi Belge WordPress temasi/eklentisi icin yerel derleme metadata'si. Node uretim sunucusunda gerekli degildir; derleme yerelde yapilir.",
+	"scripts": {
+		"build:css": "echo 'reserved for future CSS build step'",
+		"build:js": "echo 'reserved for future JS build step'"
+	}
+}

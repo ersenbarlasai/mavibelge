@@ -1,0 +1,170 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "reference",
+  "count": 12,
+  "source": {
+    "file": "tanitim-site/assets/data/references.js",
+    "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+  },
+  "notes": [
+    "references.js: 12 TEMSİLİ referans logosu — gerçek müşteri DEĞİLDİR (reference_status=representative). logo_file yalnız bilgi amaçlı kaynak yoludur (SVG izinli logo MIME türü değildir; logo eki aktarılmaz). Kurum/tarih/bağlantı uydurulmadı."
+  ],
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:atlas-endustri",
+      "source_index": 0,
+      "name": "Atlas Endüstri",
+      "slug": "atlas-endustri",
+      "logo_file": "tanitim-site/assets/images/references/atlas-endustri.svg",
+      "alt": "Atlas Endüstri — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:doruk-yapi",
+      "source_index": 1,
+      "name": "Doruk Yapı",
+      "slug": "doruk-yapi",
+      "logo_file": "tanitim-site/assets/images/references/doruk-yapi.svg",
+      "alt": "Doruk Yapı — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:mavi-hat-lojistik",
+      "source_index": 2,
+      "name": "Mavi Hat Lojistik",
+      "slug": "mavi-hat-lojistik",
+      "logo_file": "tanitim-site/assets/images/references/mavi-hat-lojistik.svg",
+      "alt": "Mavi Hat Lojistik — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:nova-metal",
+      "source_index": 3,
+      "name": "Nova Metal",
+      "slug": "nova-metal",
+      "logo_file": "tanitim-site/assets/images/references/nova-metal.svg",
+      "alt": "Nova Metal — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:eksen-enerji",
+      "source_index": 4,
+      "name": "Eksen Enerji",
+      "slug": "eksen-enerji",
+      "logo_file": "tanitim-site/assets/images/references/eksen-enerji.svg",
+      "alt": "Eksen Enerji — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:usta-kaynak",
+      "source_index": 5,
+      "name": "Usta Kaynak",
+      "slug": "usta-kaynak",
+      "logo_file": "tanitim-site/assets/images/references/usta-kaynak.svg",
+      "alt": "Usta Kaynak — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:zirve-otomotiv",
+      "source_index": 6,
+      "name": "Zirve Otomotiv",
+      "slug": "zirve-otomotiv",
+      "logo_file": "tanitim-site/assets/images/references/zirve-otomotiv.svg",
+      "alt": "Zirve Otomotiv — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:form-plastik",
+      "source_index": 7,
+      "name": "Form Plastik",
+      "slug": "form-plastik",
+      "logo_file": "tanitim-site/assets/images/references/form-plastik.svg",
+      "alt": "Form Plastik — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:ada-tekstil",
+      "source_index": 8,
+      "name": "Ada Tekstil",
+      "slug": "ada-tekstil",
+      "logo_file": "tanitim-site/assets/images/references/ada-tekstil.svg",
+      "alt": "Ada Tekstil — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:kent-asansor",
+      "source_index": 9,
+      "name": "Kent Asansör",
+      "slug": "kent-asansor",
+      "logo_file": "tanitim-site/assets/images/references/kent-asansor.svg",
+      "alt": "Kent Asansör — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:natura-ahsap",
+      "source_index": 10,
+      "name": "Natura Ahşap",
+      "slug": "natura-ahsap",
+      "logo_file": "tanitim-site/assets/images/references/natura-ahsap.svg",
+      "alt": "Natura Ahşap — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:liman-teknik",
+      "source_index": 11,
+      "name": "Liman Teknik",
+      "slug": "liman-teknik",
+      "logo_file": "tanitim-site/assets/images/references/liman-teknik.svg",
+      "alt": "Liman Teknik — temsili referans logosu",
+      "source": {
+        "file": "tanitim-site/assets/data/references.js",
+        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+      }
+    }
+  ]
+}

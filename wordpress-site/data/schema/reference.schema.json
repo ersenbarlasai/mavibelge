@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/reference.schema.json",
+  "title": "Mavi Belge Faz 7 Referans Manifest Kaydı",
+  "description": "wordpress-site/data/content/references.manifest.json içindeki her 'records[]' elemanının şekli. Kaynak: tanitim-site/assets/data/references.js (12 TEMSİLİ referans logosu — gerçek müşteri DEĞİL). 'logo_file' yalnız bilgi amaçlı kaynak yoludur; logo eki aktarılmaz. Bkz. docs/content-import-contract.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_key", "source_index", "name", "slug", "logo_file", "alt", "source"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "source_key": { "type": "string", "pattern": "^reference:[a-z0-9]+(-[a-z0-9]+)*$" },
+    "source_index": { "type": "integer", "minimum": 0 },
+    "name": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "logo_file": { "type": "string", "pattern": "^[A-Za-z0-9._/-]+$" },
+    "alt": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}
