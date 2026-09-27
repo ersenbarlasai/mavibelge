@@ -139,6 +139,31 @@
 
 Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topluca yeniden etkinleştirilmeyecek; staging paketi kendi onaylı eklenti durumunu getirecektir.
 
+## 6.3. Task 4 canlı import başlangıcı
+
+| Kontrol | Durum |
+|---|---|
+| Ayrı canlı import onayı | PASS — kullanıcı 28 Eylül 2026 tarihinde doğrulanmış `.wpress` paketinin canlıya importunu açıkça onayladı |
+| Kaynak paket | Task 2'de doğrulanan özel `.wpress`; 86.058.411 bayt; SHA-256 `370020fa43c32460b25ee4e5d9ed4c18e14fda5de56a440ec2c6aaacb9a0cabd` |
+| Aktarım yöntemi | File Manager ile `wp-content/ai1wm-backups`; ardından All-in-One WP Migration → Backups → Restore |
+| Sunucuya yüklenen paket boyutu | PASS — DirectAdmin `82,07 MB` gösteriyor; 86.058.411 baytlık doğrulanmış kaynak paketle uyumlu |
+| Geçici dış erişim koruması | PASS — DirectAdmin dizin koruması anonim isteğe HTTP 401 ve `Basic realm="Bakim Penceresi"` döndürüyor |
+| Restore öncesi yönetim/paket kapısı | PASS — kullanıcı WordPress yönetimine erişti ve `82,07 MB` paketin All-in-One WP Migration Backups ekranında listelendiğini doğruladı |
+| Backups → Restore denemesi | BEKLENEN ENGEL — ücretsiz sürüm Unlimited Extension istedi; import başlamadı ve canlı veri değişmedi |
+| Kök neden | Backups listesinden Restore ücretli özellik; ücretsiz File Import kullanılabilir, ancak mevcut PHP/LiteSpeed upload sınırı 64 MB ve paket 86.058.411 bayt |
+| Geçici PHP limit değişikliği onayı | PASS — kullanıcı LiteSpeed kökünde geri alınabilir `.user.ini` ile 128 MB upload/post limiti testini açıkça onayladı |
+| Geçici PHP limit testi | PASS — All-in-One WP Migration Import ekranı azami yükleme boyutunu `128 MB` gösteriyor; doğrulanmış `82,07 MB` paket sınırın altında |
+| File Import sonucu | PASS — kullanıcı importun tamamlandığını ve staging WordPress yönetici hesabıyla canlı yönetime eriştiğini doğruladı |
+| Import sonrası dış erişim koruması | PASS — anonim istek hâlâ HTTP 401 ve `Basic realm="Bakim Penceresi"` dönüyor |
+| WordPress/Site adresleri | PASS — ikisi de `https://mavibelge.com.tr` |
+| Üretim ortamı | PASS — WordPress `6.9.9`, environment `production` |
+| Arama motoru görünürlüğü | PASS — indeks engeli kapalı |
+| Kalıcı bağlantı | PASS — `/%postname%/` |
+| Etkin tema | PASS — Mavi Belge `0.6.8` |
+| Zorunlu eklentiler | PASS — Mavi Belge Core `0.5.3`, Post SMTP `4.0.2`, All-in-One WP Migration `7.111` etkin |
+| Task 4 sonucu | PASS — yeni WordPress canlı alana aktarıldı; HTTP koruması altında, henüz kamuya açılmadı |
+| Kamuya açma | YASAK — Task 5 P0 kabulü tamamlanana kadar bakım modu korunur |
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
@@ -150,3 +175,5 @@ Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topl
 - Aynı adla yerel bilgisayara indirilmiş ikinci kopya işletim sistemi özelliklerinde 13.715.857.408 bayt olarak görüldü. Kullanıcı konum bilgisini gizledi; bu değer rapora alınmadı.
 - 12,77 GB sunucu yedeği dondurma başlangıcından yaklaşık on dakika önce tamamlandı ve aynı arşivin yerel ikinci kopyası doğrulandı. Arada içerik/ayar değişikliği yapılmaması talimatıyla bu arşiv import öncesi son geri dönüş noktası kabul edildi.
 - SeedProd bakım ekranı anonim görünümde doğrulandı; yönetici oturumu erişilebilir kaldı. Bakım ekranında form veya veri toplama bulunmuyor.
+- `.wpress` paketi 64 MB tarayıcı import sınırını aştığından planın “İçe Aktar → Dosya” yolu kullanılmayacaktır. Aynı eklentinin resmî sunucu-klasörü yöntemiyle paket `wp-content/ai1wm-backups` altına konup Backups ekranından Restore çalıştırılacaktır; paket boyutu restore öncesinde yeniden doğrulanacaktır.
+- Backups ekranındaki Restore işleminin Unlimited Extension gerektirdiği canlı arayüzde kanıtlandı; önceki sunucu-klasörü kararı geçersiz kılındı. Ücretsiz ve resmî desteklenen yol File Import'tur; LiteSpeed kökünde geçici `.user.ini` ile PHP sınırı yükseltilmeden yeniden deneme yapılmayacaktır.
