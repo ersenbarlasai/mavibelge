@@ -49,6 +49,20 @@ Faz 5 ile eklendi: tek genel katalog servisi (`public/class-catalog-service.php`
 
 Bu fazda **yok**: veri importu (statik kaynak WordPress'e yazılmadı), REST endpoint, form, SEO/schema üretimi, üçüncü taraf eklenti bağımlılığı.
 
+## Admin katalog aktarımı (Faz 6B4; güncel: eklenti 0.5.3)
+
+SSH/WP-CLI olmayan hosting (DirectAdmin) için, mevcut Faz 6B3 apply/rollback motorunu **yönetim panelinden**, kesintiye dayanıklı çalıştırır (Araçlar → İçe Aktarım Dry-Run):
+sektör görsel eşleme (Ortam Kütüphanesi, `mavibelge_core_sector_image_map`, kapalı zarf + manifest özeti + attachment doğrulaması; tahmin yok), aşama önizleme (`pages → sectors → qualifications → all → content`,
+sunucu tarafı sıra kapısı), `wp_ajax_*` ile başlat/ilerlet (her istekte **en çok 10 kayıt**, kalıcı plan snapshot'ı ve checkpoint, `ready → running → paused → … → completed`), çok istekli rollback
+(`rollback_ready → rolling_back → rollback_paused → … → rolled_back`, her istekte kalan bütün item'lar drift için önceden doğrulanır) ve WP-CLI ile **aynı** `MaviBelge_Core_Import_Runtime_Factory` grafiği.
+Yazma kapıları: yalnız POST + action'a özel nonce + `manage_options` ve `mb_manage_tariff_period` + HTTPS; apply/rollback için ayrıca `MAVIBELGE_IMPORT_APPLY_ENABLED` ve `MAVIBELGE_IMPORT_ADMIN_APPLY_ENABLED` (`=== true`, wp-config.php'den),
+staging'de `WP_ENVIRONMENT_TYPE === 'staging'`, üretimde ayrıca `MAVIBELGE_IMPORT_PRODUCTION_APPLY_ENABLED` ve birebir `MAVIBELGE_IMPORT_PRODUCTION_HOST`. Onay: `UYGULA <stage> <plan özeti ilk 12>` / `GERI AL <run ilk 8> <rollback özeti ilk 12>`.
+İşletim adımları: [`docs/admin-import-operations.md`](docs/admin-import-operations.md). Testler: `tests/suites/faz6b4-admin-import.php` (saf), `tools/test-admin-import-static-contract.js` (statik),
+`tools/runtime-test/admin-import.sh` (gerçek WordPress), `tools/runtime-test/admin-import-http.sh` (gerçek HTTP). Paket: `node tools/package/build-packages.js --write` → `dist-packages/mavibelge-core-0.5.0.zip`.
+
+**Faz 12 — sayfalar (yerel kod tamam; staging'de çalıştırılmadı):** `pages` aşaması `data/content/pages.manifest.json` ile 32 gerçek `page` kaydını **taslak** oluşturur; yayınlama AYRI, açık onaylı, yalnız staging işlemidir (`YAYINLA <özet12>`, istek başına ≤10; kurum kararı bekleyen 7 sayfa bekletilir). Ayrıntı: [`docs/admin-import-operations.md`](docs/admin-import-operations.md) §8.1–8.2, [`docs/content-import-contract.md`](docs/content-import-contract.md) §9. Testler: `tools/import/test-page-manifest.js`, `tools/test-faz12-static-contract.js`, `tools/runtime-test/pages-render.sh`.
+**Faz 12g — İletişim sayfası (tema 0.6.7; yerel):** `/iletisim/` statik referans düzeninde (`template-parts/page/content-contact.php`); lokasyon/sosyal/birincil iletişim footer ile ORTAK tek kaynaktan (`inc/contact-helpers.php`, `template-parts/components/social-links.php`); form yalnız `gate()` açıkken. Test: `tools/runtime-test/contact-page-test.js` (gerçek WP + headless Chrome; beş formun güvenlik matrisi dahil; `qualification-render.sh` içinde).
+
 ## Doğrulama
 
 Bkz. [`docs/compatibility.md`](docs/compatibility.md).

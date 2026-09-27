@@ -118,6 +118,19 @@ class MaviBelge_Core_Forms_Service {
 		}
 		$result  = ( null !== self::$last && self::$last['form'] === $formId ) ? self::$last : null;
 		$status  = null !== $result ? $result['status'] : ( self::success_from_query( $formId ) ? 'success' : '' );
+		// Faz 12f: `?meslek=<MYK kodu>` yalnız online başvuruda ve yalnız POST sonucu YOKKEN ön seçim olur (doğrulama hatasıyla
+		// yeniden çizimde kullanıcının POST ettiği değer önceliklidir). Değer yalnız herkese açık, tekil bir seçenek anahtarıyla
+		// TAM eşleşirse kullanılır; aksi hâlde hiçbir şey seçilmez ve ham değer hiçbir yere taşınmaz.
+		$preselect = array();
+		if ( null === $result && 'application' === $formId ) {
+			$requested = MaviBelge_Core_Forms_Qualification_Options::requested(
+				isset( $_GET['meslek'] ) ? $_GET['meslek'] : null, // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput -- yalnız katı biçim + allowlist eşleşmesiyle okunur, durum değiştirmez.
+				isset( $options['qualifications'] ) ? $options['qualifications'] : array()
+			);
+			if ( '' !== $requested ) {
+				$preselect['qualification'] = $requested;
+			}
+		}
 		return array(
 			'id'            => $formId,
 			'label'         => $def['label'],
@@ -134,6 +147,7 @@ class MaviBelge_Core_Forms_Service {
 			'status'        => $status,
 			'errors'        => null !== $result ? $result['errors'] : array(),
 			'values'        => null !== $result ? $result['echo'] : array(),
+			'preselect'     => $preselect,
 			'token'         => $gate['open'] ? self::issue_token( $formId ) : '',
 			'names'         => array(
 				'form'     => MaviBelge_Core_Forms_Schema::FORM_FIELD,
@@ -172,15 +186,17 @@ class MaviBelge_Core_Forms_Service {
 				'suppress_filters' => true,
 			)
 		);
-		$options = array();
+		$rows = array();
 		foreach ( is_array( $ids ) ? $ids : array() as $id ) {
-			$code = (string) get_post_meta( $id, '_mb_myk_code', true );
-			if ( '' === $code || ! MaviBelge_Core_Visibility_Guard::is_public_qualification( $id ) ) {
-				continue;
-			}
-			$options[ $code ] = get_the_title( $id ) . ' — ' . $code;
+			$rows[] = array(
+				'code'   => (string) get_post_meta( $id, '_mb_myk_code', true ),
+				'title'  => get_the_title( $id ),
+				'level'  => (string) get_post_meta( $id, '_mb_level', true ),
+				'public' => MaviBelge_Core_Visibility_Guard::is_public_qualification( $id ),
+			);
 		}
-		return array( 'qualifications' => $options );
+		// Faz 12f: etiket "{Ad} — {Kod} (Seviye {N})"; aynı koda iki herkese açık kayıt varsa kod dışlanır (fail-closed).
+		return array( 'qualifications' => MaviBelge_Core_Forms_Qualification_Options::build( $rows ) );
 	}
 
 	/* ------------------------------------------------------------ gönderim */

@@ -21,12 +21,25 @@ while ( have_posts() ) :
 	$slug    = get_post_field( 'post_name', $post_id );
 	$layout  = function_exists( 'mavibelge_page_layout_for_slug' ) ? mavibelge_page_layout_for_slug( $slug ) : 'default';
 
+	// Faz 12f: doğrulanmış sayfalarda kahraman eyebrow/açıklama ve Anasayfa'dan başlayan kırıntı (inc/page-layouts.php).
+	$hero   = function_exists( 'mavibelge_page_hero_for_slug' ) ? mavibelge_page_hero_for_slug( $slug ) : array();
+	$crumbs = array();
+	if ( ! empty( $hero ) ) {
+		$crumbs[] = array( 'label' => __( 'Anasayfa', 'mavibelge' ), 'url' => home_url( '/' ) );
+		foreach ( isset( $hero['parents'] ) ? $hero['parents'] : array() as $parent ) {
+			$crumbs[] = array( 'label' => $parent['label'], 'url' => mavibelge_url( $parent['path'] ) );
+		}
+	}
+	$crumbs[] = array( 'label' => get_the_title() );
+
 	get_template_part(
 		'template-parts/page/page-hero',
 		null,
 		array(
+			'eyebrow'          => isset( $hero['eyebrow'] ) ? $hero['eyebrow'] : '',
 			'title'            => get_the_title(),
-			'breadcrumb_items' => array( array( 'label' => get_the_title() ) ),
+			'description'      => isset( $hero['description'] ) ? $hero['description'] : '',
+			'breadcrumb_items' => $crumbs,
 		)
 	);
 
@@ -36,15 +49,19 @@ while ( have_posts() ) :
 	} elseif ( 'form-disabled' === $layout ) {
 		$fields = function_exists( 'mavibelge_form_shell_fields_for_slug' ) ? mavibelge_form_shell_fields_for_slug( $slug ) : array();
 		$form   = function_exists( 'mavibelge_form_dto' ) ? mavibelge_form_dto( $slug ) : null;
-		if ( is_array( $form ) && ( $form['open'] || 'success' === $form['status'] ) ) {
+		if ( 'iletisim' === $slug ) {
+			// Faz 12g: tanitim-site/iletisim.html düzeni (lokasyonlar + sosyal medya + "Bize Yazın"). Kapı kararı yine
+			// DTO'nun `open` alanıdır; kapalıyken <form> çizilmez. Lokasyonlar bu gövdede TEK kez çizilir.
+			get_template_part( 'template-parts/page/content-contact', null, array( 'form' => $form ) );
+		} elseif ( 'online-basvuru' === $slug && is_array( $form ) ) {
+			// Faz 12f: tanitim-site/online-basvuru.html düzeni. Kapı kararı yine DTO'nun `open` alanıdır
+			// (MaviBelge_Core_Forms_Config::gate()); kapalıyken <form> çizilmez, yalnız önizleme.
+			get_template_part( 'template-parts/page/content-application', null, array( 'form' => $form ) );
+		} elseif ( is_array( $form ) && ( $form['open'] || 'success' === $form['status'] ) ) {
 			// Kapı AÇIK (veya PRG sonrası başarı ekranı): gerçek form.
 			get_template_part( 'template-parts/page/content-form-live', null, array( 'form' => $form ) );
 		} else {
 			get_template_part( 'template-parts/page/content-form-disabled', null, array( 'fields' => $fields, 'form' => $form ) );
-		}
-		if ( 'iletisim' === $slug ) {
-			// Lokasyon/iletişim verisinin merkezi yönetimi: mb_lokasyon kayıtları varsa gösterilir.
-			get_template_part( 'template-parts/content/location-list' );
 		}
 	} else {
 		get_template_part( 'template-parts/page/content-default' );

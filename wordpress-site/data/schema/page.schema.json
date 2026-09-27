@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/page.schema.json",
+  "title": "Mavi Belge Faz 12 Sayfa (WordPress `page`) Manifest Kaydı",
+  "description": "wordpress-site/data/content/pages.manifest.json içindeki her 'records[]' elemanının şekli. Kaynak: tanitim-site/*.html (dondurulmuş, yalnız okunur). Yeni post type YOKTUR: kayıtlar WordPress çekirdeğinin mevcut `page` türüdür. Hedef durum her zaman draft'tır. Sözcüksel/çapraz-alan kuralları (kapalı HTML izin listesi, envanter eşitliği, parent grafiği) tools/import/lib/validate-page-set.js içindedir.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_key", "source_index", "slug", "title", "content", "excerpt", "parent_source_key", "menu_order", "page_template", "post_status", "layout", "content_sha256", "pending_decisions", "publish_hold", "publish_requires", "source"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "source_key": { "type": "string", "pattern": "^page:[a-z0-9]+(-[a-z0-9]+)*$" },
+    "source_index": { "type": "integer", "minimum": 0, "maximum": 31 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "content": { "type": "string" },
+    "excerpt": { "type": "string", "maxLength": 300 },
+    "parent_source_key": { "type": ["string", "null"], "pattern": "^page:[a-z0-9]+(-[a-z0-9]+)*$" },
+    "menu_order": { "type": "integer", "minimum": 1, "maximum": 32 },
+    "page_template": { "type": "string", "const": "" },
+    "post_status": { "type": "string", "const": "draft" },
+    "layout": { "type": "string", "enum": ["hub", "default", "form-disabled", "cpt-page"] },
+    "content_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "pending_decisions": { "type": "array", "items": { "type": "string", "enum": ["form_gate_institution_decisions", "location_data_pending", "fee_tariff_documents_pending", "accreditation_documents_pending", "legislation_links_pending", "static_counter_block_omitted"] } },
+    "publish_hold": { "type": "boolean" },
+    "publish_requires": { "type": "array", "items": { "type": "string", "enum": ["faq", "reference"] } },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string", "pattern": "^(tanitim-site|wordpress-site/data/sources/approved)/[a-z0-9-]+[.]html$" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

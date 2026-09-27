@@ -136,12 +136,12 @@ test(
 
 // --- §3 — WP-CLI ve admin AYNI TEK servis sınıfını çağırıyor, kendi karar mantığını YAZMIYOR ---
 test(
-	'CLI komutu: MaviBelge_Core_Import_Dry_Run_Service örnekleniyor (kendi karar mantığı YOK)',
-	src.cli.indexOf('new MaviBelge_Core_Import_Dry_Run_Service(') !== -1
+	'CLI komutu: dry-run servisini MaviBelge_Core_Import_Runtime_Factory::dry_run_service() ile alır (Faz 6B4; kendi karar mantığı YOK)',
+	src.cli.indexOf('new MaviBelge_Core_Import_Runtime_Factory()') !== -1 && src.cli.indexOf('->dry_run_service()') !== -1
 );
 test(
-	'Admin ekranı: MaviBelge_Core_Import_Dry_Run_Service örnekleniyor (kendi karar mantığı YOK)',
-	src.admin.indexOf('new MaviBelge_Core_Import_Dry_Run_Service(') !== -1
+	'Admin ekranı: dry-run servisini AYNI MaviBelge_Core_Import_Runtime_Factory::dry_run_service() ile alır (Faz 6B4; kendi karar mantığı YOK)',
+	src.admin.indexOf('new MaviBelge_Core_Import_Runtime_Factory()') !== -1 && src.admin.indexOf('->dry_run_service()') !== -1
 );
 test(
 	'CLI komutu: MaviBelge_Core_Import_Dry_Run_Planner::plan() DOĞRUDAN çağırmıyor (yalnız servis üzerinden)',
@@ -514,8 +514,8 @@ const PHP_WP_CALL_RE = /\b(get_(post|term)_meta|get_posts|get_terms|get_term_by|
 const classifyBody = phpFunctionBody(srcCode.validator, 'classify_import_source_key') || '';
 const isValidKeyBody = phpFunctionBody(srcCode.validator, 'is_valid_import_source_key') || '';
 // Faz 7: news + reference aileleri eklendi -> 5 kanonik desen (sector/qualification/fee + news/reference), hâlâ TEK sınıflandırıcı.
-test('6B3 marker: tek kanonik classify_import_source_key() var; \\z çapalı (5 aile: sector/qualification/fee/news/reference), (string) cast yok',
-	classifyBody !== '' && (classifyBody.match(/\\z\//g) || []).length === 5 &&!/\(string\)/.test(classifyBody) && classifyBody.indexOf('is_string( $value )') !== -1);
+test('6B3 marker: tek kanonik classify_import_source_key() var; \\z çapalı (7 aile: sector/qualification/fee/news/reference/faq/page), (string) cast yok',
+	classifyBody !== '' && (classifyBody.match(/\\z\//g) || []).length === 7 &&!/\(string\)/.test(classifyBody) && classifyBody.indexOf('is_string( $value )') !== -1);
 test('6B3 marker: is_valid_import_source_key() classify\'a devrediyor, (string) cast YOK',
 	isValidKeyBody.indexOf('self::classify_import_source_key(') !== -1 && !/\(string\)/.test(isValidKeyBody));
 test('6B3 marker: term marker sanitize\'ı classify kullanıyor ve geçersizde REJECTED_META_WRITE döndürüyor (\'\' değil)',
@@ -756,9 +756,11 @@ test('Faz 6B3 yazma sınırı: dry-run sınıfları (loader/repository/service/p
 	['loader', 'repository', 'service', 'planner', 'decision', 'recordValidator', 'payload', 'eligibility', 'cli', 'admin'].every((k) => writeHits(srcCode[k]).length === 0));
 test('Faz 6B3 $wpdb: yazma adapterında ve servislerde $wpdb YOK; içerik/meta tablolarına ham SQL yazımı yok',
 	c6.writer.indexOf('$wpdb') === -1 && c6.applySvc.indexOf('$wpdb') === -1 && c6.rollbackSvc.indexOf('$wpdb') === -1 && c6.sink.indexOf('$wpdb') === -1);
-test('Faz 6B3 $wpdb: run deposu yalnız kendi iki tablosuna insert/update yapar (runs_table/items_table); query/replace/delete yok',
-	(c6.store.match(/\$wpdb->(insert|update)\(\s*self::(runs_table|items_table)\(\)/g) || []).length === (c6.store.match(/\$wpdb->(insert|update)\(/g) || []).length
-		&& !/\$wpdb->(query|replace|delete)\s*\(/.test(c6.store));
+test('Faz 6B3/6B4 $wpdb: run deposu yalnız kendi üç tablosuna (runs_table/items_table/plan_items_table) insert/update yapar; delete YALNIZ runs/plan_items tablolarında ve yalnız create_run_with_plan başarısızlık temizliğinde; query/replace yok',
+	(c6.store.match(/\$wpdb->(insert|update)\(\s*self::(runs_table|items_table|plan_items_table)\(\)/g) || []).length === (c6.store.match(/\$wpdb->(insert|update)\(/g) || []).length
+		&& (c6.store.match(/\$wpdb->delete\(\s*self::(runs_table|plan_items_table)\(\)/g) || []).length === (c6.store.match(/\$wpdb->delete\(/g) || []).length
+		&& (c6.store.match(/\$wpdb->delete\(/g) || []).length === 2
+		&& !/\$wpdb->(query|replace)\s*\(/.test(c6.store));
 test('Faz 6B3 $wpdb: transaction sınıfı yalnız START TRANSACTION / COMMIT / ROLLBACK çalıştırır ve sonucu kontrol eder',
 	(c6.tx.match(/self::run\(\s*'([A-Z ]+)'\s*\)/g) || []).map((m) => m.replace(/self::run\(\s*'|'\s*\)/g, '')).sort().join('|') === 'COMMIT|ROLLBACK|START TRANSACTION'
 		&& /\$wpdb->query\(\s*\$statement\s*\)/.test(c6.tx) && (c6.tx.match(/\$wpdb->query\(/g) || []).length === 1
@@ -791,7 +793,7 @@ test('Faz 6B3 kapı sırası: yazma/kurulumdan önce bütün plan kapıları; ki
 	order6.every((n) => applyBody.indexOf(n) !== -1) && order6.every((n, i) => i === 0 || applyBody.indexOf(order6[i - 1]) < applyBody.indexOf(n))
 		&& /finally \{\s*\$this->store->release_lock\(\);/.test(applyBody));
 test('Faz 6B3 batch: her batch begin/commit ile sarılı; hata -> tx rollback -> fail_run (transaction dışında run_failed audit)',
-	/true !== \$this->tx->begin\(\)/.test(c6.applySvc) && /true !== \$this->tx->commit\(\)/.test(c6.applySvc) && /true !== \$this->tx->rollback\(\)/.test(c6.applySvc)
+	/true !== \$this->tx->begin\(\)/.test(c6.applySvc) && /true !== \$this->tx->commit\(\)/.test(c6.applySvc) && /true === \$this->tx->rollback\(\)/.test(c6.applySvc)
 		&& /return \$this->fail_run\(/.test(c6.applySvc) && /ROLLBACK_REQUIRED : MaviBelge_Core_Import_Run_State::FAILED/.test(c6.applySvc));
 test('Faz 6B3 batch: tek merkezi batch sabiti 20 ve 1..20 sınırı', /const DEFAULT_BATCH_SIZE = 20;/.test(c6.applyPlan) && /const MAX_BATCH_SIZE\s+= 20;/.test(c6.applyPlan) && /const MIN_BATCH_SIZE\s+= 1;/.test(c6.applyPlan));
 test('Faz 6B3 aşama: stage kümesi kapalı ve bağımlılık sırasına göre önek (sectors ⊂ qualifications ⊂ all)',
@@ -825,12 +827,12 @@ const ifMethods = (code) => (code.match(/public function (\w+)\(/g) || []).map((
 test('Faz 6B3 arayüz: MaviBelge_Core_Import_Target_Repository hâlâ yalnız 5 okuma metodu taşır (Faz 7 çözümleyici arayüzü AYRI)',
 	repoIfSplit.length === 2 && ifMethods(repoIfSplit[0]) === 'find_target_by_source_key,get_diagnostics,resolve_qualification_post_id,resolve_sector_image_attachment_id,resolve_sector_term_id');
 test('Faz 7 arayüz: ayrı Content_Dependency_Resolver arayüzü TEK metot taşır (resolve_news_type_term_id)', repoIfSplit.length === 2 && ifMethods(repoIfSplit[1]) === 'resolve_news_type_term_id');
-test('Faz 6B3 arayüz: yazma adapterı arayüzü dar (create/update sektör+post, rollback_created_post, delete_sector_term, parmak izi, terim referansları)',
-	(c6.writerIf.match(/public function (\w+)\(/g) || []).map((m) => m.replace(/public function |\(/g, '')).sort().join(',') === 'create_post,create_sector,delete_sector_term,rollback_created_post,sector_term_references,unmanaged_fingerprint,update_post,update_sector');
+test('Faz 6B3 arayüz: yazma adapterı arayüzü dar (create/update sektör+post, rollback_created_post, delete_sector_term, parmak izi, terim referansları, Faz 12: page_status/publish_page)',
+	(c6.writerIf.match(/public function (\w+)\(/g) || []).map((m) => m.replace(/public function |\(/g, '')).sort().join(',') === 'begin_side_effect_scope,commit_side_effect_scope,compensate_side_effect_scope,content_post_status,create_post,create_sector,delete_sector_term,page_status,publish_page,rollback_created_post,sector_term_references,unmanaged_fingerprint,update_post,update_sector');
 
 // 8) Yönetilmeyen alan / readback / çöp kutusu kuralları (yazma adapterı).
 test('Faz 6B3 adapter: her meta yazımı katı readback ile doğrulanır; yalnız yönetilen meta listesi yazılabilir',
-	(c6.writer.match(/self::stored_equals\(/g) || []).length === 2 && /array\(\) !== array_diff\( array_keys\( \$payload\['post_meta'\] \), MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META/.test(c6.writer)
+	(c6.writer.match(/self::stored_equals\(/g) || []).length === 3 && /array\(\) !== array_diff\( array_keys\( \$payload\['post_meta'\] \), MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META/.test(c6.writer)
 		&& /array\(\) === array_diff\( array_keys\( \$payload\['term_meta'\] \), array_keys\( MaviBelge_Core_Taxonomies::sector_term_meta_contract\(\) \) \)/.test(c6.writer));
 test('Faz 6B3 adapter: değerler wp_slash ile verilir (WordPress unslash eder); post create draft; EMPTY_TRASH_DAYS=0 iken çöp yerine kalıcı silme YAPILMAZ',
 	(c6.writer.match(/wp_slash\(/g) || []).length >= 6 && /'post_status'\s*=>\s*'draft'/.test(c6.writer) && /defined\( 'EMPTY_TRASH_DAYS' \) && ! EMPTY_TRASH_DAYS/.test(c6.writer));
@@ -908,29 +910,30 @@ const suite7 = read7(path.join(PLUGIN_ROOT, 'tests', 'suites', 'faz7-import-cont
 
 test('Faz 7 yönetilen alanlar: NEWS_FIELDS/REFERENCE_FIELDS/TYPES tek kaynakta; eligibility, kayıt doğrulayıcı, audit context ve payload TEK fields_for()/TYPES kullanır (kopya allowlist yok)',
 	/const NEWS_FIELDS = array\( 'slug', 'title', 'content', 'excerpt', 'published_on', 'news_type_term_id', 'approval_status' \)/.test(code7.managed)
-		&& /const REFERENCE_FIELDS = array\( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_attachment_id' \)/.test(code7.managed)
-		&& /const TYPES = array\( 'sector', 'qualification', 'fee', 'news', 'reference' \)/.test(code7.managed)
+		&& /const REFERENCE_FIELDS = array\( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_sha256' \)/.test(code7.managed) && /const FAQ_FIELDS = array\( 'slug', 'title', 'content', 'sort_order', 'record_status' \)/.test(code7.managed)
+		&& /const TYPES = array\( 'sector', 'qualification', 'fee', 'news', 'reference', 'faq', 'page' \)/.test(code7.managed) && /const PAGE_FIELDS = array\( 'slug', 'title', 'content', 'excerpt', 'parent_id', 'menu_order' \)/.test(code7.managed)
 		&& code7.eligibility.indexOf('Managed_Fields::fields_for(') !== -1 && code7.recordValidator.indexOf('Managed_Fields::fields_for(') !== -1
 		&& code7.eligibility.indexOf('Managed_Fields::TYPES') !== -1 && code7.payload.indexOf('Managed_Fields::TYPES') !== -1 && code7.auditCtx.indexOf('Managed_Fields::TYPES') !== -1
 		&& code7.eligibility.indexOf('SECTOR_FIELDS') === -1 && code7.eligibility.indexOf("array( 'sector', 'qualification', 'fee' )") === -1);
-test('Faz 7 sabitler: haber onayı YALNIZ in_review, referans YALNIZ representative/active/""/0; import hiçbir yerde "publish" yazmaz (yük, projeksiyon, yazıcı, servisler)',
-	/'in_review' !== \$f\['approval_status'\]/.test(code7.payload) && /'representative' !== \$f\['reference_status'\]/.test(code7.payload)
-		&& code7.managed.indexOf("'approval_status'   => 'in_review'") !== -1 && code7.managed.indexOf("'reference_status'   => 'representative'") !== -1
-		&& ['payload', 'managed', 'writer', 'applySvc'].every((k) => !/'publish'|"publish"/.test(code7[k])));
+test('Faz 12b sabitler: haber onayı YALNIZ in_review, referans YALNIZ real/active/""/64-hex logo özeti, SSS YALNIZ active; import hiçbir yerde "publish" yazmaz (yük, projeksiyon, yazıcı, servisler)',
+	/'in_review' !== \$f\['approval_status'\]/.test(code7.payload) && /'real' !== \$f\['reference_status'\]/.test(code7.payload) && /'active' !== \$f\['record_status'\]/.test(code7.payload)
+		&& code7.managed.indexOf("'approval_status'   => 'in_review'") !== -1 && /'reference_status' => 'real'/.test(code7.managed)
+		&& ['payload', 'managed', 'applySvc'].every((k) => !/'publish'|"publish"/.test(code7[k]))
+		&& /'publish'/.test(phpFunctionBody(code7.writer, 'publish_page') || '') && !/'publish'|"publish"/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '')));
 test('Faz 7 yazıcı: post HER ZAMAN draft açılır; update post_status yazmaz; edit_date açık; kalıcı silme (wp_delete_post/wp_delete_term dışında sektör) yok; yönetilen çekirdek alan ve taksonomi listeleri tanımlı',
-	/'post_status'\s*=>\s*'draft'/.test(code7.writer) && !/'post_status'\s*=>\s*'(?!draft')/.test(code7.writer) && /\$args\['edit_date'\] = true/.test(code7.writer) && !/wp_delete_post\s*\(/.test(code7.writer)
+	/'post_status'\s*=>\s*'draft'/.test(code7.writer) && !/'post_status'\s*=>\s*'(?!draft')/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '').replace(phpFunctionBody(code7.writer, 'ensure_logo_attachment') || '<none>', '').replace(phpFunctionBody(code7.writer, 'compensate_entry') || '<none>', '')) && /\$args\['edit_date'\] = true/.test(code7.writer) && !/wp_delete_post\s*\(/.test(code7.writer)
 		&& /const MANAGED_CORE_FIELDS = array\(\s*'news'\s*=> array\( 'post_name', 'post_content', 'post_excerpt', 'post_date' \),\s*'reference' => array\( 'post_name' \)/.test(code7.writer)
 		&& /const MANAGED_TAXONOMIES = array\(\s*'qualification' => array\( 'mb_sektor' \),\s*'news'\s*=> array\( 'mb_haber_turu' \)/.test(code7.writer));
 test('Faz 7 yazıcı: unmanaged_fingerprint yönetilen çekirdek alanları ve yönetilen taksonomiyi dışlar; rollback post_name\'i boşaltıp çöpe alır ve serbest kaldığını readback ile doğrular',
 	/MANAGED_CORE_FIELDS\[ \$type \]/.test((phpFunctionBody(code7.writer, 'unmanaged_fingerprint') || '')) && /MANAGED_TAXONOMIES\[ \$type \]/.test((phpFunctionBody(code7.writer, 'unmanaged_fingerprint') || ''))
 		&& /'post_name' => ''/.test((phpFunctionBody(code7.writer, 'rollback_created_post') || '')) && (phpFunctionBody(code7.writer, 'rollback_created_post') || '').indexOf('post_name_not_released') !== -1 && (phpFunctionBody(code7.writer, 'rollback_created_post') || '').indexOf('wp_trash_post( $postId )') !== -1);
-test('Faz 7 aşama: STAGES üç katalog aşaması (DEĞİŞMEDİ), CONTENT_STAGES=[content], ALL_STAGES dört; TYPE_LISTS news/references; TYPE_RANK news=3 reference=4; rollback sırası sabit "2 -" içermez; plan özeti/apply/CLI ALL_STAGES kullanır',
-	/const STAGES = array\( 'sectors', 'qualifications', 'all' \);/.test(code7.applyPlan) && /const CONTENT_STAGES = array\( 'content' \);/.test(code7.applyPlan) && /const ALL_STAGES = array\( 'sectors', 'qualifications', 'all', 'content' \);/.test(code7.applyPlan)
+test('Faz 7 aşama: STAGES üç katalog aşaması (DEĞİŞMEDİ), CONTENT_STAGES=[content], ALL_STAGES beş (Faz 12: pages ilk); TYPE_LISTS news/references; TYPE_RANK news=3 reference=4; rollback sırası sabit "2 -" içermez; plan özeti/apply/CLI ALL_STAGES kullanır',
+	/const STAGES = array\( 'sectors', 'qualifications', 'all' \);/.test(code7.applyPlan) && /const CONTENT_STAGES = array\( 'content' \);/.test(code7.applyPlan) && /const ALL_STAGES = array\( 'pages', 'sectors', 'qualifications', 'all', 'content' \);/.test(code7.applyPlan) && /const PAGE_STAGES = array\( 'pages' \);/.test(code7.applyPlan) && /'page'\s*=> 6/.test(code7.applyPlan) && /'faq'\s*=> 5/.test(code7.applyPlan) && /'faq'\s*=> 'faqs'/.test(code7.applyPlan)
 		&& /'news'\s*=> 'news'/.test(code7.applyPlan) && /'reference'\s*=> 'references'/.test(code7.applyPlan) && /'news'\s*=> 3/.test(code7.applyPlan) && /'reference'\s*=> 4/.test(code7.applyPlan) && !/\$ra = 2 -/.test(code7.applyPlan)
 		&& code7.applyPlan.indexOf('self::ALL_STAGES') !== -1 && code7.applySvc.indexOf('Apply_Plan::ALL_STAGES') !== -1 && srcCode.cli.indexOf('Apply_Plan::ALL_STAGES') !== -1);
 test('Faz 7 yükleyici: load_all() içerik dosyalarına HİÇ bakmaz (FILES 3 katalog dosyası); load_content() yalnız CONTENT_FILES; içerik zarfı katalogla aynı güvenli okuma yolunu kullanır',
 	!/CONTENT_FILES/.test(phpFunctionBody(code7.loader, 'load_all') || '') && /CONTENT_FILES/.test(phpFunctionBody(code7.loader, 'load_content') || '') && (code7.loader.match(/'sectors\.manifest\.json'|'qualifications\.manifest\.json'|'fees\.manifest\.json'/g) || []).length === 3
-		&& /'news'\s*=> 'news\.manifest\.json'/.test(code7.loader) && /'reference'\s*=> 'references\.manifest\.json'/.test(code7.loader) && (phpFunctionBody(code7.loader, 'load_content') || '').indexOf('self::load_one(') !== -1);
+		&& /'news'\s*=> 'news\.manifest\.json'/.test(code7.loader) && /'reference'\s*=> 'references\.manifest\.json'/.test(code7.loader) && /'faq'\s*=> 'faqs\.manifest\.json'/.test(code7.loader) && (phpFunctionBody(code7.loader, 'load_content') || '').indexOf('self::load_one(') !== -1);
 test('Faz 7 servis: içerik aşaması YALNIZ iki içerik dosyasını yükler (load_for_stage); haber türü çözümü yalnız Content_Dependency_Resolver uygulayan depoda; news_type_term_ids DTO anahtarı yalnız manifest news anahtarı taşıyorsa eklenir; katalog aşama DTO\'su aynı',
 	/STAGE_CONTENT === \$stage/.test(phpFunctionBody(code7.service, 'load_for_stage') || '') && (phpFunctionBody(code7.service, 'load_for_stage') || '').indexOf('load_content(') !== -1 && /instanceof MaviBelge_Core_Import_Content_Dependency_Resolver/.test(code7.service)
 		&& /array_key_exists\( 'news', \$manifest \)/.test(code7.service) && /current_manifest_digest\( \$stage \)/.test(code7.applySvc));
@@ -940,13 +943,14 @@ test('Faz 7 depo: iki arayüzü uygular (katalog arayüzü DEĞİŞMEDİ); haber
 		&& code7.repo.indexOf("=> 'mb_haber',") !== -1 && code7.repo.indexOf("=> 'mb_referans',") !== -1);
 test('Faz 7 doğrulayıcılar: validate_news/validate_reference kapalı şema anahtarları; haber tarihi takvim kontrolü; slug = slugify(name); dependency DTO\'da news_type_term_ids OPSİYONEL (yalnız haber/duyuru); manifest news/references OPSİYONEL',
 	/const NEWS_SCHEMA_KEYS\s*= array\( 'schema_version', 'source_key', 'source_index', 'slug', 'title', 'published_on', 'news_type', 'summary', 'body', 'source' \)/.test(code7.recordValidator)
-		&& /const REFERENCE_SCHEMA_KEYS = array\( 'schema_version', 'source_key', 'source_index', 'name', 'slug', 'logo_file', 'alt', 'source' \)/.test(code7.recordValidator)
+		&& /const REFERENCE_SCHEMA_KEYS = array\( 'schema_version', 'source_key', 'source_index', 'name', 'slug', 'logo_file', 'logo_sha256', 'logo_bytes', 'logo_width', 'logo_height', 'alt', 'name_status', 'source' \)/.test(code7.recordValidator)
+		&& /const FAQ_SCHEMA_KEYS = array\( 'schema_version', 'source_key', 'source_index', 'slug', 'question', 'answer', 'source' \)/.test(code7.recordValidator) && (phpFunctionBody(code7.recordValidator, 'validate_faq') || '').indexOf('slugify_tr(') !== -1
 		&& (phpFunctionBody(code7.recordValidator, 'validate_news') || '').indexOf('is_valid_ymd_date') !== -1 && (phpFunctionBody(code7.recordValidator, 'validate_reference') || '').indexOf('slugify_tr(') !== -1
 		&& /const OPTIONAL_DEPENDENCY_KEYS = array\( 'news_type_term_ids' \)/.test(code7.recordValidator) && /const ALLOWED_DEPENDENCY_KEYS = array\( 'sector_term_ids', 'sector_image_attachment_ids', 'qualification_post_ids' \)/.test(code7.recordValidator)
-		&& (phpFunctionBody(code7.recordValidator, 'validate_manifest_shape') || '').indexOf("'news', 'references'") !== -1);
+		&& (phpFunctionBody(code7.recordValidator, 'validate_manifest_shape') || '').indexOf("'news', 'references', 'faqs'") !== -1);
 test('Faz 7 planlayıcı: plan_news/plan_reference TEK plan_typed() yolundan; news/reference by_type YALNIZ içerik anahtarı taşıyan manifestte (katalog özet şekli aynı)',
 	/public static function plan_news\(/.test(code7.planner) && /public static function plan_reference\(/.test(code7.planner) && /plan_typed\( self::TYPE_NEWS,/.test(code7.planner) && /plan_typed\( self::TYPE_REFERENCE,/.test(code7.planner)
-		&& /if \( \$withContent \) \{/.test(code7.planner) && /\$withContent = array_key_exists\( 'news', \$manifest \) \|\| array_key_exists\( 'references', \$manifest \)/.test(code7.planner));
+		&& /if \( \$withContent \) \{/.test(code7.planner) && /\$withContent = array_key_exists\( 'news', \$manifest \) \|\| array_key_exists\( 'references', \$manifest \) \|\| array_key_exists\( 'faqs', \$manifest \)/.test(code7.planner) && /public static function plan_faq\(/.test(code7.planner) && /plan_typed\( self::TYPE_FAQ,/.test(code7.planner));
 test('Faz 7 admin: dry-run sayfası katalog-only kaldı (yalnız run_dry_run(); content aşaması yok)', /run_dry_run\(\)/.test(srcCode.admin) && srcCode.admin.indexOf('content') === -1 || srcCode.admin.indexOf("'content'") === -1);
 test('Faz 7 CLI: --stage seçenekleri content içerir, yardım metni içerik aşamasını açıklar ve iki kontrollü terimi import\'un OLUŞTURMADIĞINI belirtir',
 	src.cli.indexOf(' *   - content') !== -1 && src.cli.indexOf('content = haberler sonra referanslar') !== -1 && src.cli.indexOf('import bunları oluşturmaz') !== -1 && src.cli.indexOf('--stage=content') !== -1);
@@ -960,17 +964,19 @@ test('Faz 7 Node: yeni araçlar kod ÇALIŞTIRMAZ (vm/eval/new Function/child_pr
 	}) && (read7(path.join(TOOLS_IMPORT, 'extract-source.js')).match(/repoRelativePath: 'tanitim-site\/assets\/data\/[a-z]+\.js'/g) || []).length === 5
 		&& /const DATA_DIR = path\.join\(REPO_ROOT, 'wordpress-site', 'data'\)/.test(read7(path.join(TOOLS_IMPORT, 'build-content-manifest.js'))));
 test('Faz 7 şemalar: news/reference şeması kapalı (additionalProperties=false) ve zorunlu alanlı; zarf şeması enum\'u news+reference ile genişledi, eski beş değer korunur',
-	['news', 'reference'].every((n) => {
+	['news', 'reference', 'faq'].every((n) => {
 		const sc = JSON.parse(read7(path.join(DATA_DIR7, 'schema', n + '.schema.json')));
 		return false === sc.additionalProperties && Array.isArray(sc.required) && sc.required.indexOf('source_key') !== -1 && sc.required.indexOf('source') !== -1;
-	}) && JSON.stringify(JSON.parse(read7(path.join(DATA_DIR7, 'schema', 'manifest-envelope.schema.json'))).properties.record_type.enum) === JSON.stringify(['sector', 'qualification', 'fee', 'news', 'reference', 'mapping', 'unmatched_fee'])
+	}) && JSON.stringify(JSON.parse(read7(path.join(DATA_DIR7, 'schema', 'manifest-envelope.schema.json'))).properties.record_type.enum) === JSON.stringify(['sector', 'qualification', 'fee', 'news', 'reference', 'faq', 'mapping', 'unmatched_fee'])
 		&& JSON.parse(read7(path.join(DATA_DIR7, 'schema', 'news.schema.json'))).properties.news_type.enum.join() === 'haber,duyuru');
-test('Faz 7 manifestler: news.manifest.json 6 kayıt, references.manifest.json 12 kayıt; kaynak anahtarı öneki; ekran/beş katalog manifesti yerinde',
+test('Faz 12b manifestler: news.manifest.json 6, references.manifest.json 15 (gerçek logo), faqs.manifest.json 6 kayıt; kaynak anahtarı öneki; beş katalog manifesti yerinde',
 	(() => {
 		const n = JSON.parse(read7(path.join(DATA_DIR7, 'content', 'news.manifest.json')));
 		const r = JSON.parse(read7(path.join(DATA_DIR7, 'content', 'references.manifest.json')));
-		return n.record_type === 'news' && n.count === 6 && n.records.length === 6 && n.records.every((x) => x.source_key === 'news:' + x.slug)
-			&& r.record_type === 'reference' && r.count === 12 && r.records.length === 12 && r.records.every((x) => x.source_key === 'reference:' + x.slug)
+		const q = JSON.parse(read7(path.join(DATA_DIR7, 'content', 'faqs.manifest.json')));
+		return q.record_type === 'faq' && q.count === 6 && q.records.length === 6 && q.records.every((x) => x.source_key === 'faq:' + x.slug)
+			&& n.record_type === 'news' && n.count === 6 && n.records.length === 6 && n.records.every((x) => x.source_key === 'news:' + x.slug)
+			&& r.record_type === 'reference' && r.count === 15 && r.records.length === 15 && r.records.every((x) => x.source_key === 'reference:' + x.slug)
 			&& ['sectors', 'qualifications', 'fees'].every((f) => fs.existsSync(path.join(DATA_DIR7, 'content', f + '.manifest.json'))) && fs.existsSync(path.join(DATA_DIR7, 'mapping', 'mapping.manifest.json'));
 	})());
 test('Faz 7 runtime betiği: yalnız mbfx_ öneki (ön ek koruması), yalnız /tmp/mbfx- sahte manifest dizinleri; iki tür terimini kendisi wp_insert_term ile oluşturur; gerçek data/content manifestini ve MAVIBELGE_IMPORT_MANIFEST_DIR\'i kullanmaz; her serviste dizin AÇIKÇA verilir',
@@ -979,8 +985,8 @@ test('Faz 7 runtime betiği: yalnız mbfx_ öneki (ön ek koruması), yalnız /t
 test('Faz 7 runtime kabloları: apply-cycle.sh 4c adımı test-3\'ü taze fixture ve sahte içerik manifestiyle çalıştırır (4b\'den SONRA, 5\'ten ÖNCE); fixture-db.php içerik manifestlerini yalnız sahte fixture fonksiyonlarıyla yazar ve rmmanifest siler',
 	cycleSh7.indexOf('== 4b)') !== -1 && cycleSh7.indexOf('== 4c)') > cycleSh7.indexOf('== 4b)') && cycleSh7.indexOf('== 5)') > cycleSh7.indexOf('== 4c)') && cycleSh7.indexOf('apply-cycle-test-3.php') !== -1 && /--stage=content/.test(cycleSh7)
 		&& fixtureDb7.indexOf('mb_content_fixture_write_dir') !== -1 && fixtureDb7.indexOf('mb_content_fixture_envelopes') !== -1 && fixtureDb7.indexOf('/tmp/mbfx-content-manifest-v2') !== -1 && fixtureDb7.indexOf("news.manifest.json") === -1);
-test('Faz 7 testler: yeni PHP paketi mevcut, yalnız AÇIKÇA SAHTE veri (zz-test-haber-*/zz-test-ref-*) kullanır; gerçek haber slug\'ı/referans adı içermez; fixture içerik zarfları sahte notlu',
-	/zz-test-haber-a/.test(suite7) && /zz-test-ref-a/.test(suite7) && !/mobilya-sektoru|bilgilendirme-subat|6-dilde-myk|Atlas End|Doruk Yap|Nova Metal|Kent Asans/.test(suite7 + fixture7) && /SAHTE içerik fixture — gerçek haber verisi değildir/.test(fixture7) && /gerçek müşteri referansı değildir/.test(fixture7));
+test('Faz 7 testler: yeni PHP paketi mevcut, yalnız AÇIKÇA SAHTE veri (zz-test-haber-*/referans-0N sahte logo) kullanır; gerçek haber slug\'ı/referans adı içermez; fixture içerik zarfları sahte notlu',
+	/zz-test-haber-a/.test(suite7) && /referans-01/.test(suite7) && !/mobilya-sektoru|bilgilendirme-subat|6-dilde-myk|Atlas End|Doruk Yap|Nova Metal|Kent Asans/.test(suite7 + fixture7) && /SAHTE içerik fixture — gerçek haber verisi değildir/.test(fixture7) && /gerçek müşteri referansı değildir/.test(fixture7));
 test('Faz 7 belgeler: content-import-contract.md mevcut; türler, yönetilen alanlar, doğal anahtar, content aşaması, bağımlılık, rollback, draft gerekçesi ve NE İMPORT EDİLMEZ (lokasyon/doküman/SSS/gerçek referans) bölümleri var; tools/import/README.md kısa bölüm içerir',
 	(() => {
 		const d = read7(path.join(__dirname, '..', 'docs', 'content-import-contract.md'));

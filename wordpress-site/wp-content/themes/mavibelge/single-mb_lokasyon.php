@@ -21,7 +21,7 @@ while ( have_posts() ) :
 			null,
 			array(
 				'items' => array(
-					array( 'label' => __( 'İletişim', 'mavibelge' ), 'url' => home_url( '/iletisim/' ) ),
+					array( 'label' => __( 'İletişim', 'mavibelge' ), 'url' => mavibelge_url( 'iletisim' ) ),
 					array( 'label' => get_the_title() ),
 				),
 			)

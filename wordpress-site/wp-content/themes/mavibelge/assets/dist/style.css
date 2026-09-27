@@ -98,6 +98,9 @@ body {
   background: var(--color-white);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Faz 12e: clip, body'yi kaydırma kabı YAPMAZ -> position: sticky (site başlığı, yeterlilik CTA kartı) çalışır;
+   * clip desteklemeyen tarayıcı hidden'a düşer (yalnız yapışkanlık kaybolur). */
+  overflow-x: clip;
   width: 100%;
 }
 img { max-width: 100%; height: auto; display: block; }
@@ -160,6 +163,7 @@ section { padding: var(--space-8) 0; }
 .bg-light { background: var(--color-gray-50); }
 .bg-navy { background: var(--color-navy-900); color: var(--color-white); }
 .bg-navy h2, .bg-navy h3 { color: var(--color-white); }
+.bg-navy .section-title p { color: var(--color-gray-200); }
 .bg-navy a { color: var(--color-blue-100); }
 
 .eyebrow {
@@ -242,6 +246,10 @@ main:focus { outline: none; }
 .page-hero p { color: var(--color-gray-100); max-width: 64ch; margin-bottom: 0; }
 .page-hero .breadcrumb { color: var(--color-gray-300); }
 .page-hero .breadcrumb a { color: var(--color-gray-300); }
+/* Faz 12e: koyu kahraman zemininde eyebrow okunur kalsın (.bg-navy .eyebrow ile aynı ton) */
+.page-hero .eyebrow { color: #9dc1f7; }
+/* Faz 12e: koyu zeminde geçerli sayfa kırıntısı okunur olsun (bileşen varsayılanı gray-700 koyu zeminde okunmuyordu) */
+.page-hero .breadcrumb [aria-current="page"] { color: var(--color-gray-100); }
 
 /* ===== CTA band (front-page.php closing section) ===== */
 .cta-band { background: var(--color-navy-900); color: var(--color-white); text-align: center; padding: var(--space-8) 0; }
@@ -387,6 +395,7 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 /* ===== Pagination ===== */
 .pagination { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; margin-top: var(--space-6); }
 .page-btn {
+  display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
   min-width: 44px; min-height: 44px; padding: 0 var(--space-3);
   border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm);
   background: var(--color-white); color: var(--color-navy-900); font-weight: 600; font-size: var(--fs-sm);
@@ -396,6 +405,9 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 .page-btn:focus-visible { outline: 2px solid var(--color-blue-600); outline-offset: 2px; }
 .page-btn.is-active { background: var(--color-blue-600); border-color: var(--color-blue-600); color: var(--color-white); }
 .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.page-btn:hover { text-decoration: none; }
+/* Faz 12e: ilk/son sayfada devre dışı "Önceki"/"Sonraki" (span, aria-disabled) */
+.page-btn.is-disabled { color: var(--color-gray-500); background: var(--color-gray-50); cursor: default; }
 
 /* ===== Alert / empty state (NEW in Faz 3 — see file header note) ===== */
 .alert {
@@ -420,7 +432,7 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 }
 .empty-state .empty-icon { width: 48px; height: 48px; margin: 0 auto var(--space-4); color: var(--color-gray-300); }
 .empty-state h3 { color: var(--color-navy-900); margin-bottom: var(--space-2); }
-.empty-state p { max-width: 48ch; margin: 0 auto var(--space-4); }
+.empty-state p { max-width: 48ch; margin: 0 auto var(--space-4); color: var(--color-gray-700); }
 
 /* ===== Trust/logo presentation element (header trust-group reuses this
    markup shape via template-parts/components/trust-logo.php) ===== */
@@ -526,6 +538,7 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
   transition: box-shadow var(--transition-base), border-color var(--transition-base);
 }
 .sector-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-blue-500); text-decoration: none; }
+.sector-card:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
 .sector-card .sector-icon {
   width: 44px; height: 44px; flex-shrink: 0;
   border-radius: var(--radius-sm);
@@ -620,6 +633,10 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 .tag { font-size: var(--fs-xs); background: var(--color-gray-100); color: var(--color-gray-700); padding: 2px 10px; border-radius: var(--radius-pill); }
 .qual-actions { display: flex; gap: var(--space-2); width: 100%; flex-wrap: wrap; }
 .qual-actions .btn { flex: 1; }
+/* Faz 12e: meslekler.html kartı — başlık H2 (sayfa H1 altında), aksiyonlar kartın altına hizalı */
+.qual-card-title { margin: 0; font-size: var(--fs-base); line-height: 1.35; font-weight: 700; color: var(--color-navy-900); overflow-wrap: anywhere; }
+.qual-list .qual-card .qual-actions { margin-top: auto; }
+.qual-actions .btn:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
 /* taxonomy-mb_sektor.php uses qual-list as a single-column list, not a card grid */
 #sector-qual-list.qual-list { grid-template-columns: 1fr; }
 #sector-qual-list.qual-list .qual-card { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
@@ -651,6 +668,31 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
   font-weight: 700;
   color: var(--color-gray-500);
 }
+/* ===== Faz 12f — online başvuru (content-application.php + forms/form.php adımları; tanitim-site/online-basvuru.html) ===== */
+.container.application-wrap { max-width: 800px; }
+.step-indicator li.is-active { color: var(--color-blue-600); border-bottom-color: var(--color-blue-600); }
+.step-indicator li.is-done { color: var(--color-success); border-bottom-color: var(--color-success); }
+.step-indicator li > .step-tab {
+  display: block; width: 100%; min-height: 44px;
+  background: none; border: 0; padding: 0;
+  font: inherit; color: inherit; cursor: pointer; text-align: center;
+}
+.step-tab:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; border-radius: var(--radius-sm); }
+.step-indicator[hidden] { display: none; }
+.form-step { border: 0; padding: 0; margin: 0 0 var(--space-5); min-width: 0; }
+.form-step[hidden] { display: none; }
+.form-step-legend { padding: 0; margin: 0 0 var(--space-4); }
+.form-step-title { font-size: var(--fs-xl); margin: 0 0 var(--space-4); }
+.form-step-legend .form-step-title { margin: 0; }
+.form-step-title:focus { outline: none; }
+.form-step-title:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
+.step-actions { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
+.step-actions[hidden] { display: none; }
+.form-submit { display: flex; justify-content: flex-end; margin-top: var(--space-5); }
+.form-submit[hidden] { display: none; }
+.application-closed-note { margin: var(--space-3) 0 0; text-align: right; }
+.application-later-title { font-size: var(--fs-md); margin: var(--space-6) 0 var(--space-3); }
+.mb-application-preview .demo-notice strong { display: block; margin-bottom: var(--space-1); }
 .file-drop {
   border: 2px dashed var(--color-gray-300);
   border-radius: var(--radius-md);
@@ -678,7 +720,7 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
   min-height: 44px;
 }
 .accordion-item > summary::-webkit-details-marker { display: none; }
-.accordion-item > summary .icon { transition: transform var(--transition-base); flex-shrink: 0; }
+.accordion-item > summary .icon { width: 24px; height: 24px; transition: transform var(--transition-base); flex-shrink: 0; }
 .accordion-item[open] > summary .icon { transform: rotate(45deg); }
 .accordion-panel { padding: 0 0 var(--space-4); color: var(--color-gray-700); }
 
@@ -707,6 +749,19 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
   font-weight: 700; color: var(--color-blue-600); font-size: var(--fs-sm);
 }
 .location-card .directions-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+/* ===== Faz 12g — İletişim sayfası (content-contact.php; tanitim-site/iletisim.html) ===== */
+.location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); align-items: stretch; }
+.location-card { overflow-wrap: anywhere; min-width: 0; }
+.location-card h3 { font-size: var(--fs-md); margin: 0 0 var(--space-2); }
+.location-card .location-phones a { display: inline-block; min-height: 32px; line-height: 32px; }
+.location-card p.map-placeholder { margin: var(--space-3) 0 0; aspect-ratio: auto; min-height: 96px; }
+.container.contact-form-wrap { max-width: 720px; }
+.contact-social .footer-social-list { margin-top: var(--space-3); }
+.contact-social .footer-social-list a { min-width: 44px; min-height: 44px; background: var(--color-blue-50); color: var(--color-navy-900); }
+.contact-social .footer-social-list a:hover, .contact-social .footer-social-list a:focus-visible { background: var(--color-blue-600); color: var(--color-white); }
+.contact-social .footer-social-list a:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
+.contact-write .demo-notice a { font-weight: 700; }
+.contact-fields-title { font-size: var(--fs-md); margin: 0 0 var(--space-3); }
 .map-placeholder {
   aspect-ratio: 16/9;
   background: repeating-linear-gradient(135deg, var(--color-gray-100), var(--color-gray-100) 10px, var(--color-gray-50) 10px, var(--color-gray-50) 20px);
@@ -736,6 +791,32 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .unit-list li { display: flex; gap: var(--space-3); padding: var(--space-3); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); }
 .unit-list li .unit-code { font-weight: 700; color: var(--color-blue-600); flex-shrink: 0; }
 .sticky-cta { position: sticky; top: calc(var(--header-h) + 24px); }
+/* Faz 12e: yeterlilik detayı (yeterlilik.html) — kahraman, içerik aralıkları, örnek-yapı işareti, CTA kartı */
+.qual-hero { padding: var(--space-8) 0; }
+.qual-hero h1 { overflow-wrap: anywhere; }
+.qual-hero .qual-hero-meta a { color: #9dc1f7; }
+.qual-detail-main { min-width: 0; }
+.qual-detail-main > h2 { margin: var(--space-7) 0 var(--space-3); }
+.qual-detail-main > h2:first-child { margin-top: 0; }
+.qual-facts li span { display: block; overflow-wrap: anywhere; }
+.qual-summary { margin-top: var(--space-4); }
+.qual-sample-note { margin-bottom: var(--space-3); }
+.unit-list.is-sample li { border-style: dashed; }
+.qual-cta-card { display: flex; flex-direction: column; gap: var(--space-3); }
+.qual-cta-title { margin: 0; font-size: var(--fs-lg); }
+.qual-cta-title:not(:first-child) { margin-top: var(--space-4); }
+.qual-cta-card .hint { margin: 0; }
+.qual-cta-fee { padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-gray-200); }
+.qual-cta-fee-name { margin: 0 0 var(--space-2); font-weight: 700; font-size: var(--fs-sm); color: var(--color-navy-900); }
+.qual-cta-card .fee-options-list li { align-items: baseline; }
+.qual-cta-card .fee-option-label { min-width: 0; overflow-wrap: anywhere; }
+.qual-cta-card .fee-option-amount { font-size: var(--fs-md); }
+@media (forced-colors: active) {
+  .qual-card, .info-card, .doc-card { border: 1px solid CanvasText; }
+  .sector-card { border: 1px solid CanvasText; }
+  .page-btn { border: 1px solid CanvasText; }
+  .page-btn.is-active { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+}
 
 /* ===== 404.php ===== */
 .error-page { text-align: center; padding: var(--space-9) 0; }
@@ -743,12 +824,15 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .error-page .search-box { max-width: 560px; margin: var(--space-6) auto; }
 
 /* ===== Faz 5 — catalog filter form (template-parts/catalog/filter-form.php) ===== */
-.catalog-filter-form { background: var(--color-gray-50); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-5); }
+.catalog-filter-form { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-5); }
 .catalog-filter-form .filter-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: end; }
 .catalog-filter-form .form-field { margin-bottom: 0; flex: 1 1 200px; min-width: 160px; }
 .catalog-filter-form .form-field-checkbox { display: flex; align-items: center; flex: 0 0 auto; }
 .catalog-filter-form .form-field-checkbox label { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; font-size: var(--fs-sm); color: var(--color-navy-900); margin-bottom: 0; }
 .catalog-filter-form .filter-actions { display: flex; gap: var(--space-2); flex: 0 0 auto; }
+/* Faz 12e: "yalnız güncel fiyatı bulunanlar" + Filtrele/Temizle ikincil satırda (statik filtre şeridinin yoğunluğu korunur) */
+.catalog-filter-form .filter-row-secondary { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--color-gray-100); justify-content: space-between; align-items: center; }
+.sector-browse .section-title { margin-bottom: var(--space-5); }
 
 /* ===== Faz 5 — results count sentence ===== */
 .results-meta { color: var(--color-gray-500); font-size: var(--fs-sm); margin-bottom: var(--space-4); }
@@ -790,7 +874,11 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .filter-links .tag:hover, .filter-links .tag:focus-visible { background: var(--color-blue-100); }
 .filter-links .tag.is-active { background: var(--color-blue-600); color: #fff; }
 .hp-field { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-.form-error-summary { border: 2px solid var(--color-danger); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); }
+/* Faz 12f: sunucu tarafı hata özeti ve alan hataları GÖRÜNÜR olmalı. components.css'teki statik demo kuralları
+ * (.form-error-summary display:none + .is-visible; .field-error yalnız .is-invalid altında) sunucunun çizdiği
+ * işaretlemeyi (özet sınıfsız, alan .has-error) gizliyordu — gerçek Chrome testinde bulundu. */
+.form-error-summary { display: block; border: 2px solid var(--color-danger); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); }
+.form-field.has-error .field-error { display: block; }
 .form-error-summary:focus { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
 .form-field.has-error input, .form-field.has-error select, .form-field.has-error textarea { border-color: var(--color-danger); }
 
@@ -845,13 +933,16 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
   display: flex;
   list-style: none;
   margin: 0; padding: 0;
-  gap: var(--space-5);
+  /* Faz 12e kapanış: 24px aralıkla masaüstü başlığın doğal genişliği ~1285px idi (1280px kabı aşıyor, etiketler
+   * 2px sıkışıyordu); 16px ile ~1253px. Masaüstü menü yalnız >=1280px'te gösterilir (responsive.css). */
+  gap: var(--space-4);
   justify-content: center;
 }
 .main-nav > ul > li {
   position: relative;
   display: flex;
   align-items: stretch;
+  flex-shrink: 0; /* etiket kendi kutusundan taşmaz; sığmıyorsa hamburger devreye girer */
 }
 
 /*
@@ -1035,7 +1126,7 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
 .footer-locations p { color: var(--color-gray-300); font-size: var(--fs-xs); margin: 0 0 var(--space-1); }
 .site-footer .directions-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: var(--fs-xs); color: var(--color-blue-200, #a9c9f5); font-weight: 700; }
 .site-footer .directions-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-500); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-300); }
 .footer-legal { display: flex; gap: var(--space-4); list-style: none; padding: 0; margin: 0; flex-direction: row; }
 
 .back-to-top {
@@ -1065,6 +1156,59 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
  * them exist — see docs/design-system.md.
  */
 
+/* ===== Başlık: hamburger menü (<=1279px) — Faz 12e kapanış =====
+ * Masaüstü başlığının (marka + 5 üst menü + MYK/TÜRKAK + CTA) doğal genişliği gerçek Chrome ölçümüyle ~1253px'tir
+ * (tools/runtime-test/header-geometry-test.js). Bu genişliğin altında masaüstü menü SIĞMAZ; etiket küçültme/gizleme/
+ * overflow yerine mevcut erişilebilir hamburger menü kullanılır. navigation.js MOBILE_MQ aynı değeri kullanır. */
+@media (max-width: 1279px) {
+  .header-main { flex-wrap: wrap; padding: var(--space-2) 0; min-height: 0; align-items: center; gap: var(--space-3); }
+  .brand-logo { order: 1; }
+  .menu-toggle { display: inline-flex; order: 3; }
+  .trust-group { order: 2; border-left: none; padding-left: 0; gap: 8px; margin-left: auto; margin-right: var(--space-2); }
+  .header-cta { display: none; }
+
+  .main-nav {
+    order: 5;
+    flex-basis: 100%;
+    display: none;
+    background: var(--color-white);
+    border-top: 1px solid var(--color-gray-200);
+  }
+  .main-nav.is-open { display: block; }
+  .main-nav > ul { flex-direction: column; gap: 0; padding: var(--space-2) 0; }
+  .main-nav > ul > li { width: 100%; flex-wrap: wrap; flex-shrink: 1; }
+  .main-nav > ul > li > a,
+  .main-nav > ul > li > .nav-parent-link {
+    flex: 1 1 auto;
+    width: auto;
+    padding: var(--space-3) var(--space-2);
+  }
+  /*
+   * In the hamburger menu the link and the toggle are independent,
+   * full-height controls sitting side by side on the same row: tapping
+   * the label navigates, tapping the toggle (own >=44px square) opens
+   * the submenu — neither overlaps or requires guessing which part of a
+   * merged control does what.
+   */
+  .main-nav > ul > li > button.nav-toggle {
+    flex: 0 0 auto;
+    width: 44px;
+    justify-content: center;
+    padding: var(--space-3);
+  }
+  /* Alt menüsü olmayan öğe tam satır; ÜST bağlantı (.nav-parent-link) değil — yedek menüde li sınıfsızdır ve
+   * width:100% açma düğmesini alt satıra itiyordu (Faz 12e kapanış: gerçek Chrome ölçümüyle bulundu). */
+  .main-nav > ul > li:not(.menu-item-has-children) > a:not(.nav-parent-link) { width: 100%; }
+  .submenu { position: static; box-shadow: none; border: none; border-left: 2px solid var(--color-blue-100); margin-left: var(--space-3); display: none; flex-basis: 100%; }
+  /* Hamburger menüde alt menü YALNIZ düğmesiyle (aria-expanded ile tutarlı) açılır; masaüstünün hover/focus-within
+   * açılışı burada kapatılır — aksi hâlde Escape sonrası odak düğmede kaldığında kapalı (aria-expanded=false) alt menü
+   * görünür kalıyordu. */
+  .main-nav li:hover > .submenu,
+  .main-nav li:focus-within > .submenu { display: none; }
+  .main-nav li.is-open > .submenu { display: block; }
+  .mobile-header-cta { display: block; padding: var(--space-3) var(--space-2); }
+}
+
 /* ===== Tablet (<=1024px) ===== */
 @media (max-width: 1024px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1074,17 +1218,14 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
   .sector-grid { grid-template-columns: repeat(3, 1fr); }
   .news-grid { grid-template-columns: repeat(2, 1fr); }
   .qual-list { grid-template-columns: repeat(2, 1fr); }
+  .location-grid { grid-template-columns: repeat(2, 1fr); }
   .process-steps { grid-template-columns: repeat(2, 1fr); }
   .ref-grid { grid-template-columns: repeat(3, 1fr); }
   .qual-detail-grid { grid-template-columns: 1fr; }
+  .sticky-cta { position: static; }
   .hero .container { grid-template-columns: 1fr; }
   .hero-search-panel { margin-top: var(--space-6); }
 
-  .header-main { gap: var(--space-3); min-height: 84px; }
-  .main-nav > ul { gap: var(--space-3); }
-  .main-nav > ul > li > a,
-  .main-nav > ul > li > .nav-parent-link,
-  .main-nav > ul > li > button.nav-toggle { padding: var(--space-3) 2px; font-size: 0.8125rem; }
   .trust-logo-item img { height: 56px; }
   .trust-code { font-size: 11px; }
 }
@@ -1098,48 +1239,9 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
   .trust-bar .container { justify-content: center; text-align: center; }
   .trust-bar ul { justify-content: center; }
 
-  .header-main { flex-wrap: wrap; padding: var(--space-2) 0; min-height: 0; align-items: center; }
   .brand-logo img { height: 38px; }
-  .brand-logo { order: 1; }
-  .menu-toggle { display: inline-flex; order: 3; }
-  .trust-group { order: 2; border-left: none; padding-left: 0; gap: 8px; margin-left: auto; margin-right: var(--space-2); }
   .trust-logo-item img { height: 40px; }
   .trust-code { font-size: 9px; letter-spacing: 0.02em; }
-  .header-cta { display: none; }
-
-  .main-nav {
-    order: 5;
-    flex-basis: 100%;
-    display: none;
-    background: var(--color-white);
-    border-top: 1px solid var(--color-gray-200);
-  }
-  .main-nav.is-open { display: block; }
-  .main-nav > ul { flex-direction: column; gap: 0; padding: var(--space-2) 0; }
-  .main-nav > ul > li { width: 100%; flex-wrap: wrap; }
-  .main-nav > ul > li > a,
-  .main-nav > ul > li > .nav-parent-link {
-    flex: 1 1 auto;
-    width: auto;
-    padding: var(--space-3) var(--space-2);
-  }
-  /*
-   * On mobile the link and the toggle are independent, full-height
-   * controls sitting side by side on the same row: tapping the label
-   * navigates, tapping the toggle (own >=44px square) opens the
-   * submenu — neither overlaps or requires guessing which part of a
-   * merged control does what.
-   */
-  .main-nav > ul > li > button.nav-toggle {
-    flex: 0 0 auto;
-    width: 44px;
-    justify-content: center;
-    padding: var(--space-3);
-  }
-  .main-nav > ul > li:not(.menu-item-has-children) > a { width: 100%; }
-  .submenu { position: static; box-shadow: none; border: none; border-left: 2px solid var(--color-blue-100); margin-left: var(--space-3); display: none; flex-basis: 100%; }
-  .main-nav li.is-open > .submenu { display: block; }
-  .mobile-header-cta { display: block; padding: var(--space-3) var(--space-2); }
 
   .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
@@ -1154,6 +1256,7 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
   .sector-grid { grid-template-columns: 1fr 1fr; }
   .news-grid { grid-template-columns: 1fr; }
   .qual-list { grid-template-columns: 1fr; }
+  .location-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr 1fr; }
   .ref-grid { grid-template-columns: repeat(2, 1fr); }
   .impact-stats { padding: var(--space-5) 0; }

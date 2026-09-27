@@ -30,4 +30,26 @@ if ( is_readable( '/tmp/mbfx-http-on' ) ) {
 			return ! is_readable( '/tmp/mbfx-staging' );
 		}
 	);
+
+	// Faz 6B4 — admin apply kapıları testi (yalnız bu test ortamında; üretim kodu hiçbir test kancası içermez).
+	// Her işaret dosyası bir gerçek kapı girdisini (HTTPS, wp-config sabitleri, manifest dizini) benzetir:
+	//   /tmp/mbfx-https                  -> istek HTTPS gibi görünür (is_ssl)
+	//   /tmp/mbfx-imp-apply | -admin     -> MAVIBELGE_IMPORT_APPLY_ENABLED | MAVIBELGE_IMPORT_ADMIN_APPLY_ENABLED === true
+	//   /tmp/mbfx-imp-prod               -> MAVIBELGE_IMPORT_PRODUCTION_APPLY_ENABLED === true
+	//   /tmp/mbfx-imp-host               -> MAVIBELGE_IMPORT_PRODUCTION_HOST = dosya içeriği
+	//   /tmp/mbfx-imp-manifest           -> MAVIBELGE_IMPORT_MANIFEST_DIR = dosya içeriği (AÇIKÇA SAHTE fixture dizini)
+	// WordPress ortam türü wp-config.php'de /tmp/mbfx-env-staging | /tmp/mbfx-env-production işaretlerinden okunur.
+	if ( is_readable( '/tmp/mbfx-https' ) ) {
+		$_SERVER['HTTPS'] = 'on';
+	}
+	foreach ( array( '/tmp/mbfx-imp-apply' => 'MAVIBELGE_IMPORT_APPLY_ENABLED', '/tmp/mbfx-imp-admin' => 'MAVIBELGE_IMPORT_ADMIN_APPLY_ENABLED', '/tmp/mbfx-imp-prod' => 'MAVIBELGE_IMPORT_PRODUCTION_APPLY_ENABLED' ) as $marker => $constant ) {
+		if ( is_readable( $marker ) && ! defined( $constant ) ) {
+			define( $constant, true );
+		}
+	}
+	foreach ( array( '/tmp/mbfx-imp-host' => 'MAVIBELGE_IMPORT_PRODUCTION_HOST', '/tmp/mbfx-imp-manifest' => 'MAVIBELGE_IMPORT_MANIFEST_DIR' ) as $marker => $constant ) {
+		if ( is_readable( $marker ) && ! defined( $constant ) ) {
+			define( $constant, trim( (string) file_get_contents( $marker ) ) );
+		}
+	}
 }

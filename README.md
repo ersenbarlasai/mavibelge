@@ -93,8 +93,12 @@ Bu README ve site içeriğinde doğrulanmamış başarı rakamı, müşteri say�
 
 ## WordPress uygulaması — yerel kod durumu (26 Eylül 2026)
 
-Mimari **WordPress + özel `mavibelge` teması (0.6.0) + özel `mavibelge-core` eklentisi (0.4.0)**; PHP 7.3 bağlayıcı kısıttır (üretim WordPress sürümü kilitlenmemiştir).
+Mimari **WordPress + özel `mavibelge` teması (0.6.0) + özel `mavibelge-core` eklentisi (0.5.0)**; PHP 7.3 bağlayıcı kısıttır (üretim WordPress sürümü kilitlenmemiştir).
 Yerel kod fazları tamamlandı: 6B3 düzeltmeleri (create-rollback drift koruması, rollback→yeniden apply, atomik durum+audit), Faz 7 (içerik servisleri, yönetim, haber/referans import),
 Faz 8 (varsayılan **kapalı** güvenli form altyapısı), Faz 9 (SEO/schema/sitemap/yönlendirme), Faz 10 (performans/güvenlik/bakım), Faz 11 (render QA), yerel paketleme.
 Kanıt ve açık kapılar: `wordpress-site/docs/qa-report.md`; kurum kararları: `wordpress-site/docs/institution-decisions.md`; paket/staging/geri dönüş: `wordpress-site/docs/release-runbook.md`.
 Tüm kapılar: `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <dizin>`. **Canlı/staging/DNS/mail değişmedi; gerçek katalog apply edilmedi; commit/push/deploy yapılmadı.**
+
+**Faz 6B4 (26 Eylül 2026 — yerel kod):** SSH/WP-CLI olmayan hosting için admin panelinden güvenli, kesintiye dayanıklı katalog aktarımı — sektör görsel eşleme (10 sektör / 9 benzersiz görsel, elle, doğrulanmış), aşama önizleme,
+çok istekli apply/rollback (istek başına en çok 10 kayıt, kalıcı checkpoint, çift tıklama/eski istek/paralel istek koruması), staging/üretim için ayrı ve varsayılan **kapalı** wp-config sabitleri; WP-CLI yolu aynı çalışma-zamanı grafiğini kullanır.
+Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. Gerçek staging/canlı apply **çalıştırılmadı**; commit/push/deploy yapılmadı.

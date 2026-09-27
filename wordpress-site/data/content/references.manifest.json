@@ -1,169 +1,285 @@
 {
   "schema_version": "2.0.0",
   "record_type": "reference",
-  "count": 12,
+  "count": 15,
   "source": {
-    "file": "tanitim-site/assets/data/references.js",
-    "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+    "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+    "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
   },
   "notes": [
-    "references.js: 12 TEMSİLİ referans logosu — gerçek müşteri DEĞİLDİR (reference_status=representative). logo_file yalnız bilgi amaçlı kaynak yoludur (SVG izinli logo MIME türü değildir; logo eki aktarılmaz). Kurum/tarih/bağlantı uydurulmadı."
+    "Kaynak: onaylı canlı referans sayfasından (https://mavibelge.com.tr/referanslar/) bir kez alınmış 15 logo; yerel envanter wordpress-site/data/sources/reference-logos/reference-logos.manifest.json (URL, alınma tarihi, SHA-256, boyut). Derleme sırasında ağ isteği yoktur.",
+    "Firma adı görselden TAHMİN EDİLMEDİ (name_status=unverified): canlı kaynak logolar için başlık/alt metin/bağlantı taşımıyor. name nötr sıra etiketidir; kurum adları doğrulanınca ayrı bir onaylı karar ve manifest güncellemesiyle girilir.",
+    "Her logo içe aktarımda gerçek bir WordPress attachment'ına çevrilir (aynı içerikli logo tekrar eklenmez); _mb_logo_attachment_id gerçek attachment kimliğidir. Kayıtlar taslak yazılır."
   ],
   "records": [
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:atlas-endustri",
+      "source_key": "reference:referans-01",
       "source_index": 0,
-      "name": "Atlas Endüstri",
-      "slug": "atlas-endustri",
-      "logo_file": "tanitim-site/assets/images/references/atlas-endustri.svg",
-      "alt": "Atlas Endüstri — temsili referans logosu",
+      "name": "Referans 01",
+      "slug": "referans-01",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-01.png",
+      "logo_sha256": "bfa99e5c14e5e825410187894d01704ce2685ad2348b99a73ed337a4c57f28db",
+      "logo_bytes": 7203,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 01",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:doruk-yapi",
+      "source_key": "reference:referans-02",
       "source_index": 1,
-      "name": "Doruk Yapı",
-      "slug": "doruk-yapi",
-      "logo_file": "tanitim-site/assets/images/references/doruk-yapi.svg",
-      "alt": "Doruk Yapı — temsili referans logosu",
+      "name": "Referans 02",
+      "slug": "referans-02",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-02.png",
+      "logo_sha256": "f6f90822ee90e580ebae90029c72b151255dee0cbd245e919f15b6fce9c854da",
+      "logo_bytes": 5922,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 02",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:mavi-hat-lojistik",
+      "source_key": "reference:referans-03",
       "source_index": 2,
-      "name": "Mavi Hat Lojistik",
-      "slug": "mavi-hat-lojistik",
-      "logo_file": "tanitim-site/assets/images/references/mavi-hat-lojistik.svg",
-      "alt": "Mavi Hat Lojistik — temsili referans logosu",
+      "name": "Referans 03",
+      "slug": "referans-03",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-03.png",
+      "logo_sha256": "68e079741af37690f711f767af142704f3a2af590e46b400f95c652e654958c6",
+      "logo_bytes": 5019,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 03",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:nova-metal",
+      "source_key": "reference:referans-04",
       "source_index": 3,
-      "name": "Nova Metal",
-      "slug": "nova-metal",
-      "logo_file": "tanitim-site/assets/images/references/nova-metal.svg",
-      "alt": "Nova Metal — temsili referans logosu",
+      "name": "Referans 04",
+      "slug": "referans-04",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-04.png",
+      "logo_sha256": "0e97e4eda50ce9f769cef5512e2b4efdfa34f822fa32b7582a4065d6d42bbba0",
+      "logo_bytes": 25910,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 04",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:eksen-enerji",
+      "source_key": "reference:referans-05",
       "source_index": 4,
-      "name": "Eksen Enerji",
-      "slug": "eksen-enerji",
-      "logo_file": "tanitim-site/assets/images/references/eksen-enerji.svg",
-      "alt": "Eksen Enerji — temsili referans logosu",
+      "name": "Referans 05",
+      "slug": "referans-05",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-05.png",
+      "logo_sha256": "3d3310baf6a7876d5c8227b061d160d7ae6e12819feb2c953a0deb1d1a29f472",
+      "logo_bytes": 6512,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 05",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:usta-kaynak",
+      "source_key": "reference:referans-06",
       "source_index": 5,
-      "name": "Usta Kaynak",
-      "slug": "usta-kaynak",
-      "logo_file": "tanitim-site/assets/images/references/usta-kaynak.svg",
-      "alt": "Usta Kaynak — temsili referans logosu",
+      "name": "Referans 06",
+      "slug": "referans-06",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-06.png",
+      "logo_sha256": "99dd44c220e808bb2763d2c70dab705bd6b7c5ff1853af00b116409fa5febe83",
+      "logo_bytes": 15439,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 06",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:zirve-otomotiv",
+      "source_key": "reference:referans-07",
       "source_index": 6,
-      "name": "Zirve Otomotiv",
-      "slug": "zirve-otomotiv",
-      "logo_file": "tanitim-site/assets/images/references/zirve-otomotiv.svg",
-      "alt": "Zirve Otomotiv — temsili referans logosu",
+      "name": "Referans 07",
+      "slug": "referans-07",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-07.png",
+      "logo_sha256": "6427b19b7680ca5f6e59898562262556033ef7e44d9bf462f856569d8700b542",
+      "logo_bytes": 2760,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 07",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:form-plastik",
+      "source_key": "reference:referans-08",
       "source_index": 7,
-      "name": "Form Plastik",
-      "slug": "form-plastik",
-      "logo_file": "tanitim-site/assets/images/references/form-plastik.svg",
-      "alt": "Form Plastik — temsili referans logosu",
+      "name": "Referans 08",
+      "slug": "referans-08",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-08.png",
+      "logo_sha256": "7842bc3a7f568e82dc4f39cedb6a63a23d02f660b34e01121465528521bb0cdf",
+      "logo_bytes": 14948,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 08",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:ada-tekstil",
+      "source_key": "reference:referans-09",
       "source_index": 8,
-      "name": "Ada Tekstil",
-      "slug": "ada-tekstil",
-      "logo_file": "tanitim-site/assets/images/references/ada-tekstil.svg",
-      "alt": "Ada Tekstil — temsili referans logosu",
+      "name": "Referans 09",
+      "slug": "referans-09",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-09.png",
+      "logo_sha256": "5fb6847a1c527be1ae2042b8e85ea527c573e25eff4d3809b0849c51837fc6d7",
+      "logo_bytes": 18498,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 09",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:kent-asansor",
+      "source_key": "reference:referans-10",
       "source_index": 9,
-      "name": "Kent Asansör",
-      "slug": "kent-asansor",
-      "logo_file": "tanitim-site/assets/images/references/kent-asansor.svg",
-      "alt": "Kent Asansör — temsili referans logosu",
+      "name": "Referans 10",
+      "slug": "referans-10",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-10.png",
+      "logo_sha256": "5b523381b88708274b3add1cbfd88d2bd27717260053709540db468bb0a01477",
+      "logo_bytes": 9395,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 10",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:natura-ahsap",
+      "source_key": "reference:referans-11",
       "source_index": 10,
-      "name": "Natura Ahşap",
-      "slug": "natura-ahsap",
-      "logo_file": "tanitim-site/assets/images/references/natura-ahsap.svg",
-      "alt": "Natura Ahşap — temsili referans logosu",
+      "name": "Referans 11",
+      "slug": "referans-11",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-11.png",
+      "logo_sha256": "014e519f34c4e40c8d923665f557648dc5e240b99aa03b5db55581f7f5853a4a",
+      "logo_bytes": 3365,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 11",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     },
     {
       "schema_version": "2.0.0",
-      "source_key": "reference:liman-teknik",
+      "source_key": "reference:referans-12",
       "source_index": 11,
-      "name": "Liman Teknik",
-      "slug": "liman-teknik",
-      "logo_file": "tanitim-site/assets/images/references/liman-teknik.svg",
-      "alt": "Liman Teknik — temsili referans logosu",
+      "name": "Referans 12",
+      "slug": "referans-12",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-12.png",
+      "logo_sha256": "6411cc3bd3d537a173acc427ac19820758f93f78876617316163f00b45e79f0f",
+      "logo_bytes": 13864,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 12",
+      "name_status": "unverified",
       "source": {
-        "file": "tanitim-site/assets/data/references.js",
-        "sha256": "779f0f78f3fbc6714bd353228df462a5dd76b260e141e98b3c2342f0a3c5bf11"
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:referans-13",
+      "source_index": 12,
+      "name": "Referans 13",
+      "slug": "referans-13",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-13.png",
+      "logo_sha256": "82fa359843fe014707af0bf7193a8a7b5cef28c9b86a556ad04aac422e8a641c",
+      "logo_bytes": 15716,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 13",
+      "name_status": "unverified",
+      "source": {
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:referans-14",
+      "source_index": 13,
+      "name": "Referans 14",
+      "slug": "referans-14",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-14.png",
+      "logo_sha256": "d61ffac02873a554916afbfaa42f6516b60942971c361302e422130a9cadeda4",
+      "logo_bytes": 1523,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 14",
+      "name_status": "unverified",
+      "source": {
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "reference:referans-15",
+      "source_index": 14,
+      "name": "Referans 15",
+      "slug": "referans-15",
+      "logo_file": "wordpress-site/data/sources/reference-logos/ref-15.png",
+      "logo_sha256": "488eb1176a0bf20627e44034e638c7663d8ee1d6ff1396554c8d36e90904c8b3",
+      "logo_bytes": 13574,
+      "logo_width": 250,
+      "logo_height": 100,
+      "alt": "Referans kuruluş logosu 15",
+      "name_status": "unverified",
+      "source": {
+        "file": "wordpress-site/data/sources/reference-logos/reference-logos.manifest.json",
+        "sha256": "ad147f236c45352c1dad841c851cff313313e7988c110423d8e164c9e8b8c083"
       }
     }
   ]

@@ -11,7 +11,7 @@ const path = require('path');
 
 const THEME = path.join(__dirname, '..', '..', 'wp-content', 'themes', 'mavibelge', 'assets');
 const CSS_ORDER = ['tokens', 'base', 'layout', 'components', 'pages', 'header', 'footer', 'responsive'];
-const JS_ORDER = ['navigation', 'components', 'main'];
+const JS_ORDER = ['navigation', 'components', 'application', 'main'];
 
 function build(kind) {
 	const dir = kind === 'css' ? 'css' : 'js';

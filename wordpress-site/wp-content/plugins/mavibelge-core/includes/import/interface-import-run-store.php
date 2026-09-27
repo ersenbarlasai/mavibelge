@@ -12,6 +12,9 @@
  *   plan_digest, manifest_digest (64 hex), batch_size, total_writes,
  *   committed_batches, committed_items (int), error_code (string|null),
  *   created_by (int), created_at, updated_at (UTC 'Y-m-d H:i:s').
+ * Faz 6B4 ek run alanları: map_digest (64 hex|null; run başladığında geçerli sektör görsel map özeti),
+ *   rollback_batches, rollback_items (int; commit edilmiş rollback batch/item sayaçları).
+ * Plan item satırı (get_plan_items dönüşü): MaviBelge_Core_Import_Plan_Snapshot::KEYS (kapalı; içerik değeri YOK).
  * Run item satırı (get_items dönüşü):
  *   id, run_id, seq, batch_no (int), source_key, type, decision,
  *   target_id (int), rollback_record (JSON string), rollback_status
@@ -70,8 +73,35 @@ interface MaviBelge_Core_Import_Run_Store {
 	 */
 	public function add_item( $runId, array $item );
 
-	/** Yalnız `running` durumundaki run için checkpoint sayaçlarını yazar. @return bool */
-	public function record_checkpoint( $runId, $committedBatches, $committedItems );
+	/**
+	 * Faz 6B4 — `ready` durumunda run + KAPALI plan snapshot'ını birlikte oluşturur. Snapshot
+	 * `MaviBelge_Core_Import_Plan_Snapshot::validate_items()`'tan geçmezse veya `total_writes` item sayısına
+	 * eşit değilse HİÇBİR şey oluşturulmaz. Çağıran, run ile snapshot'ın atomikliği için transaction kullanır.
+	 *
+	 * @param array   $data      stage, plan_digest, manifest_digest, map_digest (null|64hex), batch_size, total_writes, created_by
+	 * @param array[] $planItems Plan_Snapshot item'ları.
+	 * @return array|null Oluşturulan run satırı.
+	 */
+	public function create_run_with_plan( array $data, array $planItems );
+
+	/**
+	 * Faz 6B4 — snapshot item'ları, `seq > $afterSeq` olanlardan en çok `$limit` tane, seq sırasıyla.
+	 *
+	 * @return array[]
+	 */
+	public function get_plan_items( $runId, $afterSeq, $limit );
+
+	/**
+	 * Yalnız `running` durumundaki run için checkpoint sayaçlarını yazar. `$expectedBatches` verilirse
+	 * karşılaştır-ve-değiştir: mevcut committed_batches ona eşit değilse yazılmaz (eski/çift istek). @return bool
+	 */
+	public function record_checkpoint( $runId, $committedBatches, $committedItems, $expectedBatches = null );
+
+	/**
+	 * Faz 6B4 — yalnız `rolling_back` durumundaki run için rollback sayaçlarını, beklenen mevcut
+	 * rollback_batches ile karşılaştır-ve-değiştir yazar; sayaçlar geriye gidemez. @return bool
+	 */
+	public function record_rollback_checkpoint( $runId, $expectedBatches, $newBatches, $newItems );
 
 	/** @return array[] seq sırasıyla. */
 	public function get_items( $runId );

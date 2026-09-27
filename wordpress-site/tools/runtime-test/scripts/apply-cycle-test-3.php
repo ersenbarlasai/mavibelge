@@ -22,6 +22,17 @@ if ( 'mbfx_' !== $wpdb->prefix ) {
 }
 $v1 = '/tmp/mbfx-content-manifest';
 $v2 = '/tmp/mbfx-content-manifest-v2';
+$logoDir = '/tmp/sources/reference-logos'; // fixture-db.php sahte logo dosyalarını buraya yazar (manifest dizininin kardeşi)
+// Logo attachment dosyaları GERÇEK uploads dizinine değil geçici bir dizine yazılır (ana uploads farkı 0 kalır).
+$upTmp = '/tmp/mbfx-uploads';
+add_filter(
+	'upload_dir',
+	function ( $d ) use ( $upTmp ) {
+		$sub = '/mbfx';
+		wp_mkdir_p( $upTmp . $sub );
+		return array_merge( $d, array( 'path' => $upTmp . $sub, 'url' => 'http://mbfx.invalid/uploads' . $sub, 'subdir' => $sub, 'basedir' => $upTmp, 'baseurl' => 'http://mbfx.invalid/uploads', 'error' => false ) );
+	}
+);
 foreach ( array( $v1, $v2 ) as $dir ) {
 	if ( 0 !== strpos( $dir, '/tmp/mbfx-' ) || ! is_file( $dir . '/news.manifest.json' ) || ! is_file( $dir . '/references.manifest.json' ) ) {
 		echo "HATA: sahte içerik manifesti yok ({$dir}); önce fixture-db.php manifest.\n";
@@ -50,14 +61,14 @@ $t       = function ( $label, $ok, $detail = '' ) use ( &$results ) {
 	$results[] = array( $label, (bool) $ok, (string) $detail );
 };
 
-$mk = function ( $dir, $sink = null ) {
+$mk = function ( $dir, $sink = null ) use ( $logoDir ) {
 	$repo  = new MaviBelge_Core_Import_WordPress_Target_Repository();
 	$sink  = null === $sink ? new MaviBelge_Core_Import_WP_Audit_Sink() : $sink;
 	$store = new MaviBelge_Core_Import_Wpdb_Run_Store();
 	$o     = new stdClass();
 	$o->repo     = $repo;
-	$o->apply    = new MaviBelge_Core_Import_Apply_Service( new MaviBelge_Core_Import_Dry_Run_Service( $repo, $dir ), new MaviBelge_Core_Import_WordPress_Target_Writer(), new MaviBelge_Core_Import_Wpdb_Transaction(), $store, $sink );
-	$o->rollback = new MaviBelge_Core_Import_Rollback_Service( $repo, new MaviBelge_Core_Import_WordPress_Target_Writer(), new MaviBelge_Core_Import_Wpdb_Transaction(), $store, $sink );
+	$o->apply    = new MaviBelge_Core_Import_Apply_Service( new MaviBelge_Core_Import_Dry_Run_Service( $repo, $dir ), new MaviBelge_Core_Import_WordPress_Target_Writer( $logoDir ), new MaviBelge_Core_Import_Wpdb_Transaction(), $store, $sink );
+	$o->rollback = new MaviBelge_Core_Import_Rollback_Service( $repo, new MaviBelge_Core_Import_WordPress_Target_Writer( $logoDir ), new MaviBelge_Core_Import_Wpdb_Transaction(), $store, $sink );
 	$o->store    = $store;
 	return $o;
 };
@@ -98,8 +109,8 @@ $runStatus = function ( $uid ) use ( $store ) {
 	return is_array( $r ) ? $r['status'] : null;
 };
 $zzIds = function ( $status = null ) use ( $wpdb ) {
-	$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('mb_haber','mb_referans') AND ( post_title LIKE %s OR post_title LIKE %s OR post_title LIKE %s )";
-	$arg = array( $wpdb->esc_like( 'TEST ' ) . '%', $wpdb->esc_like( 'ZZ Test' ) . '%', $wpdb->esc_like( 'Import ' ) . '%' );
+	$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('mb_haber','mb_referans') AND ( post_title LIKE %s OR post_title LIKE %s OR post_title LIKE %s OR post_title LIKE %s )";
+	$arg = array( $wpdb->esc_like( 'TEST ' ) . '%', $wpdb->esc_like( 'ZZ Test' ) . '%', $wpdb->esc_like( 'Import ' ) . '%', $wpdb->esc_like( 'Referans 0' ) . '%' );
 	if ( null !== $status ) {
 		$sql  .= ' AND post_status = %s';
 		$arg[] = $status;
@@ -157,7 +168,7 @@ $news = array(
 	'news:zz-test-haber-b' => array( 'title' => 'TEST Duyuru B', 'date' => '2026-02-20 12:00:00', 'type' => 'duyuru' ),
 	'news:zz-test-haber-c' => array( 'title' => 'TEST Haber C', 'date' => '2025-12-31 12:00:00', 'type' => 'haber' ),
 );
-$refs = array( 'reference:zz-test-ref-a' => 1, 'reference:zz-test-ref-b' => 2, 'reference:zz-test-ref-c' => 3 );
+$refs = array( 'reference:referans-01' => 1, 'reference:referans-02' => 2, 'reference:referans-03' => 3 );
 
 /* ===== 0) Başlangıç ===== */
 $t( 'başlangıç: mb_haber_turu ve mb_haber/mb_referans kayıtlı; fixture temiz (zz-test içerik yok)',
@@ -221,20 +232,32 @@ foreach ( $news as $sk => $exp ) {
 $t( 'readback (gerçek WP): haber DRAFT, post_name=slug, başlık, HAM içerik=body, özet, post_date "Y-m-d 12:00:00" ve post_date_gmt SIFIR (taslak açık tarihi korudu), in_review, marker+hash, doğru tür terimi', $okNews, $detail );
 $okRefs = true;
 $detail = '';
+$refEnv = json_decode( file_get_contents( $v1 . '/references.manifest.json' ), true );
+$refLogoSha = array();
+foreach ( $refEnv['records'] as $rr ) {
+	$refLogoSha[ $rr['source_key'] ] = $rr['logo_sha256'];
+}
+// Faz 12b: logo attachment'ı GERÇEK (attachment, image/png, dosya okunabilir, SHA-256 manifestle eşit)
+$logoValid = function ( $rawId, $sha ) {
+	$id  = (int) $rawId;
+	$att = $id > 0 ? get_post( $id ) : null;
+	$f   = $id > 0 ? get_attached_file( $id ) : false;
+	return $att instanceof WP_Post && 'attachment' === $att->post_type && 'image/png' === get_post_mime_type( $att ) && is_string( $f ) && is_readable( $f ) && hash_file( 'sha256', $f ) === $sha;
+};
 foreach ( $refs as $sk => $order ) {
 	$p = $byMarker( $sk );
 	$row = $p instanceof WP_Post && 'mb_referans' === $p->post_type && 'draft' === $p->post_status && substr( $sk, 10 ) === $p->post_name
-		&& 'representative' === get_post_meta( $p->ID, '_mb_reference_status', true ) && 'active' === get_post_meta( $p->ID, '_mb_record_status', true ) && (string) $order === (string) get_post_meta( $p->ID, '_mb_sort_order', true )
-		&& '' === get_post_meta( $p->ID, '_mb_website_url', true ) && '0' === (string) get_post_meta( $p->ID, '_mb_logo_attachment_id', true ) && metadata_exists( 'post', $p->ID, '_mb_website_url' ) && metadata_exists( 'post', $p->ID, '_mb_logo_attachment_id' )
+		&& 'real' === get_post_meta( $p->ID, '_mb_reference_status', true ) && 'active' === get_post_meta( $p->ID, '_mb_record_status', true ) && (string) $order === (string) get_post_meta( $p->ID, '_mb_sort_order', true )
+		&& '' === get_post_meta( $p->ID, '_mb_website_url', true ) && metadata_exists( 'post', $p->ID, '_mb_website_url' ) && $logoValid( get_post_meta( $p->ID, '_mb_logo_attachment_id', true ), $refLogoSha[ $sk ] )
 		&& $sk === get_post_meta( $p->ID, '_mb_import_source_key', true ) && 0 === (int) $p->menu_order;
 	if ( ! $row ) {
 		$okRefs = false;
 		$detail .= $sk . ' ';
 	}
 }
-$t( 'readback (gerçek WP): referans DRAFT, post_name=slug, temsili/aktif, sort_order 1/2/3, website_url "" ve logo 0 (meta VAR), marker', $okRefs, $detail );
-$t( 'hiçbir içerik yayınlanmadı (publish=0, in_review dışı onay yok); ek/medya oluşmadı; 6 post',
-	0 === (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ('mb_haber','mb_referans') AND post_status = 'publish'" ) && count( $zzIds() ) === $postCountBefore + 6 && $attachmentsBefore === (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment'" ) );
+$t( 'readback (gerçek WP): referans DRAFT, post_name=slug, real/aktif, sort_order 1/2/3, website_url "", GERÇEK logo attachment (image/png, okunabilir dosya, SHA-256 manifestle eşit), marker', $okRefs, $detail );
+$t( 'hiçbir içerik yayınlanmadı (publish=0, in_review dışı onay yok); 3 logo attachment oluştu (aynı logo tekrar eklenmez); 6 post',
+	0 === (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ('mb_haber','mb_referans') AND post_status = 'publish'" ) && count( $zzIds() ) === $postCountBefore + 6 && $attachmentsBefore + 3 === (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment'" ) );
 $runA = $store->get_run( $a1['run_uid'] );
 $auditRows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}mb_audit_log WHERE object_type = 'mb_import_run' AND object_id = %d", $runA['id'] ), ARRAY_A );
 $t( 'audit: started -> batch_committed -> completed; audit içeriği haber gövdesi/başlığı TAŞIMAZ (yalnız alan adları)',
@@ -301,7 +324,7 @@ foreach ( $pU['entries'] as $e ) {
 }
 $t( 'v2 dry-run: haber-a update(content,excerpt), haber-c update(published_on,news_type_term_id), referans a/b update(sort_order), diğerleri unchanged; eligible',
 	'update' === $ent['news:zz-test-haber-a']['decision'] && array( 'content', 'excerpt' ) === $ent['news:zz-test-haber-a']['changed_fields'] && 'update' === $ent['news:zz-test-haber-c']['decision'] && array( 'published_on', 'news_type_term_id' ) === $ent['news:zz-test-haber-c']['changed_fields']
-	&& 'unchanged' === $ent['news:zz-test-haber-b']['decision'] && array( 'sort_order' ) === $ent['reference:zz-test-ref-a']['changed_fields'] && 'update' === $ent['reference:zz-test-ref-b']['decision'] && 'unchanged' === $ent['reference:zz-test-ref-c']['decision'] && true === $pU['eligible'], $brief( $pU ) );
+	&& 'unchanged' === $ent['news:zz-test-haber-b']['decision'] && array( 'sort_order' ) === $ent['reference:referans-01']['changed_fields'] && 'update' === $ent['reference:referans-02']['decision'] && 'unchanged' === $ent['reference:referans-03']['decision'] && true === $pU['eligible'], $brief( $pU ) );
 $pa = $byMarker( 'news:zz-test-haber-a' );
 $pc = $byMarker( 'news:zz-test-haber-c' );
 $aU = $apply( $v2 );
@@ -310,8 +333,8 @@ $pcU = $fresh( $pc->ID );
 $t( 'v2 apply (gerçek WP): aynı post ID\'leri güncellendi (yeni post yok), içerik/özet güncel, post_date KORUNDU (edit_date; yalnız içerik değişse de tarih "şimdi"ye sıfırlanmadı) ve post_date_gmt sıfır, DRAFT kaldı, tür terimi duyuru, tarih 2026-03-01 12:00:00',
 	'completed' === $aU['status'] && 4 === $aU['committed_items'] && 'Güncellenmiş sahte gövde.' === $paU->post_content && 'Güncellenmiş özet.' === $paU->post_excerpt && '2026-01-15 12:00:00' === $paU->post_date && '0000-00-00 00:00:00' === $paU->post_date_gmt && 'draft' === $paU->post_status
 	&& '2026-03-01 12:00:00' === $pcU->post_date && '0000-00-00 00:00:00' === $pcU->post_date_gmt && array( $idDuyuru ) === $termIdsOf( $pc->ID ) && 'draft' === $pcU->post_status && 'zz-test-haber-a' === $paU->post_name, wp_json_encode( array( $aU['status'], $paU->post_date, $paU->post_date_gmt, $pcU->post_date, $termIdsOf( $pc->ID ) ) ) );
-$pRefA = $byMarker( 'reference:zz-test-ref-a' );
-$pRefB = $byMarker( 'reference:zz-test-ref-b' );
+$pRefA = $byMarker( 'reference:referans-01' );
+$pRefB = $byMarker( 'reference:referans-02' );
 $t( 'v2 apply: referans sıralaması güncellendi (ref-b=1, ref-a=2); v2 planı yeniden unchanged', '2' === (string) get_post_meta( $pRefA->ID, '_mb_sort_order', true ) && '1' === (string) get_post_meta( $pRefB->ID, '_mb_sort_order', true ) && 6 === $plan( $v2 )['unchanged'] );
 $rbU = $rollback( $aU['run_uid'] );
 $paR = $fresh( $pa->ID );
@@ -335,7 +358,7 @@ $driftCase = function ( $label, callable $mutate, callable $restore, callable $s
 	return $r;
 };
 $hid = $byMarker( 'news:zz-test-haber-a' )->ID;
-$rid = $byMarker( 'reference:zz-test-ref-a' )->ID;
+$rid = $byMarker( 'reference:referans-01' )->ID;
 $driftCase( 'drift: haberdeki yönetilmeyen SEO meta -> drift_detected, hiçbir post çöpe gitmez, meta korunur',
 	function () use ( $hid ) {
 		add_post_meta( $hid, '_yoast_wpseo_title', 'SEO başlığı', true );
@@ -445,7 +468,7 @@ $r = $apply( $v1 );
 $t( 'kullanıcıya ait ÇÖPTEKİ haber (post_name "<slug>__trashed", _wp_desired_post_slug=slug) HÂLÂ conflict üretir; plan applicable=false; apply plan_not_applicable',
 	'zz-test-haber-b__trashed' === $utp->post_name && 'zz-test-haber-b' === get_post_meta( $userTrash, '_wp_desired_post_slug', true ) && $pUser['conflict'] >= 1 && false === $pUser['applicable'] && 'plan_not_applicable' === $r['error_code'], $brief( $pUser ) . ' ' . $utp->post_name );
 wp_delete_post( $userTrash, true );
-$userDraft = wp_insert_post( wp_slash( array( 'post_type' => 'mb_referans', 'post_title' => 'TEST Kullanıcı referans', 'post_name' => 'zz-test-ref-c', 'post_status' => 'draft' ) ) );
+$userDraft = wp_insert_post( wp_slash( array( 'post_type' => 'mb_referans', 'post_title' => 'TEST Kullanıcı referans', 'post_name' => 'referans-03', 'post_status' => 'draft' ) ) );
 $pUser2 = $plan( $v1 );
 $t( 'kullanıcıya ait TASLAK referans aynı post_name\'de -> conflict, applicable=false', $pUser2['conflict'] >= 1 && false === $pUser2['applicable'], $brief( $pUser2 ) );
 wp_trash_post( $userDraft );
@@ -476,13 +499,25 @@ wp_delete_post( $intruder, true );
 
 /* ===== 10) temizlik ===== */
 $emptyTrash();
+// Logo attachment'ları (yalnız bu betiğin fixture'ında oluşan; rollback bunları BİLEREK silmez) ve geçici uploads dizini kaldırılır.
+$logoAtts = get_posts( array( 'post_type' => 'attachment', 'post_status' => 'any', 'meta_key' => '_mb_import_logo_sha256', 'fields' => 'ids', 'posts_per_page' => 50, 'no_found_rows' => true ) );
+foreach ( $logoAtts as $logoAttId ) {
+	wp_delete_attachment( (int) $logoAttId, true );
+}
+if ( is_dir( $upTmp ) ) {
+	foreach ( glob( $upTmp . '/mbfx/*' ) ? glob( $upTmp . '/mbfx/*' ) : array() as $f ) {
+		is_file( $f ) && unlink( $f );
+	}
+	@rmdir( $upTmp . '/mbfx' );
+	@rmdir( $upTmp );
+}
 foreach ( array( 'haber', 'duyuru' ) as $slug ) {
 	$term = get_term_by( 'slug', $slug, 'mb_haber_turu' );
 	if ( $term instanceof WP_Term ) {
 		wp_delete_term( $term->term_id, 'mb_haber_turu' );
 	}
 }
-$t( 'temizlik: fixture\'da zz-test içerik ve iki tür terimi kalmadı; medya değişmedi; gerçek data/content manifestleri kullanılmadı',
+$t( 'temizlik: fixture\'da zz-test içerik, iki tür terimi ve logo attachment\'ları kalmadı (medya sayısı başlangıçla eşit); gerçek data/content manifestleri kullanılmadı',
 	array() === $zzIds() && 0 === $termIdOf( 'haber' ) && 0 === $termIdOf( 'duyuru' ) && $attachmentsBefore === (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment'" ) && 0 === strpos( $v1, '/tmp/mbfx-' ) );
 
 $pass = 0;

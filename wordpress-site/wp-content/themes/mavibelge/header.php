@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php wp_body_open(); ?>
 <a class="skip-link" href="#main"><?php esc_html_e( 'İçeriğe atla', 'mavibelge' ); ?></a>
 
-<div class="trust-bar">
+<aside class="trust-bar" aria-label="<?php echo esc_attr__( 'İletişim ve yetki bilgisi', 'mavibelge' ); ?>">
 	<div class="container">
 		<ul>
 			<li><a href="tel:08502154422">0850 215 44 22</a></li>
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li><?php esc_html_e( 'MYK tarafından yetkilendirilmiş belgelendirme kuruluşu', 'mavibelge' ); ?></li>
 		</ul>
 	</div>
-</div>
+</aside>
 
 <header class="site-header">
 	<div class="container header-main">
@@ -55,14 +55,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			);
 			?>
 			<div class="mobile-header-cta">
-				<a class="btn btn-primary btn-block" href="<?php echo esc_url( home_url( '/online-basvuru/' ) ); ?>"><?php esc_html_e( 'Online Başvuru', 'mavibelge' ); ?></a>
+				<a class="btn btn-primary btn-block" href="<?php echo esc_url( mavibelge_url( 'online-basvuru' ) ); ?>"><?php esc_html_e( 'Online Başvuru', 'mavibelge' ); ?></a>
 			</div>
 		</nav>
 
 		<?php get_template_part( 'template-parts/components/trust-logo', null, array( 'context' => 'header' ) ); ?>
 
 		<div class="header-cta">
-			<a class="btn btn-primary" href="<?php echo esc_url( home_url( '/online-basvuru/' ) ); ?>"><?php esc_html_e( 'Online Başvuru', 'mavibelge' ); ?></a>
+			<a class="btn btn-primary" href="<?php echo esc_url( mavibelge_url( 'online-basvuru' ) ); ?>"><?php esc_html_e( 'Online Başvuru', 'mavibelge' ); ?></a>
 		</div>
 
 		<button type="button" class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="<?php esc_attr_e( 'Menüyü aç/kapat', 'mavibelge' ); ?>">

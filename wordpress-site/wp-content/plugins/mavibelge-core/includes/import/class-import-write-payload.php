@@ -51,6 +51,10 @@ class MaviBelge_Core_Import_Write_Payload {
 		// Faz 7 içerik aktarımı. Haber: onay durumu + marker/hash (tür ilişkisi taksonomidir, meta değil).
 		'news'          => array( '_mb_approval_status', '_mb_import_source_key', '_mb_last_applied_hash' ),
 		'reference'     => array( '_mb_reference_status', '_mb_record_status', '_mb_sort_order', '_mb_website_url', '_mb_logo_attachment_id', '_mb_import_source_key', '_mb_last_applied_hash' ),
+		// Faz 12b: SSS (mb_sss) — sıra + kayıt durumu + marker/hash (soru/cevap çekirdek post alanlarıdır).
+		'faq'           => array( '_mb_sort_order', '_mb_record_status', '_mb_import_source_key', '_mb_last_applied_hash' ),
+		// Faz 12: çekirdek `page` yalnız marker + hash meta'sı taşır (içerik alanları çekirdek post alanlarıdır).
+		'page'          => array( '_mb_import_source_key', '_mb_last_applied_hash' ),
 	);
 
 	/** Tür => yazma yükünün post türü (sektör bir terimdir; post türü yok). */
@@ -59,6 +63,8 @@ class MaviBelge_Core_Import_Write_Payload {
 		'fee'           => 'mb_ucret',
 		'news'          => 'mb_haber',
 		'reference'     => 'mb_referans',
+		'faq'           => 'mb_sss',
+		'page'          => 'page',
 	);
 
 	/**
@@ -108,6 +114,12 @@ class MaviBelge_Core_Import_Write_Payload {
 				break;
 			case 'reference':
 				$payload = self::reference_payload( $managedFields );
+				break;
+			case 'faq':
+				$payload = self::faq_payload( $managedFields );
+				break;
+			case 'page':
+				$payload = self::page_payload( $managedFields );
 				break;
 			default:
 				$payload = self::fee_payload( $managedFields );
@@ -186,9 +198,38 @@ class MaviBelge_Core_Import_Write_Payload {
 		);
 	}
 
-	/** Faz 7 — referans yükü: yalnız TEMSİLİ/aktif, boş web sitesi, logo 0 (bkz. Managed_Fields::REFERENCE_FIELDS). */
+	/**
+	 * Faz 12 — sayfa yükü. Yazılan içerik KAPALI izin listesinden geçmek ZORUNDADIR (mevcut-durum doğrulaması editör HTML'ine izin verir; yazma
+	 * yükü vermez). parent_id bu sürümde 0. Yük hiçbir durum alanı taşımaz: writer sayfayı HER ZAMAN taslak açar.
+	 */
+	private static function page_payload( array $f ) {
+		if ( 0 !== $f['parent_id'] || array() !== MaviBelge_Core_Import_Record_Validator::page_content_errors( $f['content'] ) ) {
+			return null;
+		}
+		if ( '' !== $f['excerpt'] && ( false !== strpos( $f['excerpt'], '<' ) || false !== strpos( $f['excerpt'], '>' ) ) ) {
+			return null;
+		}
+		return array(
+			'post'      => array(
+				'post_type'    => 'page',
+				'post_title'   => $f['title'],
+				'post_name'    => $f['slug'],
+				'post_content' => $f['content'],
+				'post_excerpt' => $f['excerpt'],
+				'post_parent'  => 0,
+				'menu_order'   => $f['menu_order'],
+			),
+			'post_meta' => array(),
+		);
+	}
+
+	/**
+	 * Faz 12b — referans yükü: yalnız GERÇEK/aktif, boş web sitesi ve geçerli 64-hex logo özeti. `logo` üst-seviye anahtarı
+	 * post_meta DEĞİLDİR: attachment kimliği ortama özgüdür, yazıcı logo dosyasını (SHA-256 ile) bulup/oluşturup
+	 * _mb_logo_attachment_id'yi kendisi yazar ve geri okur.
+	 */
 	private static function reference_payload( array $f ) {
-		if ( 'representative' !== $f['reference_status'] || 'active' !== $f['record_status'] || '' !== $f['website_url'] || 0 !== $f['logo_attachment_id'] ) {
+		if ( 'real' !== $f['reference_status'] || 'active' !== $f['record_status'] || '' !== $f['website_url'] || 1 !== preg_match( '/^[0-9a-f]{64}\z/', $f['logo_sha256'] ) ) {
 			return null;
 		}
 		return array(
@@ -198,11 +239,30 @@ class MaviBelge_Core_Import_Write_Payload {
 				'post_name'  => $f['slug'],
 			),
 			'post_meta' => array(
-				'_mb_reference_status'   => $f['reference_status'],
-				'_mb_record_status'      => $f['record_status'],
-				'_mb_sort_order'         => $f['sort_order'],
-				'_mb_website_url'        => $f['website_url'],
-				'_mb_logo_attachment_id' => $f['logo_attachment_id'],
+				'_mb_reference_status' => $f['reference_status'],
+				'_mb_record_status'    => $f['record_status'],
+				'_mb_sort_order'       => $f['sort_order'],
+				'_mb_website_url'      => $f['website_url'],
+			),
+			'logo'      => array( 'sha256' => $f['logo_sha256'] ),
+		);
+	}
+
+	/** Faz 12b — SSS yükü: soru başlık, cevap gövde (DÜZ METİN; işaretleme yasak), sıra + aktif durum. */
+	private static function faq_payload( array $f ) {
+		if ( 'active' !== $f['record_status'] || false !== strpos( $f['content'], '<' ) || false !== strpos( $f['content'], '>' ) || false !== strpos( $f['title'], '<' ) || false !== strpos( $f['title'], '>' ) ) {
+			return null;
+		}
+		return array(
+			'post'      => array(
+				'post_type'    => 'mb_sss',
+				'post_title'   => $f['title'],
+				'post_name'    => $f['slug'],
+				'post_content' => $f['content'],
+			),
+			'post_meta' => array(
+				'_mb_sort_order'    => $f['sort_order'],
+				'_mb_record_status' => $f['record_status'],
 			),
 		);
 	}

@@ -65,3 +65,18 @@ function mavibelge_form_shell_fields_for_slug( $slug ) {
 
 	return isset( $forms[ $slug ] ) ? $forms[ $slug ] : array();
 }
+
+/**
+ * Faz 12f — online başvuru adımları (tanitim-site/online-basvuru.html). Yalnız SUNUM gruplaması: alanların kendisi,
+ * doğrulaması ve kapısı eklentideki merkezi şemadadır. Bir alan hiçbir adımda değilse form onu adımların ardından çizer.
+ *
+ * @return array<int, array{title: string, fields: string[]}>
+ */
+function mavibelge_application_steps() {
+	return array(
+		array( 'title' => __( '1. Meslek Seçimi', 'mavibelge' ), 'fields' => array( 'qualification', 'exam_location' ) ),
+		array( 'title' => __( '2. Kişisel Bilgiler', 'mavibelge' ), 'fields' => array( 'full_name', 'national_id', 'phone', 'email' ) ),
+		array( 'title' => __( '3. Belgeler', 'mavibelge' ), 'fields' => array( 'documents' ) ),
+		array( 'title' => __( '4. Onay', 'mavibelge' ), 'fields' => array( 'consent' ) ),
+	);
+}

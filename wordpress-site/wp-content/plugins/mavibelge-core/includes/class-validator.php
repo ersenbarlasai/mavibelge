@@ -206,7 +206,7 @@ class MaviBelge_Core_Validator {
 	 * - `$type . ':'` önekiyle başlamayan string   -> wrong_prefix (başka aile, bilinmeyen önek, boşluk dahil)
 	 * - doğru önek ama biçim/uzunluk geçersiz      -> malformed
 	 * - tam biçim eşleşmesi                        -> valid
-	 * Geçerli aileler: 'sector', 'qualification', 'fee', 'news', 'reference'
+	 * Geçerli aileler: 'sector', 'qualification', 'fee', 'news', 'reference', 'faq' (Faz 12b), 'page' (Faz 12)
 	 * (Faz 7: news/reference sector ile aynı slug kuralı). Desenler `\z`
 	 * ile biter (satır-sonu toleranslı `$` kullanılmaz).
 	 *
@@ -221,7 +221,7 @@ class MaviBelge_Core_Validator {
 		if ( ! is_string( $value ) ) {
 			return self::IMPORT_KEY_NOT_STRING;
 		}
-		if ( ! in_array( $type, array( 'qualification', 'fee', 'sector', 'news', 'reference' ), true ) ) {
+		if ( ! in_array( $type, array( 'qualification', 'fee', 'sector', 'news', 'reference', 'faq', 'page' ), true ) ) {
 			return self::IMPORT_KEY_MALFORMED;
 		}
 		if ( 0 !== strpos( $value, $type . ':' ) ) {
@@ -243,6 +243,14 @@ class MaviBelge_Core_Validator {
 				break;
 			case 'reference':
 				$ok = preg_match( '/^reference:[a-z0-9]+(-[a-z0-9]+)*\z/', $value );
+				break;
+			case 'faq':
+				// Faz 12b: faq:<slug> (mb_sss; sector ile AYNI slug kuralı).
+				$ok = preg_match( '/^faq:[a-z0-9]+(-[a-z0-9]+)*\z/', $value );
+				break;
+			case 'page':
+				// Faz 12: page:<slug> (WordPress çekirdek sayfa türü; sector ile AYNI slug kuralı).
+				$ok = preg_match( '/^page:[a-z0-9]+(-[a-z0-9]+)*\z/', $value );
 				break;
 			default: // sector
 				$ok = preg_match( '/^sector:[a-z0-9]+(-[a-z0-9]+)*\z/', $value );

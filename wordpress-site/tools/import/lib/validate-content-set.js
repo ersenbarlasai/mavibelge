@@ -25,12 +25,16 @@ const { slugify } = require('./slug');
 
 const NEWS_PATH = 'content/news.manifest.json';
 const REFERENCES_PATH = 'content/references.manifest.json';
+const FAQS_PATH = 'content/faqs.manifest.json';
+const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
+const { sha256Hex } = require('./hash');
 
 const ENVELOPE_KEYS = ['schema_version', 'record_type', 'count', 'source', 'notes', 'records'];
 
 const SPEC = {
 	news: { relPath: NEWS_PATH, recordType: 'news', prefix: 'news:', schemaFile: 'news.schema.json', expected: CONTENT_EXPECTED.news, sourceKey: 'news' },
 	references: { relPath: REFERENCES_PATH, recordType: 'reference', prefix: 'reference:', schemaFile: 'reference.schema.json', expected: CONTENT_EXPECTED.references, sourceKey: 'references' },
+	faqs: { relPath: FAQS_PATH, recordType: 'faq', prefix: 'faq:', schemaFile: 'faq.schema.json', expected: CONTENT_EXPECTED.faqs, sourceKey: 'faqs' },
 };
 
 function loadSchema(schemaDir, file, errors) {
@@ -109,6 +113,7 @@ function validateRecords(spec, file, schema, errors) {
 	const label = spec.relPath;
 	const seenKeys = new Set();
 	const seenSlugs = new Set();
+	const seenLogoSha = new Set();
 	file.records.forEach(function (record, index) {
 		const where = label + ' records[' + index + ']';
 		if (schema) {
@@ -145,9 +150,19 @@ function validateRecords(spec, file, schema, errors) {
 					errors.push(where + ': ' + f + ' kanonik düz metin değil (boş/baş-son boşluk/"<" ">"/kontrol karakteri).');
 				}
 			});
+		} else if ('faqs' === spec.sourceKey) {
+			if ('string' !== typeof record.question || slugify(record.question) !== record.slug) {
+				errors.push(where + ': slug slugify(question) ile tutarsız.');
+			}
+			['question', 'answer'].forEach(function (f) {
+				if (!isCanonicalPlainText(record[f])) {
+					errors.push(where + ': ' + f + ' kanonik düz metin değil.');
+				}
+			});
 		} else {
-			if ('string' !== typeof record.name || slugify(record.name) !== record.slug) {
-				errors.push(where + ': slug slugify(name) ile tutarsız.');
+			const num = String(index + 1).padStart(2, '0');
+			if (record.name !== 'Referans ' + num || 'string' !== typeof record.name || slugify(record.name) !== record.slug) {
+				errors.push(where + ': name nötr sıra etiketi ("Referans NN") ve slug slugify(name) olmalı (firma adı tahmin edilmez).');
 			}
 			['name', 'alt'].forEach(function (f) {
 				if (!isCanonicalPlainText(record[f])) {
@@ -157,13 +172,30 @@ function validateRecords(spec, file, schema, errors) {
 			if ('string' === typeof record.logo_file && (record.logo_file.indexOf('..') !== -1 || record.logo_file.charAt(0) === '/')) {
 				errors.push(where + ': logo_file mutlak yol veya ".." içeremez.');
 			}
+			if (record.logo_file !== 'wordpress-site/data/sources/reference-logos/ref-' + num + '.png') {
+				errors.push(where + ': logo_file sıra numarasıyla beklenen yolda değil.');
+			} else {
+				let buf = null;
+				try {
+					buf = fs.readFileSync(path.join(REPO_ROOT, record.logo_file));
+				} catch (e) {
+					errors.push(where + ': logo dosyası yok (' + record.logo_file + ').');
+				}
+				if (null !== buf && (sha256Hex(buf) !== record.logo_sha256 || buf.length !== record.logo_bytes)) {
+					errors.push(where + ': logo_sha256/logo_bytes gerçek dosyayla uyuşmuyor.');
+				}
+			}
+			if (seenLogoSha.has(record.logo_sha256)) {
+				errors.push(where + ': aynı logo tekrar ediyor (logo_sha256).');
+			}
+			seenLogoSha.add(record.logo_sha256);
 		}
 	});
 }
 
 /**
- * @param {{'content/news.manifest.json': object, 'content/references.manifest.json': object}} files
- * @param {{news: {data, repoRelativePath, sha256}, references: {data, repoRelativePath, sha256}}} sources extractContent() çıktısı
+ * @param {{'content/news.manifest.json': object, 'content/references.manifest.json': object, 'content/faqs.manifest.json': object}} files
+ * @param {{news, references, faqs: {data, repoRelativePath, sha256}}} sources extractContent() çıktısı
  * @param {string} schemaDir wordpress-site/data/schema
  * @param {Function} freshFn () => {'content/...': fresh manifest} — kaynaktan yeniden türetim (dairesel bağımlılık olmasın diye enjekte edilir)
  * @returns {{errors: string[]}}
@@ -185,7 +217,7 @@ function validateContentFiles(files, sources, schemaDir, freshFn) {
 		validateRecords(spec, file, loadSchema(schemaDir, spec.schemaFile, errors), errors);
 	});
 	Object.keys(files).forEach(function (rel) {
-		if (rel !== NEWS_PATH && rel !== REFERENCES_PATH) {
+		if (rel !== NEWS_PATH && rel !== REFERENCES_PATH && rel !== FAQS_PATH) {
 			errors.push('beklenmeyen içerik manifest dosyası: ' + rel);
 		}
 	});
@@ -200,4 +232,4 @@ function validateContentFiles(files, sources, schemaDir, freshFn) {
 	return { errors: errors };
 }
 
-module.exports = { validateContentFiles, isRealCalendarDate, isCanonicalPlainText, NEWS_PATH, REFERENCES_PATH, SPEC };
+module.exports = { validateContentFiles, isRealCalendarDate, isCanonicalPlainText, NEWS_PATH, REFERENCES_PATH, FAQS_PATH, SPEC };

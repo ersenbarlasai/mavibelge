@@ -1,7 +1,8 @@
 <?php
 /**
  * Referans logo ızgarası — build_reference_dto() DTO listesinden. Slider/otomatik oynatma YOK.
- * Logo yalnız servisin doğruladığı gerçek görsel attachment'tır; yoksa ad yazılır. "Temsili görsel"
+ * Logo yalnız servisin doğruladığı gerçek görsel attachment'tır; yoksa ad yazılır. Logo alt metni anlamlıdır: "<ad> — kuruluş logosu"
+ * (firma adı doğrulanana kadar ad nötr sıra etiketidir; alt metin adı görselden tahmin etmez). Görsel kırpılmaz (CSS: object-fit contain). "Temsili görsel"
  * notu `real` olmayan HER referansta gösterilir (asla gizlenmez).
  *
  * $args:
@@ -23,7 +24,7 @@ if ( empty( $items ) ) {
 		<li>
 			<a class="ref-card" href="<?php echo esc_url( get_permalink( $item['id'] ) ); ?>">
 				<?php if ( $item['logo_id'] > 0 ) : ?>
-					<?php echo wp_get_attachment_image( $item['logo_id'], 'medium', false, array( 'alt' => $item['name'], 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+					<?php echo wp_get_attachment_image( $item['logo_id'], 'medium', false, array( 'alt' => sprintf( /* translators: %s: referans adı */ __( '%s — kuruluş logosu', 'mavibelge' ), $item['name'] ), 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
 				<?php else : ?>
 					<span><?php echo esc_html( $item['name'] ); ?></span>
 				<?php endif; ?>

@@ -42,6 +42,7 @@ require_once dirname( __DIR__ ) . '/includes/class-content-query.php';
 require_once dirname( __DIR__ ) . '/includes/class-content-admin-rules.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-schema.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-validator.php';
+require_once dirname( __DIR__ ) . '/includes/forms/class-forms-qualification-options.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-config.php';
 require_once dirname( __DIR__ ) . '/includes/class-rate-limit.php';
 require_once dirname( __DIR__ ) . '/includes/class-cache.php';
@@ -103,10 +104,13 @@ require_once dirname( __DIR__ ) . '/includes/import/interface-import-transaction
 require_once dirname( __DIR__ ) . '/includes/import/interface-import-run-store.php';
 require_once dirname( __DIR__ ) . '/includes/import/interface-import-audit-sink.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-run-state.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-plan-snapshot.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-apply-plan.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-rollback-codec.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-audit-context.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-run-finalizer.php';
+require_once dirname( __DIR__ ) . '/includes/import/interface-import-image-map-store.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-sector-image-map.php';
 require_once dirname( __DIR__ ) . '/audit/class-audit-log.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-apply-service.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-rollback-service.php';
@@ -118,6 +122,11 @@ require_once dirname( __DIR__ ) . '/includes/import/class-import-wordpress-targe
 require_once dirname( __DIR__ ) . '/includes/import/class-import-wpdb-transaction.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-wpdb-run-store.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-wp-audit-sink.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-wp-image-map-store.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-page-publisher.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-runtime-factory.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-admin-gates.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-admin-run-service.php';
 
 // `class-import-wordpress-target-repository.php` itself calls get_terms()/
 // get_posts()/get_post_meta()/etc. inside most of its methods (NOT safe to

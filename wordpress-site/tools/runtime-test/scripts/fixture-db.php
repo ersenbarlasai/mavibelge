@@ -11,7 +11,8 @@
  *              /tmp/mbfx-manifest-v2 dizinlerine yazar (v2: bir sektör
  *              açıklaması ve bir ücret fiyatı değişik). Faz 7: sahte haber/
  *              referans manifestlerini /tmp/mbfx-content-manifest{,-v2}'ye yazar.
- *   rmmanifest: bu dört dizini siler.
+ *              Faz 6B4: 25 sektörlü /tmp/mbfx-b4-manifest (katalog + sahte içerik).
+ *   rmmanifest: bu dizinleri siler.
  * Yalnız `wp_` önekiyle (fixture ortamı DIŞINDA) çalıştırılır. Üretime kopyalanmaz.
  */
 
@@ -82,12 +83,35 @@ if ( 'manifest' === $cmd ) {
 	}
 	$v2['reference']['records'] = $swap;
 	mb_content_fixture_write_dir( '/tmp/mbfx-content-manifest-v2', $v2 );
+	// Faz 6B4 — çok istekli (resumable) admin apply testleri: 25 sahte sektör (batch=10 -> 3 istek) + sahte haber/referans
+	// AYNI dizinde (dört aşamanın hepsi bu dizinle çalışır). GERÇEK manifestler yazılmaz.
+	mb_apply_fixture_write_dir( '/tmp/mbfx-b4-manifest', mb_apply_fixture_envelopes_with_sectors( 25 ) );
+	mb_content_fixture_write_dir( '/tmp/mbfx-b4-manifest', mb_content_fixture_envelopes() );
+	// Faz 12: aşama zinciri pages -> sectors -> qualifications -> all -> content ZORUNLU; pages manifesti (gerçek, yalnız TASLAK
+	// sayfa içeriği) izole fixture DB'sine uygulanır. Gerçek manifest salt okunur kopyalanır (kaynak dizin DEĞİŞMEZ).
+	$mbPages = dirname( ABSPATH ) . '/html/data/content/pages.manifest.json';
+	$mbPages = is_readable( $mbPages ) ? $mbPages : ABSPATH . 'data/content/pages.manifest.json';
+	copy( $mbPages, '/tmp/mbfx-b4-manifest/pages.manifest.json' );
+	copy( $mbPages, '/tmp/mbfx-manifest/pages.manifest.json' );
+	copy( $mbPages, '/tmp/mbfx-manifest-v2/pages.manifest.json' );
+	// Tam zincir dizini (CLI content aşaması testi): sahte katalog + sahte içerik + pages.
+	mb_apply_fixture_write_dir( '/tmp/mbfx-c7-full', mb_apply_fixture_envelopes() );
+	mb_content_fixture_write_dir( '/tmp/mbfx-c7-full', mb_content_fixture_envelopes() );
+	copy( $mbPages, '/tmp/mbfx-c7-full/pages.manifest.json' );
+	// Faz 12b: yayın kapısı dizini — pages + sahte içerik (3 haber, 3 referans, 3 SSS): referanslar/sss sayfaları içerik kayıtları oluşup YAYINLANANA kadar yayınlanamaz.
+	mb_content_fixture_write_dir( '/tmp/mbfx-pagegate', mb_content_fixture_envelopes( array(), 3 ) );
+	copy( $mbPages, '/tmp/mbfx-pagegate/pages.manifest.json' );
+	// Yalnız pages dizini (sayfa aşaması testleri).
+	if ( ! is_dir( '/tmp/mbfx-pages-manifest' ) ) {
+		mkdir( '/tmp/mbfx-pages-manifest', 0777, true );
+	}
+	copy( $mbPages, '/tmp/mbfx-pages-manifest/pages.manifest.json' );
 	echo "MANIFEST_OK\n";
 	return;
 }
 
 if ( 'rmmanifest' === $cmd ) {
-	$dirs = array( '/tmp/mbfx-manifest', '/tmp/mbfx-manifest-v2', '/tmp/mbfx-content-manifest', '/tmp/mbfx-content-manifest-v2' );
+	$dirs = array( '/tmp/mbfx-manifest', '/tmp/mbfx-manifest-v2', '/tmp/mbfx-content-manifest', '/tmp/mbfx-content-manifest-v2', '/tmp/mbfx-b4-manifest', '/tmp/mbfx-b4-manifest-mod', '/tmp/mbfx-c7-full', '/tmp/mbfx-pages-manifest', '/tmp/mbfx-pagegate' );
 	foreach ( $dirs as $dir ) {
 		foreach ( (array) glob( $dir . '/*.manifest.json' ) as $file ) {
 			unlink( $file );
@@ -96,6 +120,15 @@ if ( 'rmmanifest' === $cmd ) {
 			rmdir( $dir );
 		}
 	}
+	// Faz 12b: fixture logo dosyaları (manifest dizininin kardeşi) ve geçici uploads dizini de silinir.
+	foreach ( array( '/tmp/sources/reference-logos', '/tmp/mbfx-uploads/mbfx' ) as $extra ) {
+		foreach ( (array) glob( $extra . '/*' ) as $file ) {
+			is_file( $file ) && @unlink( $file );
+		}
+		is_dir( $extra ) && @rmdir( $extra );
+	}
+	is_dir( '/tmp/sources' ) && @rmdir( '/tmp/sources' ); // başka kullanıcıya (root testleri) ait olabilir: sessizce bırakılır (boş dizin)
+	is_dir( '/tmp/mbfx-uploads' ) && @rmdir( '/tmp/mbfx-uploads' );
 	$left = 0;
 	foreach ( $dirs as $dir ) {
 		$left += (int) is_dir( $dir );

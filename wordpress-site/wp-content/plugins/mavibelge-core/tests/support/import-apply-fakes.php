@@ -27,6 +27,8 @@ class MB_Fake_World {
 	public $terms       = array();
 	public $posts       = array();
 	public $attachments = array();
+	/** Faz 12b — logo attachment'ları: id => sha256 (içerik özeti; gerçek WordPress'te dosyanın hash'i). */
+	public $logoAttachments = array();
 	public $runs        = array();
 	public $items       = array();
 	public $audit       = array();
@@ -36,9 +38,15 @@ class MB_Fake_World {
 	/** Hata enjeksiyonu: array( 'op' => ..., 'source_key' => ... ) listesi. */
 	public $faults      = array();
 	public $writeLog    = array();
+	/** Faz 12c — fiziksel dosya kaydı (DB rollback ile GERİ ALINMAZ): ad => true. */
+	public $files = array();
+	/** Faz 12c — telafi hata enjeksiyonu: unlink başarısız olsun. */
+	public $unlinkFails = false;
+	/** Faz 6B4 — plan snapshot satırları: run id => seq => item. */
+	public $planItems   = array();
 
 	public function state() {
-		return array( $this->terms, $this->posts, $this->runs, $this->items, $this->audit, $this->nextRunId, $this->nextItemId );
+		return array( $this->terms, $this->posts, $this->runs, $this->items, $this->audit, $this->nextRunId, $this->nextItemId, $this->planItems, $this->logoAttachments );
 	}
 
 	/** Geri yükleme; 'external' işaretli kayıtlar (başka bir bağlantının transaction DIŞI yazımı simülasyonu) korunur. */
@@ -49,7 +57,7 @@ class MB_Fake_World {
 				return ! empty( $t['external'] );
 			}
 		);
-		list( $this->terms, $this->posts, $this->runs, $this->items, $this->audit, $this->nextRunId, $this->nextItemId ) = $s;
+		list( $this->terms, $this->posts, $this->runs, $this->items, $this->audit, $this->nextRunId, $this->nextItemId, $this->planItems, $this->logoAttachments ) = $s;
 		$this->terms = $this->terms + $externalTerms;
 	}
 
@@ -87,13 +95,17 @@ class MB_Fake_World {
 
 class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repository, MaviBelge_Core_Import_Content_Dependency_Resolver {
 	private $w;
+	/** Faz 6B4 — DOĞRULANMIŞ açık sektör görsel eşlemesi (slug => attachment ID); gerçek repository ile aynı öncelik kuralı. */
+	private $imageMap = array();
+	private $diagnostics = array();
 
-	public function __construct( MB_Fake_World $world ) {
-		$this->w = $world;
+	public function __construct( MB_Fake_World $world, array $imageMap = array() ) {
+		$this->w        = $world;
+		$this->imageMap = $imageMap;
 	}
 
 	public function get_diagnostics() {
-		return array();
+		return $this->diagnostics;
 	}
 
 	public function find_target_by_source_key( $type, $sourceKey ) {
@@ -103,7 +115,7 @@ class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repositor
 				$candidates[] = array( 'type' => 'sector', 'id' => $id );
 			}
 		}
-		foreach ( array( 'qualification' => 'mb_yeterlilik', 'fee' => 'mb_ucret', 'news' => 'mb_haber', 'reference' => 'mb_referans' ) as $importType => $postType ) {
+		foreach ( array( 'qualification' => 'mb_yeterlilik', 'fee' => 'mb_ucret', 'news' => 'mb_haber', 'reference' => 'mb_referans', 'faq' => 'mb_sss', 'page' => 'page' ) as $importType => $postType ) {
 			foreach ( $this->w->posts_of_type( $postType, false ) as $id => $p ) {
 				if ( isset( $p['meta']['_mb_import_source_key'] ) && $p['meta']['_mb_import_source_key'] === $sourceKey ) {
 					$candidates[] = array( 'type' => $importType, 'id' => $id );
@@ -154,16 +166,39 @@ class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repositor
 						'approval_status'    => $this->meta( $p, '_mb_approval_status' ),
 					)
 				);
+			} elseif ( 'page' === $type ) {
+				$fields = $R::page_fields_from_raw(
+					array(
+						'slug'       => $p['name'],
+						'title'      => $p['title'],
+						'content'    => $p['content'],
+						'excerpt'    => $p['excerpt'],
+						'parent_id'  => isset( $p['parent'] ) ? $p['parent'] : 0,
+						'menu_order' => isset( $p['menu_order'] ) ? $p['menu_order'] : 0,
+					)
+				);
 			} elseif ( 'reference' === $type ) {
+				$attId  = $this->meta( $p, '_mb_logo_attachment_id' );
+				$attKey = is_string( $attId ) && 1 === preg_match( '/^[1-9][0-9]*\z/', $attId ) ? (int) $attId : 0;
 				$fields = $R::reference_fields_from_raw(
 					array(
-						'slug'               => $p['name'],
-						'title'              => $p['title'],
-						'reference_status'   => $this->meta( $p, '_mb_reference_status' ),
-						'record_status'      => $this->meta( $p, '_mb_record_status' ),
-						'sort_order'         => $this->meta( $p, '_mb_sort_order' ),
-						'website_url'        => $this->meta( $p, '_mb_website_url' ),
-						'logo_attachment_id' => $this->meta( $p, '_mb_logo_attachment_id' ),
+						'slug'             => $p['name'],
+						'title'            => $p['title'],
+						'reference_status' => $this->meta( $p, '_mb_reference_status' ),
+						'record_status'    => $this->meta( $p, '_mb_record_status' ),
+						'sort_order'       => $this->meta( $p, '_mb_sort_order' ),
+						'website_url'      => $this->meta( $p, '_mb_website_url' ),
+						'logo_sha256'      => isset( $this->w->logoAttachments[ $attKey ] ) ? $this->w->logoAttachments[ $attKey ] : '',
+					)
+				);
+			} elseif ( 'faq' === $type ) {
+				$fields = $R::faq_fields_from_raw(
+					array(
+						'slug'          => $p['name'],
+						'title'         => $p['title'],
+						'content'       => $p['content'],
+						'sort_order'    => $this->meta( $p, '_mb_sort_order' ),
+						'record_status' => $this->meta( $p, '_mb_record_status' ),
 					)
 				);
 			} elseif ( 'qualification' === $type ) {
@@ -222,8 +257,8 @@ class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repositor
 					$ids[] = $id;
 				}
 			}
-		} elseif ( 'news' === $type || 'reference' === $type ) {
-			foreach ( $this->w->posts_of_type( 'news' === $type ? 'mb_haber' : 'mb_referans', true ) as $id => $p ) {
+		} elseif ( 'news' === $type || 'reference' === $type || 'faq' === $type || 'page' === $type ) {
+			foreach ( $this->w->posts_of_type( 'news' === $type ? 'mb_haber' : ( 'page' === $type ? 'page' : ( 'faq' === $type ? 'mb_sss' : 'mb_referans' ) ), true ) as $id => $p ) {
 				// WordPress çöpteki postun post_name'ine `__trashed` ekler ve asıl slug'ı `_wp_desired_post_slug`
 				// olarak saklar (fake: 'desired_slug'); doğal anahtar ikisini de dikkate alır.
 				if ( ( isset( $p['name'] ) && $p['name'] === $key['slug'] ) || ( 'trash' === $p['status'] && isset( $p['desired_slug'] ) && $p['desired_slug'] === $key['slug'] ) ) {
@@ -283,18 +318,64 @@ class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repositor
 	}
 
 	public function resolve_sector_image_attachment_id( $sectorSlug ): ?array {
+		$explicit = isset( $this->imageMap[ $sectorSlug ] ) && in_array( $this->imageMap[ $sectorSlug ], $this->w->attachments, true ) ? $this->imageMap[ $sectorSlug ] : null;
+		$metaId   = null;
 		foreach ( $this->w->terms as $t ) {
 			if ( 'mb_sektor' === $t['taxonomy'] && $t['slug'] === $sectorSlug ) {
-				$att = (int) $this->meta( $t, '_mb_image_attachment_id' );
-				return $att > 0 && in_array( $att, $this->w->attachments, true ) ? array( 'id' => $att, 'type_verified' => true ) : null;
+				$att    = (int) $this->meta( $t, '_mb_image_attachment_id' );
+				$metaId = $att > 0 && in_array( $att, $this->w->attachments, true ) ? $att : null;
+				break;
 			}
 		}
-		return null;
+		$merged = MaviBelge_Core_Import_WordPress_Target_Repository::merge_sector_image_sources( $explicit, $metaId );
+		if ( $merged['conflict'] ) {
+			$this->diagnostics[] = array( 'code' => 'sector_image_map_conflict', 'type' => 'sector', 'source_key' => 'sector:' . $sectorSlug );
+			return null;
+		}
+		return null === $merged['id'] ? null : array( 'id' => $merged['id'], 'type_verified' => true );
 	}
 }
 
 class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 	private $w;
+	private $journal = null;
+
+	public function begin_side_effect_scope() {
+		if ( null !== $this->journal ) {
+			return false;
+		}
+		$this->journal = array();
+		return true;
+	}
+
+	public function commit_side_effect_scope() {
+		$this->journal = null;
+		return true;
+	}
+
+	public function compensate_side_effect_scope( $dbRolledBack ) {
+		$journal       = $this->journal;
+		$this->journal = null;
+		if ( ! is_array( $journal ) || array() === $journal ) {
+			return array( 'ok' => true, 'removed' => 0, 'error' => null );
+		}
+		if ( true !== $dbRolledBack ) {
+			return array( 'ok' => false, 'removed' => 0, 'error' => 'compensation_skipped_db_rollback_failed' );
+		}
+		$removed = 0;
+		$error   = null;
+		foreach ( $journal as $e ) {
+			if ( isset( $this->w->logoAttachments[ $e['attachment_id'] ] ) ) {
+				$error = null === $error ? 'side_effect_attachment_still_present' : $error;
+			} elseif ( $this->w->unlinkFails ) {
+				$error = null === $error ? 'side_effect_cleanup_failed' : $error;
+			} else {
+				unset( $this->w->files[ $e['file'] ] );
+				$removed++;
+			}
+		}
+		return array( 'ok' => null === $error, 'removed' => $removed, 'error' => $error );
+	}
 
 	public function __construct( MB_Fake_World $world ) {
 		$this->w = $world;
@@ -346,7 +427,7 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 
 	public function create_post( array $payload ) {
 		$id                   = $this->w->nextId++;
-		$this->w->posts[ $id ] = array( 'post_type' => $payload['post']['post_type'], 'title' => '', 'status' => 'draft', 'content' => '', 'name' => '', 'excerpt' => '', 'date' => '', 'extra' => array(), 'meta' => array(), 'terms' => array() );
+		$this->w->posts[ $id ] = array( 'post_type' => $payload['post']['post_type'], 'title' => '', 'status' => 'draft', 'content' => '', 'name' => '', 'excerpt' => '', 'date' => '', 'parent' => 0, 'menu_order' => 0, 'extra' => array(), 'meta' => array(), 'terms' => array() );
 		return $this->write_post( $id, $payload, 'create_post' );
 	}
 
@@ -362,7 +443,7 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 		$p                   = &$this->w->posts[ $id ];
 		$p['title']          = $payload['post']['post_title'];
 		// Yönetilen çekirdek alanlar YALNIZ doğrulanmış yükten gelir (haber: ad/içerik/özet/tarih; referans: ad).
-		foreach ( array( 'post_name' => 'name', 'post_content' => 'content', 'post_excerpt' => 'excerpt', 'post_date' => 'date' ) as $core => $field ) {
+		foreach ( array( 'post_name' => 'name', 'post_content' => 'content', 'post_excerpt' => 'excerpt', 'post_date' => 'date', 'post_parent' => 'parent', 'menu_order' => 'menu_order' ) as $core => $field ) {
 			if ( array_key_exists( $core, $payload['post'] ) ) {
 				$p[ $field ] = $payload['post'][ $core ];
 			}
@@ -372,6 +453,24 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 		}
 		foreach ( isset( $payload['terms'] ) ? $payload['terms'] : array() as $taxonomy => $termIds ) {
 			$p['terms'][ $taxonomy ] = $termIds;
+		}
+		if ( isset( $payload['logo'] ) ) {
+			// Faz 12b: içerik özetiyle mevcut logo attachment'ı yeniden kullanılır (aynı logo tekrar eklenmez); yoksa yenisi oluşturulur.
+			if ( $this->w->fault( 'logo_fail', $this->key( $payload ) ) ) {
+				return self::res( false, null, 'logo_source_missing' );
+			}
+			$attId = array_search( $payload['logo']['sha256'], $this->w->logoAttachments, true );
+			if ( false === $attId ) {
+				$attId                             = $this->w->nextId++;
+				$this->w->logoAttachments[ $attId ] = $payload['logo']['sha256'];
+				$file                               = 'logo-' . substr( $payload['logo']['sha256'], 0, 12 ) . '-' . $attId . '.png';
+				$this->w->files[ $file ]            = true;
+				if ( null !== $this->journal ) {
+					$this->journal[] = array( 'file' => $file, 'attachment_id' => $attId );
+				}
+				$this->w->writeLog[]               = 'create_logo_attachment:' . $attId;
+			}
+			$p['meta']['_mb_logo_attachment_id'] = MB_Fake_World::stored( $attId );
 		}
 		if ( $this->w->fault( 'corrupt_meta', $this->key( $payload ) ) ) {
 			$p['meta']['_mb_record_status'] = 'bozulmus';
@@ -389,7 +488,7 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 		if ( ! isset( $this->w->posts[ $postId ] ) || $this->w->posts[ $postId ]['post_type'] !== $postType || 'trash' === $this->w->posts[ $postId ]['status'] ) {
 			return self::res( false, null, 'post_missing' );
 		}
-		$type = array_search( $postType, array( 'qualification' => 'mb_yeterlilik', 'fee' => 'mb_ucret', 'news' => 'mb_haber', 'reference' => 'mb_referans' ), true );
+		$type = array_search( $postType, array( 'qualification' => 'mb_yeterlilik', 'fee' => 'mb_ucret', 'news' => 'mb_haber', 'reference' => 'mb_referans', 'faq' => 'mb_sss', 'page' => 'page' ), true );
 		if ( false === $type ) {
 			return self::res( false, null, 'post_missing' );
 		}
@@ -406,12 +505,36 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 		if ( 'news' === $type ) {
 			unset( $this->w->posts[ $postId ]['terms']['mb_haber_turu'] );
 		}
-		if ( 'news' === $type || 'reference' === $type ) {
+		if ( 'news' === $type || 'reference' === $type || 'faq' === $type || 'page' === $type ) {
 			$this->w->posts[ $postId ]['name'] = ''; // post_name doğal anahtardır: çöpteki kabuk slug'ı tutmaz.
 		}
 		$this->w->posts[ $postId ]['status'] = 'trash';
 		if ( $this->w->fault( 'trash_post', (string) $postId ) ) {
 			return self::res( false, null, 'injected_failure' );
+		}
+		return self::res( true, $postId );
+	}
+
+	public function page_status( $postId ) {
+		return ( isset( $this->w->posts[ $postId ] ) && 'page' === $this->w->posts[ $postId ]['post_type'] ) ? $this->w->posts[ $postId ]['status'] : null;
+	}
+
+	public function content_post_status( $type, $postId ) {
+		$map = array( 'faq' => 'mb_sss', 'reference' => 'mb_referans' );
+		return ( isset( $map[ $type ], $this->w->posts[ $postId ] ) && $map[ $type ] === $this->w->posts[ $postId ]['post_type'] ) ? $this->w->posts[ $postId ]['status'] : null;
+	}
+
+	public function publish_page( $postId ) {
+		if ( ! isset( $this->w->posts[ $postId ] ) || 'page' !== $this->w->posts[ $postId ]['post_type'] || 'draft' !== $this->w->posts[ $postId ]['status'] ) {
+			return self::res( false, null, 'page_not_draft' );
+		}
+		$this->w->writeLog[] = 'publish_page:' . $postId;
+		if ( $this->w->fault( 'publish_page', (string) $postId ) ) {
+			return self::res( false, null, 'injected_failure' );
+		}
+		$this->w->posts[ $postId ]['status'] = 'publish';
+		if ( $this->w->fault( 'publish_corrupt', (string) $postId ) ) {
+			$this->w->posts[ $postId ]['content'] = 'yayın sırasında bozuldu';
 		}
 		return self::res( true, $postId );
 	}
@@ -470,9 +593,11 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 			'name'    => isset( $p['name'] ) ? $p['name'] : '',
 			'excerpt' => isset( $p['excerpt'] ) ? $p['excerpt'] : '',
 			'date'    => isset( $p['date'] ) ? $p['date'] : '',
+			'parent'  => isset( $p['parent'] ) ? $p['parent'] : 0,
+			'menu_order' => isset( $p['menu_order'] ) ? $p['menu_order'] : 0,
 			'extra'   => isset( $p['extra'] ) ? $p['extra'] : array(),
 		);
-		$managedCore = array( 'news' => array( 'content', 'name', 'excerpt', 'date' ), 'reference' => array( 'name' ) );
+		$managedCore = array( 'news' => array( 'content', 'name', 'excerpt', 'date' ), 'reference' => array( 'name' ), 'faq' => array( 'content', 'name' ), 'page' => array( 'content', 'name', 'excerpt', 'parent', 'menu_order' ) );
 		foreach ( isset( $managedCore[ $type ] ) ? $managedCore[ $type ] : array() as $field ) {
 			unset( $core[ $field ] );
 		}
@@ -580,6 +705,8 @@ class MB_Fake_Run_Store implements MaviBelge_Core_Import_Run_Store {
 	public $locked    = false;
 	/** Hata enjeksiyonu: bu HEDEF durumlara geçiş başarısız olur (durum geçişi hatası simülasyonu). */
 	public $failTransitionTo = array();
+	/** Hata enjeksiyonu (Faz 6B4): 'checkpoint' | 'rollback_checkpoint' | 'create_run_with_plan' yazımları başarısız olur. */
+	public $failWrites = array();
 
 	public function __construct( MB_Fake_World $world ) {
 		$this->w = $world;
@@ -616,6 +743,7 @@ class MB_Fake_Run_Store implements MaviBelge_Core_Import_Run_Store {
 			'plan_digest' => $data['plan_digest'], 'manifest_digest' => $data['manifest_digest'], 'batch_size' => $data['batch_size'],
 			'total_writes' => $data['total_writes'], 'committed_batches' => 0, 'committed_items' => 0, 'error_code' => null,
 			'created_by' => $data['created_by'], 'created_at' => '2026-09-24 00:00:00', 'updated_at' => '2026-09-24 00:00:00',
+			'map_digest' => null, 'rollback_batches' => 0, 'rollback_items' => 0,
 		);
 		return $this->w->runs[ $id ];
 	}
@@ -663,13 +791,61 @@ class MB_Fake_Run_Store implements MaviBelge_Core_Import_Run_Store {
 		return true;
 	}
 
-	public function record_checkpoint( $runId, $committedBatches, $committedItems ) {
+	public function record_checkpoint( $runId, $committedBatches, $committedItems, $expectedBatches = null ) {
 		if ( ! isset( $this->w->runs[ $runId ] ) || MaviBelge_Core_Import_Run_State::RUNNING !== $this->w->runs[ $runId ]['status'] ) {
+			return false;
+		}
+		if ( null !== $expectedBatches && $this->w->runs[ $runId ]['committed_batches'] !== $expectedBatches ) {
+			return false;
+		}
+		if ( in_array( 'checkpoint', $this->failWrites, true ) ) {
 			return false;
 		}
 		$this->w->runs[ $runId ]['committed_batches'] = $committedBatches;
 		$this->w->runs[ $runId ]['committed_items']   = $committedItems;
 		return true;
+	}
+
+	public function record_rollback_checkpoint( $runId, $expectedBatches, $newBatches, $newItems ) {
+		if ( ! isset( $this->w->runs[ $runId ] ) || MaviBelge_Core_Import_Run_State::ROLLING_BACK !== $this->w->runs[ $runId ]['status'] || in_array( 'rollback_checkpoint', $this->failWrites, true ) ) {
+			return false;
+		}
+		$run = $this->w->runs[ $runId ];
+		if ( $run['rollback_batches'] !== $expectedBatches || $newBatches < $run['rollback_batches'] || $newItems < $run['rollback_items'] ) {
+			return false;
+		}
+		$this->w->runs[ $runId ]['rollback_batches'] = $newBatches;
+		$this->w->runs[ $runId ]['rollback_items']   = $newItems;
+		return true;
+	}
+
+	public function create_run_with_plan( array $data, array $planItems ) {
+		if ( array() !== MaviBelge_Core_Import_Plan_Snapshot::validate_items( $planItems ) || (int) $data['total_writes'] !== count( $planItems ) || in_array( 'create_run_with_plan', $this->failWrites, true ) ) {
+			return null;
+		}
+		$run = $this->create_run( $data );
+		$id  = $run['id'];
+		$this->w->runs[ $id ]['status']    = MaviBelge_Core_Import_Run_State::READY;
+		$this->w->runs[ $id ]['map_digest'] = isset( $data['map_digest'] ) ? $data['map_digest'] : null;
+		foreach ( $planItems as $item ) {
+			$this->w->planItems[ $id ][ $item['seq'] ] = $item;
+		}
+		return $this->w->runs[ $id ];
+	}
+
+	public function get_plan_items( $runId, $afterSeq, $limit ) {
+		$rows = isset( $this->w->planItems[ $runId ] ) ? $this->w->planItems[ $runId ] : array();
+		ksort( $rows );
+		$out = array();
+		foreach ( $rows as $seq => $row ) {
+			if ( $seq > $afterSeq ) {
+				$out[] = $row;
+			}
+			if ( count( $out ) >= $limit ) {
+				break;
+			}
+		}
+		return $out;
 	}
 
 	public function get_items( $runId ) {
@@ -748,4 +924,129 @@ function mb_fake_apply_env( $dir ) {
 	$env->apply  = new MaviBelge_Core_Import_Apply_Service( $env->dryRun, $env->writer, $env->tx, $env->store, $env->audit );
 	$env->rollback = new MaviBelge_Core_Import_Rollback_Service( $repo, $env->writer, $env->tx, $env->store, $env->audit );
 	return $env;
+}
+
+/**
+ * Faz 6B4 son kabul düzeltmesi — sektör görsel eşlemesi deposu için bellek içi sahte WordPress: option (db) + nesne önbelleği
+ * (cache) + audit satırları + transaction. Gerçek davranışa sadıktır: rollback db ve audit'i geri yükler, ÖNBELLEĞİ geri
+ * YÜKLEMEZ (yeni değer flush() çağrılmazsa okumada görünmeye devam eder).
+ */
+class MB_Fake_Image_Map_Store implements MaviBelge_Core_Import_Image_Map_Store {
+	public $db           = null;
+	public $cache        = null;
+	public $audit        = array();
+	public $log          = array();
+	public $attachments  = array();
+	public $readyFlag    = true;
+	public $failBegin    = false;
+	public $failWrite    = false;
+	public $failAudit    = false;
+	public $failCommit   = false;
+	public $failRollback = false;
+	public $writeThrows  = false;
+	public $lockFail     = false;
+	public $lockHeld     = false;
+	/** @var callable|null Eşzamanlı başka yöneticinin yazımı: yalnız kilit BOŞKEN bir zamanlama noktasında (ready/begin) bir kez çalışır. */
+	public $rival        = null;
+	/** @var array<int,mixed> write() anında gerçekten değiştirilen (üzerine yazılan) option durumları. */
+	public $replaced     = array();
+	private $snap        = null;
+
+	private function schedule_point() {
+		if ( null !== $this->rival && ! $this->lockHeld ) {
+			$rival       = $this->rival;
+			$this->rival = null;
+			$rival( $this );
+		}
+	}
+
+	public function lock() {
+		$this->log[] = 'lock';
+		if ( $this->lockFail ) {
+			return false;
+		}
+		$this->lockHeld = true;
+		return true;
+	}
+
+	public function unlock() {
+		$this->log[] = 'unlock';
+		$this->lockHeld = false;
+		return true;
+	}
+
+	public function ready() {
+		$this->log[] = 'ready';
+		$this->schedule_point();
+		return $this->readyFlag;
+	}
+
+	public function read() {
+		$this->log[] = 'read';
+		return null !== $this->cache ? $this->cache : $this->db;
+	}
+
+	public function inspect( $id ) {
+		return in_array( $id, $this->attachments, true ) ? array( 'post_type' => 'attachment', 'post_status' => 'inherit', 'mime' => 'image/png', 'readable' => true ) : null;
+	}
+
+	public function begin() {
+		$this->log[] = 'begin';
+		$this->schedule_point();
+		if ( $this->failBegin || null !== $this->snap ) {
+			return false;
+		}
+		$this->snap = array( $this->db, $this->audit );
+		return true;
+	}
+
+	public function write( array $stored, $exists ) {
+		$this->log[] = 'write:' . ( $exists ? 'update' : 'add' );
+		if ( $this->writeThrows ) {
+			throw new RuntimeException( 'sızıntı /mutlak/yol SELECT * FROM' );
+		}
+		if ( $this->failWrite ) {
+			return false;
+		}
+		$this->replaced[] = $this->db;
+		$this->db    = $stored;
+		$this->cache = $stored;
+		return true;
+	}
+
+	public function audit( array $context ) {
+		$this->log[] = 'audit';
+		if ( $this->failAudit ) {
+			return false;
+		}
+		$this->audit[] = $context;
+		return true;
+	}
+
+	public function commit() {
+		$this->log[] = 'commit';
+		if ( $this->failCommit || null === $this->snap ) {
+			return false;
+		}
+		$this->snap = null;
+		return true;
+	}
+
+	public function rollback() {
+		$this->log[] = 'rollback';
+		if ( null !== $this->snap ) {
+			list( $this->db, $this->audit ) = $this->snap;
+			$this->snap                      = null;
+		}
+		return ! $this->failRollback;
+	}
+
+	public function flush() {
+		$this->log[] = 'flush';
+		$this->cache = null;
+	}
+
+	public function open() {
+		return null !== $this->snap;
+	}
 }

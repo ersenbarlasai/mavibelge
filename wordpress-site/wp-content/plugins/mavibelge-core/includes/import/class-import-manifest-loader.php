@@ -46,7 +46,17 @@ class MaviBelge_Core_Import_Manifest_Loader {
 	const CONTENT_FILES = array(
 		'news'      => 'news.manifest.json',
 		'reference' => 'references.manifest.json',
+		'faq'       => 'faqs.manifest.json',
 	);
+
+	/**
+	 * Faz 12 — sayfa (WordPress çekirdek `page`) manifesti. Katalog ve haber/referans dosyalarından AYRI; YALNIZ `pages`
+	 * aşaması için yüklenir (`load_pages()`). Sayı tek yerde sabittir (Node tarafı: tools/import/lib/page-inventory.js).
+	 */
+	const PAGE_FILE = 'pages.manifest.json';
+
+	/** Fiziksel `page` kaydı gerektiren sayfa sayısı (page-template-map.md ile birebir; Node üreticisi/doğrulayıcısı aynı sayıyı bağlar). */
+	const PAGE_EXPECTED_COUNT = 32;
 
 	/** Güvenlik üst sınırı — gerçek manifestler bundan çok daha küçük. */
 	const MAX_FILE_BYTES = 5242880; // 5 MiB.
@@ -66,6 +76,8 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		'fee'           => 'counts',
 		'news'          => 'notes',
 		'reference'     => 'notes',
+		'faq'           => 'notes',
+		'page'          => 'notes',
 	);
 
 	/** Faz 6A'nın sabit `counts` anahtar kümesi (fees.manifest.json) — hepsi nonnegative int olmalı. */
@@ -80,7 +92,9 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		'qualification' => 'tanitim-site/assets/data/qualifications.js',
 		'fee'           => 'tanitim-site/assets/data/fees.js',
 		'news'          => 'tanitim-site/assets/data/news.js',
-		'reference'     => 'tanitim-site/assets/data/references.js',
+		'reference'     => 'wordpress-site/data/sources/reference-logos/reference-logos.manifest.json',
+		'faq'           => 'tanitim-site/sss.html',
+		'page'          => 'tanitim-site/*.html',
 	);
 
 	/**
@@ -152,6 +166,11 @@ class MaviBelge_Core_Import_Manifest_Loader {
 			$loaded[ $type ] = $result['records'];
 		}
 
+		if ( empty( $errors ) ) {
+			// Faz 12b — referans logoları: HER dosya (varlık, SHA-256, bayt, PNG imzası/boyut) içe aktarımdan ÖNCE doğrulanır (fail-closed).
+			$errors = self::verify_reference_logos( $loaded['reference'], $baseDirOverride );
+		}
+
 		if ( ! empty( $errors ) ) {
 			return array( 'ok' => false, 'manifest' => null, 'errors' => $errors );
 		}
@@ -161,9 +180,25 @@ class MaviBelge_Core_Import_Manifest_Loader {
 			'manifest' => array(
 				'news'       => $loaded['news'],
 				'references' => $loaded['reference'],
+				'faqs'       => $loaded['faq'],
 			),
 			'errors'   => array(),
 		);
+	}
+
+	/**
+	 * Faz 12 — sayfa manifestini yükler (`load_all()`/`load_content()` ile AYNI güvenli okuma/zarf doğrulaması).
+	 * Kayıt sayısı tam PAGE_EXPECTED_COUNT olmalı; kayıtların kaynak özeti zarfla tutarlı olmalı.
+	 *
+	 * @param string|null $baseDirOverride Bkz. load_all().
+	 * @return array{ok: bool, manifest: array{pages: array[]}|null, errors: string[]}
+	 */
+	public static function load_pages( $baseDirOverride = null ) {
+		$result = self::load_one( 'page', self::PAGE_FILE, $baseDirOverride );
+		if ( ! $result['ok'] ) {
+			return array( 'ok' => false, 'manifest' => null, 'errors' => $result['errors'] );
+		}
+		return array( 'ok' => true, 'manifest' => array( 'pages' => $result['records'] ), 'errors' => array() );
 	}
 
 	/**
@@ -182,6 +217,72 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		// — 5 seviye yukarısı wordpress-site kök dizinidir: import -> includes
 		// -> mavibelge-core -> plugins -> wp-content -> wordpress-site.
 		return dirname( __DIR__, 5 ) . '/data/content';
+	}
+
+	/**
+	 * Faz 12b — referans logo dizini: manifest dizininin kardeşi `sources/reference-logos` (.../data/content -> .../data/sources/reference-logos).
+	 * Yalnız sabit yol bileşenleri; dışarıdan gelen hiçbir yol yoktur.
+	 *
+	 * @param string|null $baseDirOverride Bkz. load_all().
+	 * @return string|null Gerçek (realpath) dizin; yoksa null.
+	 */
+	public static function logo_dir( $baseDirOverride = null ) {
+		$baseDir  = null !== $baseDirOverride ? $baseDirOverride : self::base_dir();
+		$baseReal = realpath( $baseDir );
+		if ( false === $baseReal ) {
+			return null;
+		}
+		$dir = realpath( dirname( $baseReal ) . DIRECTORY_SEPARATOR . 'sources' . DIRECTORY_SEPARATOR . 'reference-logos' );
+		return ( false !== $dir && is_dir( $dir ) ) ? $dir : null;
+	}
+
+	/**
+	 * Her referans kaydının logo dosyasını doğrular: dosya adı kayıttaki ref-NN.png ile aynı, dizin içinde kalır, okunabilir, bayt boyutu ve
+	 * SHA-256 kayda eşit, geçerli PNG (imza + IHDR boyutları kayıtla eşit). Herhangi bir hata TÜM içerik manifestini reddettirir.
+	 *
+	 * @param array       $records
+	 * @param string|null $baseDirOverride
+	 * @return string[] Hata listesi (mutlak yol İÇERMEZ).
+	 */
+	private static function verify_reference_logos( $records, $baseDirOverride ) {
+		$errors = array();
+		$dir    = self::logo_dir( $baseDirOverride );
+		if ( null === $dir ) {
+			return array( 'references.manifest.json: logo dizini bulunamadı.' );
+		}
+		$seen = array();
+		foreach ( $records as $index => $record ) {
+			$label = "references.manifest.json: records[{$index}]";
+			if ( ! is_array( $record ) || ! isset( $record['logo_file'], $record['logo_sha256'], $record['logo_bytes'], $record['logo_width'], $record['logo_height'] )
+				|| ! is_string( $record['logo_file'] ) || ! is_string( $record['logo_sha256'] ) || ! is_int( $record['logo_bytes'] ) || ! is_int( $record['logo_width'] ) || ! is_int( $record['logo_height'] )
+				|| 1 !== preg_match( '#^wordpress-site/data/sources/reference-logos/(ref-[0-9]{2}\.png)\z#', $record['logo_file'], $m ) ) {
+				$errors[] = "{$label}: logo alanları eksik/geçersiz.";
+				continue;
+			}
+			$file = realpath( $dir . DIRECTORY_SEPARATOR . $m[1] );
+			if ( false === $file || 0 !== strpos( $file, $dir . DIRECTORY_SEPARATOR ) || ! is_file( $file ) || ! is_readable( $file ) ) {
+				$errors[] = "{$label}: logo dosyası yok veya okunamıyor.";
+				continue;
+			}
+			$bytes = @file_get_contents( $file );
+			if ( false === $bytes || strlen( $bytes ) !== $record['logo_bytes'] || hash( 'sha256', $bytes ) !== $record['logo_sha256'] ) {
+				$errors[] = "{$label}: logo SHA-256/bayt boyutu kayıtla uyuşmuyor.";
+				continue;
+			}
+			if ( strlen( $bytes ) < 24 || "\x89PNG\r\n\x1a\n" !== substr( $bytes, 0, 8 ) || 'IHDR' !== substr( $bytes, 12, 4 ) ) {
+				$errors[] = "{$label}: logo geçerli bir PNG değil.";
+				continue;
+			}
+			$dims = unpack( 'Nw/Nh', substr( $bytes, 16, 8 ) );
+			if ( ! is_array( $dims ) || $dims['w'] !== $record['logo_width'] || $dims['h'] !== $record['logo_height'] ) {
+				$errors[] = "{$label}: logo boyutları kayıtla uyuşmuyor.";
+			}
+			if ( isset( $seen[ $record['logo_sha256'] ] ) ) {
+				$errors[] = "{$label}: aynı logo tekrar ediyor.";
+			}
+			$seen[ $record['logo_sha256'] ] = true;
+		}
+		return $errors;
 	}
 
 	private static function load_one( $type, $filename, $baseDirOverride = null ) {
@@ -290,7 +391,28 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		// MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity()
 		// tarafından ayrıca kontrol edilir — bu, o kontrolün YERİNE değil,
 		// EK olarak zarfın kendisiyle karşılaştırır).
+		if ( 'page' === $type ) {
+			// Faz 12: her sayfa KENDİ statik dosyasından gelir; zarf source.sha256 = sıralı "<slug>:<dosya sha256>" + satır sonu satırlarının SHA-256'sı.
+			if ( self::PAGE_EXPECTED_COUNT !== $decoded['count'] ) {
+				return array( 'ok' => false, 'errors' => array( "{$filename}: kayıt sayısı tam " . self::PAGE_EXPECTED_COUNT . ' olmalı.' ) );
+			}
+			$lines = '';
+			foreach ( $decoded['records'] as $index => $record ) {
+				if ( ! is_array( $record ) || ! isset( $record['slug'], $record['source'] ) || ! is_string( $record['slug'] ) || ! is_array( $record['source'] )
+					|| ! isset( $record['source']['file'], $record['source']['sha256'] ) || ! is_string( $record['source']['file'] ) || ! is_string( $record['source']['sha256'] )
+					|| 1 !== preg_match( '/^(?:tanitim-site|wordpress-site\/data\/sources\/approved)\/[a-z0-9-]+\.html\z/', $record['source']['file'] ) || 1 !== preg_match( '/^[0-9a-f]{64}\z/', $record['source']['sha256'] ) ) {
+					return array( 'ok' => false, 'errors' => array( "{$filename}: records[{$index}].source/slug şekli geçersiz." ) );
+				}
+				$lines .= $record['slug'] . ':' . $record['source']['sha256'] . "\n";
+			}
+			if ( hash( 'sha256', $lines ) !== $decoded['source']['sha256'] ) {
+				return array( 'ok' => false, 'errors' => array( "{$filename}: zarf source.sha256, kayıt kaynaklarının özetiyle tutarsız (provenance drift)." ) );
+			}
+		}
 		foreach ( $decoded['records'] as $index => $record ) {
+			if ( 'page' === $type ) {
+				break;
+			}
 			if ( ! is_array( $record ) || ! array_key_exists( 'source', $record ) || ! is_array( $record['source'] ) ) {
 				continue; // Kayıt şekli zaten bozuk — kendi tip-doğrulayıcısında raporlanır.
 			}

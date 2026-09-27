@@ -1,0 +1,2161 @@
+{
+ "schema_version": "1.1.0",
+ "description": "Kaynak ücret PDF'lerinin SAYFA GÖRÜNTÜLERİNDEN (poppler pdftoppm ile render edilip gözle okunarak) elle çıkarılmış transkripsiyon. PDF metin katmanı (font kodlaması bozuk) ve OCR KULLANILMADI. Her satır tek bir manifest kaydına açık indeksle (i) bağlanır; ad benzerliğiyle eşleme YOKTUR. Bu dosya PDF ile manifest karşılaştırmasının tek kaynağıdır; PDF değişirse sha256 uyuşmazlığı işlemi durdurur.",
+ "pdfs": {
+  "yeni": {
+   "file": "2026 YENİ MESLEKLİ ÜCRET TARİFESİ.pdf",
+   "sha256": "87d1002bdc03edb8078b22c2d85b6e4fe0a62effa823c0b5028edbea7832627e",
+   "pages": 4,
+   "source_name": "2026 Yeni Meslekler Ücret Tarifesi",
+   "vat_statement": {
+    "included": true,
+    "text": "NOT:FİYATLARIMIZA %20 KDV DAHİLDİR. BELGE BASIM ÜCRETİ (1500TL) DAHİL DEĞİLDİR.",
+    "pages": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "print_fee_try": 1500,
+   "print_fee_included_in_prices": false,
+   "year_printed_on_pages": false,
+   "unreadable_pages": []
+  },
+  "guz": {
+   "file": "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf",
+   "sha256": "e91fa707de42fb532230218b06cb33b5ebff1c578172e0111f3f3e9453b33e44",
+   "pages": 2,
+   "source_name": "2026 Güzellik Fiyat Listesi",
+   "vat_statement": {
+    "included": null,
+    "text": "KDV ifadesi HİÇBİR sayfada yok. Sayfa 1 notu: \"Adaylar bu mesleklerden başarılı olduğu takdirde 1500 ₺ MYK belge ücreti ödemelidir.\"",
+    "pages": []
+   },
+   "print_fee_try": 1500,
+   "print_fee_included_in_prices": false,
+   "year_printed_on_pages": false,
+   "unreadable_pages": []
+  }
+ },
+ "entries": [
+  {
+   "i": 0,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "GÜZELLİK UZMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 17000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "A2",
+    "A3",
+    "A4"
+   ]
+  },
+  {
+   "i": 1,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "EPİLASYON UZMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 2,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "KUAFÖR",
+   "level": 4,
+   "cells": [
+    {
+     "label": "A1+B1+B2",
+     "amount_try": 15750,
+     "n": 1
+    },
+    {
+     "label": "A1+B1+B2+B4+B5",
+     "amount_try": 24750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "B1",
+    "B2",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 3,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "CİLT BAKIM UYGULAYICISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 8250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "A2"
+   ]
+  },
+  {
+   "i": 4,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "MAKYAJ UYGULAYICISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1 Standart makyaj uygulayıcısı",
+     "amount_try": 9750,
+     "n": 1
+    },
+    {
+     "label": "B2 Kalıcı Makyaj Uygulayıcısı",
+     "amount_try": 9750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 5,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "PROTEZ TIRNAK UYGULAYICISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 14250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "A2"
+   ]
+  },
+  {
+   "i": 6,
+   "legibility": "readable",
+   "pdf": "guz",
+   "page": 2,
+   "group": "GÜZELLİK VE KUAFÖRLÜK GRUBU MESLEKLERİMİZ",
+   "name": "KOZMETİK ÜRÜNLER TANITIM VE UYGULAMA ELEMANI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 6450,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A1",
+    "A2"
+   ]
+  },
+  {
+   "i": 7,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "MAKİNE BAKIMCI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Tek Birim Fiyatıdır",
+     "amount_try": 10500,
+     "n": 1
+    },
+    {
+     "label": "B1-Önleyici Bakım ve B2-Düzeltici Bakım",
+     "amount_try": 20250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 8,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "MAKİNE BAKIMCI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1+B2",
+     "amount_try": 22500,
+     "n": 1
+    },
+    {
+     "label": "B1-Önleyici Bakım",
+     "amount_try": 11250,
+     "n": 1
+    },
+    {
+     "label": "B2-Düzeltici Bakım",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 9,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "MAKİNE BAKIMCI",
+   "level": 5,
+   "cells": [
+    {
+     "label": "B1-Önleyici Bakım",
+     "amount_try": 14250,
+     "n": 1
+    },
+    {
+     "label": "B2-Düzeltici Bakım",
+     "amount_try": 15000,
+     "n": 1
+    },
+    {
+     "label": "B3-Kestirme",
+     "amount_try": 11250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 10,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "NC/CNC TEZGÂH İŞÇİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-Tornalama, B2-Frezeleme",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 11,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "NC/CNC TEZGÂH İŞÇİSİ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-Tornalama, B2-Frezeleme",
+     "amount_try": 11250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 12,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "TEL MAKİNELERİ OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-Tel Çekme, B2-Tel Örme",
+     "amount_try": 13650,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 13,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "MAKİNE MONTAJCISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 14,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "TORNACI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 15,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "MAKİNE GRUBU",
+   "name": "FREZECİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 10800,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 16,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ENERJİ GRUBU",
+   "name": "SICAK SU KAZANI OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "(TEK BİRİM)",
+     "amount_try": 11250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 17,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ENERJİ GRUBU",
+   "name": "KIZGIN YAĞ OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM)",
+     "amount_try": 13250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 18,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ENERJİ GRUBU",
+   "name": "BUHAR KAZANI OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM)",
+     "amount_try": 14500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 19,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "KÖPRÜLÜ VİNÇ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 20,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "ENDÜSTRİYEL TAŞIMACI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B5",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 21,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "SERVİS ARACI ŞOFÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 22,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "İŞARETÇİ",
+   "level": 2,
+   "cells": [
+    {
+     "label": "A2-Liman Sapancılık İşlemleri",
+     "amount_try": 6450,
+     "n": 1
+    },
+    {
+     "label": "B1-İş Organizasyonu ve Elleçleme İşlemleri",
+     "amount_try": 9100,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "A2",
+    "B1"
+   ]
+  },
+  {
+   "i": 23,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN KURU YÜK OPERASYON ELEMANI (PUANTÖR)",
+   "level": 3,
+   "cells": [
+    {
+     "label": "(TEK BİRİM)",
+     "amount_try": 10200,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 24,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "MOBİL VİNÇ OPERATÖRÜ (MHC, SAHİL VE GEMİ VİNCİ)",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1",
+     "amount_try": 14800,
+     "n": 1
+    },
+    {
+     "label": "B2",
+     "amount_try": 14800,
+     "n": 1
+    },
+    {
+     "label": "B3",
+     "amount_try": 10200,
+     "n": 1
+    },
+    {
+     "label": "B4",
+     "amount_try": 14800,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 25,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN RTG OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 26,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN FORKLİFT OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 27,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN POMPA VE TANK SAHA OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 28,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN OPERASYON PLANLAMACISI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 29,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN SAHA İSTİF MAKİNELERİ OPERATÖRÜ (CRS VE ECS)",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12150,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 30,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "LİMAN SSG OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 31,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "ULAŞTIRMA&LOJİSTİK GRUBU",
+   "name": "TERMİNAL ÇEKİCİ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12150,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 32,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "HADDECİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 33,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "HADDECİ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-Sıcak Haddeleme, B2-Soğuk Haddeleme",
+     "amount_try": 13000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 34,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "DÖKÜMCÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-Metal ve Alaşımları Ergitmek, B2-Döküm Yapmak",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 35,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "MAÇACI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 14100,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 36,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "REFRAKTERCİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 37,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "REFRAKTERCİ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 11250,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 38,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 1,
+   "group": "METALURJİ GRUBU",
+   "name": "İZABECİ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 39,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "KIRMA ELEME TESİS OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 7800,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 40,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "MERMER-DOĞALTAŞ OCAKÇISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-Elmas Tel ile Blok Üretme",
+     "amount_try": 10500,
+     "n": 1
+    },
+    {
+     "label": "B2-Ana Kütlede Elmas Tel ile Büyük Kesim",
+     "amount_try": 11250,
+     "n": 1
+    },
+    {
+     "label": "B3-Ana Kütlede Delik Açma",
+     "amount_try": 11250,
+     "n": 1
+    },
+    {
+     "label": "B4-Kollu Kesme Yöntemi ile Kesim",
+     "amount_try": 9750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 41,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "MERMER-DOĞALTAŞ İMALAT ELEMANI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1 ve B2 (ortak hücre)",
+     "amount_try": 10350,
+     "n": 2
+    },
+    {
+     "label": "B3-Yüzey İşleme",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 42,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "MERMER-DOĞALTAŞ ÖZEL İMALAT ELEMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12150,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 43,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "YERALTI HAZIRLIK İŞÇİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B3, B4",
+     "amount_try": 13650,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 44,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "YERALTI HAZIRLIK İŞÇİSİ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B3, B4",
+     "amount_try": 14250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 45,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MERMER &MADEN GRUBU",
+   "name": "MEKANİZASYON İŞÇİSİ (MADEN)",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 46,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MOBİLYA GRUBU",
+   "name": "AHŞAP MOBİLYA İMALATÇISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 47,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MOBİLYA GRUBU",
+   "name": "AHŞAP MOBİLYA İMALATÇISI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 11000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 48,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "MOBİLYA GRUBU",
+   "name": "MOBİLYA DÖŞEMECİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B2",
+     "amount_try": 9750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 49,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "ELEKTRİK GRUBU",
+   "name": "İŞLETME ELEKTRİK BAKIMCISI",
+   "level": 5,
+   "cells": [
+    {
+     "label": "(Tek Birim)",
+     "amount_try": 13000,
+     "n": 1
+    },
+    {
+     "label": "B1-AG Tesislerinde Bakım Onarım + B2 Kurulum Ve Söküm",
+     "amount_try": 25100,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 50,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "ELEKTRİK GRUBU",
+   "name": "ELEKTRİK PANO MONTAJCISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 11250,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 51,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "ELEKTRİK GRUBU",
+   "name": "ELEKTRİK TESİSATÇISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 52,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "ELEKTRİK GRUBU",
+   "name": "ELEKTRİK TESİSATÇISI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 53,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "ELEKTRİK GRUBU",
+   "name": "ELEKTRO-MEKANİK MONTAJ İŞÇİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 54,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "PLASTİK GRUBU",
+   "name": "PLASTİK ENJEKSİYON ÜRETİM ELEMANI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 55,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "PLASTİK GRUBU",
+   "name": "PLASTİK ŞİŞİRME FİLM ÜRETİM OPERATÖRÜ (EKSTRÜZYON)",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 56,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "PLASTİK GRUBU",
+   "name": "PLASTİK PROFİL ÜRETİM OPERATÖRÜ (EKSTRÜZYON)",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 57,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "CAM GRUBU",
+   "name": "ENDÜSTRİYEL CAM ISIL İŞLEM ELEMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B2",
+     "amount_try": 8700,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 58,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "CAM GRUBU",
+   "name": "ENDÜSTRİYEL CAM İŞLEME ELEMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B3, B4, B5",
+     "amount_try": 10000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B3",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 59,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 2,
+   "group": "CAM GRUBU",
+   "name": "ENDÜSTRİYEL CAM KESİM ELEMANI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "(TEK BİRİM) B1, B2",
+     "amount_try": 9250,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 60,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "ÇELİK KAYNAKÇISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1, B6, B7, B9",
+     "amount_try": 7500,
+     "n": 1
+    },
+    {
+     "label": "Sınavlı Yenileme",
+     "amount_try": 6000,
+     "n": 1
+    },
+    {
+     "label": "İlave Birim",
+     "amount_try": 6000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B6",
+    "B7",
+    "B9"
+   ]
+  },
+  {
+   "i": 61,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "ALÜMİNYUM KAYNAKÇISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 62,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "DİRENÇ KAYNAK AYARCISI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 7750,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 63,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "KAYNAK OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 8000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 64,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "ENDÜSTRİYEL BORU MONTAJCISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 65,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL KESİMCİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1, B2, B3, B4, B6, B7",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B6",
+    "B7"
+   ]
+  },
+  {
+   "i": 66,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL KESİM OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1, B3",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B3"
+   ]
+  },
+  {
+   "i": 67,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL LEVHA TEZGÂH İŞÇİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B2-Pres",
+     "amount_try": 9750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B2"
+   ]
+  },
+  {
+   "i": 68,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL LEVHA İŞL. TEZGÂH OP.",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1, B2, B4",
+     "amount_try": 10500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B4"
+   ]
+  },
+  {
+   "i": 69,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL KUMLAMA İŞÇİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1, B2",
+     "amount_try": 9750,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 70,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "METAL GRUBU",
+   "name": "METAL YÜZEY KAPLAMACI",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-B5",
+     "amount_try": 15500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 71,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "AHŞAP KALIPÇI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 72,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "ALÇI LEVHA UYGULAYICISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 73,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "ALÇI SIVA UYGULAYICISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 74,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "BETONARME DEMİRCİSİ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 75,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "DUVARCI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 14500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 76,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "İNŞAAT BOYACISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 12000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 77,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "İNŞAAT İŞÇİSİ",
+   "level": 2,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 78,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "ISI YALITIMCI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 79,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "İSKELE KURULUM ELEMANI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 13500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 80,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "PVC DOĞRAMA MONTAJCISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 14500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 81,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "SERAMİK KARO KAPLAMACISI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 82,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İNŞAAT&İŞ MAKİNELERİ GRUBU",
+   "name": "SIVACI",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 15000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 83,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "KULE VİNÇ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 34000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 84,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "EKSKAVATÖR OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 31000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 85,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "MOBİL VİNÇ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 9500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 86,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "KAZICI YÜKLEYİCİ (Beko Loder) OPERAÖTÜRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 23000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 87,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "BETON SANTRAL OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 33000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 88,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "BETON TRANSMİKSER OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 30000,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 89,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 3,
+   "group": "İŞ MAKİNELERİ GRUBU",
+   "name": "BETON POMPA OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 31500,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 90,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ÖN TERBİYE OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B6",
+     "amount_try": 12200,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6"
+   ]
+  },
+  {
+   "i": 91,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "BOYAMA OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B8",
+     "amount_try": 7800,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8"
+   ]
+  },
+  {
+   "i": 92,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "BİTİM İŞLEMLERİ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B8 ve B10-B14 (her biri ayrı hücre)",
+     "amount_try": 7800,
+     "n": 13
+    },
+    {
+     "label": "B9-Santrifuj",
+     "amount_try": 9000,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "B10",
+    "B11",
+    "B12",
+    "B13",
+    "B14"
+   ]
+  },
+  {
+   "i": 93,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ÖN İPLİK OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B9",
+     "amount_try": 7800,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9"
+   ]
+  },
+  {
+   "i": 94,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "İPLİK EĞİRME OPERATÖRÜ",
+   "level": 2,
+   "cells": [
+    {
+     "label": "B1-B3",
+     "amount_try": 6500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  {
+   "i": 95,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "İPLİK BİTİM İŞLERİ OPERATÖRÜ",
+   "level": 2,
+   "cells": [
+    {
+     "label": "B1-B4",
+     "amount_try": 6500,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 96,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "DOKUMA OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 6450,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 97,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "DOKUMA OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "Fiyat",
+     "amount_try": 8400,
+     "n": 1
+    }
+   ],
+   "codes": []
+  },
+  {
+   "i": 98,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "TAHAR OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-El ile Tahar Yapma",
+     "amount_try": 7800,
+     "n": 1
+    },
+    {
+     "label": "B2-Makine ile Tahar Yapma",
+     "amount_try": 8400,
+     "n": 1
+    },
+    {
+     "label": "B3-Çözgü İpliği Düğümleme",
+     "amount_try": 7800,
+     "n": 1
+    },
+    {
+     "label": "B4-Jakar Dizilimi Yapma",
+     "amount_try": 8400,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+   ]
+  },
+  {
+   "i": 99,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ÇÖZGÜ OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-B5",
+     "amount_try": 7125,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 100,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ÖRME OPERATÖRÜ",
+   "level": 4,
+   "cells": [
+    {
+     "label": "B1-Raşel/Trikot Örme",
+     "amount_try": 8400,
+     "n": 1
+    },
+    {
+     "label": "B2-Kroşet Örme",
+     "amount_try": 7125,
+     "n": 1
+    },
+    {
+     "label": "B3-Yuvarlak Örme",
+     "amount_try": 7800,
+     "n": 1
+    },
+    {
+     "label": "B4-Düz (Triko) Örme",
+     "amount_try": 7800,
+     "n": 1
+    },
+    {
+     "label": "B5-Çorap Örme",
+     "amount_try": 7125,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5"
+   ]
+  },
+  {
+   "i": 101,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ÇÖZGÜLÜ ÖRME OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-Raşel/Trikot Örme",
+     "amount_try": 7125,
+     "n": 1
+    },
+    {
+     "label": "B2-Kroşet Örme",
+     "amount_try": 7125,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2"
+   ]
+  },
+  {
+   "i": 102,
+   "legibility": "readable",
+   "pdf": "yeni",
+   "page": 4,
+   "group": "TEKSTİL GRUBU",
+   "name": "ATKILI ÖRME OPERATÖRÜ",
+   "level": 3,
+   "cells": [
+    {
+     "label": "B1-Yuvarlak Örme",
+     "amount_try": 6525,
+     "n": 1
+    },
+    {
+     "label": "B2-Düz (Triko) Örme",
+     "amount_try": 6525,
+     "n": 1
+    },
+    {
+     "label": "B3-Çorap Örme",
+     "amount_try": 6525,
+     "n": 1
+    }
+   ],
+   "codes": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  }
+ ],
+ "legibility_rule": "Her gözlem legibility=readable|unreadable taşır. unreadable gözlemde cells=[], codes=[], name=null, level=null ZORUNLUDUR (elle fiyat yazılamaz); kayıt UNREADABLE olur. pdfs.<k>.unreadable_pages listesindeki sayfalardaki her gözlem unreadable olmalıdır."
+}

@@ -37,6 +37,31 @@ function mavibelge_page_layout_for_slug( $slug ) {
 }
 
 /**
+ * Faz 12f — sayfa kahramanı ek bilgisi (tanitim-site'deki eyebrow + açıklama + üst kırıntı). Yalnız statik referansla
+ * doğrulanmış sayfalar; eşleme yoksa boş dizi (kahraman yalnız başlık + kırıntı ile çizilir, önceki davranış).
+ *
+ * @param string $slug
+ * @return array{eyebrow?: string, description?: string, parents?: array<int, array{label: string, path: string}>}
+ */
+function mavibelge_page_hero_for_slug( $slug ) {
+	$heroes = array(
+		'iletisim'       => array(
+			'eyebrow'     => __( 'İletişim', 'mavibelge' ),
+			'description' => __( 'Merkez ofisimiz, sınav alanlarımız ve iletişim bilgilerimiz.', 'mavibelge' ),
+			'parents'     => array(),
+		),
+		'online-basvuru' => array(
+			'eyebrow'     => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'description' => __( 'Mesleki yeterlilik sınavına başvurmak için aşağıdaki adımları tamamlayın.', 'mavibelge' ),
+			'parents'     => array(
+				array( 'label' => __( 'Sınav ve Başvuru', 'mavibelge' ), 'path' => 'sinav-ve-basvuru' ),
+			),
+		),
+	);
+	return isset( $heroes[ $slug ] ) ? $heroes[ $slug ] : array();
+}
+
+/**
  * Hub card links, one array per hub page slug. Mirrors
  * inc/menu-fallback.php's mavibelge_primary_nav_fallback() children for
  * "Kurumsal" (8), "Bilgi Merkezi" (9) and "Sınav ve Başvuru" (9) —
@@ -88,7 +113,7 @@ function mavibelge_hub_links_for_slug( $slug ) {
 /**
  * Resolves one hub link's real URL. Almost all paths in
  * mavibelge_hub_links_for_slug() are plain `page`/CPT-archive slugs
- * where home_url('/'.path.'/') is correct. The one documented exception
+ * where mavibelge_url() (inc/urls.php) resolves the real URL. The one documented exception
  * is "duyurular": no page/route exists at that path (mb_haber_turu's
  * real rewrite base is "haber-turu", see docs/page-template-map.md) —
  * so that one link resolves dynamically to the real mb_haber_turu
@@ -108,16 +133,5 @@ function mavibelge_hub_links_for_slug( $slug ) {
  * @return string
  */
 function mavibelge_resolve_hub_link_url( array $link ) {
-	if ( 'duyurular' === $link['path'] && taxonomy_exists( 'mb_haber_turu' ) ) {
-		$term = get_term_by( 'slug', 'duyuru', 'mb_haber_turu' );
-		if ( $term && ! is_wp_error( $term ) ) {
-			$term_link = get_term_link( $term );
-			if ( ! is_wp_error( $term_link ) ) {
-				return $term_link;
-			}
-		}
-		return post_type_exists( 'mb_haber' ) ? (string) get_post_type_archive_link( 'mb_haber' ) : home_url( '/' );
-	}
-
-	return home_url( '/' . ltrim( $link['path'], '/' ) . '/' );
+	return mavibelge_url( $link['path'] );
 }

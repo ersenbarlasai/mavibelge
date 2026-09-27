@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					null,
 					array(
 						'label'   => __( 'Mavi Belge Hakkında', 'mavibelge' ),
-						'url'     => home_url( '/hakkimizda/' ),
+						'url'     => mavibelge_url( 'hakkimizda' ),
 						'variant' => 'ghost',
 					)
 				);
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					null,
 					array(
 						'label' => __( 'Yetki Belgelerimizi İnceleyin', 'mavibelge' ),
-						'url'   => home_url( '/yetki-akreditasyon/' ),
+						'url'   => mavibelge_url( 'yetki-akreditasyon' ),
 					)
 				);
 				?>

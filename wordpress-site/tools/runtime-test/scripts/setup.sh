@@ -25,7 +25,8 @@ define( 'WP_DEBUG_DISPLAY', false );
 define( 'DISABLE_WP_CRON', true );
 define( 'AUTOMATIC_UPDATER_DISABLED', true );
 define( 'WP_HTTP_BLOCK_EXTERNAL', true );
-define( 'WP_ENVIRONMENT_TYPE', 'local' );
+// Faz 6B4: varsayılan `local`; admin apply kapı testleri /tmp/mbfx-env-staging | /tmp/mbfx-env-production işaretleriyle ortam türünü benzetir.
+define( 'WP_ENVIRONMENT_TYPE', is_readable( '/tmp/mbfx-env-production' ) ? 'production' : ( is_readable( '/tmp/mbfx-env-staging' ) ? 'staging' : 'local' ) );
 define( 'DISALLOW_FILE_EDIT', true );
 PHP
 

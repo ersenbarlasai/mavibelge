@@ -7,8 +7,8 @@
  * again — WordPress calls a fallback_cb only when no menu is assigned.
  *
  * Labels are the real Turkish labels from tanitim-site/index.html's
- * header nav (Faz 3 brief §6.2). Targets are PLANNED clean WordPress
- * paths under home_url() — never a literal "#" — matching the slugs
+ * header nav (Faz 3 brief §6.2). Targets are resolved by mavibelge_url()
+ * (inc/urls.php) against the ACTIVE permalink structure — never a literal "#" — matching the slugs
  * tanitim-site's own filenames already use (e.g. meslekler.html ->
  * /meslekler/). The actual pages do not exist yet; that is Faz 4's
  * job. A link to a not-yet-created page 404s until then, which is
@@ -65,11 +65,8 @@ function mavibelge_footer_kurumsal_nav_fallback() {
 }
 
 function mavibelge_fallback_menu_url( array $item ) {
-	$url = home_url( '/' . ltrim( $item['path'], '/' ) . '/' );
-	if ( ! empty( $item['anchor'] ) ) {
-		$url = home_url( '/' . ltrim( $item['path'], '/' ) . '/#' . $item['anchor'] );
-	}
-	return $url;
+	// Etkin permalink yapısına göre merkezi çözümleyici (inc/urls.php); önek koda gömülmez.
+	return mavibelge_url( $item['path'], ! empty( $item['anchor'] ) ? $item['anchor'] : '' );
 }
 
 function mavibelge_primary_nav_fallback() {

@@ -22,6 +22,7 @@ const N = (why) => ({ decision: 'needs_decision', rationale: why });
 const SAME = 'Statik referansta aynı yolla sayfa var (tanitim-site).';
 const NEWS_SLUG = 'Yol, statik referanstaki (tanitim-site/assets/data/news.js) haber slug\'ıyla BİREBİR aynı; haber içe aktarılıp yayınlanınca hedef oluşur.';
 const NEWS_TITLE = 'Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez.';
+const LEGAL_APPROVED = 'Kullanıcı/kurum onayı (26 Eylül 2026): sayfa içeriği bu eski adresten (onaylı kaynak) yeni WordPress sayfasına aktarıldı; hedef sayfa aynı içeriği taşır. Tek atlamalı 301.';
 const SECTOR_SAME = 'Aynı adlı sektör statik referansta var (sectors.js); sektör sayfası /sektor/<slug>/ — onay bekliyor.';
 
 module.exports = {
@@ -37,7 +38,7 @@ module.exports = {
 	'/elektrik/': N('Statik referansta "elektrik" adlı sektör yok (enerji ile ilişkisi doğrulanamadı).'),
 	'/fiyat-list/': P('/sinav-ucretleri/', 'Fiyat listesi -> sınav ücretleri sayfası; onay bekliyor.'),
 	'/gecerlilik-suresi-dolan-myk-mesleki-yeterlilik-belgelerinin-yenilenmesi-ve-gozetim-ile-ilgili-duyurular/': P('/haberler/gecerlilik-suresi-dolan-belgelerin-yenilenmesi/', NEWS_TITLE),
-	'/gizlilik-politikamiz/': P('/gizlilik-politikasi/', 'Aynı konu, farklı slug (statik gizlilik-politikasi); onay bekliyor.'),
+	'/gizlilik-politikamiz/': V('/gizlilik-politikasi/', LEGAL_APPROVED),
 	'/guzellik-ve-sac-bakim/': P('/sektor/guzellik-sac-bakim/', 'Statik sektör guzellik-sac-bakim; onay bekliyor.'),
 	'/haberler/': K(SAME),
 	'/iletisim/': K(SAME),
@@ -45,7 +46,7 @@ module.exports = {
 	'/is-basvurusu/': K(SAME),
 	'/itiraz-ve-sikayetler/': P('/itiraz-sikayet/', 'Aynı konu, farklı slug (statik itiraz-sikayet); onay bekliyor.'),
 	'/kalite-politikamiz/': K(SAME),
-	'/kvkk-2/': P('/kvkk/', 'WordPress çift slug (-2) — statik kvkk sayfası; onay bekliyor.'),
+	'/kvkk-2/': V('/kvkk/', LEGAL_APPROVED),
 	'/liman-meslekleri/': N('Statik referansta "liman" adlı sektör yok (lojistik ile ilişkisi doğrulanamadı).'),
 	'/logo-kullanim-talimati/': N('Statik referansta karşılığı yok.'),
 	'/makine/': P('/sektor/makine/', SECTOR_SAME),

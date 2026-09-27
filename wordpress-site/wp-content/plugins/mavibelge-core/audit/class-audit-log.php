@@ -48,6 +48,11 @@ class MaviBelge_Core_Audit_Log {
 	const EVENT_IMPORT_ROLLBACK_STARTED   = 'import_rollback_started';
 	const EVENT_IMPORT_ROLLBACK_COMPLETED = 'import_rollback_completed';
 	const EVENT_IMPORT_ROLLBACK_FAILED    = 'import_rollback_failed';
+	// Faz 12: taslak sayfaların ayrı, onaylı yayınlanması (run'a bağlı değildir).
+	const EVENT_IMPORT_PAGES_PUBLISHED    = 'import_pages_published';
+
+	/** Faz 6B4 — sektör görsel eşlemesi değişti (context: eski/yeni map digest'i + değişen slug adları; dosya yolu YOK). */
+	const EVENT_IMPORT_IMAGE_MAP_CHANGED  = 'import_image_map_changed';
 
 	/** Per-request cache so table_exists() issues at most one query. */
 	private static $table_confirmed_exists = null;

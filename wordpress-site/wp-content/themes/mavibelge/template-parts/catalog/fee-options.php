@@ -8,6 +8,7 @@
  *
  * $args:
  * - fee (array, required) — a fee DTO as returned by the catalog service (already visibility-checked)
+ * - expanded (bool) default false — Faz 12e: çok seçenekli listeyi açık başlatır (yeterlilik detayı CTA kartı); seçenekler aynıdır
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,6 +20,7 @@ if ( null === $fee ) {
 	return;
 }
 
+$expanded  = ! empty( $args['expanded'] );
 $presented = mavibelge_present_fee( $fee );
 $options   = $presented['options'];
 ?>
@@ -26,7 +28,7 @@ $options   = $presented['options'];
 	<?php if ( 1 === count( $options ) ) : ?>
 		<strong class="fee-amount"><?php echo esc_html( $options[0]['amount_display'] ); ?></strong>
 	<?php elseif ( count( $options ) > 1 ) : ?>
-		<details class="fee-options-detail">
+		<details class="fee-options-detail"<?php echo $expanded ? ' open' : ''; ?>>
 			<summary>
 				<?php
 				printf(

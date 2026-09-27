@@ -8,8 +8,12 @@
  * snapshot A'dan ÖNCE yapılır.
  */
 $out = array();
-foreach ( array( 'mbadmin', 'mbeditor', 'mbsubscriber' ) as $login ) {
+// Faz 6B4: mbcapa (yalnız manage_options) ve mbcapb (yalnız mb_manage_tariff_period) İSTEĞE BAĞLIDIR (admin-import-http.sh oluşturur).
+foreach ( array( 'mbadmin', 'mbeditor', 'mbsubscriber', 'mbcapa', 'mbcapb' ) as $login ) {
 	$user = get_user_by( 'login', $login );
+	if ( ! $user && in_array( $login, array( 'mbcapa', 'mbcapb' ), true ) ) {
+		continue;
+	}
 	if ( ! $user ) {
 		fwrite( STDERR, "kullanıcı yok: {$login}\n" );
 		exit( 1 );

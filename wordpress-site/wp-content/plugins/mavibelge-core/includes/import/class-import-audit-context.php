@@ -88,7 +88,8 @@ class MaviBelge_Core_Import_Audit_Context {
 					MaviBelge_Core_Import_Managed_Fields::QUALIFICATION_FIELDS,
 					MaviBelge_Core_Import_Managed_Fields::FEE_FIELDS,
 					MaviBelge_Core_Import_Managed_Fields::NEWS_FIELDS,
-					MaviBelge_Core_Import_Managed_Fields::REFERENCE_FIELDS
+					MaviBelge_Core_Import_Managed_Fields::REFERENCE_FIELDS,
+					MaviBelge_Core_Import_Managed_Fields::PAGE_FIELDS
 				);
 				foreach ( $value as $field ) {
 					if ( ! is_string( $field ) || ! in_array( $field, $allowed, true ) ) {

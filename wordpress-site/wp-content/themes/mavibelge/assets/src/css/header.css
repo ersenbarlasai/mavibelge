@@ -49,13 +49,16 @@
   display: flex;
   list-style: none;
   margin: 0; padding: 0;
-  gap: var(--space-5);
+  /* Faz 12e kapanış: 24px aralıkla masaüstü başlığın doğal genişliği ~1285px idi (1280px kabı aşıyor, etiketler
+   * 2px sıkışıyordu); 16px ile ~1253px. Masaüstü menü yalnız >=1280px'te gösterilir (responsive.css). */
+  gap: var(--space-4);
   justify-content: center;
 }
 .main-nav > ul > li {
   position: relative;
   display: flex;
   align-items: stretch;
+  flex-shrink: 0; /* etiket kendi kutusundan taşmaz; sığmıyorsa hamburger devreye girer */
 }
 
 /*

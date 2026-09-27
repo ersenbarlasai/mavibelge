@@ -54,7 +54,6 @@ check(
 //    component's default of 2, producing zero <h1> on every render path).
 var pageHeadingTemplates = [
 	'archive.php',
-	'archive-mb_yeterlilik.php',
 	'archive-mb_haber.php',
 	'archive-mb_dokuman.php',
 	'taxonomy.php',
@@ -69,6 +68,12 @@ pageHeadingTemplates.forEach( function ( file ) {
 		/'level'\s*=>\s*1\s*,?/.test( src )
 	);
 });
+
+// 2b. Faz 12e: archive-mb_yeterlilik.php sayfa başlığını template-parts/page/page-hero ile verir (tek <h1>, page-hero.php içinde);
+//     kendisi <h1> veya section-heading level 1 ÇİZMEZ (çift H1 olmasın).
+var qualArchiveSrc = read( 'archive-mb_yeterlilik.php' );
+check( 'archive-mb_yeterlilik.php renders its single H1 via template-parts/page/page-hero', /template-parts\/page\/page-hero/.test( qualArchiveSrc ) && ! /<h1/.test( qualArchiveSrc ) && ! /'level'\s*=>\s*1/.test( qualArchiveSrc ) );
+check( 'page-hero.php renders exactly one <h1>', ( read( 'template-parts/page/page-hero.php' ).replace( /\/\*[\s\S]*?\*\//g, '' ).match( /<h1>/g ) || [] ).length === 1 );
 
 // 3. index.php: exactly one page-level H1 (via section-heading level=>1),
 //    and the in-loop post titles must be H2, never H1 — this must hold

@@ -381,6 +381,16 @@ class MaviBelge_Core_Publish_Readiness {
 
 		if ( ! self::required_field_ready( 'mb_referans', '_mb_logo_attachment_id', $post_id, $postarr ) ) {
 			$problems[] = 'Referans yayınlamak için logo (medya) gerekir.';
+		} else {
+			// Faz 12b: logo GEÇERLİ ve ERİŞİLEBİLİR olmalı — gerçek görsel MIME türü ve okunabilir dosya (yalnız kimliğin varlığı yetmez).
+			$resolved = self::resolve_value( 'mb_referans', '_mb_logo_attachment_id', $post_id, $postarr );
+			$logo_id  = is_array( $resolved ) && ! empty( $resolved['valid'] ) && ( is_int( $resolved['value'] ) || ( is_string( $resolved['value'] ) && ctype_digit( $resolved['value'] ) ) ) ? (int) $resolved['value'] : 0;
+			if ( $logo_id > 0 && function_exists( 'get_post_mime_type' ) && function_exists( 'get_attached_file' ) ) {
+				$file = get_attached_file( $logo_id );
+				if ( ! MaviBelge_Core_Content_Query::is_allowed_logo_mime( get_post_mime_type( $logo_id ) ) || ! is_string( $file ) || '' === $file || ! is_readable( $file ) ) {
+					$problems[] = 'Referans yayınlamak için logo geçerli bir görsel olmalı ve dosyası okunabilir olmalıdır.';
+				}
+			}
 		}
 
 		// _mb_reference_status defaults to 'representative' in the

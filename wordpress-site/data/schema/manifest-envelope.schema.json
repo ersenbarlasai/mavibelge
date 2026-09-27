@@ -7,7 +7,7 @@
   "required": ["schema_version", "record_type", "count"],
   "properties": {
     "schema_version": { "type": "string", "const": "2.0.0" },
-    "record_type": { "type": "string", "enum": ["sector", "qualification", "fee", "news", "reference", "mapping", "unmatched_fee"] },
+    "record_type": { "type": "string", "enum": ["sector", "qualification", "fee", "news", "reference", "faq", "mapping", "unmatched_fee"] },
     "count": { "type": "integer", "minimum": 0 },
     "counts": { "type": "object", "description": "Yalnız fees.manifest.json'da: sayım özeti (priceOptionsTotal, pricingSingle, pricingMulti, multiOptionsTotal, feesWithCode, feesWithoutCode, linkedCount)." },
     "notes": { "type": "array", "items": { "type": "string" } },

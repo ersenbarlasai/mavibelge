@@ -12,7 +12,9 @@ if ( 'mbfx_' !== $wpdb->prefix ) {
 $defaults = include MAVIBELGE_CORE_PATH . 'includes/seo/data/page-defaults.php';
 $non_page = array( 'front-page', '404', 'meslekler', 'haberler', 'dokumanlar', 'sektor', 'duyurular', 'yeterlilik', 'haber-detay' );
 $out      = array( 'pages' => array() );
-foreach ( $defaults as $slug => $row ) {
+// Faz 12: MB_QA_SKIP_PAGES=1 iken sayfalar bu betikte oluşturulmaz (pages-render.sh gerçek pages aşamasıyla oluşturur).
+$skip_pages = '1' === getenv( 'MB_QA_SKIP_PAGES' );
+foreach ( $skip_pages ? array() : $defaults as $slug => $row ) {
 	if ( in_array( (string) $slug, $non_page, true ) ) {
 		continue;
 	}

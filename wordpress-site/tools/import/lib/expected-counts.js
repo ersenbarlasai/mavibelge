@@ -19,14 +19,14 @@ const EXPECTED = {
 };
 
 /**
- * Faz 7 — İÇERİK aktarımının (haber + referans) doğrulanmış kaynak sayıları. Mevcut `EXPECTED`
- * (katalog, 9 sayı) ile KARIŞTIRILMAZ: ayrı sabit, ayrı tüketiciler (build-content-manifest.js,
- * verify-content-manifest.js). Kaynak: tanitim-site/assets/data/news.js (6 gerçek haber/duyuru)
- * ve references.js (12 TEMSİLİ referans logosu — gerçek müşteri DEĞİL).
+ * Faz 7/12b — İÇERİK aktarımının doğrulanmış kaynak sayıları (haber 6, referans logosu 15, SSS 6). Mevcut `EXPECTED`
+ * (katalog, 9 sayı) ile KARIŞTIRILMAZ. Kaynaklar: tanitim-site/assets/data/news.js (6 gerçek haber/duyuru), onaylı canlı
+ * referans sayfasından alınmış 15 logo (data/sources/reference-logos/) ve tanitim-site/sss.html (6 soru-cevap).
  */
 const CONTENT_EXPECTED = {
 	news: 6,
-	references: 12,
+	references: 15,
+	faqs: 6,
 };
 
 module.exports = { EXPECTED, CONTENT_EXPECTED };

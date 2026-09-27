@@ -33,7 +33,7 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
 .footer-locations p { color: var(--color-gray-300); font-size: var(--fs-xs); margin: 0 0 var(--space-1); }
 .site-footer .directions-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: var(--fs-xs); color: var(--color-blue-200, #a9c9f5); font-weight: 700; }
 .site-footer .directions-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-500); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); font-size: var(--fs-xs); color: var(--color-gray-300); }
 .footer-legal { display: flex; gap: var(--space-4); list-style: none; padding: 0; margin: 0; flex-direction: row; }
 
 .back-to-top {

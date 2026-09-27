@@ -107,5 +107,18 @@ check('yönlendirme manifesti + eşleme raporu kaynaktan üretilenle BYTE-EŞİT
 const onDisk = fs.existsSync(path.join(ROOT, 'dist-packages')) ? fs.readdirSync(path.join(ROOT, 'dist-packages')) : [];
 check('diskteki dist-packages/ kaynaktan üretilenle BYTE-EŞİT (üretilmediyse önce --write)', Object.keys(a).every((k) => onDisk.includes(k) && fs.readFileSync(path.join(ROOT, 'dist-packages', k)).equals(a[k])), onDisk.join(','));
 check('paket dosya seçimi yalnız çalışma zamanı kaynaklarından; her hedef için boş değil', TARGETS.every((t) => selectFiles(t).length > 5));
+// Faz 12c regresyonu: --write tarihsel zip'leri SİLMEZ (geçici çıktı dizini; gerçek dist-packages/'a dokunulmaz).
+{
+	const os = require('os');
+	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mbpkg-'));
+	const hist = ['mavibelge-core-0.5.0.zip', 'mavibelge-core-0.5.1.zip', 'mavibelge-theme-0.6.0.zip'];
+	hist.forEach((h) => fs.writeFileSync(path.join(tmp, h), 'tarihsel-' + h));
+	const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'package', 'build-packages.js'), '--write'], { cwd: ROOT, env: Object.assign({}, process.env, { MB_PACKAGE_OUT: tmp }), stdio: 'ignore' });
+	const after = fs.readdirSync(tmp);
+	const curCore = Object.keys(a).find((k) => /^mavibelge-core-.*\.zip$/.test(k));
+	check('paket üretimi tarihsel zip\'leri SİLMEZ ve içeriklerini DEĞİŞTİRMEZ (yalnız güncel dosyaları yazar)', r.status === 0 && hist.filter((h) => h !== curCore).every((h) => after.includes(h) && fs.readFileSync(path.join(tmp, h), 'utf8') === 'tarihsel-' + h), after.join(','));
+	check('paket üretimi güncel zip\'leri + checksums.sha256 + package-manifest.json yazar (geçici dizinde)', Object.keys(a).every((k) => after.includes(k) && fs.readFileSync(path.join(tmp, k)).equals(a[k])));
+	fs.rmSync(tmp, { recursive: true, force: true });
+}
 console.log('\n' + pass + '/' + (pass + fail) + ' paket testi geçti.');
 process.exit(fail ? 1 : 0);

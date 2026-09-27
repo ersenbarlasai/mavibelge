@@ -10,7 +10,7 @@
   },
   "counts": {
     "rules": 29,
-    "active_rules": 2,
+    "active_rules": 4,
     "keep": 9,
     "redirect": 29,
     "infrastructure": 6,
@@ -69,9 +69,9 @@
       "source": "/gizlilik-politikamiz/",
       "target": "/gizlilik-politikasi/",
       "status": 301,
-      "origin": "proposed",
-      "active": false,
-      "note": "Aynı konu, farklı slug (statik gizlilik-politikasi); onay bekliyor."
+      "origin": "verified",
+      "active": true,
+      "note": "Kullanıcı/kurum onayı (26 Eylül 2026): sayfa içeriği bu eski adresten (onaylı kaynak) yeni WordPress sayfasına aktarıldı; hedef sayfa aynı içeriği taşır. Tek atlamalı 301."
     },
     {
       "source": "/guzellik-ve-sac-bakim/",
@@ -101,9 +101,9 @@
       "source": "/kvkk-2/",
       "target": "/kvkk/",
       "status": 301,
-      "origin": "proposed",
-      "active": false,
-      "note": "WordPress çift slug (-2) — statik kvkk sayfası; onay bekliyor."
+      "origin": "verified",
+      "active": true,
+      "note": "Kullanıcı/kurum onayı (26 Eylül 2026): sayfa içeriği bu eski adresten (onaylı kaynak) yeni WordPress sayfasına aktarıldı; hedef sayfa aynı içeriği taşır. Tek atlamalı 301."
     },
     {
       "source": "/makine/",

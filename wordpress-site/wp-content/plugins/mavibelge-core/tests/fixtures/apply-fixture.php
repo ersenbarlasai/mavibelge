@@ -160,17 +160,47 @@ if ( ! function_exists( 'mb_apply_fixture_envelopes' ) ) {
 	}
 
 	/**
+	 * Faz 6B4 — `mb_apply_fixture_envelopes()` ile aynı sahte katalog; yalnız sektör sayısı `$count`'a (>= 3) çıkarılır
+	 * (`zz-test-s04`..). Çok istekli (resumable) apply/rollback testleri için: 25 sektör, batch=10 -> 3 istek.
+	 * Görselsizdir (`image` = ''); yeterlilik/ücretler yine ilk üç sektöre bağlıdır.
+	 *
+	 * @return array{sector: array, qualification: array, fee: array}
+	 */
+	function mb_apply_fixture_envelopes_with_sectors( $count ) {
+		$env     = mb_apply_fixture_envelopes();
+		$sectors = $env['sector']['records'];
+		for ( $i = count( $sectors ) + 1; $i <= (int) $count; $i++ ) {
+			$sectors[] = array(
+				'schema_version' => '2.0.0',
+				'source_key'     => sprintf( 'sector:zz-test-s%02d', $i ),
+				'source_index'   => $i - 1,
+				'slug'           => sprintf( 'zz-test-s%02d', $i ),
+				'name'           => sprintf( 'TEST Sektör %02d', $i ),
+				'description'    => 'Sahte test sektörü (yalnız yerel resumable apply fixture).',
+				'icon'           => array( 'gear', 'bolt', 'flask' )[ $i % 3 ],
+				'image'          => '',
+				'source'         => $env['sector']['source'],
+			);
+		}
+		$env['sector']['records'] = $sectors;
+		$env['sector']['count']   = count( $sectors );
+		return $env;
+	}
+
+	/**
 	 * Faz 7 içerik aktarımı — AÇIKÇA SAHTE haber/referans zarfları (`zz-test-haber-*`,
 	 * `zz-test-ref-*`). Gerçek haber/referans verisi DEĞİLDİR. Zarf şekli
 	 * `sectors.manifest.json` ile aynıdır (schema_version/record_type/count/source/notes/records).
 	 *
 	 * @param array $overrides array( 'news' => array( <source_key> => array( alan => değer ) ), 'reference' => ... ).
+	 * @param int   $faqCount Üretilecek sahte SSS sayısı (0..3; varsayılan 0).
 	 * @return array{news: array, reference: array}
 	 */
-	function mb_content_fixture_envelopes( array $overrides = array() ) {
+	function mb_content_fixture_envelopes( array $overrides = array(), $faqCount = 0 ) {
 		$src = array(
 			'news'      => array( 'file' => 'tanitim-site/assets/data/news.js', 'sha256' => hash( 'sha256', 'mavibelge-content-fixture/news' ) ),
-			'reference' => array( 'file' => 'tanitim-site/assets/data/references.js', 'sha256' => hash( 'sha256', 'mavibelge-content-fixture/references' ) ),
+			'reference' => array( 'file' => 'wordpress-site/data/sources/reference-logos/reference-logos.manifest.json', 'sha256' => hash( 'sha256', 'mavibelge-content-fixture/references' ) ),
+			'faq'       => array( 'file' => 'tanitim-site/sss.html', 'sha256' => hash( 'sha256', 'mavibelge-content-fixture/faqs' ) ),
 		);
 
 		$news = array();
@@ -193,25 +223,47 @@ if ( ! function_exists( 'mb_apply_fixture_envelopes' ) ) {
 			);
 		}
 
+		// Faz 12b: referans kaydı artık gerçek logo alanları taşır (sahte PNG baytları; SHA-256/bayt kayıtla eşit).
 		$references = array();
-		foreach ( array(
-			array( 'zz-test-ref-a', 'ZZ Test Ref A' ),
-			array( 'zz-test-ref-b', 'ZZ Test Ref B' ),
-			array( 'zz-test-ref-c', 'ZZ Test Ref C' ),
-		) as $i => $r ) {
+		foreach ( array( 1, 2, 3 ) as $i => $n ) {
+			$nn           = sprintf( '%02d', $n );
+			$bytes        = mb_fixture_logo_bytes( $n );
 			$references[] = array(
 				'schema_version' => '2.0.0',
-				'source_key'     => 'reference:' . $r[0],
+				'source_key'     => 'reference:referans-' . $nn,
 				'source_index'   => $i,
-				'name'           => $r[1],
-				'slug'           => $r[0],
-				'logo_file'      => 'tanitim-site/assets/images/references/' . $r[0] . '.svg',
-				'alt'            => $r[1] . ' — temsili referans logosu (sahte fixture)',
+				'name'           => 'Referans ' . $nn,
+				'slug'           => 'referans-' . $nn,
+				'logo_file'      => 'wordpress-site/data/sources/reference-logos/ref-' . $nn . '.png',
+				'logo_sha256'    => hash( 'sha256', $bytes ),
+				'logo_bytes'     => strlen( $bytes ),
+				'logo_width'     => 250,
+				'logo_height'    => 100,
+				'alt'            => 'Referans kuruluş logosu ' . $nn,
+				'name_status'    => 'unverified',
 				'source'         => $src['reference'],
 			);
 		}
 
-		$lists = array( 'news' => $news, 'reference' => $references );
+		// Varsayılan: SSS listesi BOŞ (eski içerik testleri 3 haber + 3 referans = 6 kayıtla çalışır); SSS testleri $faqCount verir.
+		$faqs = array();
+		foreach ( array_slice( array(
+			array( 'zz-test-soru-a', 'ZZ Test Soru A?', 'Sahte cevap A (yalnız yerel fixture).' ),
+			array( 'zz-test-soru-b', 'ZZ Test Soru B?', 'Sahte cevap B (yalnız yerel fixture).' ),
+			array( 'zz-test-soru-c', 'ZZ Test Soru C?', 'Sahte cevap C (yalnız yerel fixture).' ),
+		), 0, (int) $faqCount ) as $i => $q ) {
+			$faqs[] = array(
+				'schema_version' => '2.0.0',
+				'source_key'     => 'faq:' . $q[0],
+				'source_index'   => $i,
+				'slug'           => $q[0],
+				'question'       => $q[1],
+				'answer'         => $q[2],
+				'source'         => $src['faq'],
+			);
+		}
+
+		$lists = array( 'news' => $news, 'reference' => $references, 'faq' => $faqs );
 		foreach ( $overrides as $type => $byKey ) {
 			foreach ( $lists[ $type ] as $i => $record ) {
 				if ( isset( $byKey[ $record['source_key'] ] ) ) {
@@ -223,7 +275,45 @@ if ( ! function_exists( 'mb_apply_fixture_envelopes' ) ) {
 		return array(
 			'news'      => array( 'schema_version' => '2.0.0', 'record_type' => 'news', 'count' => count( $lists['news'] ), 'source' => $src['news'], 'notes' => array( 'SAHTE içerik fixture — gerçek haber verisi değildir.' ), 'records' => $lists['news'] ),
 			'reference' => array( 'schema_version' => '2.0.0', 'record_type' => 'reference', 'count' => count( $lists['reference'] ), 'source' => $src['reference'], 'notes' => array( 'SAHTE içerik fixture — gerçek müşteri referansı değildir.' ), 'records' => $lists['reference'] ),
+			'faq'       => array( 'schema_version' => '2.0.0', 'record_type' => 'faq', 'count' => count( $lists['faq'] ), 'source' => $src['faq'], 'notes' => array( 'SAHTE SSS fixture — gerçek SSS değildir.' ), 'records' => $lists['faq'] ),
 		);
+	}
+
+	/** Sahte (ama imza/IHDR/bayt/SHA-256 bakımından tutarlı) logo baytları — yalnız saf PHP testleri; gerçek PNG değildir. */
+	function mb_fixture_logo_bytes( $n ) {
+		$ihdr = pack( 'NN', 250, 100 ) . "\x08\x06\x00\x00\x00";
+		return "\x89PNG\r\n\x1a\n" . pack( 'N', 13 ) . 'IHDR' . $ihdr . pack( 'N', crc32( 'IHDR' . $ihdr ) ) . 'MBFIXTURE' . (int) $n;
+	}
+
+	/** Manifest dizininin kardeşi sources/reference-logos altına fixture logo dosyalarını yazar (yükleyicinin logo doğrulaması için). */
+	function mb_fixture_write_logos( $dir ) {
+		$logoDir = dirname( $dir ) . '/sources/reference-logos';
+		static $cleanupRegistered = array();
+		if ( ! defined( 'WP_CLI' ) && ! isset( $cleanupRegistered[ $logoDir ] ) ) { // WP-CLI runtime fixture'ları (fixture-db.php) dosyaları kendisi temizler (rmmanifest)
+			// Süreç bitince fixture logo dosyaları ve (boşsa) dizinleri kaldırılır: paylaşılan /tmp/sources başka kullanıcının (www-data) temizliğini engellemesin.
+			$cleanupRegistered[ $logoDir ] = true;
+			register_shutdown_function(
+				function () use ( $logoDir ) {
+					foreach ( (array) glob( $logoDir . '/ref-0[1-3].png' ) as $f ) {
+						@unlink( $f );
+					}
+					@rmdir( $logoDir );
+					@rmdir( dirname( $logoDir ) );
+				}
+			);
+		}
+		if ( ! is_dir( $logoDir ) ) {
+			mkdir( $logoDir, 0777, true );
+			@chmod( dirname( $logoDir ), 0777 ); // paylaşılan /tmp/sources: farklı kullanıcılar (root testleri / www-data runtime) yazabilsin
+			@chmod( $logoDir, 0777 );
+		}
+		foreach ( array( 1, 2, 3 ) as $n ) {
+			$file = $logoDir . '/ref-' . sprintf( '%02d', $n ) . '.png';
+			if ( ! is_file( $file ) || file_get_contents( $file ) !== mb_fixture_logo_bytes( $n ) ) {
+				file_put_contents( $file, mb_fixture_logo_bytes( $n ) );
+				@chmod( $file, 0666 );
+			}
+		}
 	}
 
 	/** İçerik zarflarını bir dizine sabit dosya adlarıyla yazar (yalnız test dizinleri). */
@@ -231,7 +321,8 @@ if ( ! function_exists( 'mb_apply_fixture_envelopes' ) ) {
 		if ( ! is_dir( $dir ) ) {
 			mkdir( $dir, 0777, true );
 		}
-		$names = array( 'news' => 'news.manifest.json', 'reference' => 'references.manifest.json' );
+		$names = array( 'news' => 'news.manifest.json', 'reference' => 'references.manifest.json', 'faq' => 'faqs.manifest.json' );
+		mb_fixture_write_logos( $dir );
 		foreach ( $names as $type => $name ) {
 			if ( isset( $envelopes[ $type ] ) ) {
 				file_put_contents( $dir . '/' . $name, json_encode( $envelopes[ $type ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) );

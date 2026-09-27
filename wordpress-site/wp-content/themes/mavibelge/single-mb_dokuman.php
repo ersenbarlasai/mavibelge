@@ -22,8 +22,8 @@ while ( have_posts() ) :
 			null,
 			array(
 				'items' => array(
-					array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => home_url( '/bilgi-merkezi/' ) ),
-					array( 'label' => __( 'Dokümanlar', 'mavibelge' ), 'url' => home_url( '/dokumanlar/' ) ),
+					array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => mavibelge_url( 'bilgi-merkezi' ) ),
+					array( 'label' => __( 'Dokümanlar', 'mavibelge' ), 'url' => mavibelge_url( 'dokumanlar' ) ),
 					array( 'label' => get_the_title() ),
 				),
 			)

@@ -69,77 +69,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</ul>
 				<div class="footer-social">
 					<span class="footer-social-label"><?php esc_html_e( 'Sosyal Medya', 'mavibelge' ); ?></span>
-					<ul class="footer-social-list">
-						<li>
-							<a href="https://www.facebook.com/mavibelge31" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Mavi Belge Facebook hesabı', 'mavibelge' ); ?>">
-								<svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3v-1.9c0-.9.2-1.5 1.5-1.5h1.6V4.3C15.9 4.2 15 4.1 14 4.1c-2.4 0-4 1.5-4 4.1v2.3H7.4v3H10V21h3.5z"/></svg>
-							</a>
-						</li>
-						<li>
-							<a href="https://www.instagram.com/mavi_belge" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Mavi Belge Instagram hesabı', 'mavibelge' ); ?>">
-								<svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-							</a>
-						</li>
-						<li>
-							<!-- Statik kaynakta http://twitter.com/mavibelge31 idi; yalnız şema https'e düzeltildi.
-							     Marka adı/hesap kurumdan teyit beklemektedir — bkz. docs/faz3-dependencies.md. -->
-							<a href="https://twitter.com/mavibelge31" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Mavi Belge X (Twitter) hesabı', 'mavibelge' ); ?>">
-								<svg class="icon-18" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.6 7.6L22 21h-6.2l-4.9-6.4L4.9 21H2.8l7-8.1L2 3h6.3l4.4 5.9L18.9 3zm-1.1 16.2h1.2L7.3 4.7H6l11.8 14.5z"/></svg>
-							</a>
-						</li>
-					</ul>
+					<?php get_template_part( 'template-parts/components/social-links' ); // Faz 12g: TEK kaynak (inc/contact-helpers.php) ?>
 				</div>
 			</div>
 		</div>
 
-		<?php $mb_footer_locations = function_exists( 'mavibelge_get_locations' ) ? mavibelge_get_locations() : array(); ?>
+		<?php
+		// Faz 12g: lokasyonlar TEK kaynaktan (inc/contact-helpers.php): merkezi içerik servisi, yoksa doğrulanmış yedek.
+		$mb_footer_locations = function_exists( 'mavibelge_contact_locations' ) ? mavibelge_contact_locations() : array();
+		?>
 		<div class="footer-locations">
-			<?php if ( ! empty( $mb_footer_locations ) ) : ?>
-				<?php foreach ( $mb_footer_locations as $mb_location ) : ?>
-					<div>
-						<h4><?php echo esc_html( $mb_location['name'] ); ?></h4>
-						<?php if ( '' !== $mb_location['address'] ) : ?><p><?php echo esc_html( $mb_location['address'] ); ?></p><?php endif; ?>
-						<?php if ( ! empty( $mb_location['phones'] ) ) : ?>
-							<p><?php foreach ( $mb_location['phones'] as $mb_i => $mb_phone ) : ?><?php echo $mb_i > 0 ? '<br>' : ''; ?><a href="<?php echo esc_url( $mb_phone['tel'], array( 'tel' ) ); ?>"><?php echo esc_html( $mb_phone['display'] ); ?></a><?php endforeach; ?></p>
-						<?php endif; ?>
-						<?php if ( '' !== $mb_location['map_url'] ) : ?>
-							<a class="directions-link" href="<?php echo esc_url( $mb_location['map_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Yol Tarifi Al', 'mavibelge' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(yeni sekmede açılır)', 'mavibelge' ); ?></span></a>
-						<?php endif; ?>
-					</div>
-				<?php endforeach; ?>
-			<?php else : ?>
-			<!-- Yedek: mb_lokasyon kaydı yoksa statik referanstan doğrulanmış lokasyon metni. -->
-			<div>
-				<h4><?php esc_html_e( 'Merkez Ofis — İskenderun/Hatay', 'mavibelge' ); ?></h4>
-				<p><?php esc_html_e( 'Mustafa Kemal Mah. İbrahim Karaoğlanoğlu Cad. Atay İş Merkezi Kat:12 Daire:63–64 İskenderun / HATAY Pk:31200', 'mavibelge' ); ?></p>
-			</div>
-			<div>
-				<h4><?php esc_html_e( 'Payas Sınav Alanı', 'mavibelge' ); ?></h4>
-				<p><?php esc_html_e( 'Yıldırım Beyazıt, Özkul Çolak Cd., 31900 Payas / Dörtyol / Hatay', 'mavibelge' ); ?></p>
-			</div>
-			<div>
-				<h4><?php esc_html_e( 'İzmir Aliağa Sınav Alanı', 'mavibelge' ); ?></h4>
-				<p><?php esc_html_e( 'Siteler Mahallesi, 35800 Aliağa / İzmir', 'mavibelge' ); ?></p>
-				<p><a href="tel:05426196284">0542 619 62 84</a></p>
-			</div>
-			<div>
-				<h4><?php esc_html_e( 'Ankara Ofisi', 'mavibelge' ); ?></h4>
-				<p><?php esc_html_e( '1176 Sokak, No: 28, Ostim / ANKARA', 'mavibelge' ); ?></p>
-				<p><a href="tel:+905426196284">0542 619 62 84</a><br><a href="tel:+905426226284">0542 622 62 84</a></p>
-				<a class="directions-link" href="https://www.google.com/maps/search/?api=1&amp;query=1176%20Sokak%20No%3A28%20Ostim%20Ankara" target="_blank" rel="noopener noreferrer">
-					<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.4 7-11.5A7 7 0 005 9.5C5 14.6 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-					<?php esc_html_e( 'Yol Tarifi Al', 'mavibelge' ); ?>
-				</a>
-			</div>
+			<?php foreach ( $mb_footer_locations as $mb_location ) : ?>
+				<div>
+					<h4><?php echo esc_html( $mb_location['name'] ); ?></h4>
+					<?php if ( '' !== $mb_location['address'] ) : ?><p><?php echo esc_html( $mb_location['address'] ); ?></p><?php endif; ?>
+					<?php if ( ! empty( $mb_location['phones'] ) && ! empty( $mb_location['footer_phones'] ) ) : ?>
+						<p><?php foreach ( $mb_location['phones'] as $mb_i => $mb_phone ) : ?><?php echo $mb_i > 0 ? '<br>' : ''; ?><a href="<?php echo esc_url( $mb_phone['tel'], array( 'tel' ) ); ?>"><?php echo esc_html( $mb_phone['display'] ); ?></a><?php endforeach; ?></p>
 					<?php endif; ?>
+					<?php if ( '' !== $mb_location['map_url'] ) : ?>
+						<a class="directions-link" href="<?php echo esc_url( $mb_location['map_url'] ); ?>" target="_blank" rel="noopener noreferrer">
+							<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.4 7-11.5A7 7 0 005 9.5C5 14.6 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+							<?php esc_html_e( 'Yol Tarifi Al', 'mavibelge' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(yeni sekmede açılır)', 'mavibelge' ); ?></span>
+						</a>
+					<?php endif; ?>
+				</div>
+			<?php endforeach; ?>
 		</div>
 
 		<div class="footer-bottom">
 			<span>&copy; <span data-year><?php echo esc_html( gmdate( 'Y' ) ); ?></span> Mavi Belge. <?php esc_html_e( 'Tüm hakları saklıdır.', 'mavibelge' ); ?></span>
 			<ul class="footer-legal">
-				<li><a href="<?php echo esc_url( home_url( '/kvkk/' ) ); ?>">KVKK</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/gizlilik-politikasi/' ) ); ?>"><?php esc_html_e( 'Gizlilik Politikası', 'mavibelge' ); ?></a></li>
-				<li><a href="<?php echo esc_url( home_url( '/gizlilik-politikasi/#cerezler' ) ); ?>"><?php esc_html_e( 'Çerez Tercihleri', 'mavibelge' ); ?></a></li>
+				<li><a href="<?php echo esc_url( mavibelge_url( 'kvkk' ) ); ?>">KVKK</a></li>
+				<li><a href="<?php echo esc_url( mavibelge_url( 'gizlilik-politikasi' ) ); ?>"><?php esc_html_e( 'Gizlilik Politikası', 'mavibelge' ); ?></a></li>
+				<li><a href="<?php echo esc_url( mavibelge_url( 'gizlilik-politikasi', 'cerezler' ) ); ?>"><?php esc_html_e( 'Çerez Tercihleri', 'mavibelge' ); ?></a></li>
 			</ul>
 		</div>
 	</div>

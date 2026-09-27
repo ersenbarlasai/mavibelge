@@ -56,6 +56,7 @@ class MaviBelge_Core_Plugin {
 			MaviBelge_Core_Forms_Admin::init();
 			MaviBelge_Core_Settings::init();
 			MaviBelge_Core_Import_Dry_Run_Page::init();
+			MaviBelge_Core_Import_Apply_Page::init();
 			MaviBelge_Core_Health_Page::init();
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 		}
@@ -80,6 +81,7 @@ class MaviBelge_Core_Plugin {
 		require_once $path . 'admin/class-forms-admin.php';
 		require_once $path . 'admin/class-settings.php';
 		require_once $path . 'admin/class-import-dry-run-page.php';
+		require_once $path . 'admin/class-import-apply-page.php';
 		require_once $path . 'admin/class-health-page.php';
 	}
 

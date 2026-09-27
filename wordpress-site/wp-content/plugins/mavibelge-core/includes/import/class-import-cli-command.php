@@ -45,10 +45,11 @@ class MaviBelge_Core_Import_CLI_Command {
 	 * : Dry-run çıktısındaki 64 karakterlik plan_digest. Plan veya manifest değiştiyse apply reddedilir.
 	 *
 	 * [--stage=<stage>]
-	 * : Bağımlılık aşaması. sectors = yalnız sektörler; qualifications = sektörler + yeterlilikler; all = tam katalog; content = haberler sonra referanslar (news.manifest.json + references.manifest.json; katalogdan bağımsız; iki kontrollü mb_haber_turu terimi `haber`/`duyuru` ÖNCEDEN var olmalı, import bunları oluşturmaz).
+	 * : Bağımlılık aşaması. SIRA (sunucu tarafında zorunlu): pages -> sectors -> qualifications -> all -> content. pages = WordPress çekirdek `page` türünde 32 sayfa (pages.manifest.json; taslak; katalogdan bağımsız); sectors = yalnız sektörler; qualifications = sektörler + yeterlilikler; all = tam katalog; content = haberler sonra referanslar (news.manifest.json + references.manifest.json; katalogdan bağımsız; iki kontrollü mb_haber_turu terimi `haber`/`duyuru` ÖNCEDEN var olmalı, import bunları oluşturmaz).
 	 * ---
 	 * default: all
 	 * options:
+	 *   - pages
 	 *   - sectors
 	 *   - qualifications
 	 *   - all
@@ -104,9 +105,9 @@ class MaviBelge_Core_Import_CLI_Command {
 		}
 
 		// SALT OKUNUR dry-run (Faz 6B2 davranışı; yazma sınıfı hiç kullanılmaz).
-		$repository = new MaviBelge_Core_Import_WordPress_Target_Repository();
-		$service    = new MaviBelge_Core_Import_Dry_Run_Service( $repository );
-		$stageRun   = $service->run_stage( $stage );
+		// Faz 6B4 — CLI ve admin AYNI runtime factory'den servis alır (tek bağımlılık grafiği, aynı plan digest'i).
+		$service  = ( new MaviBelge_Core_Import_Runtime_Factory() )->dry_run_service();
+		$stageRun = $service->run_stage( $stage );
 		$result     = array(
 			'plan'             => $stageRun['plan'],
 			'diagnostics'      => $stageRun['diagnostics'],
@@ -226,7 +227,7 @@ class MaviBelge_Core_Import_CLI_Command {
 			WP_CLI::error( 'Yetkisiz: manage_options ve mb_manage_tariff_period yetkisi olan bir kullanıcı (--user) gerekir.' );
 			return;
 		}
-		$store = new MaviBelge_Core_Import_Wpdb_Run_Store();
+		$store = ( new MaviBelge_Core_Import_Runtime_Factory() )->run_store();
 		$runs  = array();
 		if ( $store->is_installed() ) {
 			if ( isset( $assoc_args['run-id'] ) ) {
@@ -269,6 +270,12 @@ class MaviBelge_Core_Import_CLI_Command {
 			WP_CLI::error( 'Yetkisiz: apply için manage_options ve mb_manage_tariff_period yetkisi olan bir kullanıcı (--user) gerekir. Hiçbir şey yazılmadı.' );
 			return;
 		}
+		// Aşama sırası (sunucu tarafında zorunlu; admin ile AYNI kural): önkoşul aşaması gerçek readback sonucunda unchanged olmalı.
+		$prereq = ( new MaviBelge_Core_Import_Admin_Run_Service( new MaviBelge_Core_Import_Runtime_Factory() ) )->prerequisites( $stage );
+		if ( ! $prereq['met'] ) {
+			WP_CLI::error( sprintf( 'Aşama sırası: önce "%s" aşaması tamamlanmış (tüm kayıtlar unchanged) olmalı. Hiçbir şey yazılmadı.', (string) $prereq['requires'] ) );
+			return;
+		}
 		$service = self::apply_service();
 		$preview = $service->preview( $stage );
 		WP_CLI::log( sprintf( 'Aşama: %s | plan_digest: %s | uygun: %s | yazılacak: %d | değişmeyen: %d', $stage, (string) $preview['plan_digest'], $preview['eligible'] ? 'evet' : 'hayır', $preview['writes'], $preview['noops'] ) );
@@ -292,24 +299,11 @@ class MaviBelge_Core_Import_CLI_Command {
 	}
 
 	private static function apply_service() {
-		$repository = new MaviBelge_Core_Import_WordPress_Target_Repository();
-		return new MaviBelge_Core_Import_Apply_Service(
-			new MaviBelge_Core_Import_Dry_Run_Service( $repository ),
-			new MaviBelge_Core_Import_WordPress_Target_Writer(),
-			new MaviBelge_Core_Import_Wpdb_Transaction(),
-			new MaviBelge_Core_Import_Wpdb_Run_Store(),
-			new MaviBelge_Core_Import_WP_Audit_Sink()
-		);
+		return ( new MaviBelge_Core_Import_Runtime_Factory() )->apply_service();
 	}
 
 	private static function rollback_service() {
-		return new MaviBelge_Core_Import_Rollback_Service(
-			new MaviBelge_Core_Import_WordPress_Target_Repository(),
-			new MaviBelge_Core_Import_WordPress_Target_Writer(),
-			new MaviBelge_Core_Import_Wpdb_Transaction(),
-			new MaviBelge_Core_Import_Wpdb_Run_Store(),
-			new MaviBelge_Core_Import_WP_Audit_Sink()
-		);
+		return ( new MaviBelge_Core_Import_Runtime_Factory() )->rollback_service();
 	}
 
 	/** Apply/rollback sonucu — yalnız kimlik, durum, sayaç ve sabit hata kodları (içerik/gizli bilgi yok). */

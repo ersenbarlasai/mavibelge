@@ -87,6 +87,25 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 	 */
 	private $diagnostics = array();
 
+	/**
+	 * Faz 6B4 — DOĞRULANMIŞ açık sektör görsel eşlemesi (slug => attachment ID). Yalnız
+	 * `MaviBelge_Core_Import_Runtime_Factory` bunu, `MaviBelge_Core_Import_Sector_Image_Map::validate_envelope()`
+	 * başarılı olduktan SONRA verir; doğrulanmamış bir map repository'ye hiçbir zaman ulaşmaz. Yine de kurucu
+	 * yalnız string slug + gerçek pozitif int çiftlerini tutar (fazlası sessizce düşer, cast edilmez).
+	 *
+	 * @var array<string,int>
+	 */
+	private $sectorImageMap = array();
+
+	/** @param array<string,int> $sectorImageMap Doğrulanmış açık eşleme. */
+	public function __construct( array $sectorImageMap = array() ) {
+		foreach ( $sectorImageMap as $slug => $id ) {
+			if ( is_string( $slug ) && '' !== $slug && is_int( $id ) && $id > 0 ) {
+				$this->sectorImageMap[ $slug ] = $id;
+			}
+		}
+	}
+
 	/** @inheritDoc */
 	public function get_diagnostics() {
 		return $this->diagnostics;
@@ -183,6 +202,9 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 			// Faz 7: marker HER ZAMAN içerik türlerinde de aranır (tür uyuşmazlığı görünür kalsın).
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS          => 'mb_haber',
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE     => 'mb_referans',
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ           => 'mb_sss',
+			// Faz 12: çekirdek sayfa türü (marker tüm hedef türlerde aranır).
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE          => 'page',
 		);
 		foreach ( $postTypeByType as $importType => $postType ) {
 			$ids = get_posts(
@@ -257,6 +279,10 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 				return $this->build_post_result( $id, 'mb_haber', $sourceKey, array( $this, 'current_news_fields' ) );
 			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE:
 				return $this->build_post_result( $id, 'mb_referans', $sourceKey, array( $this, 'current_reference_fields' ) );
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ:
+				return $this->build_post_result( $id, 'mb_sss', $sourceKey, array( $this, 'current_faq_fields' ) );
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE:
+				return $this->build_post_result( $id, 'page', $sourceKey, array( $this, 'current_page_fields' ) );
 			default:
 				return array( 'target_found' => false );
 		}
@@ -369,20 +395,83 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 		);
 	}
 
-	/** Faz 7 — bkz. current_news_fields(). */
+	/** Faz 12 — yalnız HAM değerleri toplar (cast YOK); doğrulama saf `page_fields_from_raw()` kurucusundadır. */
+	private function current_page_fields( $postId ) {
+		$post = get_post( $postId );
+		return self::page_fields_from_raw(
+			array(
+				'slug'       => self::object_prop( $post, 'post_name' ),
+				'title'      => self::object_prop( $post, 'post_title' ),
+				'content'    => self::object_prop( $post, 'post_content' ),
+				'excerpt'    => self::object_prop( $post, 'post_excerpt' ),
+				'parent_id'  => self::object_prop( $post, 'post_parent' ),
+				'menu_order' => self::object_prop( $post, 'menu_order' ),
+			)
+		);
+	}
+
+	/**
+	 * Faz 12b — referansın mevcut durumu. logo_sha256: bağlı attachment GERÇEKTEN geçerli bir PNG görseli ve dosyası okunabiliyorsa
+	 * dosyanın SHA-256'sı; aksi halde '' (bağlantı yok, attachment silinmiş/çöpte, dosya yok/okunamıyor, görsel değil). Böylece
+	 * "geçerli ve erişilebilir logo" ayrı bir kontrol değil, karar hash'inin kendisidir.
+	 */
 	private function current_reference_fields( $postId ) {
 		$post = get_post( $postId );
 		return self::reference_fields_from_raw(
 			array(
-				'slug'               => self::object_prop( $post, 'post_name' ),
-				'title'              => self::object_prop( $post, 'post_title' ),
-				'reference_status'   => get_post_meta( $postId, '_mb_reference_status', true ),
-				'record_status'      => get_post_meta( $postId, '_mb_record_status', true ),
-				'sort_order'         => get_post_meta( $postId, '_mb_sort_order', true ),
-				'website_url'        => get_post_meta( $postId, '_mb_website_url', true ),
-				'logo_attachment_id' => get_post_meta( $postId, '_mb_logo_attachment_id', true ),
+				'slug'             => self::object_prop( $post, 'post_name' ),
+				'title'            => self::object_prop( $post, 'post_title' ),
+				'reference_status' => get_post_meta( $postId, '_mb_reference_status', true ),
+				'record_status'    => get_post_meta( $postId, '_mb_record_status', true ),
+				'sort_order'       => get_post_meta( $postId, '_mb_sort_order', true ),
+				'website_url'      => get_post_meta( $postId, '_mb_website_url', true ),
+				'logo_sha256'      => self::attachment_logo_sha256( get_post_meta( $postId, '_mb_logo_attachment_id', true ) ),
 			)
 		);
+	}
+
+	/** Faz 12b — yalnız HAM değerleri toplar (cast YOK); doğrulama saf faq_fields_from_raw() kurucusundadır. */
+	private function current_faq_fields( $postId ) {
+		$post = get_post( $postId );
+		return self::faq_fields_from_raw(
+			array(
+				'slug'          => self::object_prop( $post, 'post_name' ),
+				'title'         => self::object_prop( $post, 'post_title' ),
+				'content'       => self::object_prop( $post, 'post_content' ),
+				'sort_order'    => get_post_meta( $postId, '_mb_sort_order', true ),
+				'record_status' => get_post_meta( $postId, '_mb_record_status', true ),
+			)
+		);
+	}
+
+	/**
+	 * Faz 12b — bir attachment kimliğinin logo olarak GEÇERLİ olup olmadığını dosya özetiyle söyler. Geçerli değilse ''.
+	 * Geçerlilik: gerçek pozitif tam sayı kimlik, attachment (çöp değil), image/png, dosya okunabilir. Ham meta cast edilmez.
+	 *
+	 * @param mixed $rawId
+	 * @return string 64-hex özet veya ''.
+	 */
+	public static function attachment_logo_sha256( $rawId ) {
+		$id = 0;
+		if ( is_int( $rawId ) ) {
+			$id = $rawId;
+		} elseif ( is_string( $rawId ) ) {
+			$parsed = MaviBelge_Core_Validator::parse_canonical_decimal_int( $rawId );
+			$id     = $parsed['ok'] ? $parsed['value'] : 0;
+		}
+		if ( $id <= 0 ) {
+			return '';
+		}
+		$att = get_post( $id );
+		if ( ! ( $att instanceof WP_Post ) || 'attachment' !== $att->post_type || ! in_array( $att->post_status, array( 'inherit', 'private', 'publish' ), true ) || 'image/png' !== get_post_mime_type( $att ) ) {
+			return '';
+		}
+		$file = get_attached_file( $id );
+		if ( ! is_string( $file ) || '' === $file || ! is_readable( $file ) ) {
+			return '';
+		}
+		$hash = @hash_file( 'sha256', $file );
+		return is_string( $hash ) ? $hash : '';
 	}
 
 	/**
@@ -427,33 +516,89 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 	}
 
 	/**
-	 * Faz 7 — SAF kurucu. Meta metin temsilleri katı dönüştürülür (`"1"` -> 1, boş -> 0);
+	 * Faz 12 — SAF kurucu (WordPress çağırmaz). Dört metin alanı gerçek string, `parent_id`/`menu_order` gerçek negatif olmayan tam sayı
+	 * (WordPress `WP_Post`'u bunları int olarak taşır; metin temsili de katı kabul edilir) olmalıdır; TEK alan başarısızsa TÜM küme null.
+	 *
+	 * @param array $raw slug/title/content/excerpt/parent_id/menu_order ham değerleri
+	 * @return array|null
+	 */
+	public static function page_fields_from_raw( array $raw ) {
+		if ( ! self::has_exact_keys( $raw, MaviBelge_Core_Import_Managed_Fields::PAGE_FIELDS ) ) {
+			return null;
+		}
+		$strings = self::strict_string_fields( $raw, array( 'slug', 'title', 'content', 'excerpt' ) );
+		if ( null === $strings ) {
+			return null;
+		}
+		$parentConv = self::strict_nonneg_int_or_empty_zero( $raw['parent_id'] );
+		$orderConv  = self::strict_nonneg_int_or_empty_zero( $raw['menu_order'] );
+		if ( ! $parentConv['ok'] || ! $orderConv['ok'] ) {
+			return null;
+		}
+		return array(
+			'slug'       => $strings['slug'],
+			'title'      => $strings['title'],
+			'content'    => $strings['content'],
+			'excerpt'    => $strings['excerpt'],
+			'parent_id'  => $parentConv['value'],
+			'menu_order' => $orderConv['value'],
+		);
+	}
+
+	/**
+	 * Faz 12b — SAF kurucu. Sıra meta metin temsili katı dönüştürülür ("1" -> 1, boş -> 0); logo_sha256 gerçek string (64-hex veya '').
 	 * TEK bir alan başarısızsa TÜM küme null.
 	 *
-	 * @param array $raw slug/title/reference_status/record_status/sort_order/website_url/logo_attachment_id ham değerleri
+	 * @param array $raw slug/title/reference_status/record_status/sort_order/website_url/logo_sha256 ham değerleri
 	 * @return array|null
 	 */
 	public static function reference_fields_from_raw( array $raw ) {
 		if ( ! self::has_exact_keys( $raw, MaviBelge_Core_Import_Managed_Fields::REFERENCE_FIELDS ) ) {
 			return null;
 		}
-		$strings = self::strict_string_fields( $raw, array( 'slug', 'title', 'reference_status', 'record_status', 'website_url' ) );
+		$strings = self::strict_string_fields( $raw, array( 'slug', 'title', 'reference_status', 'record_status', 'website_url', 'logo_sha256' ) );
 		if ( null === $strings ) {
 			return null;
 		}
 		$sortConv = self::strict_nonneg_int_or_empty_zero( $raw['sort_order'] );
-		$logoConv = self::strict_nonneg_int_or_empty_zero( $raw['logo_attachment_id'] );
-		if ( ! $sortConv['ok'] || ! $logoConv['ok'] ) {
+		if ( ! $sortConv['ok'] ) {
 			return null;
 		}
 		return array(
-			'slug'               => $strings['slug'],
-			'title'              => $strings['title'],
-			'reference_status'   => $strings['reference_status'],
-			'record_status'      => $strings['record_status'],
-			'sort_order'         => $sortConv['value'],
-			'website_url'        => $strings['website_url'],
-			'logo_attachment_id' => $logoConv['value'],
+			'slug'             => $strings['slug'],
+			'title'            => $strings['title'],
+			'reference_status' => $strings['reference_status'],
+			'record_status'    => $strings['record_status'],
+			'sort_order'       => $sortConv['value'],
+			'website_url'      => $strings['website_url'],
+			'logo_sha256'      => $strings['logo_sha256'],
+		);
+	}
+
+	/**
+	 * Faz 12b — SAF kurucu (SSS). Metin alanları gerçek string, sıra katı dönüştürülür; TEK alan başarısızsa TÜM küme null.
+	 *
+	 * @param array $raw slug/title/content/sort_order/record_status ham değerleri
+	 * @return array|null
+	 */
+	public static function faq_fields_from_raw( array $raw ) {
+		if ( ! self::has_exact_keys( $raw, MaviBelge_Core_Import_Managed_Fields::FAQ_FIELDS ) ) {
+			return null;
+		}
+		$strings = self::strict_string_fields( $raw, array( 'slug', 'title', 'content', 'record_status' ) );
+		if ( null === $strings ) {
+			return null;
+		}
+		$sortConv = self::strict_nonneg_int_or_empty_zero( $raw['sort_order'] );
+		if ( ! $sortConv['ok'] ) {
+			return null;
+		}
+		return array(
+			'slug'          => $strings['slug'],
+			'title'         => $strings['title'],
+			'content'       => $strings['content'],
+			'sort_order'    => $sortConv['value'],
+			'record_status' => $strings['record_status'],
 		);
 	}
 
@@ -782,12 +927,14 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 				break;
 			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS:
 			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE:
-				// Faz 7 doğal anahtar: post_name == slug (tam eşitlik, çöp DAHİL; bulanık eşleme YOK).
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ:
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE:
+				// Faz 7 doğal anahtar (Faz 12: sayfa için de AYNI kural, post_type=page): post_name == slug (tam eşitlik, çöp DAHİL; bulanık eşleme YOK).
 				// WordPress çöpe giden postun post_name'ine `__trashed` ekler ve asıl slug'ı
 				// `_wp_desired_post_slug` metasında saklar; kullanıcının çöpteki kaydı bu yüzden ayrıca
 				// bu metadan bulunur (çöp kaydı slug'ı hâlâ "tutar" -> create conflict olur).
 				// Import'un KENDİ rollback kabuğu bu izi taşımaz (post_name önce boşaltılır).
-				$postType = MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS === $type ? 'mb_haber' : 'mb_referans';
+				$postType = MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS === $type ? 'mb_haber' : ( MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE === $type ? 'page' : ( MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ === $type ? 'mb_sss' : 'mb_referans' ) );
 				$byName   = get_posts(
 					array(
 						'post_type'      => $postType,
@@ -880,6 +1027,8 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 			case 'sector':
 			case 'news':
 			case 'reference':
+			case 'faq':
+			case 'page':
 				return array( 'slug' => $rest );
 			case 'qualification':
 				return array( 'code' => $rest );
@@ -989,33 +1138,62 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 		return array( 'id' => $postId, 'type_verified' => true );
 	}
 
-	/** @inheritDoc */
+	/**
+	 * Faz 6B4 — çözümleme önceliği: (1) doğrulanmış açık admin eşlemesi, (2) mevcut sektör teriminin doğrulanmış
+	 * `_mb_image_attachment_id` term meta'sı, (3) çözülemedi -> null (`blocked_dependency`). Kaynaklar birbiriyle
+	 * ÇELİŞİRSE sessiz seçim yapılmaz: diagnostic + null. Dosya adı/benzerlik TAHMİNİ yoktur.
+	 *
+	 * @inheritDoc
+	 */
 	public function resolve_sector_image_attachment_id( $sectorSlug ): ?array {
 		if ( ! is_string( $sectorSlug ) || '' === $sectorSlug ) {
 			return null;
 		}
-		$term = get_term_by( 'slug', $sectorSlug, 'mb_sektor' );
-		if ( ! $term || is_wp_error( $term ) ) {
+		$explicitId = null;
+		if ( isset( $this->sectorImageMap[ $sectorSlug ] ) ) {
+			$candidate = $this->sectorImageMap[ $sectorSlug ];
+			if ( 'attachment' === get_post_type( $candidate ) ) {
+				$explicitId = $candidate;
+			}
+		}
+		$metaId = null;
+		$term   = get_term_by( 'slug', $sectorSlug, 'mb_sektor' );
+		if ( $term && ! is_wp_error( $term ) ) {
+			$termId = self::positive_int_or_null( self::object_prop( $term, 'term_id' ) );
+			if ( null !== $termId ) {
+				$attachmentConv = self::strict_nonneg_int_or_empty_zero( get_term_meta( $termId, '_mb_image_attachment_id', true ) );
+				if ( $attachmentConv['ok'] && $attachmentConv['value'] > 0 && 'attachment' === get_post_type( $attachmentConv['value'] ) ) {
+					$metaId = $attachmentConv['value'];
+				}
+			}
+		}
+		$merged = self::merge_sector_image_sources( $explicitId, $metaId );
+		if ( $merged['conflict'] ) {
+			$this->diagnostics[] = array(
+				'code'       => 'sector_image_map_conflict',
+				'type'       => MaviBelge_Core_Import_Dry_Run_Planner::TYPE_SECTOR,
+				'source_key' => 'sector:' . $sectorSlug,
+			);
 			return null;
 		}
-		$termId = self::positive_int_or_null( self::object_prop( $term, 'term_id' ) );
-		if ( null === $termId ) {
-			return null;
+		return null === $merged['id'] ? null : array( 'id' => $merged['id'], 'type_verified' => true );
+	}
+
+	/**
+	 * SAF öncelik/çelişki kararı (WordPress fonksiyonu çağırmaz; `tests/run.php` doğrudan sınar). Yalnız gerçek
+	 * pozitif integer ID'ler kaynak sayılır; string/float/bool/negatif hiçbir kaynaktan kabul edilmez.
+	 *
+	 * @param mixed $explicitId Açık admin eşlemesi.
+	 * @param mixed $metaId     Mevcut term-meta.
+	 * @return array{id: int|null, conflict: bool}
+	 */
+	public static function merge_sector_image_sources( $explicitId, $metaId ) {
+		$explicit = is_int( $explicitId ) && $explicitId > 0 ? $explicitId : null;
+		$meta     = is_int( $metaId ) && $metaId > 0 ? $metaId : null;
+		if ( null !== $explicit && null !== $meta && $explicit !== $meta ) {
+			return array( 'id' => null, 'conflict' => true );
 		}
-		$attachmentConv = self::strict_nonneg_int_or_empty_zero( get_term_meta( $termId, '_mb_image_attachment_id', true ) );
-		if ( ! $attachmentConv['ok'] || $attachmentConv['value'] <= 0 ) {
-			// Term-meta boş/0/biçimsiz -> "kaynakta görsel var ama henüz
-			// eşlenmedi" (kaynakta görsel yoksa planlayıcı bu resolver'ı
-			// hiç çağırmaz — bkz. class-import-dry-run-planner.php::plan_sector()).
-			return null;
-		}
-		$attachmentId = $attachmentConv['value'];
-		if ( 'attachment' !== get_post_type( $attachmentId ) ) {
-			// Dosya adı/benzerlik TAHMİNİ YOK — yalnız açık term-meta
-			// ilişkisi + gerçek attachment post_type doğrulaması.
-			return null;
-		}
-		return array( 'id' => $attachmentId, 'type_verified' => true );
+		return array( 'id' => null !== $explicit ? $explicit : $meta, 'conflict' => false );
 	}
 
 	/**

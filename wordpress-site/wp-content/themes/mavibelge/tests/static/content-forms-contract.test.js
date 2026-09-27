@@ -52,7 +52,8 @@ test('content-helpers: içerik servisi dışında hiçbir sorgu/meta okuması yo
 	test(f + ': içerik yalnız mavibelge_get_* adaptörlerinden gelir', /mavibelge_get_(news|latest_news|documents|references|faqs)\(/.test(rel(f)));
 });
 // 3) Form şablonları
-const form = rel('template-parts/forms/form.php');
+// Faz 12f: alan işaretlemesi template-parts/forms/field.php'ye taşındı (form.php onu çağırır) — sözleşme ikisinin toplamında.
+const form = rel('template-parts/forms/form.php') + '\n' + rel('template-parts/forms/field.php');
 test('form: bal küpü aria-hidden + tabindex=-1 + autocomplete=off', /class="hp-field" aria-hidden="true"/.test(form) && /tabindex="-1" autocomplete="off"/.test(form));
 test('form: wp_nonce_field + token + form kimliği gizli alanları', /wp_nonce_field\(/.test(form) && /names'\]\['token'\]/.test(form) && /names'\]\['form'\]/.test(form));
 test('form: her alan etiketi <label for> ile bağlı; zorunlu alanlar aria-required; hatalar aria-describedby + aria-invalid', /<label for="<\?php echo esc_attr\( \$id \)/.test(form) && /aria-required="true"/.test(form) && /aria-describedby/.test(form) && /aria-invalid="true"/.test(form));
@@ -70,7 +71,7 @@ Object.keys(src).forEach((f) => {
 	test(f + ': target=_blank bağlantıları rel noopener noreferrer taşır', blanks.every((t) => /rel="noopener noreferrer"/.test(t)));
 });
 // 5) PHP 7.3
-['inc/content-helpers.php', 'archive-mb_haber.php', 'archive-mb_dokuman.php', 'page-referanslar.php', 'page-sss.php', 'template-parts/forms/form.php', 'template-parts/forms/form-status.php', 'template-parts/content/news-card.php', 'template-parts/content/document-card.php', 'template-parts/content/location-card.php', 'template-parts/content/reference-grid.php', 'template-parts/content/faq-list.php', 'template-parts/content/location-list.php', 'template-parts/content/filter-links.php'].forEach((f) => {
+['inc/content-helpers.php', 'archive-mb_haber.php', 'archive-mb_dokuman.php', 'page-referanslar.php', 'page-sss.php', 'template-parts/forms/form.php', 'template-parts/forms/field.php', 'template-parts/forms/form-status.php', 'template-parts/content/news-card.php', 'template-parts/content/document-card.php', 'template-parts/content/location-card.php', 'template-parts/content/reference-grid.php', 'template-parts/content/faq-list.php', 'template-parts/content/location-list.php', 'template-parts/content/filter-links.php'].forEach((f) => {
 	test(f + ': PHP 7.4+/8.x sözdizimi yok', !/\?->|\?\?=|\bfn\s*\(|\bmatch\s*\(|\bstr_contains\s*\(|\benum\s+\w+\s*\{/.test(rel(f)) && rel(f) !== '');
 });
 console.log(pass + '/' + (pass + fail) + ' tema içerik/form sözleşme testi geçti.');

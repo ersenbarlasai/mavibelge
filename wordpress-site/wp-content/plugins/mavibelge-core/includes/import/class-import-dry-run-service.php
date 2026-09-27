@@ -126,6 +126,23 @@ class MaviBelge_Core_Import_Dry_Run_Service {
 	 * @return array{ok: bool, manifest: array|null, errors: string[]}
 	 */
 	private function load_for_stage( $stage ) {
+		if ( MaviBelge_Core_Import_Apply_Plan::STAGE_PAGES === $stage ) {
+			// Faz 12: `pages` aşaması YALNIZ sayfa manifestini okur (katalog/içerik dosyaları gerekmez).
+			$pages = MaviBelge_Core_Import_Manifest_Loader::load_pages( $this->manifestDirOverride );
+			if ( ! $pages['ok'] ) {
+				return $pages;
+			}
+			return array(
+				'ok'       => true,
+				'manifest' => array(
+					'sectors'        => array(),
+					'qualifications' => array(),
+					'fees'           => array(),
+					'pages'          => $pages['manifest']['pages'],
+				),
+				'errors'   => array(),
+			);
+		}
 		if ( MaviBelge_Core_Import_Apply_Plan::STAGE_CONTENT === $stage ) {
 			$content = MaviBelge_Core_Import_Manifest_Loader::load_content( $this->manifestDirOverride );
 			if ( ! $content['ok'] ) {
@@ -139,6 +156,7 @@ class MaviBelge_Core_Import_Dry_Run_Service {
 					'fees'           => array(),
 					'news'           => $content['manifest']['news'],
 					'references'     => $content['manifest']['references'],
+					'faqs'           => $content['manifest']['faqs'],
 				),
 				'errors'   => array(),
 			);
@@ -163,6 +181,8 @@ class MaviBelge_Core_Import_Dry_Run_Service {
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FEE           => 'fees',
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS          => 'news',
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE     => 'references',
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ           => 'faqs',
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE          => 'pages',
 		);
 		$mini = array( 'sectors' => array(), 'qualifications' => array(), 'fees' => array() );
 		if ( isset( $lists[ $type ] ) ) {
@@ -182,6 +202,12 @@ class MaviBelge_Core_Import_Dry_Run_Service {
 				break;
 			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE:
 				$entry = MaviBelge_Core_Import_Dry_Run_Planner::plan_reference( $record, $lookups, $dependencies );
+				break;
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ:
+				$entry = MaviBelge_Core_Import_Dry_Run_Planner::plan_faq( $record, $lookups, $dependencies );
+				break;
+			case MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE:
+				$entry = MaviBelge_Core_Import_Dry_Run_Planner::plan_page( $record, $lookups, $dependencies );
 				break;
 			default:
 				$entry = MaviBelge_Core_Import_Dry_Run_Planner::plan_fee( $record, $lookups, $dependencies );
@@ -258,6 +284,8 @@ class MaviBelge_Core_Import_Dry_Run_Service {
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FEE           => isset( $manifest['fees'] ) ? $manifest['fees'] : array(),
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_NEWS          => isset( $manifest['news'] ) ? $manifest['news'] : array(),
 			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_REFERENCE     => isset( $manifest['references'] ) ? $manifest['references'] : array(),
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_FAQ           => isset( $manifest['faqs'] ) ? $manifest['faqs'] : array(),
+			MaviBelge_Core_Import_Dry_Run_Planner::TYPE_PAGE          => isset( $manifest['pages'] ) ? $manifest['pages'] : array(),
 		);
 
 		foreach ( $byType as $type => $records ) {

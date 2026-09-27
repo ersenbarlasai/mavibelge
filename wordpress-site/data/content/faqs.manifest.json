@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "faq",
+  "count": 6,
+  "source": {
+    "file": "tanitim-site/sss.html",
+    "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+  },
+  "notes": [
+    "Kaynak: tanitim-site/sss.html (kullanıcı tarafından görsel kabul edilmiş, kurumca onaylanmış; dondurulmuş, yalnız okunur). 6 gerçek soru-cevap. Soru mb_sss başlığına, cevap gövdesine düz metin olarak yazılır; kayıtlar taslak yazılır."
+  ],
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:myk-mesleki-yeterlilik-belgesi-nedir",
+      "source_index": 0,
+      "slug": "myk-mesleki-yeterlilik-belgesi-nedir",
+      "question": "MYK Mesleki Yeterlilik Belgesi nedir?",
+      "answer": "MYK Mesleki Yeterlilik Belgesi, Mesleki Yeterlilik Kurumu tarafından yetkilendirilmiş kuruluşlarca yapılan sınav sonucunda adayın mesleki yetkinliğini kanıtlayan resmi bir belgedir.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:nasil-basvuru-yapabilirim",
+      "source_index": 1,
+      "slug": "nasil-basvuru-yapabilirim",
+      "question": "Nasıl başvuru yapabilirim?",
+      "answer": "Meslek/yeterlilik seçiminizi yaptıktan sonra Online Başvuru sayfasından başvurunuzu tamamlayabilirsiniz.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:sinav-ucretini-nereden-gorebilirim",
+      "source_index": 2,
+      "slug": "sinav-ucretini-nereden-gorebilirim",
+      "question": "Sınav ücretini nereden görebilirim?",
+      "answer": "Güncel ücret bilgisi Sınav Ücretleri sayfasında sektöre göre filtrelenebilir tablo halinde sunulur.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:belgemin-gecerlilik-suresini-nasil-ogrenirim",
+      "source_index": 3,
+      "slug": "belgemin-gecerlilik-suresini-nasil-ogrenirim",
+      "question": "Belgemin geçerlilik süresini nasıl öğrenirim?",
+      "answer": "Belge geçerlilik ve gözetim bilgisi için Belge Yenileme sayfasını inceleyebilir veya MYK belge sorgulama sistemini kullanabilirsiniz.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:sinav-sonucuma-nasil-ulasirim",
+      "source_index": 4,
+      "slug": "sinav-sonucuma-nasil-ulasirim",
+      "question": "Sınav sonucuma nasıl ulaşırım?",
+      "answer": "Sınav sonuçları MYK'nın resmi belge sorgulama sistemi üzerinden görüntülenir; Sonuç ve Belge Sorgulama sayfasından yönlendirme bağlantısına ulaşabilirsiniz.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "faq:itiraz-veya-sikayetimi-nasil-iletirim",
+      "source_index": 5,
+      "slug": "itiraz-veya-sikayetimi-nasil-iletirim",
+      "question": "İtiraz veya şikayetimi nasıl iletirim?",
+      "answer": "İtiraz ve Şikayet sayfasındaki form üzerinden veya kurumumuzla doğrudan iletişime geçerek talebinizi iletebilirsiniz.",
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    }
+  ]
+}

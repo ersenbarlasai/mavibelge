@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 $news     = mavibelge_get_news( mavibelge_content_request_args() );
-$base_url = post_type_exists( 'mb_haber' ) ? (string) get_post_type_archive_link( 'mb_haber' ) : home_url( '/haberler/' );
+$base_url = post_type_exists( 'mb_haber' ) ? (string) get_post_type_archive_link( 'mb_haber' ) : mavibelge_url( 'haberler' );
 $type     = isset( $news['args']['type'] ) ? $news['args']['type'] : '';
 $links    = mavibelge_content_filter_links(
 	$base_url,
@@ -34,7 +34,7 @@ $links    = mavibelge_content_filter_links(
 		null,
 		array(
 			'items' => array(
-				array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => home_url( '/bilgi-merkezi/' ) ),
+				array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => mavibelge_url( 'bilgi-merkezi' ) ),
 				array( 'label' => __( 'Haberler', 'mavibelge' ) ),
 			),
 		)

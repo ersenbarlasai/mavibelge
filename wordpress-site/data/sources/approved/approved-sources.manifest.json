@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "approved_page_source",
+  "approved_by": "Kullanıcı/kurum onayı (görev mesajı, 26 Eylül 2026): aşağıdaki kaynakların içerik aktarımında kullanılması açıkça onaylandı.",
+  "notes": [
+    "kind=fetched: onaylı canlı sayfanın ana içerik gövdesi (yan çubuk/üst/alt bilgi/betik hariç) alındığı gibi saklanır; fragment_sha256 saklanan dosyanın, page_sha256 alınan tam sayfanın özetidir. Hukuki/banka metni yeniden yazılmaz.",
+    "kind=local_authored: dış hizmete yönlendiren kısa bilgilendirme sayfası bu depoda yazılmıştır; içerik yalnız CTA bağlantısı ve dış sisteme gidileceği bilgisidir. cta_url onaylı kaynak adresinin BİREBİR kopyasıdır.",
+    "Derleme sırasında ağ isteği yapılmaz; bu dosya ve fragment dosyaları tek yerel kaynaktır."
+  ],
+  "sources": [
+    {
+      "slug": "kvkk",
+      "kind": "fetched",
+      "source_url": "https://mavibelge.com.tr/kvkk-2/",
+      "fetched_on": "2026-09-26",
+      "page_sha256": "d4a4c663241c2b9c05ec128cf6cebd1d8ec869eb8fda5db0a8684b3868d86414",
+      "fragment_file": "wordpress-site/data/sources/approved/kvkk.html",
+      "fragment_sha256": "7869dbfa36262c6c9b22c2f6feb4b770afeec90854988a7011be3137a979f33d",
+      "cta_url": null
+    },
+    {
+      "slug": "gizlilik-politikasi",
+      "kind": "fetched",
+      "source_url": "https://mavibelge.com.tr/gizlilik-politikamiz/",
+      "fetched_on": "2026-09-26",
+      "page_sha256": "c1cee31ca6a7e1ac623f520410f2b8b05aab370f5073add22632f1d7000158d0",
+      "fragment_file": "wordpress-site/data/sources/approved/gizlilik-politikasi.html",
+      "fragment_sha256": "a3b00cdbfa9b84e8faeb37442ecf54641a5c5b6e1724b5c7c0e0c037bbe0e809",
+      "cta_url": null
+    },
+    {
+      "slug": "banka-hesap-bilgileri",
+      "kind": "fetched",
+      "source_url": "https://mavibelge.com.tr/banka-hesap-bilgileri/",
+      "fetched_on": "2026-09-26",
+      "page_sha256": "6adf2b15a24bbd229f3b84677bb19beef9a48a1d6fa81bffb7cedd7bbaa9a5ba",
+      "fragment_file": "wordpress-site/data/sources/approved/banka-hesap-bilgileri.html",
+      "fragment_sha256": "a96dc1066e6a534040edef248572fe83cb453a2993ab899ae1b2c250ca08b374",
+      "cta_url": null
+    },
+    {
+      "slug": "sinav-takvimi",
+      "kind": "local_authored",
+      "source_url": "https://mavibelge.pratikteorik.com/home/examcalendar",
+      "fetched_on": "2026-09-26",
+      "page_sha256": null,
+      "fragment_file": "wordpress-site/data/sources/approved/sinav-takvimi.html",
+      "fragment_sha256": "bb5f0bcb1e12309ae5e24f9969412f09b440ce72e712120c46df9749a3bfe95b",
+      "cta_url": "https://mavibelge.pratikteorik.com/home/examcalendar"
+    },
+    {
+      "slug": "sonuc-belge-sorgulama",
+      "kind": "local_authored",
+      "source_url": "https://portal.myk.gov.tr/index.php?option=com_belgelendirme&view=belgelendirme_islemleri&layout=aday_bilgi_sorgu",
+      "fetched_on": "2026-09-26",
+      "page_sha256": null,
+      "fragment_file": "wordpress-site/data/sources/approved/sonuc-belge-sorgulama.html",
+      "fragment_sha256": "70f7f6a57e78245838f95022419eeb7509b57cd689b01418e9cea550556a1a7c",
+      "cta_url": "https://portal.myk.gov.tr/index.php?option=com_belgelendirme&view=belgelendirme_islemleri&layout=aday_bilgi_sorgu"
+    }
+  ]
+}

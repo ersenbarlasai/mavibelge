@@ -8,8 +8,14 @@
  *
  * Bu SINIF KENDİ KARAR MANTIĞINI YAZMAZ — yalnız
  * `MaviBelge_Core_Import_Dry_Run_Service` (WP-CLI komutuyla PAYLAŞILAN AYNI
- * servis) çağrılır. Bu dosya hiçbir option/transient/post/meta/log dosyası
- * YAZMAZ.
+ * servis; Faz 6B4'ten beri `MaviBelge_Core_Import_Runtime_Factory` üzerinden)
+ * çağrılır. Bu dosyanın KENDİ dry-run formu hiçbir option/transient/post/meta/log
+ * dosyası YAZMAZ.
+ *
+ * Faz 6B4: sayfanın altına `MaviBelge_Core_Import_Apply_Page::render_sections()` ile
+ * sektör görsel eşleme, aşama önizleme/apply ve rollback bölümleri eklenir. Bunlar
+ * ayrı, nonce'lı `wp_ajax_*` action'larıyla çalışır (bu dosyadaki dry-run formundan
+ * yazma yapılmaz; bkz. admin/class-import-apply-page.php).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -100,9 +106,9 @@ class MaviBelge_Core_Import_Dry_Run_Page {
 		$paged  = null === self::$validatedPaged ? 1 : self::$validatedPaged;
 
 		if ( null !== self::$validatedPaged ) {
-			$repository = new MaviBelge_Core_Import_WordPress_Target_Repository();
-			$service    = new MaviBelge_Core_Import_Dry_Run_Service( $repository );
-			$result     = $service->run_dry_run();
+			// Faz 6B4 — CLI ile AYNI runtime factory (aynı bağımlılık grafiği, aynı plan digest'i; doğrulanmış görsel map dahil).
+			$service = ( new MaviBelge_Core_Import_Runtime_Factory() )->dry_run_service();
+			$result  = $service->run_dry_run();
 			$ranNow     = true;
 		}
 
@@ -118,6 +124,9 @@ class MaviBelge_Core_Import_Dry_Run_Page {
 		if ( $ranNow && is_array( $result ) ) {
 			self::render_result( $result, $paged );
 		}
+
+		// Faz 6B4 — sektör görsel eşleme, aşama önizleme/apply ve rollback bölümleri (kendi nonce'lı AJAX action'larıyla).
+		MaviBelge_Core_Import_Apply_Page::render_sections();
 
 		echo '</div>';
 	}

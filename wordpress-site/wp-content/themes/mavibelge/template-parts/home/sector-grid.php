@@ -41,7 +41,10 @@ if ( taxonomy_exists( 'mb_sektor' ) ) {
 					?>
 					<a class="sector-card" href="<?php echo esc_url( $term_link ); ?>">
 						<div class="sector-icon" aria-hidden="true">
-							<svg class="icon-22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>
+							<?php
+							$icon_key = get_term_meta( $term->term_id, '_mb_icon_key', true );
+							echo mavibelge_icon_svg( 'sector', is_string( $icon_key ) ? $icon_key : '', 'icon-22' ); // phpcs:ignore WordPress.Security.EscapeOutput -- sabit, kayıtlı SVG
+							?>
 						</div>
 						<div>
 							<strong><?php echo esc_html( $term->name ); ?></strong>

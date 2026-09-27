@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				null,
 				array(
 					'label' => __( 'Online Başvuru', 'mavibelge' ),
-					'url'   => home_url( '/online-basvuru/' ),
+					'url'   => mavibelge_url( 'online-basvuru' ),
 				)
 			);
 			get_template_part(
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				null,
 				array(
 					'label'   => __( 'Sınav Talebi Oluştur', 'mavibelge' ),
-					'url'     => home_url( '/sinav-talepleri/' ),
+					'url'     => mavibelge_url( 'sinav-talepleri' ),
 					'variant' => 'ghost',
 				)
 			);

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 $docs     = mavibelge_get_documents( mavibelge_content_request_args() );
-$base_url = post_type_exists( 'mb_dokuman' ) ? (string) get_post_type_archive_link( 'mb_dokuman' ) : home_url( '/dokumanlar/' );
+$base_url = post_type_exists( 'mb_dokuman' ) ? (string) get_post_type_archive_link( 'mb_dokuman' ) : mavibelge_url( 'dokumanlar' );
 $category = isset( $docs['args']['category'] ) ? $docs['args']['category'] : '';
 $options  = array();
 foreach ( $docs['categories'] as $term ) {
@@ -29,7 +29,7 @@ $links = mavibelge_content_filter_links( $base_url, 'mb_cat', $category, $option
 		null,
 		array(
 			'items' => array(
-				array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => home_url( '/bilgi-merkezi/' ) ),
+				array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => mavibelge_url( 'bilgi-merkezi' ) ),
 				array( 'label' => __( 'Dokümanlar', 'mavibelge' ) ),
 			),
 		)

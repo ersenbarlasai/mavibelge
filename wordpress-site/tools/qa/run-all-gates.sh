@@ -24,16 +24,24 @@ gate "kaynak sayıları 14/83/103/145/87/16/58/84/19" node tools/verify-source-c
 gate "Faz 6A extract güvenlik testleri" node tools/import/test-extract-safety.js
 gate "manifest negatif/regresyon testleri" node tools/import/test-manifest-validation.js
 gate "manifest doğrulama + finalizasyon" node tools/import/verify-manifest.js
-gate "içerik manifesti doğrulama (6 haber / 12 referans)" node tools/import/verify-content-manifest.js
+gate "içerik manifesti doğrulama (6 haber / 15 referans / 6 SSS)" node tools/import/verify-content-manifest.js
 gate "içerik manifesti testleri" node tools/import/test-content-manifest.js
+gate "Ücret onay matrisi testleri (103 kayıt, 84/19, 96/7, fail-closed)" node tools/fees/test-approval-matrix.js
+gate "Ücret onay matrisi çıktıları == üretici (byte-eşit)" node tools/fees/build-approval-matrix.js --check
+gate "Ücret PDF metin katmanı tutar çapraz kontrolü (Yeni Meslekler 4 sayfa; pdftotext ZORUNLU, yoksa FAIL)" node tools/fees/verify-pdf-text-layer.js
+gate "pdftotext bağımlılık davranışı (eksikse çıkış 3 + kapı FAIL)" node tools/fees/test-verify-pdf-text-layer.js
 gate "Faz 6B2/6B3/7/8 statik sözleşme" node tools/test-faz6b2-static-contract.js
+gate "Faz 6B4 admin aktarım statik sözleşme (action/kapı/factory/JS)" node tools/test-admin-import-static-contract.js
+gate "Faz 12 sayfa manifesti testleri (32 sayfa, kapalı HTML, envanter çapraz kontrol)" node tools/import/test-page-manifest.js
+gate "Faz 12 sayfa manifesti doğrulama + yeniden üretim byte-eşitliği" node tools/import/verify-page-manifest.js
+gate "Faz 12 pages aşaması + yayınlama statik sözleşme (PHP↔Node sözlük eşitliği)" node tools/test-faz12-static-contract.js
 gate "tema ücret metni testi" node tools/test-theme-fee-text.js
 for t in wp-content/themes/mavibelge/tests/static/*.test.js wp-content/themes/mavibelge/tests/js/*.test.js; do gate "tema testi $(basename "$t")" node "$t"; done
 gate "tema dist == src (byte-eşit)" node tools/build/build-theme-assets.js --check
 gate "SEO sayfa varsayılanları == kaynak" node tools/seo/build-page-defaults.js --check
 gate "yönlendirme manifesti == kaynak" node tools/redirects/build-redirect-manifest.js --check
 gate "renk kontrastı (token çiftleri)" node tools/qa/contrast-check.js
-for f in $(find wp-content/themes/mavibelge/assets/src/js tools -name '*.js' -not -path '*/node_modules/*'); do node --check "$f" || echo "node --check BAŞARISIZ: $f" >> "$OUT/nodecheck.err"; done
+for f in $(find wp-content/themes/mavibelge/assets/src/js wp-content/plugins/mavibelge-core/admin/assets tools -name '*.js' -not -path '*/node_modules/*'); do node --check "$f" || echo "node --check BAŞARISIZ: $f" >> "$OUT/nodecheck.err"; done
 gate "node --check (tüm JS)" bash -c "test ! -s '$OUT/nodecheck.err'"
 echo "== Depo taramaları"
 gate "gizli bilgi taraması (özel anahtar/AKIA/ghp_/gerçek anahtar tanımı)" bash -c "! grep -rIlE -e '-----BEGIN [A-Z ]*PRIVATE KEY-----' -e '\\bAKIA[0-9A-Z]{16}\\b' -e '\\bghp_[A-Za-z0-9]{30,}\\b' -e \"define\\( *'(AUTH|SECURE_AUTH|LOGGED_IN|NONCE)_KEY', *'[^']{16,}\" '$WS' --exclude-dir=node_modules --exclude-dir=dist-packages --exclude='*.zip' --exclude='*.png' | grep -v hardening"
@@ -51,7 +59,11 @@ if [ "$RUNTIME" = "1" ]; then
 	gate "eklenti birim testleri (koşu 1)" docker exec "$WP" sh -c "cd /var/www/html/wp-content/plugins/mavibelge-core && php tests/run.php > /tmp/r1.txt 2>&1; grep -E 'assertions passed' /tmp/r1.txt; ! grep -q '^FAIL' /tmp/r1.txt"
 	gate "eklenti birim testleri (koşu 2) + byte-eşitlik" docker exec "$WP" sh -c "cd /var/www/html/wp-content/plugins/mavibelge-core && php tests/run.php > /tmp/r2.txt 2>&1; cmp /tmp/r1.txt /tmp/r2.txt && echo 'iki koşu BYTE-EŞİT: '\$(grep -E 'assertions passed' /tmp/r2.txt)"
 	gate "apply/rollback/reapply + audit hata enjeksiyonu + içerik aşaması runtime döngüsü" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/apply-cycle.sh" "$OUT/apply-cycle"
+	gate "Faz 6B4 admin görsel-map + çok istekli apply/rollback + hata enjeksiyonu + AYRI süreç devamı (gerçek WordPress)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/admin-import.sh" "$OUT/admin-import"
+	gate "Faz 6B4 admin HTTP kapıları (yetki/nonce/GET/sabitler/ortam/üretim host/çift tıklama/rollback)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/admin-import-http.sh" "$OUT/admin-import-http"
 	gate "Faz 7/8/9 HTTP render + form + SEO + yönlendirme + (Faz 10) testleri" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/content-http.sh" "$OUT/content-http"
+	gate "Faz 12 gerçek içe aktarılmış sayfalar: 41/41 rota (güzel /slug/ bağlantı) + yayın kapsamı + form kapalılığı + robots.txt/wp-sitemap.xml (üretim/staging)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/pages-render.sh" "$OUT/pages-render"
+	gate "Faz 12e yeterlilik liste/detay: gerçek katalog (83/14/103), /index.php/ yapısı, filtre/sayfalama/ücret/sektör görseli" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qualification-render.sh" "$OUT/qualification-render"
 	gate "Faz 11 render QA (41 sayfa + boş durum + eklenti pasif)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qa-render.sh" "$OUT/qa-render"
 fi
 echo

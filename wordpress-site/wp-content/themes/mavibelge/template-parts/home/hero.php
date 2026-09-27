@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					null,
 					array(
 						'label' => __( 'Online Başvuru', 'mavibelge' ),
-						'url'   => home_url( '/online-basvuru/' ),
+						'url'   => mavibelge_url( 'online-basvuru' ),
 					)
 				);
 				get_template_part(

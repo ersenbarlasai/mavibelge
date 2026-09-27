@@ -55,7 +55,7 @@ get_header();
 				null,
 				array(
 					'label'   => __( 'İletişime Geç', 'mavibelge' ),
-					'url'     => home_url( '/iletisim/' ),
+					'url'     => mavibelge_url( 'iletisim' ),
 					'variant' => 'secondary',
 				)
 			);

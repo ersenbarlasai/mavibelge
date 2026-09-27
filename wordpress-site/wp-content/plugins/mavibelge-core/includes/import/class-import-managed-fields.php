@@ -84,16 +84,31 @@ class MaviBelge_Core_Import_Managed_Fields {
 	const NEWS_FIELDS = array( 'slug', 'title', 'content', 'excerpt', 'published_on', 'news_type_term_id', 'approval_status' );
 
 	/**
-	 * Faz 7 içerik aktarımı — mb_referans (post) için yönetilen alanlar.
-	 * `reference_status`/`record_status`/`website_url`/`logo_attachment_id`
-	 * SABİTTİR (representative/active/''/0): kaynaktaki referanslar TEMSİLİdir,
-	 * gerçek müşteri değildir; SVG izinli logo MIME'ı olmadığından ek eşlemesi
-	 * yoktur. `sort_order` = source_index + 1.
+	 * Faz 12b — mb_referans (post) için yönetilen alanlar. reference_status SABİT "real" (canlı referans sayfasından alınmış gerçek
+	 * logolar), record_status "active", website_url '' (bağlantı bilinmiyor; uydurulmaz). `logo_sha256` = logo dosyasının SHA-256'sı:
+	 * incoming değer manifestteki özet; MEVCUT değer bağlı attachment'ın GERÇEK dosya özetidir (attachment yoksa/geçersizse '').
+	 * Böylece "geçerli ve erişilebilir logo" hash karşılaştırmasının kendisidir; attachment kimliği ortama özgüdür ve hash'e girmez.
+	 * `sort_order` = source_index + 1. Firma adı yönetilen alan DEĞİL nötr etiket ("Referans NN") olarak title'a yazılır (tahmin yok).
 	 */
-	const REFERENCE_FIELDS = array( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_attachment_id' );
+	const REFERENCE_FIELDS = array( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_sha256' );
+
+	/**
+	 * Faz 12b — mb_sss (post) için yönetilen alanlar. slug = post_name (DOĞAL ANAHTAR), title = soru (post_title), content = cevap
+	 * (post_content, düz metin), sort_order = source_index + 1, record_status SABİT "active". Post durumu bu listede YOK: import her
+	 * zaman draft yazar ve update post_status'u DEĞİŞTİRMEZ (yayın editör işlemidir).
+	 */
+	const FAQ_FIELDS = array( 'slug', 'title', 'content', 'sort_order', 'record_status' );
+
+	/**
+	 * Faz 12 — WordPress çekirdek `page` türü (yeni post type YOK). `slug` = post_name (DOĞAL ANAHTAR), `title`, `content` (post_content, KAPALI
+	 * izin listeli kanonik HTML), `excerpt` (post_excerpt), `parent_id` (bu sürümde SABİT 0 — düz URL yapısı), `menu_order` (= sıra + 1).
+	 * Post durumu bu listede YOK: import her zaman `draft` yazar, `update` post_status'u DEĞİŞTİRMEZ; yayınlama ayrı, onaylı işlemdir
+	 * (MaviBelge_Core_Import_Page_Publisher). `page_template` yönetilmez (tema slug/layout ile seçer).
+	 */
+	const PAGE_FIELDS = array( 'slug', 'title', 'content', 'excerpt', 'parent_id', 'menu_order' );
 
 	/** Bilinen import türleri (sıra: apply sırası). */
-	const TYPES = array( 'sector', 'qualification', 'fee', 'news', 'reference' );
+	const TYPES = array( 'sector', 'qualification', 'fee', 'news', 'reference', 'faq', 'page' );
 
 	/** Tür => yönetilen alan allowlist'i (TEK kaynak; tanınmayan tür için null). */
 	public static function fields_for( $type ) {
@@ -108,6 +123,10 @@ class MaviBelge_Core_Import_Managed_Fields {
 				return self::NEWS_FIELDS;
 			case 'reference':
 				return self::REFERENCE_FIELDS;
+			case 'faq':
+				return self::FAQ_FIELDS;
+			case 'page':
+				return self::PAGE_FIELDS;
 			default:
 				return null;
 		}
@@ -134,7 +153,26 @@ class MaviBelge_Core_Import_Managed_Fields {
 	}
 
 	/**
-	 * @param array $referenceRecord Faz 7 references.manifest.json kaydı — ÇAĞRIDAN ÖNCE
+	 * @param array $pageRecord Faz 12 pages.manifest.json kaydı — ÇAĞRIDAN ÖNCE
+	 *   `MaviBelge_Core_Import_Record_Validator::validate_page()` ile doğrulanmış olmalı (parent_source_key null, içerik güvenli).
+	 * @param array $resolvedDependencies Bağımlılık yok (parametre imza tutarlılığı için).
+	 * @return array{fields: array}
+	 */
+	public static function project_page( array $pageRecord, array $resolvedDependencies = array() ) {
+		return array(
+			'fields' => array(
+				'slug'       => $pageRecord['slug'],
+				'title'      => $pageRecord['title'],
+				'content'    => $pageRecord['content'],
+				'excerpt'    => $pageRecord['excerpt'],
+				'parent_id'  => 0,
+				'menu_order' => $pageRecord['menu_order'],
+			),
+		);
+	}
+
+	/**
+	 * @param array $referenceRecord references.manifest.json kaydı — ÇAĞRIDAN ÖNCE
 	 *   `MaviBelge_Core_Import_Record_Validator::validate_reference()` ile doğrulanmış olmalı.
 	 * @param array $resolvedDependencies Bağımlılık yok (parametre imza tutarlılığı için).
 	 * @return array{fields: array}
@@ -142,13 +180,31 @@ class MaviBelge_Core_Import_Managed_Fields {
 	public static function project_reference( array $referenceRecord, array $resolvedDependencies = array() ) {
 		return array(
 			'fields' => array(
-				'slug'               => $referenceRecord['slug'],
-				'title'              => $referenceRecord['name'],
-				'reference_status'   => 'representative',
-				'record_status'      => 'active',
-				'sort_order'         => $referenceRecord['source_index'] + 1,
-				'website_url'        => '',
-				'logo_attachment_id' => 0,
+				'slug'             => $referenceRecord['slug'],
+				'title'            => $referenceRecord['name'],
+				'reference_status' => 'real',
+				'record_status'    => 'active',
+				'sort_order'       => $referenceRecord['source_index'] + 1,
+				'website_url'      => '',
+				'logo_sha256'      => $referenceRecord['logo_sha256'],
+			),
+		);
+	}
+
+	/**
+	 * @param array $faqRecord faqs.manifest.json kaydı — ÇAĞRIDAN ÖNCE
+	 *   `MaviBelge_Core_Import_Record_Validator::validate_faq()` ile doğrulanmış olmalı.
+	 * @param array $resolvedDependencies Bağımlılık yok (parametre imza tutarlılığı için).
+	 * @return array{fields: array}
+	 */
+	public static function project_faq( array $faqRecord, array $resolvedDependencies = array() ) {
+		return array(
+			'fields' => array(
+				'slug'          => $faqRecord['slug'],
+				'title'         => $faqRecord['question'],
+				'content'       => $faqRecord['answer'],
+				'sort_order'    => $faqRecord['source_index'] + 1,
+				'record_status' => 'active',
 			),
 		);
 	}
