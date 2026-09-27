@@ -70,3 +70,13 @@ Beş form sayfası, kurum kararları girilip kapı açılınca gerçek forma dö
 
 ## Faz 12 notu — bu harita artık import manifestinin çapraz kontrol kaynağıdır
 32 `page` kaydı (3 hub + 21 içerik + 5 form + 3 CPT-verili) `data/content/pages.manifest.json` ile içe aktarılır (taslak). Bu haritadaki slug/şablon/düzen bilgisi `tools/import/verify-page-manifest.js` tarafından envanterle karşılaştırılır; uyumsuzluk kapıyı düşürür. Harita değişmedi.
+
+## Faz 13 güncellemesi — referans sayfa aileleri (tema 0.6.8)
+Yukarıdaki tablo satırları (slug, başlık, layout) `tools/import/lib/page-inventory.js` tarafından okunur ve DEĞİŞMEDİ. Sunum artık tek merkezi kayıttan gelir:
+
+- Kayıt: `inc/page-layouts.php` → `mavibelge_page_presentation( $slug )` (sayfalar) ve `mavibelge_archive_presentation( $key )` (arşiv/taksonomi). Kahraman: `mavibelge_page_hero_args()` / `mavibelge_archive_hero_args()` (`inc/presentation-helpers.php`) — kırıntı Anasayfa'dan, eyebrow = menü grubu, lead = WordPress sayfa özeti (yoksa kayıt metni), H1 = WordPress başlığı.
+- Gövde: `template-parts/page/content-presentation.php` (tek ortak parça). Aileler: `prose` (myk, turkak), `list` (sinav-surecleri numaralı, mevzuat madde), `card` (banka-hesap-bilgileri h4→kart, sinav-takvimi, sonuc-belge-sorgulama), `cards` (yetki-akreditasyon 2 sütun + MYK/TÜRKAK logosu, belge-yenileme 3 sütun + "Süreç" listesi), `steps` (nasil-basvururum), `split` (itiraz-sikayet: içerik + form kartı; `content-form-disabled.php` / `content-form-live.php`).
+- Genişlik: wide 1280 / prose 820 (myk, turkak, mevzuat) / narrow 760 (banka, sinav-takvimi, sonuc-belge-sorgulama).
+- Arşivler: `archive-mb_haber.php`, `archive-mb_dokuman.php`, `taxonomy.php` ortak `page-hero` + `section.mb-archive` (servis sorgusu, süzgeç, sayfalama değişmedi; haber kartları `.news-grid`, dokümanlar `.doc-list`).
+- İçerikteki kök-göreli iç bağlantılar (`/slug/`) tüm sayfa gövdelerinde `mavibelge_rendered_content()` ile etkin kalıcı bağlantı yapısına çevrilir (saklanan içerik değişmez).
+- Kanıt: `tests/static/page-presentation-contract.test.js`, `tools/runtime-test/page-parity-test.js` (`pages-render.sh`; güzel + `/index.php/` yapısı, headless Chrome 390/1024/1279/1280/1440). Rapor: `raporlar/sayfa-gorsel-uyum-raporu.md`.

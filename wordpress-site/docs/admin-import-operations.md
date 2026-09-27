@@ -1,4 +1,4 @@
-# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.3, tema 0.6.7)
+# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.3, tema 0.6.8)
 
 > **Bu belge staging (ve ancak ayrıca onaylanırsa üretim) için bir kontrol listesidir; kendi başına apply yetkisi DEĞİLDİR.**
 > Bu depo sunucuya, FTP/SSH/DirectAdmin'e, DNS'e, SSL'e veya mail sistemine bağlanmaz. Aşağıdaki adımları sistem yöneticisi ve kurum
@@ -19,7 +19,7 @@
 | Koşul | Kontrol |
 |---|---|
 | Eklenti `mavibelge-core` **0.5.3** (`mavibelge-core-0.5.3.zip`, `sha256sum -c` ile doğrulanmış) | Eklentiler ekranında sürüm |
-| Tema `mavibelge` **0.6.7** (`mavibelge-theme-0.6.7.zip`; SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni) | Görünüm → Temalar |
+| Tema `mavibelge` **0.6.8** (`mavibelge-theme-0.6.8.zip`; SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni + 14 rota referans sayfa aileleri) | Görünüm → Temalar |
 | **`data/` dizini bir bütün olarak** sunucuya konmuş (`data/content/*.manifest.json` + `data/sources/reference-logos/ref-NN.png`; `MAVIBELGE_IMPORT_MANIFEST_DIR` = `.../data/content`). Logo dosyaları yoksa `content` aşaması yüklemede reddedilir | Sistem kapıları / dry-run |
 | Yönetici hesabı: `manage_options` **ve** `mb_manage_tariff_period` | Kullanıcılar → yetki |
 | Yönetim paneline **HTTPS** ile erişim (kapı WordPress `is_ssl()` sonucunu kullanır; TLS'i bir vekil/CDN sonlandırıyorsa `wp-config.php`'de standart `$_SERVER['HTTPS'] = 'on'` ayarı gerekir, aksi hâlde kapı `not_https` ile kapalı kalır) | Adres çubuğu; Sistem kapıları bölümü |

@@ -83,8 +83,41 @@ her zaman `mavibelge_url()`.
 ## 5. RED kanıtı (uygulamadan önce)
 
 `node wp-content/themes/mavibelge/tests/static/page-presentation-contract.test.js` → **9/77** (68 FAIL), uygulamadan önce.
-Gerçek WordPress/Chrome RED kanıtı §7'de.
+Gerçek WordPress/Chrome RED kanıtı §6'da.
 
 ## 6. Uygulama sonuçları
 
-(Uygulama, test ve tarayıcı sonuçları bu bölüme M2–M5 sonunda eklenir.)
+**Dosyalar (tema):** `inc/page-layouts.php` (kayıtlar), `inc/presentation-helpers.php` (yeni), `inc/bootstrap.php`,
+`page.php`, `template-parts/page/content-presentation.php` (yeni), `content-form-disabled.php`, `content-form-live.php`,
+`content-default.php`, `content-hub.php`, `content-contact.php`, `content-application.php` (iç bağlantı yerelleştirme),
+`archive-mb_haber.php`, `archive-mb_dokuman.php`, `taxonomy.php`, `template-parts/components/card.php` (`media_html`),
+`template-parts/content/news-card.php`, `content-card.php`, `assets/src/css/pages.css`, `responsive.css`, `assets/dist/style.css`
+(derleme aracıyla), `style.css` sürüm 0.6.8. Eklenti DEĞİŞMEDİ.
+
+**Testler:** `tests/static/page-presentation-contract.test.js` (80), güncellenen `heading-contract.test.js` ve
+`application-form-contract.test.js` (H1 artık ortak kahramanda — bilinçli sözleşme değişikliği),
+`tools/runtime-test/page-parity-test.js` + `scripts/page-parity-fixtures.php` (`pages-render.sh` içinde; `up/down` kipi eklendi),
+`contact-page-test.js` (beş formda form tek kez çizilir + complaint iki sütun kontrolü; 212/212).
+
+| Kanıt | Önce (eski kod) | Sonra |
+|---|---|---|
+| Statik sözleşme | 9/77 | 80/80 |
+| Parite HTTP, güzel yapı | 90/175 | 213/213 |
+| Parite HTTP, `/index.php/` | 88/175 | 213/213 |
+| Parite tarayıcı (5 genişlik × 14 rota) | 197/293 | 293/293 |
+| `run-all-gates.sh --runtime` | — | 56/56 |
+
+**Bağımsız inceleme bulguları ve sonuç:**
+- Opus kod incelemesi — orta: (M1) iç bağlantı yerelleştirmesi yalnız 3 gövdedeydi → tüm sayfa gövdeleri `mavibelge_rendered_content()`;
+  (M2) metinsiz intro/rest (görsel/iframe) atılıyordu → ham HTML kontrolü; (M3) iç içe başlıkta etiket dengesi bozulabilirdi →
+  sarmalayıcı derinliği izlenir, iç içe başlıkta bölümleme yapılmaz. Düşük: başlık `id` korunur, daha derin alt başlık bölümde kalır,
+  `data-href`/`wp-admin`/`feed` yerelleştirilmez, boş içerikte split tek sütun, kart düğme stili yalnız dar gövdede, `]]>` kaçışı.
+  Hepsi PHP vaka testleriyle (`helper-cases`) doğrulandı. `ol[start]` sayacı desteklenmez (belgelendi).
+- Opus form/güvenlik incelemesi — yüksek/orta yok; düşük: form çoğalmasını yakalayan test yoktu → eklendi.
+- Sonnet bağımsız tarayıcı QA (kendi betiği, 20 rota × 5 genişlik): 14 rotada WP hatası yok; haber kartlarında öne çıkan görsel
+  gösterilmiyordu → düzeltildi ve test edildi. Kapsam dışı notlar: `/sinav-ucretleri/` h1→h3, `/sss/`-`/sinav-ucretleri/` kahramanında
+  eyebrow/kırıntı yok (dokunulmadı).
+
+**Bilinçli farklar (statik ↔ WordPress):** haber süzgeci JS'siz bağlantı (statikte arama+seçim, istemci tarafı); statik kart/liste
+`div`'leri yerine anlamsal `ol`; statik h1→h3 atlamaları WordPress'te h2 ile düzeltildi; kart görselleri yalnız WordPress öne çıkan
+görseli varsa; doküman/haber sayısı gerçek kayıtlara bağlı.
