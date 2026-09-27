@@ -164,6 +164,29 @@ Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topl
 | Task 4 sonucu | PASS — yeni WordPress canlı alana aktarıldı; HTTP koruması altında, henüz kamuya açılmadı |
 | Kamuya açma | YASAK — Task 5 P0 kabulü tamamlanana kadar bakım modu korunur |
 
+## 6.4. Task 5 kapalı P0 kabulü
+
+| Kontrol | Durum |
+|---|---|
+| Yedi içerik rotası | PASS — kullanıcı normal renderı, fatal/PHP uyarısı/beyaz ekran olmadığını doğruladı |
+| Özel 404 | PASS |
+| Header/footer/logo/görseller | PASS |
+| Masaüstü ve hamburger menü | PASS |
+| Yeterlilik ve sektör filtreleri | PASS |
+| Örnek yeterlilik detayı | PASS — `11UY0036-2/01`, Seviye 2, Tekstil |
+| Örnek ücret ve ücret filtresi | PASS — `6.500,00 TL` |
+| Temiz canonical yollar | PASS — `/index.php/` yok |
+| Post SMTP sunucu kabulü | PASS |
+| Post SMTP gerçek gelen kutusu teslimi | PASS — kullanıcı yetkili alıcı kutusunda doğruladı |
+| İletişim formu | PASS — başarı yanıtı; tam bir e-posta ulaştı |
+| Online başvuru formu | PASS — başarı yanıtı; tam bir e-posta ve onaylı test eki ulaştı |
+| Sınav talebi formu | PASS — başarı yanıtı; tam bir e-posta ulaştı |
+| İtiraz/şikâyet formu | PASS — başarı yanıtı; tam bir e-posta ulaştı |
+| İş başvurusu formu | PASS — başarı yanıtı; tam bir e-posta ve onaylı test eki ulaştı |
+| Form gizlilik ve tekrar kontrolü | PASS — başarı URL'lerinde kişisel veri yok; mükerrer e-posta yok |
+| Post SMTP günlük politikası | PASS — kullanıcı ayrıntılı e-posta günlüğünü kapattı; geçiş test kayıtlarını desteklenen arayüzden temizledi ve günlüklemeyi yeniden kapattı |
+| Task 5 sonucu | PASS — tüm kapalı P0 kabul satırları geçti; site HTTP parola koruması altında, henüz kamuya açık değil |
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
