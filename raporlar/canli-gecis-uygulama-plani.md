@@ -31,7 +31,7 @@
 
 ---
 
-### Görev 1: Bakım penceresi ön uçuş kaydı
+### Task 1: Bakım penceresi ön uçuş kaydı
 
 **Dosyalar:**
 - Oluştur: `raporlar/canli-gecis-kayit-sablonu.md` (yalnız yerel operasyon kaydı; gizli bilgi yok)
@@ -66,7 +66,7 @@
 
   Yalnız gizli bilgi içermeyen şablon/sonuç değiştiyse dosyayı tek başına stage et ve `docs: record production cutover preflight` mesajıyla commit et. Yedek, ekran görüntüsü veya kimlik bilgisi commit etme.
 
-### Görev 2: Staging'de özel aktarım paketini üretme
+### Task 2: Staging'de özel aktarım paketini üretme
 
 **Arayüzler:**
 - Tüketir: Görev 1'in başarılı ön uçuş kaydı.
@@ -96,7 +96,7 @@
 
   Beklenen: export hatasız, dosya boyutu sıfırdan büyük, hash oluşmuş ve canlı import kapasitesi paketten büyük. Aksi durumda canlıya geçme.
 
-### Görev 3: Canlıyı import için hazırlama
+### Task 3: Canlıyı import için hazırlama
 
 **Arayüzler:**
 - Tüketir: Görev 2'nin doğrulanmış özel paketi.
@@ -130,7 +130,7 @@
 
   Beklenen: bakım ekranı açık, yönetim erişilebilir, son yedek doğrulanmış, WordPress `6.9.9`, migration sürümü eşit. Herhangi biri başarısızsa import yapma.
 
-### Görev 4: `.wpress` paketini canlıya aktarma
+### Task 4: `.wpress` paketini canlıya aktarma
 
 **Arayüzler:**
 - Tüketir: Görev 3'ün son geri dönüş noktası ve Görev 2'nin hash'i doğrulanmış paketi.
@@ -168,7 +168,7 @@
 
   Tema `Mavi Belge 0.6.8`; eklentiler en az `Mavi Belge Core 0.5.3` ve `Post SMTP 4.0.2` olmalı. Eski canlıya ait 19 eklentiyi yeniden etkinleştirme. Geçiş eklentisini kabul bitene kadar tut.
 
-### Görev 5: Kapalı bakım penceresinde P0 kabulü
+### Task 5: Kapalı bakım penceresinde P0 kabulü
 
 **Arayüzler:**
 - Tüketir: Görev 4'teki canlıya aktarılmış, bakım modundaki site.
@@ -202,7 +202,7 @@
 
   Tüm P0 satırları PASS değilse kamuya açma; Görev 7 geri dönüş kararını uygula. PASS ise kullanıcıya test tablosunu bildir ve Görev 6 için ayrı onay iste.
 
-### Görev 6: Kamuya açma ve ilk gözlem
+### Task 6: Kamuya açma ve ilk gözlem
 
 **Arayüzler:**
 - Tüketir: Görev 5 P0 PASS sonucu.
@@ -236,7 +236,7 @@
 
   İlk 24 saat düzenli; sonraki 14 gün günlük kritik rota, form/SMTP, medya, katalog, sitemap ve 404/5xx kontrolü yap. Eski dosya/DB ve geçici paketi bu sürede silme.
 
-### Görev 7: Başarısızlık halinde geri dönüş
+### Task 7: Başarısızlık halinde geri dönüş
 
 **Arayüzler:**
 - Tüketir: Görev 3'teki import öncesi son canlı yedeği ve hata kaydı.
@@ -262,7 +262,7 @@
 
   Başarısız `.wpress` paketini web kökünde bırakma. Hata özetini kişisel veri ve gizli bilgi olmadan kaydet; yeni bir import girişimi için ayrı kök neden analizi ve kullanıcı onayı iste.
 
-### Görev 8: Yayın kaydı, GitHub ve geçici araç temizliği
+### Task 8: Yayın kaydı, GitHub ve geçici araç temizliği
 
 **Arayüzler:**
 - Tüketir: Görev 6 P0/P1 sonuçları ve gözlem kaydı.
@@ -288,7 +288,7 @@
 
   Canlı kabul tamamlanınca All-in-One WP Migration'ı devre dışı bırak/kaldır ve sunucudaki geçici `.wpress` kopyasını yalnız indirilmiş özel kopya+hash doğrulandıktan sonra sil. Bu adım eski site yedeğini silmez.
 
-### Görev 9: 14 gün sonra eski siteyi hizmetten çıkarma
+### Task 9: 14 gün sonra eski siteyi hizmetten çıkarma
 
 **Arayüzler:**
 - Tüketir: 14 günlük PASS gözlem kaydı, iki eski-site yedeği ve yeni canlı sitenin doğrulanmış tam yedeği.
