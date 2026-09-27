@@ -7,7 +7,7 @@
 | Alan | Değer |
 |---|---|
 | Hazırlık başlangıcı | 27 Eylül 2026, 22:28 TRT |
-| Canlı kesinti başlangıcı | BEKLİYOR — import onayı sonrasında |
+| Canlı kesinti başlangıcı | 27 Eylül 2026 — SeedProd bakım modu etkinleştirildi |
 | Uygulayıcı | Site sahibi (DirectAdmin/WordPress) + Codex yönlendirmesi |
 | Geri dönüş sorumlusu | Site sahibi |
 | Azami kesinti süresi | 120 dakika — kullanıcı onayladı |
@@ -90,6 +90,55 @@
 | Onaylı geri yükleme yolu | File Manager → `wp-content/ai1wm-backups` → All-in-One WP Migration Backups → Restore |
 | Task 2 sonucu | PASS — canlı hazırlığı için ayrı onay kapısına geçilebilir |
 
+## 6.2. Task 3 canlı hazırlık başlangıcı
+
+| Kontrol | Durum |
+|---|---|
+| Canlı hazırlık ve son yedek onayı | PASS — kullanıcı 27 Eylül 2026 tarihinde açık onay verdi |
+| İçerik/ayar dondurma başlangıcı | 27 Eylül 2026, 23:00 TRT |
+| DNS ve mail ayarları | KAPSAM DIŞI — değiştirilmez |
+| Bakım modu | PASS — mevcut SeedProd bakım ekranı anonim ziyaretçide görüldü |
+| Yönetim erişimi | PASS — bakım modu açıkken kullanıcı `/wp-admin/` erişimini doğruladı |
+| Import öncesi son yedek | 27 Eylül 2026 tarihli 12,77 GB sunucu arşivi + 13.715.857.408 bayt yerel kopya |
+| Canlı WordPress çekirdeği | `6.8.10`; `6.9.9` eşitlemesi kullanıcı tarafından açıkça ONAYLANDI |
+| Çekirdek eşitleme sonucu | PASS — yönetim paneli erişilebilir ve WordPress `6.9.9` gösteriyor |
+| Kullanılan resmî çekirdek paketi | `wordpress-6.9.9.zip` — WordPress.org genel dağıtımı |
+| Resmî paket SHA-1 | `99a0c1ba620bfba0b2188e10e5406f56eee901f2` |
+| Yerel SHA-1 doğrulaması | PASS — `certutil` sonucu resmî SHA-1 ile birebir eşit |
+| Paket içi sürüm doğrulaması | PASS — `wp-includes/version.php` içinde `$wp_version = '6.9.9'` |
+| Eski kök çekirdek dosyaları geri alma kopyası | PASS — canlı kökteki 16 standart çekirdek dosyası web kökü dışındaki özel klasöre kopyalandı; `wp-config.php` dahil edilmedi |
+| Dil/içerik koruması | Paket içindeki `wp-content` canlıya kopyalanmayacak; mevcut dil, yükleme, tema ve eklenti dosyaları bu çekirdek adımında korunacak |
+| Güncelleme sonrası anonim HTTP smoke | PASS — ana rota HTTP 200, bakım metni ve özel/no-cache yanıtı mevcut |
+| Güncelleme sonrası anonim yönetim koruması | PASS — `/wp-admin/` anonim isteği WordPress tarafından gizli bulunamadı rotasına yönlendiriliyor; oturumlu yönetici erişimi kullanıcı tarafından doğrulandı |
+| Güncelleme sonrası oturumlu ana sayfa smoke | PASS — kullanıcı ana sayfanın normal yüklendiğini ve fatal/beyaz ekran olmadığını doğruladı |
+| Task 3 sonucu | PASS — import öncesi geri dönüş noktası, bakım ekranı, yönetim erişimi, WordPress `6.9.9` ve eşit migration sürümü doğrulandı |
+
+### Canlı aktif eklenti envanteri (import öncesi)
+
+| Eklenti | Sürüm |
+|---|---:|
+| Advanced Excerpt | 4.4.0 |
+| Akismet Anti-Spam | 5.1 |
+| All-in-One WP Migration | 7.111 (kullanıcının güncel doğrulaması) |
+| Classic Editor | 1.6.3 |
+| SeedProd Coming Soon / Maintenance Mode | 6.15.7 |
+| Contact Form 7 | 5.7.7 |
+| Contact Form 7 Material Design | 1.0.0 |
+| Display Posts | 3.0.2 |
+| Green Popups | 7.33 |
+| iThemes Security | 8.1.6 |
+| Loginizer | 1.7.9 |
+| Logo Slider | 3.9.0 |
+| MetaSlider | 3.31.0 |
+| Super Logos Showcase | 2.5 |
+| UpdraftPlus | 1.26.4 |
+| WordPress Importer | 0.8.1 |
+| WPBakery Page Builder | 6.13.0 |
+| WPForms Lite | 1.8.2.1 |
+| WP Mail SMTP | 3.8.0 |
+
+Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topluca yeniden etkinleştirilmeyecek; staging paketi kendi onaylı eklenti durumunu getirecektir.
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
@@ -99,3 +148,5 @@
 - Hosting firmasının sağladığı disk çıktısı ana diskte yaklaşık 12 GB, yedek diskinde yaklaşık 108 GB boş alan gösteriyor. Ana disk %95 dolu olduğundan geçici paketlerin çoğaltılmaması ve mail alanına dokunulmaması zorunludur.
 - DirectAdmin listesinde 27 Eylül 2026 tarihli 12,77 GB tamamlanmış `.tar.gz` birinci yedek olarak görüldü. Aynı listedeki yaklaşık 210 KB `.tmp` dosyası ikinci yedek değildir ve işlem kapsamına alınmaz.
 - Aynı adla yerel bilgisayara indirilmiş ikinci kopya işletim sistemi özelliklerinde 13.715.857.408 bayt olarak görüldü. Kullanıcı konum bilgisini gizledi; bu değer rapora alınmadı.
+- 12,77 GB sunucu yedeği dondurma başlangıcından yaklaşık on dakika önce tamamlandı ve aynı arşivin yerel ikinci kopyası doğrulandı. Arada içerik/ayar değişikliği yapılmaması talimatıyla bu arşiv import öncesi son geri dönüş noktası kabul edildi.
+- SeedProd bakım ekranı anonim görünümde doğrulandı; yönetici oturumu erişilebilir kaldı. Bakım ekranında form veya veri toplama bulunmuyor.
