@@ -43,13 +43,19 @@ if ( 'content' === $mode ) {
 	}
 	$out['announcement'] = $mk( 'mb_haber', 'TEST Parite Duyuru', array( '_mb_approval_status' => 'approved' ), '2026-08-20 10:00:00' );
 	wp_set_object_terms( $out['announcement'], 'duyuru', 'mb_haber_turu' );
-	// Öne çıkan görsel: uploads'a DOSYA YAZILMAZ. Temada zaten bulunan görsele işaret eden yalnız-veritabanı eki (bu klonda);
-	// dosya uploads dışında olduğundan WordPress URL'yi guid'den verir.
-	$theme_img       = get_theme_file_path( 'assets/images/hero/hero-home.png' );
-	$out['image_id'] = (int) wp_insert_attachment( array( 'guid' => get_theme_file_uri( 'assets/images/hero/hero-home.png' ), 'post_mime_type' => 'image/png', 'post_title' => 'TEST Parite Görsel', 'post_status' => 'inherit' ), $theme_img );
+	// Öne çıkan görsel: fixture-env'in izole /tmp uploads dizinine yazılır.
+	// pages-render.sh bu dizini yalnız test süresince geçici Apache Alias ile sunar ve ardından temizler.
+	$theme_img   = get_theme_file_path( 'assets/images/hero/hero-home.png' );
+	$uploads     = wp_get_upload_dir();
+	$fixture_img = trailingslashit( $uploads['path'] ) . 'mbfx-page-parity-hero.png';
+	if ( ! is_readable( $theme_img ) || ! @copy( $theme_img, $fixture_img ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- test düzeneği.
+		fwrite( STDERR, "test görseli uploads'a kopyalanamadı.\n" );
+		exit( 1 );
+	}
+	$out['image_id'] = (int) wp_insert_attachment( array( 'guid' => trailingslashit( $uploads['url'] ) . wp_basename( $fixture_img ), 'post_mime_type' => 'image/png', 'post_title' => 'TEST Parite Görsel', 'post_status' => 'inherit' ), $fixture_img );
 	$size            = @getimagesize( $theme_img ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- test düzeneği.
 	if ( $out['image_id'] > 0 && is_array( $size ) ) {
-		wp_update_attachment_metadata( $out['image_id'], array( 'width' => (int) $size[0], 'height' => (int) $size[1], 'file' => $theme_img, 'sizes' => array() ) );
+		wp_update_attachment_metadata( $out['image_id'], array( 'width' => (int) $size[0], 'height' => (int) $size[1], 'file' => wp_basename( $fixture_img ), 'sizes' => array() ) );
 	}
 	if ( $out['image_id'] > 0 ) {
 		set_post_thumbnail( $out['news'][12], $out['image_id'] );

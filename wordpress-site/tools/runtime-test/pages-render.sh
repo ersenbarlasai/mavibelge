@@ -24,7 +24,7 @@ snapshot() {
 	docker exec -u www-data "$WP" sh -c 'find wp-content/uploads -printf "%p %s %T@\n" 2>/dev/null | sort || echo "uploads yok"' > "$d/uploads.txt"
 }
 cleanup() {
-	docker exec "$WP" sh -c 'rm -f /tmp/mbfx-http-on /tmp/mbfx-mail.count /tmp/mbfx-staging /var/www/html/wp-content/mu-plugins/mu-fixture-http.php /var/www/html/.htaccess; a2disconf mbfx-rewrite >/dev/null 2>&1; rm -f /etc/apache2/conf-available/mbfx-rewrite.conf; a2dismod rewrite >/dev/null 2>&1; apache2ctl graceful >/dev/null 2>&1' >/dev/null 2>&1
+	docker exec "$WP" sh -c 'rm -f /tmp/mbfx-http-on /tmp/mbfx-mail.count /tmp/mbfx-staging /tmp/mbfx-uploads/mbfx/mbfx-page-parity-hero.png /var/www/html/wp-content/mu-plugins/mu-fixture-http.php /var/www/html/.htaccess; a2disconf mbfx-rewrite >/dev/null 2>&1; rm -f /etc/apache2/conf-available/mbfx-rewrite.conf; a2dismod rewrite >/dev/null 2>&1; apache2ctl graceful >/dev/null 2>&1' >/dev/null 2>&1
 	wpx eval-file /opt/mb-runtime/fixture-db.php drop >/dev/null 2>&1
 }
 finish() {
@@ -42,8 +42,8 @@ docker exec -u www-data "$WP" sh -c 'rm -f /var/www/html/wp-content/debug.log'
 snapshot snapA
 wpx eval-file /opt/mb-runtime/fixture-db.php drop >/dev/null 2>&1
 wpx eval-file /opt/mb-runtime/fixture-db.php clone | tail -1
-# geçici mod_rewrite (yalnız bu koşu)
-docker exec "$WP" sh -c 'a2enmod rewrite >/dev/null 2>&1; printf "<Directory /var/www/html/>\n\tAllowOverride All\n</Directory>\n" > /etc/apache2/conf-available/mbfx-rewrite.conf; a2enconf mbfx-rewrite >/dev/null 2>&1; apache2ctl graceful >/dev/null 2>&1'
+# geçici mod_rewrite + yalnız fixture görseli için izole uploads Alias'ı (yalnız bu koşu)
+docker exec "$WP" sh -c 'a2enmod rewrite >/dev/null 2>&1; printf "Alias /wp-content/uploads/mbfx/ /tmp/mbfx-uploads/mbfx/\n<Directory /tmp/mbfx-uploads/mbfx/>\n\tRequire all granted\n</Directory>\n<Directory /var/www/html/>\n\tAllowOverride All\n</Directory>\n" > /etc/apache2/conf-available/mbfx-rewrite.conf; a2enconf mbfx-rewrite >/dev/null 2>&1; apache2ctl graceful >/dev/null 2>&1'
 docker exec -u www-data "$WP" sh -c 'printf "# BEGIN WordPress\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteRule .* - [E=HTTP_AUTHORIZATION:%%{HTTP:Authorization}]\nRewriteBase /\nRewriteRule ^index\\.php$ - [L]\nRewriteCond %%{REQUEST_FILENAME} !-f\nRewriteCond %%{REQUEST_FILENAME} !-d\nRewriteRule . /index.php [L]\n</IfModule>\n# END WordPress\n" > /var/www/html/.htaccess'
 docker exec -u www-data -e MB_QA_SKIP_PAGES=1 "$WP" wp --path=/var/www/html --require=/opt/mb-runtime/fixture-env.php --user=mbadmin eval-file /opt/mb-runtime/qa-fixtures.php > "$OUT/qa-fixtures.json" 2> "$OUT/qa-fixtures.err"
 echo "qa-fixtures (sayfasız) exit=$? :: hata=$(wc -l < "$OUT/qa-fixtures.err")"
@@ -81,3 +81,4 @@ docker exec -u www-data "$WP" sh -c 'cat /var/www/html/wp-content/debug.log 2>/d
 echo "debug.log: $(wc -l < "$OUT/debug.log") satır"
 [ "$(wc -l < "$OUT/debug.log")" = "0" ] || echo "FAIL  debug.log boş değil"
 [ "$(diff "$OUT/snapA/db.txt" "$OUT/snapZ/db.txt" | wc -l)" = "0" ] || echo "FAIL  ana DB değişti"
+[ "$(diff "$OUT/snapA/uploads.txt" "$OUT/snapZ/uploads.txt" | wc -l)" = "0" ] || echo "FAIL  ana uploads değişti"
