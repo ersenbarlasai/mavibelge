@@ -44,21 +44,171 @@ function mavibelge_page_layout_for_slug( $slug ) {
  * @return array{eyebrow?: string, description?: string, parents?: array<int, array{label: string, path: string}>}
  */
 function mavibelge_page_hero_for_slug( $slug ) {
-	$heroes = array(
-		'iletisim'       => array(
+	// Geriye uyumluluk (Faz 12f API'si): kahraman artık mavibelge_page_hero_args() ile çizilir; bu sarmalayıcı ikinci harita
+	// DEĞİLDİR, aynı merkezi kayda delege eder.
+	$presentation = mavibelge_page_presentation( $slug );
+	if ( empty( $presentation ) ) {
+		return array();
+	}
+	return array(
+		'eyebrow'     => isset( $presentation['eyebrow'] ) ? $presentation['eyebrow'] : '',
+		'description' => isset( $presentation['description'] ) ? $presentation['description'] : '',
+		'parents'     => isset( $presentation['parents'] ) ? $presentation['parents'] : array(),
+	);
+}
+
+/**
+ * Faz 13 — TEK merkezi sunum kaydı (statik referans tanitim-site/<slug>.html ile doğrulanmış). Yalnız SUNUM ve gezinme
+ * yapısı: içerik/veri YOK (başlık = WordPress başlığı, gövde = editör içeriği, lead = önce sayfa özeti).
+ *
+ * Alanlar:
+ * - family      'prose' | 'list' | 'card' | 'cards' | 'steps' | 'split' | 'custom' (gövde: template-parts/page/content-presentation.php;
+ *               'split' form sayfası gövdesi, 'custom' kendi gövdesi olan sayfa — iletisim/online-basvuru)
+ * - width       'wide' (1280) | 'prose' (820) | 'narrow' (760)
+ * - eyebrow     kahraman üst etiketi (menü grubu adı); parents: kırıntı üst sayfaları (etiket + mavibelge_url yolu)
+ * - description yedek lead (yalnız WordPress özeti boşsa)
+ * - heading     bölümlere ayırma başlığı (card/cards/steps); columns: kart ızgarası sütunu; list: 'numbered' | 'bullets'
+ * - cta         array( label, path ) gezinme düğmesi (statik referanstaki düğme metni; hedef mavibelge_url)
+ * - logo / card_logos  tema varlığı anahtarı ('myk' | 'turkak'); veri değil, marka görseli
+ *
+ * @param string $slug
+ * @return array boş dizi: kayıt yok (önceki davranış)
+ */
+function mavibelge_page_presentation( $slug ) {
+	$sib = array( array( 'label' => __( 'Sınav ve Başvuru', 'mavibelge' ), 'path' => 'sinav-ve-basvuru' ) );
+	$bm  = array( array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'path' => 'bilgi-merkezi' ) );
+	$kur = array( array( 'label' => __( 'Kurumsal', 'mavibelge' ), 'path' => 'kurumsal' ) );
+	$mvb = array( array( 'label' => __( 'Meslekler ve Belgeler', 'mavibelge' ), 'path' => 'yeterlilikler' ) );
+	$apply = array( 'label' => __( 'Online Başvuru Yap', 'mavibelge' ), 'path' => 'online-basvuru' );
+	$map   = array(
+		'iletisim'              => array(
+			'family'      => 'custom',
 			'eyebrow'     => __( 'İletişim', 'mavibelge' ),
 			'description' => __( 'Merkez ofisimiz, sınav alanlarımız ve iletişim bilgilerimiz.', 'mavibelge' ),
 			'parents'     => array(),
 		),
-		'online-basvuru' => array(
+		'online-basvuru'        => array(
+			'family'      => 'custom',
 			'eyebrow'     => __( 'Sınav ve Başvuru', 'mavibelge' ),
 			'description' => __( 'Mesleki yeterlilik sınavına başvurmak için aşağıdaki adımları tamamlayın.', 'mavibelge' ),
-			'parents'     => array(
-				array( 'label' => __( 'Sınav ve Başvuru', 'mavibelge' ), 'path' => 'sinav-ve-basvuru' ),
-			),
+			'parents'     => $sib,
+		),
+		'sinav-surecleri'       => array(
+			'family'  => 'list',
+			'width'   => 'wide',
+			'list'    => 'numbered',
+			'eyebrow' => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'parents' => $sib,
+			'cta'     => $apply,
+		),
+		'banka-hesap-bilgileri' => array(
+			'family'      => 'card',
+			'width'       => 'narrow',
+			'heading'     => 'h4',
+			'eyebrow'     => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'description' => __( 'Sınav ve belgelendirme ücreti ödemeleri için banka hesap bilgileri.', 'mavibelge' ),
+			'parents'     => $sib,
+		),
+		'yetki-akreditasyon'    => array(
+			'family'     => 'cards',
+			'width'      => 'wide',
+			'heading'    => 'h2',
+			'columns'    => 2,
+			'card_logos' => array( 'myk', 'turkak' ),
+			'eyebrow'    => __( 'Kurumsal', 'mavibelge' ),
+			'parents'    => $kur,
+		),
+		'mevzuat'               => array(
+			'family'  => 'list',
+			'width'   => 'prose',
+			'list'    => 'bullets',
+			'eyebrow' => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'parents' => $bm,
+		),
+		'myk'                   => array(
+			'family'  => 'prose',
+			'width'   => 'prose',
+			'logo'    => 'myk',
+			'eyebrow' => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'parents' => $bm,
+		),
+		'turkak'                => array(
+			'family'  => 'prose',
+			'width'   => 'prose',
+			'logo'    => 'turkak',
+			'eyebrow' => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'parents' => $bm,
+		),
+		'nasil-basvururum'      => array(
+			'family'  => 'steps',
+			'width'   => 'wide',
+			'heading' => 'h3',
+			'eyebrow' => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'parents' => $sib,
+			'cta'     => array( 'label' => __( 'Şimdi Başvur', 'mavibelge' ), 'path' => 'online-basvuru' ),
+		),
+		'sinav-takvimi'         => array(
+			'family'  => 'card',
+			'width'   => 'narrow',
+			'heading' => 'h2',
+			'eyebrow' => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'parents' => $sib,
+		),
+		'sonuc-belge-sorgulama' => array(
+			'family'  => 'card',
+			'width'   => 'narrow',
+			'heading' => 'h2',
+			'eyebrow' => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'parents' => $sib,
+		),
+		'itiraz-sikayet'        => array(
+			'family'  => 'split',
+			'width'   => 'wide',
+			'list'    => 'numbered',
+			'eyebrow' => __( 'Sınav ve Başvuru', 'mavibelge' ),
+			'parents' => $sib,
+		),
+		'belge-yenileme'        => array(
+			'family'  => 'cards',
+			'width'   => 'wide',
+			'heading' => 'h3',
+			'columns' => 3,
+			'list'    => 'numbered',
+			'eyebrow' => __( 'Meslekler ve Belgeler', 'mavibelge' ),
+			'parents' => $mvb,
+			'cta'     => array( 'label' => __( 'Belge Yenileme Başvurusu Yap', 'mavibelge' ), 'path' => 'online-basvuru' ),
 		),
 	);
-	return isset( $heroes[ $slug ] ) ? $heroes[ $slug ] : array();
+	return isset( $map[ $slug ] ) ? $map[ $slug ] : array();
+}
+
+/**
+ * Faz 13 — arşiv/taksonomi ekranlarının kahraman kaydı (haberler.html, dokumanlar.html, duyurular.html). Başlık WordPress
+ * arşiv etiketi / terim adıdır; açıklama yalnız WordPress tarafında (terim açıklaması) boşsa kullanılır.
+ *
+ * @param string $key 'haberler' | 'dokumanlar' | 'haber-turu'
+ * @return array
+ */
+function mavibelge_archive_presentation( $key ) {
+	$bm  = array( array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'path' => 'bilgi-merkezi' ) );
+	$map = array(
+		'haberler'   => array(
+			'eyebrow'     => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'description' => __( "Mavi Belge'ye ait güncel haberler ve kurumsal gelişmeler.", 'mavibelge' ),
+			'parents'     => $bm,
+		),
+		'dokumanlar' => array(
+			'eyebrow'     => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'description' => __( 'Herkese açık, versiyonlu kurumsal ve mesleki dokümanlar.', 'mavibelge' ),
+			'parents'     => $bm,
+		),
+		'haber-turu' => array(
+			'eyebrow'     => __( 'Bilgi Merkezi', 'mavibelge' ),
+			'description' => __( 'Ücret, mevzuat ve süreçlere ilişkin resmi duyurular.', 'mavibelge' ),
+			'parents'     => $bm,
+		),
+	);
+	return isset( $map[ $key ] ) ? $map[ $key ] : array();
 }
 
 /**

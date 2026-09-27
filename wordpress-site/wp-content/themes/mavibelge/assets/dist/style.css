@@ -882,6 +882,60 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .form-error-summary:focus { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
 .form-field.has-error input, .form-field.has-error select, .form-field.has-error textarea { border-color: var(--color-danger); }
 
+/* ===== Faz 13 — referans sayfa aileleri (template-parts/page/content-presentation.php; kayıt inc/page-layouts.php) =====
+ * Statik tanitim-site/*.html düzeni: gövde genişliği (1280 / 820 / 760), numaralı/madde liste (.icon-list görünümü),
+ * bilgi kartları, kart ızgarası, adımlar, içerik + form iki sütun. Metin WordPress editöründen gelir; burada yalnız sunum. */
+.mb-body--prose { max-width: 820px; }
+/* .mb-body--wide: .container'ın 1280px'i (ayrı kural yok, bilinçli). ol[start]/reversed sayacı desteklenmez: içerik düz 1..n. */
+.mb-body--narrow { max-width: 760px; }
+.mb-body .entry-content > :last-child { margin-bottom: 0; }
+.mb-logo { display: block; height: 80px; width: auto; margin-bottom: var(--space-5); }
+.mb-list ol, .mb-list ul { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.mb-list ol > li, .mb-list ul > li { position: relative; padding-left: 36px; min-height: 24px; }
+.mb-list ol { counter-reset: mb-item; }
+.mb-list ol > li { counter-increment: mb-item; }
+.mb-list ol > li::before, .mb-list ul > li::before {
+  position: absolute; left: 0; top: 0;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--color-blue-100); color: var(--color-blue-600);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+}
+.mb-list ol > li::before { content: counter(mb-item); }
+.mb-list ul > li::before { content: "•"; font-size: 16px; }
+.mb-rest { margin-top: var(--space-7); }
+.mb-cards { display: grid; gap: var(--space-5); }
+.mb-cards--2 { grid-template-columns: repeat(2, 1fr); }
+.mb-cards--3 { grid-template-columns: repeat(3, 1fr); }
+.mb-card-stack { display: grid; gap: var(--space-4); }
+.mb-card { min-width: 0; overflow-wrap: anywhere; }
+.mb-card .mb-card-title { font-size: var(--fs-lg); margin: 0 0 var(--space-3); }
+.mb-card .mb-logo { height: 56px; margin-bottom: var(--space-3); }
+.mb-card .entry-content > :last-child { margin-bottom: 0; }
+.mb-body--narrow .mb-card .entry-content p:last-child > a:only-child {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--space-2);
+  padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; text-decoration: none;
+  background: var(--color-blue-600); color: var(--color-white);
+}
+.mb-body--narrow .mb-card .entry-content p:last-child > a:only-child:hover { background: var(--color-navy-800); color: var(--color-white); }
+.mb-steps { list-style: none; margin: 0; padding: 0; }
+.mb-steps .process-step h2 { font-size: var(--fs-md); margin: 0 0 var(--space-2); }
+.mb-steps .process-step .entry-content p { margin: 0; }
+.mb-intro { margin-bottom: var(--space-5); }
+.mb-cta-row { margin: var(--space-6) 0 0; }
+.mb-cta:focus-visible, .mb-card .entry-content a:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; }
+.mb-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-7); align-items: start; }
+.mb-split > * { min-width: 0; }
+.mb-split--single { grid-template-columns: 1fr; }
+.doc-list { display: grid; gap: 16px; }
+.card-shell--media { padding-top: 0; overflow: hidden; }
+.card-shell--media .card-media { margin: 0 calc(-1 * var(--space-5)) var(--space-4); }
+.card-shell--media .card-media img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+@media (prefers-reduced-motion: reduce) {
+  .mb-cta, .mb-card, .mb-card a, .process-step { transition: none !important; }
+  .mb-cta:hover { transform: none; }
+}
+
 /*
  * Header — ported from tanitim-site/assets/css/components.css
  * (.trust-bar / .site-header / .header-main / .brand-logo / .main-nav /
@@ -1212,6 +1266,8 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
 /* ===== Tablet (<=1024px) ===== */
 @media (max-width: 1024px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .mb-cards--3 { grid-template-columns: repeat(2, 1fr); }
+  .mb-split { grid-template-columns: 1fr; gap: var(--space-6); }
   .footer-locations { grid-template-columns: 1fr; }
 
   .task-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1233,6 +1289,8 @@ ul.footer-social-list { display: flex; flex-direction: row; gap: var(--space-2);
 /* ===== Small tablet (<=768px) ===== */
 @media (max-width: 768px) {
   :root { --header-h: 64px; }
+  .mb-cards--2, .mb-cards--3 { grid-template-columns: 1fr; }
+  .mb-logo { height: 64px; }
   .container { padding: 0 var(--space-4); }
   section { padding: var(--space-6) 0; }
 

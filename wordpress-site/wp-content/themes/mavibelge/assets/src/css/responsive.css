@@ -62,6 +62,8 @@
 /* ===== Tablet (<=1024px) ===== */
 @media (max-width: 1024px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .mb-cards--3 { grid-template-columns: repeat(2, 1fr); }
+  .mb-split { grid-template-columns: 1fr; gap: var(--space-6); }
   .footer-locations { grid-template-columns: 1fr; }
 
   .task-grid { grid-template-columns: repeat(3, 1fr); }
@@ -83,6 +85,8 @@
 /* ===== Small tablet (<=768px) ===== */
 @media (max-width: 768px) {
   :root { --header-h: 64px; }
+  .mb-cards--2, .mb-cards--3 { grid-template-columns: 1fr; }
+  .mb-logo { height: 64px; }
   .container { padding: 0 var(--space-4); }
   section { padding: var(--space-6) 0; }
 

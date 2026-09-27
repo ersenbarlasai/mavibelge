@@ -269,6 +269,8 @@ async function formsMatrix() {
 		const m = mainOf(r.body);
 		const vals = valuesFor(m, id);
 		check(id + ' açık: gerçek form (mb_form, jeton, nonce, bal küpü)' + (F.file ? ' + multipart' : ''), hidden(m, 'mb_form') === id && hidden(m, 'mb_token').length > 20 && hidden(m, '_mb_nonce').length >= 8 && /class="hp-field" aria-hidden="true"/.test(m) && (!F.file || /enctype="multipart\/form-data"/.test(m)));
+		check(id + ' açık: form TEK kez çizilir (tek <form method="post">, tek #mb-form-' + id + ', tek nonce)', count(m, /<form method="post"/g) === 1 && count(m, new RegExp('id="mb-form-' + id + '"', 'g')) === 1 && count(m, /name="_mb_nonce"/g) === 1, count(m, /<form method="post"/g));
+		if (id === 'complaint') check(id + ' açık: Faz 13 iki sütun düzeninde form sağ sütunda (.mb-split > .mb-split-form > .form-card)', /<div class="mb-split">[\s\S]*?<div class="mb-split-form">[\s\S]*?id="mb-form-complaint"/.test(m));
 		const sec = () => ({ mb_form: id, mb_token: hidden(r.body, 'mb_token'), _mb_nonce: hidden(r.body, '_mb_nonce'), mb_hp_url: '' });
 		const m0 = mailCount();
 		// yanlış sayfadan POST: işlenmez

@@ -51,7 +51,9 @@ check( 'URL elle sabitlenmez (/index.php/ veya home_url slug yok)', ! /\/index\.
 
 /* sayfa kahramanı */
 check( 'page-layouts: online-basvuru kahramanı (eyebrow "Sınav ve Başvuru", açıklama, üst kırıntı sinav-ve-basvuru)', /function mavibelge_page_hero_for_slug\(/.test( layouts ) && /'online-basvuru'/.test( layouts ) && /Sınav ve Başvuru/.test( layouts ) && /Mesleki yeterlilik sınavına başvurmak için aşağıdaki adımları tamamlayın\./.test( layouts ) && /'sinav-ve-basvuru'/.test( layouts ) );
-check( 'page.php: kahraman eşlemesini kullanır; kırıntı Anasayfa ile başlar', /mavibelge_page_hero_for_slug\(/.test( page ) && /__\( 'Anasayfa', 'mavibelge' \)/.test( page ) && /'eyebrow'/.test( page ) && /'description'/.test( page ) );
+// Faz 13: kahraman argümanları merkezi yardımcıdan (inc/presentation-helpers.php); online-basvuru kaydı aynı haritada.
+var presHelpers = fs.readFileSync( path.join( root, 'inc', 'presentation-helpers.php' ), 'utf8' );
+check( 'page.php: kahraman merkezi yardımcıdan; kırıntı Anasayfa ile başlar, eyebrow + açıklama', /mavibelge_page_hero_args\(/.test( page ) && /__\( 'Anasayfa', 'mavibelge' \)/.test( presHelpers ) && /'eyebrow'/.test( presHelpers ) && /'description'/.test( presHelpers ) && /function mavibelge_page_hero_for_slug\(/.test( layouts ) );
 
 /* form kapısı */
 check( 'page.php: online-basvuru content-application ile; kapı kararı DTO open alanından (gate atlanmaz)', /content-application/.test( page ) && /\$form\['open'\]/.test( page ) );

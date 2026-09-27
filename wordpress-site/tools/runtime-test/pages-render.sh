@@ -2,9 +2,12 @@
 # Faz 12 — GERÇEK içe aktarılmış sayfalarla 41 rota render + güzel kalıcı bağlantı + robots/sitemap. Silinebilir mbfx_ fixture DB, HTTP
 # yönlendirmeli (qa-render.sh ile aynı düzen). Güzel bağlantı için KONTEYNERDE geçici olarak mod_rewrite + .htaccess AllowOverride
 # açılır ve SONUNDA geri alınır (a2disconf/a2dismod, .htaccess silinir). Parola OKUMAZ. Konteyner/volume SİLMEZ.
-# Kullanım: pages-render.sh <çıktı-dizini (depo DIŞINDA)>
+# Kullanım: pages-render.sh <çıktı-dizini (depo DIŞINDA)> [all|up|down]
+#   up   : kur + test, AYAKTA bırak (bağımsız tarayıcı QA için; güzel yapı /%postname%/ geri yüklenir); bitince: <aynı dizin> down
+#   down : temizle + A->Z farkı
 set -uo pipefail
 OUT="$1"
+MODE="${2:-all}"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 export MSYS_NO_PATHCONV=1
 WP=mbruntime6b2-wp-1
@@ -24,7 +27,16 @@ cleanup() {
 	docker exec "$WP" sh -c 'rm -f /tmp/mbfx-http-on /tmp/mbfx-mail.count /tmp/mbfx-staging /var/www/html/wp-content/mu-plugins/mu-fixture-http.php /var/www/html/.htaccess; a2disconf mbfx-rewrite >/dev/null 2>&1; rm -f /etc/apache2/conf-available/mbfx-rewrite.conf; a2dismod rewrite >/dev/null 2>&1; apache2ctl graceful >/dev/null 2>&1' >/dev/null 2>&1
 	wpx eval-file /opt/mb-runtime/fixture-db.php drop >/dev/null 2>&1
 }
-trap cleanup EXIT
+finish() {
+	cleanup
+	snapshot snapZ
+	echo "A->Z: db fark satırı=$(diff "$OUT/snapA/db.txt" "$OUT/snapZ/db.txt" | wc -l) tablo fark=$(diff "$OUT/snapA/tables.txt" "$OUT/snapZ/tables.txt" | wc -l) dosya fark=$(diff "$OUT/snapA/files.txt" "$OUT/snapZ/files.txt" | wc -l) uploads fark=$(diff "$OUT/snapA/uploads.txt" "$OUT/snapZ/uploads.txt" | wc -l)"
+}
+if [ "$MODE" = "down" ]; then
+	finish
+	exit 0
+fi
+[ "$MODE" = "up" ] || trap cleanup EXIT
 wpx eval 'wp_get_theme()->delete_pattern_cache(); wp_get_theme()->get_block_patterns();' >/dev/null 2>&1
 docker exec -u www-data "$WP" sh -c 'rm -f /var/www/html/wp-content/debug.log'
 snapshot snapA
@@ -46,6 +58,22 @@ echo "test düzeneği: bekletilenler izole DB'de yayınlandı exit=$? :: $(tr -d
 node -e 'const fs=require("fs");const a=JSON.parse(fs.readFileSync(process.argv[1],"utf8").replace(/^[^{]*/,""));const b=JSON.parse(fs.readFileSync(process.argv[2],"utf8").replace(/^[^{]*/,""));fs.writeFileSync(process.argv[3],JSON.stringify({published:b.published,draft:b.draft,permalink:a.permalink}))' "$(cygpath -m "$OUT")/pages-import.json" "$(cygpath -m "$OUT")/pages-import2.json" "$(cygpath -m "$OUT")/pages-import-final.json"
 node pages-render-test.js phase2 "$(cygpath -m "$OUT")/qa-fixtures.json" "$(cygpath -m "$OUT")/pages-import-final.json" | tee "$OUT/pages-render-2.txt" | grep -E "^FAIL|testi geçti"
 echo "pages-render phase2 exit=${PIPESTATUS[0]}"
+# Faz 13: referans sayfa aileleri — gerçek sayfa içeriği + sentetik haber/duyuru/doküman; önce güzel (/%postname%/), sonra
+# /index.php/%postname%/ yapısında HTTP; gerçek headless Chrome (güzel yapı). Yalnız bu klonda.
+fx --user=mbadmin eval-file /opt/mb-runtime/page-parity-fixtures.php content > "$OUT/parity-fixtures.json" 2> "$OUT/parity-fixtures.err"
+echo "parite fixture exit=$? hata=$(wc -l < "$OUT/parity-fixtures.err")"
+node page-parity-test.js http pretty "$(cygpath -m "$OUT")/screens-parity" | tee "$OUT/page-parity-http-pretty.txt" | grep -E "^FAIL|parite testi"
+echo "page-parity http pretty exit=${PIPESTATUS[0]}"
+node page-parity-test.js browser pretty "$(cygpath -m "$OUT")/screens-parity" | tee "$OUT/page-parity-browser.txt" | grep -E "^FAIL|parite testi"
+echo "page-parity browser exit=${PIPESTATUS[0]}"
+fx --user=mbadmin eval-file /opt/mb-runtime/page-parity-fixtures.php permalink /index.php/%postname%/ > /dev/null 2>> "$OUT/parity-fixtures.err"
+node page-parity-test.js http index "$(cygpath -m "$OUT")/screens-parity" | tee "$OUT/page-parity-http-index.txt" | grep -E "^FAIL|parite testi"
+echo "page-parity http index exit=${PIPESTATUS[0]}"
+if [ "$MODE" = "up" ]; then
+	fx --user=mbadmin eval-file /opt/mb-runtime/page-parity-fixtures.php permalink /%postname%/ > /dev/null 2>> "$OUT/parity-fixtures.err"
+	echo "AYAKTA (güzel kalıcı bağlantı): bitince: $0 $OUT down"
+	exit 0
+fi
 cleanup
 snapshot snapZ
 echo "A->Z: db fark satırı=$(diff "$OUT/snapA/db.txt" "$OUT/snapZ/db.txt" | wc -l) tablo fark=$(diff "$OUT/snapA/tables.txt" "$OUT/snapZ/tables.txt" | wc -l) dosya fark=$(diff "$OUT/snapA/files.txt" "$OUT/snapZ/files.txt" | wc -l) uploads fark=$(diff "$OUT/snapA/uploads.txt" "$OUT/snapZ/uploads.txt" | wc -l)"

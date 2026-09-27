@@ -33,7 +33,7 @@ $is_live = true === $form['open'] || 'success' === $form['status'];
 <div class="container section-tight application-wrap">
 	<?php if ( trim( (string) get_the_content() ) ) : ?>
 		<div class="entry-content content-narrow">
-			<?php the_content(); ?>
+			<?php echo mavibelge_rendered_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content çıktısı. ?>
 		</div>
 	<?php endif; ?>
 

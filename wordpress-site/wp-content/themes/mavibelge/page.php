@@ -21,27 +21,13 @@ while ( have_posts() ) :
 	$slug    = get_post_field( 'post_name', $post_id );
 	$layout  = function_exists( 'mavibelge_page_layout_for_slug' ) ? mavibelge_page_layout_for_slug( $slug ) : 'default';
 
-	// Faz 12f: doğrulanmış sayfalarda kahraman eyebrow/açıklama ve Anasayfa'dan başlayan kırıntı (inc/page-layouts.php).
-	$hero   = function_exists( 'mavibelge_page_hero_for_slug' ) ? mavibelge_page_hero_for_slug( $slug ) : array();
-	$crumbs = array();
-	if ( ! empty( $hero ) ) {
-		$crumbs[] = array( 'label' => __( 'Anasayfa', 'mavibelge' ), 'url' => home_url( '/' ) );
-		foreach ( isset( $hero['parents'] ) ? $hero['parents'] : array() as $parent ) {
-			$crumbs[] = array( 'label' => $parent['label'], 'url' => mavibelge_url( $parent['path'] ) );
-		}
-	}
-	$crumbs[] = array( 'label' => get_the_title() );
+	// Faz 13: kahraman (Anasayfa'dan kırıntı, eyebrow, lead = WordPress özeti -> kayıt) ve gövde ailesi TEK merkezi
+	// sunum kaydından (inc/page-layouts.php mavibelge_page_presentation, inc/presentation-helpers.php).
+	$presentation = function_exists( 'mavibelge_page_presentation' ) ? mavibelge_page_presentation( $slug ) : array();
+	$family       = isset( $presentation['family'] ) ? $presentation['family'] : '';
 
-	get_template_part(
-		'template-parts/page/page-hero',
-		null,
-		array(
-			'eyebrow'          => isset( $hero['eyebrow'] ) ? $hero['eyebrow'] : '',
-			'title'            => get_the_title(),
-			'description'      => isset( $hero['description'] ) ? $hero['description'] : '',
-			'breadcrumb_items' => $crumbs,
-		)
-	);
+	$hero_args = function_exists( 'mavibelge_page_hero_args' ) ? mavibelge_page_hero_args( $post_id, $slug ) : array( 'title' => get_the_title(), 'breadcrumb_items' => array( array( 'label' => get_the_title() ) ) );
+	get_template_part( 'template-parts/page/page-hero', null, $hero_args );
 
 	if ( 'hub' === $layout ) {
 		$links = function_exists( 'mavibelge_hub_links_for_slug' ) ? mavibelge_hub_links_for_slug( $slug ) : array();
@@ -59,10 +45,12 @@ while ( have_posts() ) :
 			get_template_part( 'template-parts/page/content-application', null, array( 'form' => $form ) );
 		} elseif ( is_array( $form ) && ( $form['open'] || 'success' === $form['status'] ) ) {
 			// Kapı AÇIK (veya PRG sonrası başarı ekranı): gerçek form.
-			get_template_part( 'template-parts/page/content-form-live', null, array( 'form' => $form ) );
+			get_template_part( 'template-parts/page/content-form-live', null, array( 'form' => $form, 'presentation' => $presentation ) );
 		} else {
-			get_template_part( 'template-parts/page/content-form-disabled', null, array( 'fields' => $fields, 'form' => $form ) );
+			get_template_part( 'template-parts/page/content-form-disabled', null, array( 'fields' => $fields, 'form' => $form, 'presentation' => $presentation ) );
 		}
+	} elseif ( in_array( $family, array( 'prose', 'list', 'card', 'cards', 'steps' ), true ) ) {
+		get_template_part( 'template-parts/page/content-presentation', null, array( 'presentation' => $presentation ) );
 	} else {
 		get_template_part( 'template-parts/page/content-default' );
 	}

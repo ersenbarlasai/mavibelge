@@ -54,9 +54,6 @@ check(
 //    component's default of 2, producing zero <h1> on every render path).
 var pageHeadingTemplates = [
 	'archive.php',
-	'archive-mb_haber.php',
-	'archive-mb_dokuman.php',
-	'taxonomy.php',
 	'taxonomy-mb_sektor.php',
 	'search.php',
 ];
@@ -68,6 +65,13 @@ pageHeadingTemplates.forEach( function ( file ) {
 		/'level'\s*=>\s*1\s*,?/.test( src )
 	);
 });
+
+// 2a. Faz 13: haber/doküman arşivi ve genel taksonomi başlığı ortak template-parts/page/page-hero ile gelir (tek <h1>
+//     page-hero.php içinde); kendileri <h1> veya section-heading level 1 ÇİZMEZ; liste bölümü görsel gizli H2 taşır.
+[ 'archive-mb_haber.php', 'archive-mb_dokuman.php', 'taxonomy.php' ].forEach( function ( file ) {
+	var src = read( file );
+	check( file + ' renders its single H1 via template-parts/page/page-hero (no own H1 / level 1)', /template-parts\/page\/page-hero/.test( src ) && ! /<h1/.test( src ) && ! /'level'\s*=>\s*1/.test( src ) && /<h2 class="screen-reader-text">/.test( src ) );
+} );
 
 // 2b. Faz 12e: archive-mb_yeterlilik.php sayfa başlığını template-parts/page/page-hero ile verir (tek <h1>, page-hero.php içinde);
 //     kendisi <h1> veya section-heading level 1 ÇİZMEZ (çift H1 olmasın).

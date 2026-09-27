@@ -24,7 +24,7 @@ $primary = function_exists( 'mavibelge_primary_contact' ) ? mavibelge_primary_co
 <?php if ( trim( (string) get_the_content() ) ) : ?>
 	<div class="container section-tight">
 		<div class="entry-content content-narrow">
-			<?php the_content(); ?>
+			<?php echo mavibelge_rendered_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content çıktısı. ?>
 		</div>
 	</div>
 <?php endif; ?>
