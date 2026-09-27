@@ -172,6 +172,16 @@ Bakım modu ancak Bölüm 7'deki kritik testler geçtikten sonra kaldırılır. 
 
 Eski canlı kopya, kullanıcı ayrıca onay vermeden ve gözlem penceresi tamamlanmadan silinmez. Mail kutuları/yedekleri hiçbir aşamada silinmez.
 
+### 8.1. Eski sitenin bekletilmesi ve hizmetten çıkarılması
+
+- Yeni site kamuya açıldıktan sonra eski canlı kurulum en az **14 gün** geri dönüş kopyası olarak tutulur.
+- Mümkünse eski dosyalar web kökü dışında, erişim kontrollü ve çalıştırılamayan bir arşiv dizininde saklanır; eski veritabanı salt geri dönüş amacıyla korunur.
+- Bu 14 günlük sürede form/SMTP teslimi, kritik 404/5xx kayıtları, medya ve katalog bütünlüğü, sitemap ve yönetim işlemleri izlenir.
+- Eski site kaldırılmadan önce yeni canlı sitenin ayrıca tam dosya+veritabanı yedeği alınır ve geri yüklenebilirliği doğrulanır.
+- Bekleme süresi dolsa bile silme otomatik değildir. Eski dosyalar, eski veritabanı, yalnız eski siteye ait veritabanı kullanıcısı ve geçici `.wpress` paketleri için kullanıcıdan ayrı ve açık silme onayı alınır.
+- E-posta kutuları, mail arşivi, DNS, MX/SPF/DKIM/DMARC kayıtları ve DirectAdmin mail ayarları eski site temizliğinin parçası değildir; hiçbir koşulda bu işlemle silinmez.
+- GitHub kaynak kod deposudur; eski canlı sitenin dosya/veritabanı yedeği olarak kabul edilmez.
+
 ## 9. Güvenlik ve veri koruma
 
 - Gerçek parola/anahtar ekran görüntüsüne, rapora, GitHub'a veya mesajlara yazılmaz.
@@ -190,6 +200,6 @@ Bu tasarım aşağıdaki eylemleri tek başına yetkilendirmez:
 3. Canlı WordPress çekirdeğini `6.9.9`a eşitleme.
 4. `.wpress` paketini canlıya import etme.
 5. Bakım modundan çıkıp yeni siteyi kamuya açma.
-6. Eski canlı dosya/veritabanı veya geçici paketleri silme.
+6. En az 14 günlük gözlem sonrasında eski canlı dosya/veritabanı veya geçici paketleri silme.
 
 Uygulama planı bu kapıları tek tek, doğrulama ve geri dönüş adımlarıyla komut/ekran seviyesinde tarif edecektir.
