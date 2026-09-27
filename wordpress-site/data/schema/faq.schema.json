@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mavibelge://schema/faq.schema.json",
+  "title": "Mavi Belge Faz 12b SSS Manifest Kaydı",
+  "description": "wordpress-site/data/content/faqs.manifest.json içindeki her 'records[]' elemanının şekli. Kaynak: tanitim-site/sss.html (kurumca onaylanmış, dondurulmuş, yalnız okunur; 6 soru-cevap). Soru mb_sss post_title'ına, cevap post_content'ine (düz metin) yazılır. Bkz. docs/content-import-contract.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_key", "source_index", "slug", "question", "answer", "source"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "source_key": { "type": "string", "pattern": "^faq:[a-z0-9]+(-[a-z0-9]+)*$" },
+    "source_index": { "type": "integer", "minimum": 0 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "question": { "type": "string", "minLength": 1 },
+    "answer": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

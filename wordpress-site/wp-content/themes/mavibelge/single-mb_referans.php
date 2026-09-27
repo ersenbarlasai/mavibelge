@@ -23,7 +23,7 @@ while ( have_posts() ) :
 			null,
 			array(
 				'items' => array(
-					array( 'label' => __( 'Referanslarımız', 'mavibelge' ), 'url' => home_url( '/referanslar/' ) ),
+					array( 'label' => __( 'Referanslarımız', 'mavibelge' ), 'url' => mavibelge_url( 'referanslar' ) ),
 					array( 'label' => get_the_title() ),
 				),
 			)

@@ -49,6 +49,10 @@
 .page-hero p { color: var(--color-gray-100); max-width: 64ch; margin-bottom: 0; }
 .page-hero .breadcrumb { color: var(--color-gray-300); }
 .page-hero .breadcrumb a { color: var(--color-gray-300); }
+/* Faz 12e: koyu kahraman zemininde eyebrow okunur kalsın (.bg-navy .eyebrow ile aynı ton) */
+.page-hero .eyebrow { color: #9dc1f7; }
+/* Faz 12e: koyu zeminde geçerli sayfa kırıntısı okunur olsun (bileşen varsayılanı gray-700 koyu zeminde okunmuyordu) */
+.page-hero .breadcrumb [aria-current="page"] { color: var(--color-gray-100); }
 
 /* ===== CTA band (front-page.php closing section) ===== */
 .cta-band { background: var(--color-navy-900); color: var(--color-white); text-align: center; padding: var(--space-8) 0; }

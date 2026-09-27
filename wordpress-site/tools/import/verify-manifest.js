@@ -323,7 +323,9 @@ function findUnexpectedManifestFiles(dataDir) {
 		// Faz 7 — İÇERİK manifestleri (haber/referans): AYRI üretim/doğrulama hattı
 		// (build-content-manifest.js / verify-content-manifest.js); katalog kontrolü bu iki dosyayı
 		// "beklenmeyen" saymaz, ama içeriklerini de DOĞRULAMAZ (o, verify-content-manifest.js'in işi).
-		'content/news.manifest.json', 'content/references.manifest.json',
+		'content/news.manifest.json', 'content/references.manifest.json', 'content/faqs.manifest.json',
+		// Faz 12 — SAYFA manifesti: AYRI üretim/doğrulama hattı (build-page-manifest.js / verify-page-manifest.js).
+		'content/pages.manifest.json',
 	];
 	const unexpected = [];
 	['content', 'mapping'].forEach(function (sub) {

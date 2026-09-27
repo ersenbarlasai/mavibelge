@@ -80,4 +80,49 @@ interface MaviBelge_Core_Import_Target_Writer {
 	 *   child_count: alt terim sayısı.
 	 */
 	public function sector_term_references( $termId );
+
+	/**
+	 * Faz 12 — bir çekirdek `page` kaydının durumu (SALT OKUNUR).
+	 *
+	 * @param int $postId
+	 * @return string|null post_status; sayfa yoksa/okunamazsa null.
+	 */
+	public function page_status( $postId );
+
+	/**
+	 * Faz 12 — YALNIZ `draft` durumundaki bir sayfayı `publish` yapar; başka hiçbir alan değişmez. Katı readback yapar.
+	 *
+	 * @param int $postId
+	 * @return array{ok: bool, id: int|null, error: string|null}
+	 */
+	public function publish_page( $postId );
+
+	/**
+	 * Faz 12b — bir içerik kaydının (SSS: mb_sss / referans: mb_referans) durumu (SALT OKUNUR).
+	 *
+	 * @param string $type   'faq' | 'reference'
+	 * @param int    $postId
+	 * @return string|null post_status; kayıt yoksa/türü uyuşmuyorsa null.
+	 */
+	public function content_post_status( $type, $postId );
+
+	/**
+	 * Faz 12c — dosya sistemi yan etkisi kapsamı (DB transaction'ı dosyaları geri almaz). Batch başında açılır; YALNIZ bu batch'te
+	 * YENİ oluşturulan dosyalar/attachment'lar kaydedilir (yeniden kullanılan mevcut attachment/dosya ASLA kaydedilmez).
+	 *
+	 * @return bool Kapsam açıldı mı (zaten açıksa false).
+	 */
+	public function begin_side_effect_scope();
+
+	/** Başarılı DB commit sonrası kapsamı kapatır; kaydedilen dosyalar KALIR. @return bool */
+	public function commit_side_effect_scope();
+
+	/**
+	 * DB rollback sonrası telafi. $dbRolledBack false ise (rollback başarısız) HİÇBİR dosya silinmez (fail-closed).
+	 * Yalnız bu kapsamda oluşturulmuş, uploads sınırı içindeki, attachment satırı artık olmayan doğrulanmış dosyalar silinir.
+	 *
+	 * @param bool $dbRolledBack
+	 * @return array{ok: bool, removed: int, error: string|null} Hata kodları sabittir; mutlak yol içermez.
+	 */
+	public function compensate_side_effect_scope( $dbRolledBack );
 }

@@ -269,6 +269,12 @@ class MaviBelge_Core_Field_Repository {
 					} elseif ( 'import_source_key_reference' === $config['format'] ) {
 						$format_ok   = MaviBelge_Core_Validator::is_valid_import_source_key( $clean, 'reference' );
 						$format_hint = 'örn. "reference:atlas-endustri", boş bırakılabilir';
+					} elseif ( 'import_source_key_faq' === $config['format'] ) {
+						$format_ok   = MaviBelge_Core_Validator::is_valid_import_source_key( $clean, 'faq' );
+						$format_hint = 'örn. "faq:myk-mesleki-yeterlilik-belgesi-nedir", boş bırakılabilir';
+					} elseif ( 'import_source_key_page' === $config['format'] ) {
+						$format_ok   = MaviBelge_Core_Validator::is_valid_import_source_key( $clean, 'page' );
+						$format_hint = 'örn. "page:hakkimizda", boş bırakılabilir';
 					} elseif ( 'sha256_hash' === $config['format'] ) {
 						$format_ok   = MaviBelge_Core_Validator::is_valid_sha256_hash( $clean );
 						$format_hint = 'tam 64 küçük-hex karakter, boş bırakılabilir';

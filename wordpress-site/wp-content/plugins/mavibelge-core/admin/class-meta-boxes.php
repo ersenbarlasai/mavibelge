@@ -26,12 +26,18 @@ class MaviBelge_Core_Meta_Boxes {
 	public static function init() {
 		add_action( 'add_meta_boxes', array( __CLASS__, 'register' ) );
 		foreach ( array_keys( MaviBelge_Core_Meta_Schema::get_schema() ) as $post_type ) {
+			if ( ! MaviBelge_Core_Meta_Schema::has_editable_fields( $post_type ) ) {
+				continue; // Faz 12: çekirdek `page` yalnız sistem alanı taşır; meta kutusu/kaydetme kancası eklenmez.
+			}
 			add_action( "save_post_{$post_type}", array( __CLASS__, 'save' ), 10, 2 );
 		}
 	}
 
 	public static function register() {
 		foreach ( MaviBelge_Core_Meta_Schema::get_schema() as $post_type => $fields ) {
+			if ( ! MaviBelge_Core_Meta_Schema::has_editable_fields( $post_type ) ) {
+				continue;
+			}
 			add_meta_box(
 				'mavibelge_core_fields',
 				'Mavi Belge Alanları',

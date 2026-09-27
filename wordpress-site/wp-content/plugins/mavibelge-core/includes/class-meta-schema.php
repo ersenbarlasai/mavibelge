@@ -46,7 +46,42 @@ class MaviBelge_Core_Meta_Schema {
 			'mb_referans'   => self::referans_fields(),
 			'mb_lokasyon'   => self::lokasyon_fields(),
 			'mb_sss'        => self::sss_fields(),
+			// Faz 12: WordPress çekirdek `page` türü — YALNIZ sistem yönetimli içe aktarım alanları (yeni post type YOK).
+			'page'          => self::page_fields(),
 		);
+	}
+
+	/**
+	 * Faz 12 — çekirdek `page` türünün MaviBelge alanları: yalnız `wp mavibelge import` / admin aktarımının yazdığı,
+	 * salt-okunur, sistem yönetimli işaret + özet. Düzenlenebilir alan YOKTUR (meta kutusu çizilmez).
+	 */
+	private static function page_fields() {
+		return array(
+			'_mb_import_source_key' => array(
+				'label'          => 'İçe Aktarım Kaynak Anahtarı (sistem)',
+				'type'           => 'text',
+				'format'         => 'import_source_key_page',
+				'readonly'       => true,
+				'system_managed' => true,
+			),
+			'_mb_last_applied_hash' => array(
+				'label'          => 'Son Uygulanan Veri Özeti (sistem)',
+				'type'           => 'text',
+				'format'         => 'sha256_hash',
+				'readonly'       => true,
+				'system_managed' => true,
+			),
+		);
+	}
+
+	/** Faz 12 — bir post türünde kullanıcı tarafından düzenlenebilir (salt-okunur/sistem yönetimli olmayan) alan var mı. */
+	public static function has_editable_fields( $post_type ) {
+		foreach ( self::get_fields_for( $post_type ) as $config ) {
+			if ( empty( $config['readonly'] ) && empty( $config['system_managed'] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static function yeterlilik_fields() {
@@ -462,6 +497,21 @@ class MaviBelge_Core_Meta_Schema {
 					'passive' => 'Pasif',
 				),
 				'default' => 'active',
+			),
+			// Faz 12b — SİSTEM YÖNETİMLİ, salt-okunur (haber/referans ile AYNI sözleşme): yalnız içe aktarım yazar.
+			'_mb_import_source_key'         => array(
+				'label'          => 'İçe Aktarım Kaynak Anahtarı (sistem)',
+				'type'           => 'text',
+				'format'         => 'import_source_key_faq',
+				'readonly'       => true,
+				'system_managed' => true,
+			),
+			'_mb_last_applied_hash'         => array(
+				'label'          => 'Son Uygulanan Veri Özeti (sistem)',
+				'type'           => 'text',
+				'format'         => 'sha256_hash',
+				'readonly'       => true,
+				'system_managed' => true,
 			),
 			'_mb_related_page_ids'          => array(
 				'label'         => 'İlgili Sayfalar (ID listesi)',

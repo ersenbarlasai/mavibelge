@@ -8,6 +8,9 @@
  * - total (int, required) total page count
  * - url_for (callable, required) function( int $page ): string — must
  *   return a real URL for that page number
+ *
+ * Faz 12e: "Önceki"/"Sonraki" bağlantıları (ilk/son sayfada devre dışı
+ * <span aria-disabled="true">), rel=prev/next; tek sayfada hiç çizilmez.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +31,11 @@ if ( ! $url_for || $total < 2 ) {
 $current = max( 1, min( $current, $total ) );
 ?>
 <nav class="pagination" aria-label="<?php esc_attr_e( 'Sayfalama', 'mavibelge' ); ?>">
+	<?php if ( $current > 1 ) : ?>
+		<a class="page-btn page-prev" href="<?php echo esc_url( call_user_func( $url_for, $current - 1 ) ); ?>" rel="prev"><?php esc_html_e( 'Önceki', 'mavibelge' ); ?></a>
+	<?php else : ?>
+		<span class="page-btn page-prev is-disabled" aria-disabled="true"><?php esc_html_e( 'Önceki', 'mavibelge' ); ?></span>
+	<?php endif; ?>
 	<?php for ( $page = 1; $page <= $total; $page++ ) : ?>
 		<?php if ( $page === $current ) : ?>
 			<span class="page-btn is-active" aria-current="page"><?php echo esc_html( (string) $page ); ?></span>
@@ -35,4 +43,9 @@ $current = max( 1, min( $current, $total ) );
 			<a class="page-btn" href="<?php echo esc_url( call_user_func( $url_for, $page ) ); ?>"><?php echo esc_html( (string) $page ); ?></a>
 		<?php endif; ?>
 	<?php endfor; ?>
+	<?php if ( $current < $total ) : ?>
+		<a class="page-btn page-next" href="<?php echo esc_url( call_user_func( $url_for, $current + 1 ) ); ?>" rel="next"><?php esc_html_e( 'Sonraki', 'mavibelge' ); ?></a>
+	<?php else : ?>
+		<span class="page-btn page-next is-disabled" aria-disabled="true"><?php esc_html_e( 'Sonraki', 'mavibelge' ); ?></span>
+	<?php endif; ?>
 </nav>

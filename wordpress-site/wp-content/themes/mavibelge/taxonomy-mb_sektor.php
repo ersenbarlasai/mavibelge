@@ -71,7 +71,7 @@ $results                 = mavibelge_get_qualification_results( $forced_filters 
 
 	if ( ! empty( $results['items'] ) ) :
 		?>
-		<div class="card-grid-3">
+		<div class="qual-list">
 			<?php
 			foreach ( $results['items'] as $item ) {
 				get_template_part(

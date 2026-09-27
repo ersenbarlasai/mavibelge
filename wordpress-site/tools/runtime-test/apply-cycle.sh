@@ -49,10 +49,8 @@ check "CLI apply: --user yok -> exit 1 (Yetkisiz)" "$?:$(grep -c 'Yetkisiz' "$OU
 FXAPPLY=1 fx --user=mbeditor mavibelge import catalog --apply --stage=sectors > "$OUT/c-c.out" 2>&1
 check "CLI apply: yetkisiz kullanıcı (mb_content_editor) -> exit 1 (Yetkisiz)" "$?:$(grep -c 'Yetkisiz' "$OUT/c-c.out")" "1:1"
 FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=sectors > "$OUT/c-d.out" 2>&1
-check "CLI apply: --confirm yok -> exit 1 (Onay gerekli), plan_digest gösterilir" "$?:$(grep -c 'Onay gerekli' "$OUT/c-d.out"):$(grep -cE 'plan_digest: [0-9a-f]{64}' "$OUT/c-d.out")" "1:1:1"
+check "Faz 12 CLI: önkoşul (pages) tamamlanmadan sectors apply --confirm'siz da reddedilir (exit 1, 'Aşama sırası')" "$?:$(grep -c 'Aşama sırası' "$OUT/c-d.out")" "1:1"
 check "CLI apply reddi sonrası run tablosu OLUŞTURULMADI" "$(tables_exist)" "0"
-FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=sectors --confirm="$(printf 'b%.0s' $(seq 64))" --format=json > "$OUT/c-e.out" 2>&1
-check "CLI apply: yanlış onay digest'i -> exit 1 (confirmation_mismatch)" "$?:$(json error_code < "$OUT/c-e.out")" "1:confirmation_mismatch"
 FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --force > "$OUT/c-f.out" 2>&1
 check "CLI apply: --force bilinmeyen parametre -> exit 1" "$?:$(grep -c 'force' "$OUT/c-f.out")" "1:1"
 FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --dry-run > "$OUT/c-g.out" 2>&1
@@ -61,6 +59,15 @@ fx mavibelge import catalog --dry-run --stage=sectors --format=json > "$OUT/c-dr
 DIGEST="$(json plan_digest < "$OUT/c-dry.json")"
 check "CLI dry-run --stage=sectors: 3 create, applicable, 64-hex plan_digest" "$(json summary.operations.create < "$OUT/c-dry.json"):$(json summary.applicable < "$OUT/c-dry.json"):${#DIGEST}" "3:true:64"
 check "CLI dry-run sonrası run tablosu yok (salt okunur)" "$(tables_exist)" "0"
+# Faz 12: aşama zinciri gereği önce pages (gerçek TASLAK sayfa manifesti, izole fixture DB).
+fx mavibelge import catalog --dry-run --stage=pages --format=json > "$OUT/c-pages-dry.json" 2> /dev/null
+PGD="$(json plan_digest < "$OUT/c-pages-dry.json")"
+FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=pages --confirm="$PGD" --format=json > "$OUT/c-pages-apply.json" 2>&1
+check "Faz 12 CLI: pages apply exit 0, completed, 32 item" "$?:$(json status < "$OUT/c-pages-apply.json"):$(json committed_items < "$OUT/c-pages-apply.json")" "0:completed:32"
+FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=sectors > "$OUT/c-d2.out" 2>&1
+check "CLI apply: --confirm yok -> exit 1 (Onay gerekli), plan_digest gösterilir" "$?:$(grep -c 'Onay gerekli' "$OUT/c-d2.out"):$(grep -cE 'plan_digest: [0-9a-f]{64}' "$OUT/c-d2.out")" "1:1:1"
+FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=sectors --confirm="$(printf 'b%.0s' $(seq 64))" --format=json > "$OUT/c-e.out" 2>&1
+check "CLI apply: yanlış onay digest'i -> exit 1 (confirmation_mismatch)" "$?:$(json error_code < "$OUT/c-e.out")" "1:confirmation_mismatch"
 FXAPPLY=1 fx --user=mbadmin mavibelge import catalog --apply --stage=sectors --confirm="$DIGEST" --format=json > "$OUT/c-apply.json" 2>&1
 EC=$?
 RUN="$(json run_uid < "$OUT/c-apply.json")"
@@ -83,7 +90,7 @@ FXMAN=none fx mavibelge import catalog --dry-run --format=json > "$OUT/c-real.js
 REALD="$(json plan_digest < "$OUT/c-real.json")"
 check "gerçek manifest planı (fixture DB'de): conflict/blocked içerir, applicable=false" "$(json summary.applicable < "$OUT/c-real.json"):$(node -e 'const s=require("fs").readFileSync(0,"utf8");const j=JSON.parse(s.slice(s.search(/^[{]/m)));console.log(j.summary.operations.conflict+j.summary.operations.blocked>0)' < "$OUT/c-real.json")" "false:true"
 FXAPPLY=1 FXMAN=none fx --user=mbadmin mavibelge import catalog --apply --confirm="$REALD" --format=json > "$OUT/c-realapply.json" 2>&1
-check "gerçek manifest planı: apply REDDEDİLİR (plan_not_applicable), exit 1" "$?:$(json error_code < "$OUT/c-realapply.json")" "1:plan_not_applicable"
+check "gerçek manifest planı: apply REDDEDİLİR (plan_not_applicable veya aşama zinciri), exit 1" "$?:$(grep -cE 'plan_not_applicable|Aşama sırası' "$OUT/c-realapply.json")" "1:1"
 
 echo "== 4) servis düzeyi apply/rollback döngüsü (gerçek WordPress uygulamaları)"
 FXAPPLY=1 fx --user=mbadmin eval-file /opt/mb-runtime/apply-cycle-test.php > "$OUT/apply-cycle.txt" 2>&1
@@ -109,13 +116,29 @@ FXMAN="$CMAN" fx mavibelge import catalog --dry-run --stage=content --format=jso
 D0="$(json plan_digest < "$OUT/c7-dry0.json")"
 check "CLI content dry-run (terimler YOK): 3 create + 3 blocked, applicable=false, by_type news=3 reference=3" "$(json summary.operations.create < "$OUT/c7-dry0.json"):$(json summary.operations.blocked < "$OUT/c7-dry0.json"):$(json summary.applicable < "$OUT/c7-dry0.json"):$(json summary.by_type.news < "$OUT/c7-dry0.json"):$(json summary.by_type.reference < "$OUT/c7-dry0.json")" "3:3:false:3:3"
 FXAPPLY=1 FXMAN="$CMAN" fx --user=mbadmin mavibelge import catalog --apply --stage=content --confirm="$D0" --format=json > "$OUT/c7-apply0.json" 2>&1
-check "CLI content apply (terimler YOK): exit 1, plan_not_applicable" "$?:$(json error_code < "$OUT/c7-apply0.json")" "1:plan_not_applicable"
-check "CLI content: reddedilen apply run tablosu OLUŞTURMADI" "$(FXMAN="$CMAN" tables_exist)" "0"
+check "Faz 12 CLI aşama zinciri: önkoşulsuz (all tamamlanmadan) content apply reddedilir (exit 1, 'Aşama sırası'); run tablosu OLUŞMAZ" "$?:$(grep -c 'Aşama sırası' "$OUT/c7-apply0.json"):$(FXMAN="$CMAN" tables_exist)" "1:1:0"
+# Tam zincir: pages -> sectors -> qualifications -> all (sahte katalog + gerçek TASLAK sayfa manifesti; izole fixture DB). Sonra content.
+CFULL=/tmp/mbfx-c7-full
+FXAPPLY=1 FXMAN="$CFULL" fx --user=mbadmin mavibelge import catalog --apply --stage=sectors --confirm="$(printf 'b%.0s' $(seq 64))" --format=json > "$OUT/c12-order.json" 2>&1
+check "Faz 12 CLI aşama zinciri: pages atlanıp sectors apply reddedilir (exit 1, 'Aşama sırası')" "$?:$(grep -c 'Aşama sırası' "$OUT/c12-order.json")" "1:1"
+for STG in pages sectors qualifications all; do
+	FXMAN="$CFULL" fx mavibelge import catalog --dry-run --stage=$STG --format=json > "$OUT/c12-dry-$STG.json" 2> /dev/null
+	DG="$(json plan_digest < "$OUT/c12-dry-$STG.json")"
+	FXAPPLY=1 FXMAN="$CFULL" fx --user=mbadmin mavibelge import catalog --apply --stage=$STG --confirm="$DG" --format=json > "$OUT/c12-apply-$STG.json" 2>&1
+	check "Faz 12 CLI zincir: $STG apply exit 0, completed" "$?:$(json status < "$OUT/c12-apply-$STG.json")" "0:completed"
+done
+check "Faz 12 CLI: pages aşaması 32 sayfayı TASLAK (draft) oluşturdu; yayında sayfa yok" "$(FXMAN="$CFULL" fx eval 'echo count( get_posts( array( "post_type" => "page", "post_status" => "draft", "numberposts" => -1, "meta_key" => "_mb_import_source_key", "fields" => "ids" ) ) ) . ":" . count( get_posts( array( "post_type" => "page", "post_status" => "publish", "numberposts" => -1, "meta_key" => "_mb_import_source_key", "fields" => "ids" ) ) );')" "32:0"
+CMAN0="$CMAN"
+CMAN="$CFULL"
+FXMAN="$CMAN" fx mavibelge import catalog --dry-run --stage=content --format=json > "$OUT/c7-dry0b.json" 2> /dev/null
+D0B="$(json plan_digest < "$OUT/c7-dry0b.json")"
+FXAPPLY=1 FXMAN="$CMAN" fx --user=mbadmin mavibelge import catalog --apply --stage=content --confirm="$D0B" --format=json > "$OUT/c7-apply0b.json" 2>&1
+check "CLI content apply (zincir tamam ama terimler YOK): exit 1, plan_not_applicable" "$?:$(json error_code < "$OUT/c7-apply0b.json")" "1:plan_not_applicable"
 FXMAN="$CMAN" fx eval 'wp_insert_term( "Haber", "mb_haber_turu", array( "slug" => "haber" ) ); wp_insert_term( "Duyuru", "mb_haber_turu", array( "slug" => "duyuru" ) ); echo "seeded";' > "$OUT/c7-seed.out" 2>&1
 FXMAN="$CMAN" fx mavibelge import catalog --dry-run --stage=content --format=json > "$OUT/c7-dry1.json" 2> /dev/null
 D1="$(json plan_digest < "$OUT/c7-dry1.json")"
 check "CLI content dry-run (terimler VAR): 6 create, applicable=true, 64-hex digest" "$(json summary.operations.create < "$OUT/c7-dry1.json"):$(json summary.applicable < "$OUT/c7-dry1.json"):${#D1}" "6:true:64"
-FXMAN="$CMAN" fx mavibelge import catalog --dry-run --stage=all --format=json > "$OUT/c7-all.json" 2> /dev/null
+FXMAN="$CMAN0" fx mavibelge import catalog --dry-run --stage=all --format=json > "$OUT/c7-all.json" 2> /dev/null
 check "CLI: içerik dizininde katalog dosyaları yok -> --stage=all yükleme hatasıyla reddedilir (içerik aşaması katalogdan bağımsız, tersi de geçerli)" "$?:$(json load_errors < "$OUT/c7-all.json" | grep -c 'manifest.json')" "1:1"
 FXAPPLY=1 FXMAN="$CMAN" fx --user=mbadmin mavibelge import catalog --apply --stage=content --confirm="$D1" --format=json > "$OUT/c7-apply1.json" 2>&1
 EC=$?
@@ -137,6 +160,19 @@ wpx eval-file /opt/mb-runtime/fixture-db.php manifest
 FXAPPLY=1 fx --user=mbadmin eval-file /opt/mb-runtime/apply-cycle-test-3.php > "$OUT/apply-cycle-3.txt" 2>&1
 echo "apply-cycle-3 exit=$? :: $(tail -1 "$OUT/apply-cycle-3.txt")"
 grep -E '^FAIL' "$OUT/apply-cycle-3.txt" || true
+echo "-- Faz 12c: dosya sistemi yan etkisi telafisi (taze fixture DB; logo dosyası/attachment/rollback hata noktaları)"
+wpx eval-file /opt/mb-runtime/fixture-db.php drop
+wpx eval-file /opt/mb-runtime/fixture-db.php clone
+wpx eval-file /opt/mb-runtime/fixture-db.php manifest
+FXAPPLY=1 fx --user=mbadmin eval-file /opt/mb-runtime/side-effect-test.php > "$OUT/side-effect.txt" 2>&1
+echo "side-effect exit=$? :: $(tail -1 "$OUT/side-effect.txt")"
+grep -E '^FAIL' "$OUT/side-effect.txt" || true
+echo "-- Faz 12d: tema dahili bağlantıları iki permalink yapısında (taze fixture DB)"
+wpx eval-file /opt/mb-runtime/fixture-db.php drop
+wpx eval-file /opt/mb-runtime/fixture-db.php clone
+FXAPPLY= fx --user=mbadmin eval-file /opt/mb-runtime/theme-urls-test.php > "$OUT/theme-urls.txt" 2>&1
+echo "theme-urls exit=$? :: $(tail -1 "$OUT/theme-urls.txt")"
+grep -E '^FAIL' "$OUT/theme-urls.txt" || true
 
 echo "== 5) fixture veritabanı ve sahte manifest silinir"
 wpx eval-file /opt/mb-runtime/fixture-db.php drop

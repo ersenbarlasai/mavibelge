@@ -24,7 +24,7 @@ $links = isset( $args['links'] ) && is_array( $args['links'] ) ? $args['links'] 
 <div class="container section-tight">
 	<?php if ( trim( (string) get_the_content() ) ) : ?>
 		<div class="entry-content content-narrow">
-			<?php the_content(); ?>
+			<?php echo mavibelge_rendered_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content çıktısı. ?>
 		</div>
 	<?php endif; ?>
 

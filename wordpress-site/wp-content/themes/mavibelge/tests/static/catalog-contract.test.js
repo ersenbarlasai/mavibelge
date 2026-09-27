@@ -115,7 +115,8 @@ check(
 // 4. get_term_link() calls added/touched in Faz 5 templates must be
 //    guarded by is_wp_error() (same contract as the Faz 4 Nihai Kabul
 //    Düzeltmesi fix).
-[ 'archive-mb_yeterlilik.php', 'taxonomy-mb_sektor.php' ].forEach( function ( file ) {
+// Faz 12e: arşivin sektör kartları template-parts/catalog/sector-browse.php'ye taşındı (get_term_link orada).
+[ 'template-parts/catalog/sector-browse.php', 'taxonomy-mb_sektor.php' ].forEach( function ( file ) {
 	var src = read( file );
 	var callCount = ( src.match( /get_term_link\(/g ) || [] ).length;
 	var guardCount = ( src.match( /is_wp_error\(\s*\$(sector_link|term_url|link)\s*\)/g ) || [] ).length;

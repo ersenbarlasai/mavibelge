@@ -34,6 +34,7 @@ WordPress/PHP: hedef WordPress 6.9.x + PHP 7.3 **koşullu/legacy**; sürüm/yama
 5. Doğrulama: `wp mavibelge import status`; dry-run yeniden `unchanged`.
 6. Redirect aynı biçimde: `wp mavibelge redirects import --file=...` dry-run; apply `MAVIBELGE_REDIRECTS_APPLY_ENABLED` penceresiyle.
 Gerçek katalog/staging/canlı apply bu depoda **hiç çalıştırılmadı**.
+**SSH/WP-CLI yoksa (DirectAdmin):** aynı aşama sırası ve aynı kapılar yönetim panelinden de çalışır (kesintiye dayanıklı, her istekte en çok 10 kayıt, sektör görsel eşleme dahil); adım adım staging işletimi: [`admin-import-operations.md`](admin-import-operations.md) (eklenti 0.5.0).
 
 ## 5. Geri dönüş (rollback) runbook'u
 - Uygulama sonrası: `wp mavibelge import rollback --run-id=<uid>` (önizleme + `--confirm=<rollback_digest>`); kullanıcı değişikliği (drift) varsa **reddedilir**, veri korunur. Rollback **yedeğin yerine geçmez**.
@@ -56,3 +57,7 @@ Kurum içerik kararları tamam (`institution-decisions.md`); iki yedek + geri d�
 
 ## 10. Kurulum sonrası operasyonel açıklar (kod eksikliği DEĞİL)
 Kurum kararları, gerçek staging kurulumu ve dry-run, kurumun veriyi incelemesi, iki yedek + geri dönüş provası, kullanıcının ayrı apply onayı, canlı geçiş, sunucu bilgileri, gerçek e-posta teslim testi, gerçek kişisel veri formlarının aktivasyonu.
+
+## 11. Sayfa aktarımı ve yayınlama (Faz 12; yalnız staging, ayrı onay)
+Sıra: yedek + geri dönüş provası → apply sabitlerini pencere boyunca aç → `pages` aşaması (32 taslak) → sayfaları incele (taslak önizleme) → **ayrı** yayın işlemi (`YAYINLA <özet>`; 30 sayfa hazır; `referanslar` ve `sss` içerik kayıtları oluşup yayınlanana kadar `content_not_ready`) → `sectors` → `qualifications` → `all` → `content` (6 haber + 15 logolu referans + 6 SSS, taslak) → SSS/referans kayıtlarını yayınla → kalan 2 sayfayı yayınla → sabitleri kapat. Sunucuya `data/` dizini (logo dosyaları dahil) bir bütün olarak konur. Üretimde yayınlama bu ekrandan yapılamaz (`publish_staging_only`); canlı geçiş kararı ayrıdır. Ayrıntı: `admin-import-operations.md` §8.
+Yerel kanıt yalnız izole fixture DB'dedir; gerçek staging'de **çalıştırılmadı**.

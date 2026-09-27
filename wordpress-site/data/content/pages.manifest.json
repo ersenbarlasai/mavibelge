@@ -1,0 +1,745 @@
+{
+  "schema_version": "2.0.0",
+  "record_type": "page",
+  "count": 32,
+  "source": {
+    "file": "tanitim-site/*.html",
+    "sha256": "bced234684c36a2ec888d0a7e4fafe62777729ced47a93576c334b27f6ee3242"
+  },
+  "notes": [
+    "Kaynak: tanitim-site/*.html (dondurulmuş, yalnız okunur). Her sayfanın ana içeriği (hero sonrası) kapalı izin listeli, kanonik semantik HTML olarak çıkarılır; header/footer/gezinme/CTA düğmesi/script/form/görsel içeriğe kopyalanmaz.",
+    "mode=empty sayfalarda içerik BOŞTUR: tema dinamik olarak çizer (hub kartları, form altyapısı, CPT listeleri) veya statik metin kurumca onaylanmamıştır (KVKK/gizlilik özeti); hiçbir metin uydurulmaz. Nedenleri page-inventory.js içindedir.",
+    "Yer-tutucu/demo cümleleri (\"tanıtım sürümü\", \"bilgi güncellenecektir\", \"yazılım aşamasında\" ...) ve href=\"#\" bağlantıları içeriğe alınmaz; başlıklardan \"(Demo)\" ekleri çıkarılmıştır.",
+    "Tüm sayfalar hedef post_status=draft olarak planlanır; yayınlama ayrı, açık onaylı işlemdir ve publish_hold=true (bekleyen bloklayıcı kurum kararı) sayfalarını atlar.",
+    "Hero özeti (varsa) excerpt olarak taşınır; tema başlık altında gösterir."
+  ],
+  "records": [
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:kurumsal",
+      "source_index": 0,
+      "slug": "kurumsal",
+      "title": "Kurumsal",
+      "content": "",
+      "excerpt": "Mavi Belge'nin kuruluş bilgileri, politikaları ve yetkilendirmeleri.",
+      "parent_source_key": null,
+      "menu_order": 1,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "hub",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/kurumsal.html",
+        "sha256": "764a685f28fa8e40eb42d30bbb8d0e01c399678c15b23a483ba6eeb370210bac"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:bilgi-merkezi",
+      "source_index": 1,
+      "slug": "bilgi-merkezi",
+      "title": "Bilgi Merkezi",
+      "content": "",
+      "excerpt": "Haberler, duyurular, dokümanlar, mevzuat ve sık sorulan sorular tek noktada.",
+      "parent_source_key": null,
+      "menu_order": 2,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "hub",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/bilgi-merkezi.html",
+        "sha256": "579602576be7707fa6a1b9f8bde2a3ed05f376b39f005e7ddd14fa85160b657e"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sinav-ve-basvuru",
+      "source_index": 2,
+      "slug": "sinav-ve-basvuru",
+      "title": "Sınav ve Başvuru",
+      "content": "",
+      "excerpt": "Başvuru adımlarından ücretlere, sınav takviminden itiraz sürecine kadar tüm bilgiler.",
+      "parent_source_key": null,
+      "menu_order": 3,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "hub",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/sinav-ve-basvuru.html",
+        "sha256": "57c3179d8f5a7a76e5b60a00e7b93bff75c7910b1da33af5c217bc547edb5b68"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:hakkimizda",
+      "source_index": 3,
+      "slug": "hakkimizda",
+      "title": "Hakkımızda",
+      "content": "<p>Mavi Belge Uluslararası Sert. ve Göz. Hiz. Ltd. Şti., 02.05.2016 tarihinde Türk Akreditasyon Kurumu (TÜRKAK) tarafından TS EN ISO / IEC 17024:2012 standardında akredite edilmiş, 16.08.2016 tarihinde Mesleki Yeterlilik Kurumu (MYK) tarafından sınav ve belgelendirme faaliyetleri alanında yetkilendirilmiş bağımsız bir personel belgelendirme kuruluşudur.</p>\n<p>Merkezi İskenderun/Hatay'da bulunan kurumumuz; Payas/Dörtyol/Hatay ve Aliağa/İzmir sınav alanlarıyla makine, metalurji, metal, lojistik, iş makineleri, plastik, enerji, cam, tekstil, inşaat, mobilya, maden, mermer ile güzellik ve saç bakım sektörlerinde ulusal yeterlilik sınav ve belgelendirme hizmeti sunmaktadır.</p>\n<p>Kurumumuz, adayların mesleki bilgi, beceri ve yetkinliklerini bağımsız ve tarafsız biçimde değerlendirerek MYK Mesleki Yeterlilik Belgesi düzenler.</p>",
+      "excerpt": "Mavi Belge Uluslararası Sertifikasyon ve Gözetim Hizmetleri Ltd. Şti.",
+      "parent_source_key": null,
+      "menu_order": 4,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "df82f0f56aacd99c97bda0e7c94a1ced853a4c96bdfd204df59b92d9dbf5d6e3",
+      "pending_decisions": [
+        "static_counter_block_omitted"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/hakkimizda.html",
+        "sha256": "13ce2190dbe1b468dec6555e9e6a7d84183f101fc60c6a091e19140ee8475845"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:misyon-vizyon",
+      "source_index": 4,
+      "slug": "misyon-vizyon",
+      "title": "Misyon ve Vizyon",
+      "content": "<h2>Misyonumuz</h2>\n<p>Mesleki yeterlilik sınav ve belgelendirme faaliyetlerini bağımsızlık, tarafsızlık ve gizlilik ilkeleriyle yürüterek çalışanların mesleki yetkinliklerini güvenilir biçimde belgelemek.</p>\n<h2>Vizyonumuz</h2>\n<p>Türkiye'de mesleki yeterlilik belgelendirmesi alanında güvenilirliği ve hizmet kalitesiyle tanınan, sektör paydaşlarının tercih ettiği bir belgelendirme kuruluşu olmak.</p>",
+      "excerpt": "Mavi Belge'nin kurumsal misyon ve vizyonu.",
+      "parent_source_key": null,
+      "menu_order": 5,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "ef8e4f1272b4d3530b50ca5214a744da7b9dca0891351b86801130d35d39255d",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/misyon-vizyon.html",
+        "sha256": "dce27f997389bb9822261aad0e7061bf21d8b08b2443e27277688255eeab04c8"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:kalite-politikamiz",
+      "source_index": 5,
+      "slug": "kalite-politikamiz",
+      "title": "Kalite Politikamız",
+      "content": "<p>Mavi Belge, TS EN ISO/IEC 17024:2012 Uygunluk Değerlendirmesi — Personel Belgelendirmesi Yapan Kuruluşlar İçin Genel Şartlar standardına uygun olarak faaliyet gösterir.</p>\n<ol>\n<li>Tarafsız, bağımsız ve gizlilik ilkelerine uygun belgelendirme hizmeti sunmak.</li>\n<li>Yasal mevzuata ve MYK ulusal yeterlilik gereksinimlerine tam uyum sağlamak.</li>\n<li>Sürekli iyileştirme yaklaşımıyla süreçleri gözden geçirmek.</li>\n<li>Adayların itiraz ve şikayetlerini adil biçimde değerlendirmek.</li>\n</ol>",
+      "excerpt": "TS EN ISO/IEC 17024:2012 standardına uygun kalite yönetim anlayışımız.",
+      "parent_source_key": null,
+      "menu_order": 6,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "00c92f967d7088429c686c4673236683a18521a48b6591d3f90811c61b54bec5",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/kalite-politikamiz.html",
+        "sha256": "9e9c2bfcc009fd3c38c862b1dd25e156caea0c2d97015c1793d3a7a3bec70be0"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:tarafsizlik-beyani",
+      "source_index": 6,
+      "slug": "tarafsizlik-beyani",
+      "title": "Tarafsızlık Beyanı",
+      "content": "<p>Mavi Belge, sınav ve belgelendirme faaliyetlerini ticari, mali veya diğer baskılardan bağımsız biçimde yürütür. Belgelendirme kararları, adayın yeterlilik performansı dışında hiçbir unsurdan etkilenmez.</p>\n<p>Kurumumuz personeli, çıkar çatışması yaratabilecek durumları beyan etmekle yükümlüdür ve tarafsızlığı etkileyebilecek ilişkiler değerlendirme sürecine dahil edilmez.</p>",
+      "excerpt": "Bağımsız ve tarafsız belgelendirme taahhüdümüz.",
+      "parent_source_key": null,
+      "menu_order": 7,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "5d84d27a3e3b44f6a716e272b2d89682396bd9a2c4167230d9a9aac51ec8164f",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/tarafsizlik-beyani.html",
+        "sha256": "90b132458384088dda5af1b7635f2bc839b96c653dd617b11a76b4339c78f678"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:yasal-dayanagimiz",
+      "source_index": 7,
+      "slug": "yasal-dayanagimiz",
+      "title": "Yasal Dayanağımız",
+      "content": "<ol>\n<li>5544 sayılı Mesleki Yeterlilik Kurumu Kanunu</li>\n<li>TS EN ISO/IEC 17024:2012 Personel Belgelendirmesi standardı</li>\n<li>Çalışma ve Sosyal Güvenlik Bakanlığı'nın MYK belgesi zorunluluğu getiren tebliğleri</li>\n</ol>\n<p>Güncel mevzuat metinlerine <a href=\"/mevzuat/\">Mevzuat</a> sayfamızdan ulaşabilirsiniz.</p>",
+      "excerpt": "Faaliyetlerimizin yasal ve mevzuat dayanağı.",
+      "parent_source_key": null,
+      "menu_order": 8,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "266b676f6aee9af6b81c58598c8f4ecba010a952927fd3d6267a5b442c955055",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/yasal-dayanagimiz.html",
+        "sha256": "2bac4147abf5367ca5ed6b9e5259b50fbb4db38d6653b2941e23438f16b0b8ec"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:yetki-akreditasyon",
+      "source_index": 8,
+      "slug": "yetki-akreditasyon",
+      "title": "Yetki ve Akreditasyon",
+      "content": "<h2>MYK Yetkilendirmesi</h2>\n<p>Mavi Belge, 16.08.2016 tarihinde Mesleki Yeterlilik Kurumu (MYK) tarafından sınav ve belgelendirme faaliyetleri alanında yetkilendirilmiştir.</p>\n<h2>TÜRKAK Akreditasyonu</h2>\n<p>Mavi Belge, 02.05.2016 tarihinde Türk Akreditasyon Kurumu (TÜRKAK) tarafından TS EN ISO / IEC 17024:2012 standardında akredite edilmiştir.</p>",
+      "excerpt": "MYK yetkilendirmesi ve TÜRKAK akreditasyonumuz.",
+      "parent_source_key": null,
+      "menu_order": 9,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "c26a7b06e5ec31f203c3db0c41d11a890642db04a05ca86d06deacc83f459bf5",
+      "pending_decisions": [
+        "accreditation_documents_pending"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/yetki-akreditasyon.html",
+        "sha256": "cc21521cdca3bc4774062b1a1e7d60814e681a40467839f3e594122d53287a5f"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:referanslar",
+      "source_index": 9,
+      "slug": "referanslar",
+      "title": "Referanslarımız",
+      "content": "",
+      "excerpt": "",
+      "parent_source_key": null,
+      "menu_order": 10,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "cpt-page",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [
+        "reference"
+      ],
+      "source": {
+        "file": "tanitim-site/referanslar.html",
+        "sha256": "f16e826156536c0ec9b9e51be2d23b2171b506989d9913090c34a7c69eb7e566"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sosyal-sorumluluk",
+      "source_index": 10,
+      "slug": "sosyal-sorumluluk",
+      "title": "Sosyal Sorumluluk",
+      "content": "<p>Mavi Belge, mesleki yeterlilik belgelendirmesinin toplumsal fayda boyutuna inanır; afet sonrası mesleki belgelendirme desteği ve mültecilerin mesleki yeterliliklerinin belgelendirilmesi gibi konularda kamuoyunu bilgilendiren duyurular paylaşmıştır.</p>\n<p>Sosyal sorumluluk kapsamındaki güncel içerikler <a href=\"/haberler/\">Haberler</a> sayfamızda da yer almaktadır.</p>",
+      "excerpt": "Toplumsal katkı ve sosyal sorumluluk çalışmalarımız.",
+      "parent_source_key": null,
+      "menu_order": 11,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "b224b0b9ec4cc2b35ded912431368a309b404d5f7c14c3ac3b0c3e9a19448aa3",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/sosyal-sorumluluk.html",
+        "sha256": "374fb5eca0f954cde92e8528e7698925e19f4e98d234f75ceb4bd4c20e388932"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:kariyer",
+      "source_index": 11,
+      "slug": "kariyer",
+      "title": "Kariyer",
+      "content": "<p>Mavi Belge, sınav ve belgelendirme süreçlerini yürüten deneyimli ve gelişime açık bir ekiple çalışır. Açık pozisyonlarımız ve genel başvurularınız için İş Başvurusu sayfamızı kullanabilirsiniz.</p>\n<ol>\n<li>Sınav ve belgelendirme operasyonu</li>\n<li>Kalite ve mevzuat uyum</li>\n<li>Müşteri ilişkileri ve idari işler</li>\n</ol>",
+      "excerpt": "Mavi Belge ekibine katılın.",
+      "parent_source_key": null,
+      "menu_order": 12,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "a1037f4d6fea62d967e53760ae07a0001d7ff87c54b3bdd5a14580c0eeef1c77",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/kariyer.html",
+        "sha256": "6d04181ebffd47ab8fe55c1293169c57736fe1c95526560db08b4f5877f3e6c0"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:belge-yenileme",
+      "source_index": 12,
+      "slug": "belge-yenileme",
+      "title": "Belge Yenileme",
+      "content": "<h3>Gözetim</h3>\n<p>Belge geçerlilik süresi içinde, ulusal yeterlilikte tanımlanan gözetim faaliyeti uygulanır.</p>\n<h3>Yenileme Sınavı</h3>\n<p>Geçerlilik süresi dolan belgeler için yeniden değerlendirme veya yenileme sınavı gerekebilir.</p>\n<h3>Belge Yenileme Başvurusu</h3>\n<p>Yenileme talebinizi online başvuru formu üzerinden iletebilirsiniz.</p>\n<h2>Süreç Nasıl İşler?</h2>\n<ol>\n<li>Belgenizin geçerlilik süresini <a href=\"/sonuc-belge-sorgulama/\">Belge Sorgulama</a> sayfasından kontrol edin.</li>\n<li>Yenileme veya gözetim başvurunuzu <a href=\"/online-basvuru/\">Online Başvuru</a> ile iletin.</li>\n<li>Kurumumuz sizinle iletişime geçerek süreci yürütür.</li>\n</ol>",
+      "excerpt": "Geçerlilik süresi yaklaşan veya dolan MYK Mesleki Yeterlilik Belgeniz için yenileme ve gözetim süreci.",
+      "parent_source_key": null,
+      "menu_order": 13,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "fb59887bb182c1f52d088341573baccbb2ed561313fe7e858860382c87e54960",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/belge-yenileme.html",
+        "sha256": "e31a172ecd30089ef7d89ed74f64e6d60f970df440a9b4b7c3a5bb27b4ba7291"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:mevzuat",
+      "source_index": 13,
+      "slug": "mevzuat",
+      "title": "Mevzuat",
+      "content": "<ul>\n<li>5544 sayılı Mesleki Yeterlilik Kurumu Kanunu</li>\n<li>TS EN ISO/IEC 17024:2012 Personel Belgelendirmesi Standardı</li>\n<li>Çalışma ve Sosyal Güvenlik Bakanlığı MYK Belgesi Zorunluluğu Tebliğleri</li>\n<li>6698 sayılı Kişisel Verilerin Korunması Kanunu</li>\n</ul>",
+      "excerpt": "Faaliyetlerimize dayanak oluşturan kanun, standart ve tebliğler.",
+      "parent_source_key": null,
+      "menu_order": 14,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "56e57b244d6eb14182af3d54432d4ff5f6c1666d9290aebb709a9226e922775c",
+      "pending_decisions": [
+        "legislation_links_pending"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/mevzuat.html",
+        "sha256": "17079d3ef7fa142b011a25a5f2ab53d4038fe568ddc9402e6124fff3d4f2ca26"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:myk",
+      "source_index": 14,
+      "slug": "myk",
+      "title": "MYK Nedir?",
+      "content": "<p>Mesleki Yeterlilik Kurumu (MYK), 5544 sayılı Kanun ile kurulmuş, ulusal yeterlilik sisteminin oluşturulması ve işletilmesinden sorumlu kamu kurumudur. MYK, belgelendirme kuruluşlarını yetkilendirir ve ulusal meslek standartları ile ulusal yeterlilikleri yayımlar.</p>\n<p>Mavi Belge, MYK tarafından 16.08.2016 tarihinde sınav ve belgelendirme faaliyetleri alanında yetkilendirilmiştir.</p>",
+      "excerpt": "Mesleki Yeterlilik Kurumu hakkında bilgi.",
+      "parent_source_key": null,
+      "menu_order": 15,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "5ea84ad7b1336eaa2bcc8886262c752054ac6286d01f0b43d47a7e48b6be03c5",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/myk.html",
+        "sha256": "9dd2e090d482b41a6e44017adcf401cf977377f2824b50bd893c8d0b9d000dca"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:turkak",
+      "source_index": 15,
+      "slug": "turkak",
+      "title": "TÜRKAK Nedir?",
+      "content": "<p>Türk Akreditasyon Kurumu (TÜRKAK), Türkiye'nin ulusal akreditasyon kurumu olup, belgelendirme, muayene, deney ve kalibrasyon kuruluşlarının ulusal ve uluslararası standartlara uygunluğunu değerlendirir ve akredite eder.</p>\n<p>Mavi Belge, TÜRKAK tarafından 02.05.2016 tarihinde TS EN ISO / IEC 17024:2012 standardında akredite edilmiştir.</p>",
+      "excerpt": "Türk Akreditasyon Kurumu hakkında bilgi.",
+      "parent_source_key": null,
+      "menu_order": 16,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "659e4b2f0c0b210e1084a02becc2b23df3deda2ddfde7c939c17975578fe2414",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/turkak.html",
+        "sha256": "5a9d7f4b8108ea46425251f93fcc711794dcd39f79988140f17473ae58b181ad"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:ulusal-meslek-standartlari",
+      "source_index": 16,
+      "slug": "ulusal-meslek-standartlari",
+      "title": "Ulusal Meslek Standartları",
+      "content": "<p>Ulusal Meslek Standardı (UMS), bir mesleğin başarıyla icra edilebilmesi için gerekli bilgi, beceri, tutum ve tavırları gösteren, asgari normları tanımlayan MYK belgesidir. Ulusal yeterlilikler, ilgili ulusal meslek standardı esas alınarak hazırlanır.</p>\n<p>Belgelendirdiğimiz mesleklere ait yeterlilik kodlarına <a href=\"/yeterlilikler/\">Tüm Meslekler</a> sayfasından ulaşabilirsiniz.</p>",
+      "excerpt": "MYK tarafından yayımlanan ulusal meslek standartları hakkında bilgi.",
+      "parent_source_key": null,
+      "menu_order": 17,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "883cf6d735468a029c080a492bd5c06af27adef28b539aa19e91ba1298c1058a",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/ulusal-meslek-standartlari.html",
+        "sha256": "21ba7e3a9a9540e8c513460e1ff7e89101cc90a9ce74b8ba2047a9190e0353a4"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:ulusal-yeterlilikler",
+      "source_index": 17,
+      "slug": "ulusal-yeterlilikler",
+      "title": "Ulusal Yeterlilikler",
+      "content": "<p>Ulusal Yeterlilik (UY), bireyin belirli bir meslekte başarılı olması için sahip olması gereken bilgi, beceri ve yetkinlikleri; sınav, ölçme ve değerlendirme esaslarını tanımlayan MYK belgesidir. Mavi Belge, ilgili ulusal yeterliliklere göre sınav ve belgelendirme yapar.</p>\n<p>Yeterlilik kodu, seviye ve sektör bilgisiyle arama yapmak için <a href=\"/yeterlilikler/\">Tüm Meslekler</a> sayfasını kullanabilirsiniz.</p>",
+      "excerpt": "MYK tarafından yayımlanan ulusal yeterlilikler hakkında bilgi.",
+      "parent_source_key": null,
+      "menu_order": 18,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "7af53f6f064fa3f88e6d2ecb9f3e8512d9c5a22202fc8da4fa779b3d0aa0120c",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/ulusal-yeterlilikler.html",
+        "sha256": "fe2e8d63252885e6abc9e36a0995beef7aa12bfc60af5c2ef86131f7b8d0e78d"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sss",
+      "source_index": 18,
+      "slug": "sss",
+      "title": "Sık Sorulan Sorular",
+      "content": "",
+      "excerpt": "Başvuru, sınav ve belgelendirme süreciyle ilgili en çok sorulan sorular.",
+      "parent_source_key": null,
+      "menu_order": 19,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "cpt-page",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [
+        "faq"
+      ],
+      "source": {
+        "file": "tanitim-site/sss.html",
+        "sha256": "23cf5c995b7ec5e539818ccde1a862f2230b12e9d183e6caaf8d2a62184c08c7"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:nasil-basvururum",
+      "source_index": 19,
+      "slug": "nasil-basvururum",
+      "title": "Nasıl Başvururum?",
+      "content": "<h3>Mesleğini Seç</h3>\n<p><a href=\"/yeterlilikler/\">Tüm meslekler</a> içinden yeterlilik kodu ve seviyenizi belirleyin.</p>\n<h3>Belgelerinizi Hazırlayın</h3>\n<p>Kimlik ve mesleğe özgü belge gereksinimlerini kontrol edin.</p>\n<h3>Online Başvuru Yapın</h3>\n<p><a href=\"/online-basvuru/\">Online Başvuru</a> formunu doldurup gönderin.</p>\n<h3>Ödeme ve Onay</h3>\n<p><a href=\"/sinav-ucretleri/\">Ücret</a> ve <a href=\"/banka-hesap-bilgileri/\">banka bilgilerini</a> kullanarak ödemenizi tamamlayın.</p>",
+      "excerpt": "Mesleğinizi seçmekten belgenizi almaya kadar başvuru adımları.",
+      "parent_source_key": null,
+      "menu_order": 20,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "e4c05d55298266877fedcb8445d4f0652fc95aaa173f1c4db366f2d4e406bb70",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/nasil-basvururum.html",
+        "sha256": "9a4019575929f2b0d5ecd5a032e7ebae49c046a836a9e130612931a10f7267db"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:online-basvuru",
+      "source_index": 20,
+      "slug": "online-basvuru",
+      "title": "Online Başvuru",
+      "content": "",
+      "excerpt": "Mesleki yeterlilik sınavına başvurmak için aşağıdaki adımları tamamlayın.",
+      "parent_source_key": null,
+      "menu_order": 21,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "form-disabled",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [
+        "form_gate_institution_decisions"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/online-basvuru.html",
+        "sha256": "39e51acff34e2b8b149b56c213980504f56dcbbace8e76e3e8b2c5fbb6bb1a2d"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sinav-takvimi",
+      "source_index": 21,
+      "slug": "sinav-takvimi",
+      "title": "Sınav Takvimi",
+      "content": "<p>Sınav takvimi bu sitede değil, harici bir hizmette yayınlanmaktadır. Güncel sınav tarihlerini görüntülemek için aşağıdaki bağlantıyı kullanın.</p>\n<p>Bağlantı sizi bu sitenin dışındaki bir sisteme (mavibelge.pratikteorik.com) götürür.</p>\n<p><a href=\"https://mavibelge.pratikteorik.com/home/examcalendar\">Sınav takvimini harici hizmette görüntüle</a></p>",
+      "excerpt": "Sınav takvimi harici hizmette yayınlanmaktadır.",
+      "parent_source_key": null,
+      "menu_order": 22,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "617ba43e05929f700e09f8fe2970d3a4750be18963e09c211813c45d3f625f0e",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "wordpress-site/data/sources/approved/sinav-takvimi.html",
+        "sha256": "bb5f0bcb1e12309ae5e24f9969412f09b440ce72e712120c46df9749a3bfe95b"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sinav-ucretleri",
+      "source_index": 22,
+      "slug": "sinav-ucretleri",
+      "title": "Sınav Ücretleri",
+      "content": "",
+      "excerpt": "Meslek ve sektöre göre güncel sınav ve belgelendirme ücret tarifesi.",
+      "parent_source_key": null,
+      "menu_order": 23,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "cpt-page",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [
+        "fee_tariff_documents_pending"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/sinav-ucretleri.html",
+        "sha256": "ad50a118bb4a567f523a7a8677718d79897b76a39ddb43c324b413214b0400bd"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sonuc-belge-sorgulama",
+      "source_index": 23,
+      "slug": "sonuc-belge-sorgulama",
+      "title": "Sonuç ve Belge Sorgulama",
+      "content": "<p>Sonuç ve belge sorgulama işlemi Mesleki Yeterlilik Kurumu (MYK) portalında yapılır. Sorgulamak için aşağıdaki bağlantıyı kullanın.</p>\n<p>Bağlantı sizi bu sitenin dışındaki MYK portalına (portal.myk.gov.tr) götürür. Bu sayfada T.C. kimlik numarası veya başka bir kişisel bilgi istenmez.</p>\n<p><a href=\"https://portal.myk.gov.tr/index.php?option=com_belgelendirme&amp;view=belgelendirme_islemleri&amp;layout=aday_bilgi_sorgu\">Sonuç ve belge sorgulamayı MYK portalında aç</a></p>",
+      "excerpt": "Sonuç ve belge sorgulama MYK portalında yapılır.",
+      "parent_source_key": null,
+      "menu_order": 24,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "dcc0a1b24756d4f8905700a0ccf15ec986a9615859ca12842aa81863de8d50bb",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "wordpress-site/data/sources/approved/sonuc-belge-sorgulama.html",
+        "sha256": "70f7f6a57e78245838f95022419eeb7509b57cd689b01418e9cea550556a1a7c"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sinav-surecleri",
+      "source_index": 24,
+      "slug": "sinav-surecleri",
+      "title": "Sınav Süreçleri",
+      "content": "<ol>\n<li><strong>Başvuru:</strong> Aday, meslek/yeterlilik seçerek online başvuru yapar ve gerekli belgeleri iletir.</li>\n<li><strong>Ön Değerlendirme:</strong> Başvuru belgeleri ve varsa ön koşullar kontrol edilir.</li>\n<li><strong>Sınav Planlama:</strong> Sınav tarihi ve yeri adaya bildirilir.</li>\n<li><strong>Teorik Sınav:</strong> Ulusal yeterlilikte tanımlanan teorik sınav uygulanır.</li>\n<li><strong>Performans Sınavı:</strong> Mesleğe özgü uygulamalı sınav gerçekleştirilir.</li>\n<li><strong>Değerlendirme:</strong> Sınav sonuçları değerlendirme komisyonunca incelenir.</li>\n<li><strong>Belgelendirme:</strong> Başarılı adaylara MYK Mesleki Yeterlilik Belgesi düzenlenir.</li>\n</ol>",
+      "excerpt": "Başvurudan belgelendirmeye kadar sınav sürecinin aşamaları.",
+      "parent_source_key": null,
+      "menu_order": 25,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "1101aadbd9ce87e79a0a5019bca374cf5aac4d96f5bffc090ac295334da87b51",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/sinav-surecleri.html",
+        "sha256": "282d40dfc11c2ee9703f76df47297f0f559a3eee1cff02e7c1ad8dc372edbf7a"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:sinav-talepleri",
+      "source_index": 25,
+      "slug": "sinav-talepleri",
+      "title": "Sınav Talepleri",
+      "content": "",
+      "excerpt": "Bireysel veya kurumsal sınav talebinizi bize iletin; ekibimiz sizinle iletişime geçsin.",
+      "parent_source_key": null,
+      "menu_order": 26,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "form-disabled",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [
+        "form_gate_institution_decisions"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/sinav-talepleri.html",
+        "sha256": "2cd3f09f394d5d6e5baf978b733517a2935296ebf8e76d13bb35fd0fd8dacf09"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:banka-hesap-bilgileri",
+      "source_index": 26,
+      "slug": "banka-hesap-bilgileri",
+      "title": "Banka Hesap Bilgileri",
+      "content": "<h4><strong>Bireysel Başvuru Banka Ödeme Bilgileri</strong></h4>\n<p><strong>Halk Bankası İskenderun Şubesi</strong><br />Şube Kodu: <strong>223</strong><br />Hesap Numarası: <strong>10261121</strong><br />IBAN: <strong>TR10 0001 2009 2230 0010 2611 21</strong></p>\n<p><strong>DİKKAT: Sınav Ücretlerini Yatırırken, Ad-Soyad, TC Kimlik No ve Sınava Katılacak Olduğunuz Meslek Adını Dekontun Açıklama Kısmına Yazınız/Yazdırınız.</strong></p>\n<h4><strong>Tek Nokta Başvurusu Banka Ödeme Bilgileri</strong></h4>\n<p><strong>Halk Bankası İskenderun Şubesi</strong><br />Şube Kodu: <strong>223</strong><br />Hesap Numarası: <strong>10261137</strong><br />IBAN: <strong>TR63 0001 2009 2230 0010 2611 37</strong></p>\n<h4><strong>AB HİBE FON ÖDEMELERİ IBAN NUMARAMIZ</strong></h4>\n<p><strong>Halk</strong> <strong>Bankası İskenderun Şubesi</strong><br />Şube Kodu: <strong>223</strong><br />Hesap Numarası: <strong>10261534</strong><br />IBAN: <strong>TR14 0001 2009 2230 0010 2615 34</strong></p>",
+      "excerpt": "",
+      "parent_source_key": null,
+      "menu_order": 27,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "97a22ff7c4cfeeff2c239dfd7faeec9926a6186d6f4f74a868e18095252654bc",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "wordpress-site/data/sources/approved/banka-hesap-bilgileri.html",
+        "sha256": "a96dc1066e6a534040edef248572fe83cb453a2993ab899ae1b2c250ca08b374"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:itiraz-sikayet",
+      "source_index": 27,
+      "slug": "itiraz-sikayet",
+      "title": "İtiraz ve Şikayet",
+      "content": "<h2>Süreç Nasıl İşler?</h2>\n<ol>\n<li>İtiraz/şikayetiniz aşağıdaki form ile veya yazılı olarak kurumumuza iletilir.</li>\n<li>Talebiniz kalite yönetim prosedürüne göre kayıt altına alınır.</li>\n<li>İlgili birim tarafından değerlendirilir ve sonuç tarafınıza bildirilir.</li>\n</ol>",
+      "excerpt": "Sınav ve belgelendirme sürecine ilişkin itiraz ve şikayetlerinizi iletebilirsiniz.",
+      "parent_source_key": null,
+      "menu_order": 28,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "form-disabled",
+      "content_sha256": "19d865ea93406c0cabf7893ec00d8adf26684cde51307848f9daad48ead8881d",
+      "pending_decisions": [
+        "form_gate_institution_decisions"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/itiraz-sikayet.html",
+        "sha256": "bd24768928873b62cb33e181b98e4b7ae2ea0301de862772c8e361735e03d41f"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:iletisim",
+      "source_index": 28,
+      "slug": "iletisim",
+      "title": "İletişim",
+      "content": "",
+      "excerpt": "Merkez ofisimiz, sınav alanlarımız ve iletişim bilgilerimiz.",
+      "parent_source_key": null,
+      "menu_order": 29,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "form-disabled",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [
+        "form_gate_institution_decisions",
+        "location_data_pending"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/iletisim.html",
+        "sha256": "92259da36da912a650b88ca9fd721ca7933fa215dd7e3878db36085b620a53b5"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:is-basvurusu",
+      "source_index": 29,
+      "slug": "is-basvurusu",
+      "title": "İş Başvurusu",
+      "content": "",
+      "excerpt": "Mavi Belge'ye iş başvurunuzu iletin.",
+      "parent_source_key": null,
+      "menu_order": 30,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "form-disabled",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pending_decisions": [
+        "form_gate_institution_decisions"
+      ],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "tanitim-site/is-basvurusu.html",
+        "sha256": "74d3fa319bcfa1791b42affa878153dd8dfac6c06c63af9d60b504be10d85496"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:gizlilik-politikasi",
+      "source_index": 30,
+      "slug": "gizlilik-politikasi",
+      "title": "Gizlilik Politikası",
+      "content": "<p>Kişisel verileriniz, sizin onayınızı almadığımız ya da kanunen yapmamız gerekmediği sürece, bizim tarafımızdan hiçbir biçimde üçüncü şahıslarca kullanım için aktarılmayacaktır.</p>\n<p>Kişisel bilgileriniz hiçbir şekilde sizi rahatsız edecek şekilde kullanılmaz.</p>\n<p>MAVİ BELGE internet sitemizin kullanımından elde edilen özel bilgilerinizin önemli bir konu olduğunun farkındadır.</p>\n<p>Eski veya yanlış olduğunu düşündüğünüz takdirde, sistemimizde saklanan kişisel verileri gözden geçirme ve değiştirme hakkına sahipsiniz.</p>\n<p>MAVİ BELGE kişisel verilerinizi suiistimal, kaybolma, imha veya yetkisiz kişilerin erişiminden korumak için teknik ve organizasyonel güvenlik tedbirleri kullanır.</p>\n<p>MAVİ BELGE tarafından size sağlanan kişisel veriler, üçüncü şahıslar tarafından olası kötüye kullanımı engellemek amacıyla iletim sırasında şifrelenecektir. Güvenlik prosedürlerimiz yeni teknolojik gelişmelere dayanarak sürekli yenilenmektedir.</p>\n<p>Çocukların mahremiyetini korumanın önemi ışığında, yasal temsilcisinin doğrulanabilir ön onayı olmaksızın 18 yaşından küçük olduğunu bildiğimiz bir bireyle ilgili bilgileri toplamıyor, işlemiyor internet sitemizde kullanmıyoruz. Söz konusu yasal temsilci, talep üzerine, çocuk tarafından sunulan bilgileri gözden geçirme ve/veya silinmesini isteme hakkını sahiptir.</p>\n<p>Gizlilik koruma beyanımız veya kişisel bilgilerinizin nasıl işleme alındığı hakkında sorularınız için bizimle iletişim sayfaları üzerinden bağlantı kurunuz.</p>\n<p>Gizlilik beyanımızdaki herhangi bir değişiklik bu gizlilik ifadesinde, ana sayfamızda ve uygun gördüğümüz diğer yerlerde ilan edilecektir.</p>",
+      "excerpt": "",
+      "parent_source_key": null,
+      "menu_order": 31,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "f727630ff78aec6dfa1fb97ae0586df59f776253b3b8b96f9429d158e27baee1",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "wordpress-site/data/sources/approved/gizlilik-politikasi.html",
+        "sha256": "a3b00cdbfa9b84e8faeb37442ecf54641a5c5b6e1724b5c7c0e0c037bbe0e809"
+      }
+    },
+    {
+      "schema_version": "2.0.0",
+      "source_key": "page:kvkk",
+      "source_index": 31,
+      "slug": "kvkk",
+      "title": "KVKK Aydınlatma Metni",
+      "content": "<p>Kişisel Verilerin Korunması ve İşlenmesi</p>\n<p>MESLEKİ YETERLİLİK SINAV VE BELGELENDİRME HİZMETLERİ</p>\n<p>KİŞİSEL VERİLERİN KORUNMASI VE İŞLENMESİNE İLİŞKİN AYDINLATMA METNİ</p>\n<p>Mavi Belge Uluslararası Sertifikasyon Ve Gözetim Hiz. Ltd. Şti , 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) doğrultusunda, veri sorumlusu sıfatıyla 5544 sayılı Mesleki Yeterlilik Kurumu Kanunu gereği mesleki yeterlilik sınavına başvuru yapan “başvuru sahipleri”, başvurusu kabul edilen ve sınava alınan “adaylar” ve belge almaya hak kazanan “belgelendirilmiş adayların verilerini kaydetmekte, kanuni yükümlülükler nedeniyle belirli bir süre saklamakta ve/veya güncellemekte, kanuni yükümlülükler nedeniyle Mesleki Yeterlilik Kurumu (MYK) ve Türk Akreditasyon Kurumu (TÜRKAK) vb. kurumlarla paylaşmakta, bu verilerin saklanması ve muhafazası için gerekli teknik ve idari tedbirleri almaktadır.</p>\n<ol>\n<li>MAVİ BELGE’ nin Talep Ettiği Verilerin İşlenme Amaçları ve Hukuki Sebepler</li>\n<li>a) MAVİ BELGE , 5544 sayılı mevzuat ve ikincil düzenlemeler gereği mesleki yeterlilik sınavları için başvuru, sınav, belge düzenleme, gözetim ve belge yenileme süreçleri için başvuru sahiplerinin verilerini almaktadır.</li>\n<li>b) MAVİ BELGE sınava başvuru yapacak adaylardan;</li>\n</ol>\n<p>b-1) Nüfus cüzdanı bilgileri (ad, soyad, cinsiyet, C. kimlik numarası, doğum tarihi)</p>\n<p>b-2) İletişim bilgileri (adres, telefon, e-posta adresi)</p>\n<p>b-3) Çalışma bilgileri (çalışma durumu, çalıştığı işyerinin adresi, tecrübe)</p>\n<p>b-4) Eğitim durumu bilgisi</p>\n<p>b-5) Sınav esnasında uzman desteği gerektirecek herhangi bir sağlık durumu ve/veya fiziksel engel bilgisi</p>\n<p>b-6) IBAN bilgisi (4447 sayılı İşsizlik Sigortası Kanunu gereği ücret iadelerinin adaya yapılabilmesi amacıyla) talep</p>\n<ol>\n<li>c) MAVİ BELGE, 5544 sayılı mevzuat ve ikincil düzenlemeler gereği sınavlar esnasında adayların sınav performanslarını kamera kaydına almakta ve 1 yıl süreyle saklamaktadır.</li>\n</ol>\n<p>Kişisel veriler, sair tüm yasal mevzuat gerekliliğinin yanı sıra kurumumuz hizmetlerinin sunulabilmesi ve bu konuda talep ettiğiniz hizmetlere ilişkin iletişim kurulabilmesi ile ilişkili olarak işlenmektedir.</p>\n<ol>\n<li>Kişisel Verilerin Aktarıldığı/Paylaşıldığı Kişi/Kurumlar</li>\n</ol>\n<p>Kişisel verileriniz, yasal olarak aktarılması gereken resmi makamlara, hukuki zorunluluklar nedeniyle ve yasal sınırlamalar çerçevesinde bağımsız denetim şirketlerine, diğer mevzuat hükümleri uyarınca bilgi aktarımına izin verilen kurum ve kuruluşlara ve yine mevzuata uygun şekilde KVK Kanunu’nun 8. ve 9. Maddelerinde belirtilen kişisel veri işleme şartları ve amaçları çerçevesinde diğer üçüncü kişilere de Kurumumuzca aktarılabilecektir.</p>\n<p>Bu kapsamda;</p>\n<p>2-a) Adayların bilgileri, sınavların açılabilmesi ve belgenin düzenlenebilmesi amacıyla MYK’ya aktarılmaktadır.</p>\n<p>2-b) Adaylar adına sınav ve belgelendirme ücreti yatıran adayların çalışmakta olduğu firmalara, adayların sınav sonuçları aktarılmaktadır.</p>\n<p>2-c) Kanunen tabi olunan denetimler (mali-idari denetimler, vergi denetimleri, MYK ve TÜRKAK denetimleri) sebebiyle, söz konusu kurum/kuruluşlara talep ettikleri bilgi ve belgeler aktarılmaktadır.</p>\n<p>2-d) Finansal kayıtların tutulması ve faturalandırma işlemlerinin etkin bir şekilde yapılabilmesi amacıyla, sınava başvuru yapan adayların bilgileri hizmet alınan mali müşavirle paylaşılmaktadır.</p>\n<p>2-e) Adayların sınav işlemleri yazılım sistemi üzerinden takip edildiği için, adayların bilgileri yazılım firması ile paylaşılmaktadır.</p>\n<ol>\n<li>Kişisel Verilerin Kaydedilmesi / Saklanması</li>\n</ol>\n<p>Adayların kişisel verileri, MYK mevzuatı ve TS EN ISO 17024: Personel Belgelendirme Standardı gereğince sınav dosyalarında fiziksel olarak tutulmakta, ayrıca bilgisayar ortamında muhasebe programı, MAVİ BELGE sunucularında, sınav yazılımı ve MYK portalında saklanmaktadır. Bu doğrultuda;</p>\n<p>3-a) Kişisel veriler , MYK mevzuatı gereği 10 yıl boyunca saklanmakta, süre sonunda imha edilmektedir.</p>\n<p>3-b) Sınavlar boyunca kaydedilen kamera kayıtları, 1 yıl boyunca saklanmakta, süre sonunda imha</p>\n<p>Haklarınız</p>\n<p>6698 Sayılı Kanun’un 11’inci maddesindeki düzenlemeye göre, başvuru sahipleri, aday ve belgeli adayların sahip olduğu haklar aşağıdaki gibidir:</p>\n<p>1- Kişisel verilerinizin işlenip işlenmediğini öğrenme,</p>\n<p>2- Kişisel verileriniz işlenmiş ise buna ilişkin bilgi talep etme,</p>\n<p>3- Kişisel verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,</p>\n<p>4- Yurt içinde veya yurt dışında kişisel verilerinizin aktarıldığı üçüncü kişileri bilme,</p>\n<p>5- Kişisel verilerinizin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme ve bu kapsamda yapılan işlemin kişisel verilerinizin aktarıldığı üçüncü kişilere bildirilmesini isteme,</p>\n<p>6- 6698 Sayılı Kanun ve ilgili diğer kanun hükümlerine uygun olarak işlenmiş olmasına rağmen, işlenmesini gerektiren sebeplerin ortadan kalkması halinde kişisel verilerinizin silinmesini veya yok edilmesini isteme ve bu kapsamda yapılan işlemin kişisel verilerinizin aktarıldığı üçüncü kişilere bildirilmesini isteme,</p>\n<p>7- İşlenen verilerinizin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhine bir sonucun ortaya çıktığını düşünüyor iseniz buna itiraz etme,</p>\n<p>8- Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız halinde zararınızın giderilmesini talep etme haklarınız bulunmaktadır.</p>\n<p>Haklarınıza ilişkin taleplerinizi Kuruluşumuza iletmeniz (+90 542 618 62 84 numaralı çağrı merkezimiz üzerinden veya info@mavibelge.com.tr adresi üzerinden) ve/veya KVK Kanunu’nda belirtilen diğer yöntemler ile iletilmesi durumunda; talebiniz en geç otuz gün içinde sonuçlandıracaktır.</p>",
+      "excerpt": "",
+      "parent_source_key": null,
+      "menu_order": 32,
+      "page_template": "",
+      "post_status": "draft",
+      "layout": "default",
+      "content_sha256": "29fd2a54246a01161e30900e60b932f55f9f9924264692c5f89dc49761d75d36",
+      "pending_decisions": [],
+      "publish_hold": false,
+      "publish_requires": [],
+      "source": {
+        "file": "wordpress-site/data/sources/approved/kvkk.html",
+        "sha256": "7869dbfa36262c6c9b22c2f6feb4b770afeec90854988a7011be3137a979f33d"
+      }
+    }
+  ]
+}

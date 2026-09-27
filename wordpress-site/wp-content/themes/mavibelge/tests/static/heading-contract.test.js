@@ -54,10 +54,6 @@ check(
 //    component's default of 2, producing zero <h1> on every render path).
 var pageHeadingTemplates = [
 	'archive.php',
-	'archive-mb_yeterlilik.php',
-	'archive-mb_haber.php',
-	'archive-mb_dokuman.php',
-	'taxonomy.php',
 	'taxonomy-mb_sektor.php',
 	'search.php',
 ];
@@ -69,6 +65,19 @@ pageHeadingTemplates.forEach( function ( file ) {
 		/'level'\s*=>\s*1\s*,?/.test( src )
 	);
 });
+
+// 2a. Faz 13: haber/doküman arşivi ve genel taksonomi başlığı ortak template-parts/page/page-hero ile gelir (tek <h1>
+//     page-hero.php içinde); kendileri <h1> veya section-heading level 1 ÇİZMEZ; liste bölümü görsel gizli H2 taşır.
+[ 'archive-mb_haber.php', 'archive-mb_dokuman.php', 'taxonomy.php' ].forEach( function ( file ) {
+	var src = read( file );
+	check( file + ' renders its single H1 via template-parts/page/page-hero (no own H1 / level 1)', /template-parts\/page\/page-hero/.test( src ) && ! /<h1/.test( src ) && ! /'level'\s*=>\s*1/.test( src ) && /<h2 class="screen-reader-text">/.test( src ) );
+} );
+
+// 2b. Faz 12e: archive-mb_yeterlilik.php sayfa başlığını template-parts/page/page-hero ile verir (tek <h1>, page-hero.php içinde);
+//     kendisi <h1> veya section-heading level 1 ÇİZMEZ (çift H1 olmasın).
+var qualArchiveSrc = read( 'archive-mb_yeterlilik.php' );
+check( 'archive-mb_yeterlilik.php renders its single H1 via template-parts/page/page-hero', /template-parts\/page\/page-hero/.test( qualArchiveSrc ) && ! /<h1/.test( qualArchiveSrc ) && ! /'level'\s*=>\s*1/.test( qualArchiveSrc ) );
+check( 'page-hero.php renders exactly one <h1>', ( read( 'template-parts/page/page-hero.php' ).replace( /\/\*[\s\S]*?\*\//g, '' ).match( /<h1>/g ) || [] ).length === 1 );
 
 // 3. index.php: exactly one page-level H1 (via section-heading level=>1),
 //    and the in-loop post titles must be H2, never H1 — this must hold

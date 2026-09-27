@@ -55,7 +55,7 @@ Aşağıdaki 3 sayfada statik dosya adı ile CPT/taksonominin **gerçekten kayı
 | 35 | `sinav-talepleri.html` | Sınav Talepleri | `/sinav-talepleri/` | `page` | `page.php` (layout: form-disabled) | temel kabuk (bilinçli devre dışı) | Faz 8 | Gerçek `<form>` yok, madde 30 ile aynı yaklaşım |
 | 36 | `banka-hesap-bilgileri.html` | Banka Hesap Bilgileri | `/banka-hesap-bilgileri/` | `page` | `page.php` (layout: default) | gelecek faz bağımlı | Faz 6 | Hassas/değişebilir banka bilgisi PHP'ye **gömülmedi**; yalnız `the_content()` |
 | 37 | `itiraz-sikayet.html` | İtiraz ve Şikayet | `/itiraz-sikayet/` | `page` | `page.php` (layout: form-disabled) | temel kabuk (bilinçli devre dışı) | Faz 8 | Madde 30 ile aynı yaklaşım |
-| 38 | `iletisim.html` | İletişim | `/iletisim/` | `page` | `page.php` (layout: form-disabled) | temel kabuk (bilinçli devre dışı) | Faz 7 (lokasyon verisi), Faz 8 (form) | Form kabuğu + lokasyon kartları henüz `mb_lokasyon`'a bağlanmadı (footer'daki gibi statik fallback korunuyor, `docs/faz3-dependencies.md`) |
+| 38 | `iletisim.html` | İletişim | `/iletisim/` | `page` | `page.php` (layout: form-disabled) → `template-parts/page/content-contact.php` (Faz 12g) | referans düzeni (kahraman + lokasyonlar + sosyal medya + Bize Yazın) | Faz 12g | Kahraman `inc/page-layouts.php`; lokasyonlar `mavibelge_contact_locations()` (yayında+aktif `mb_lokasyon` DTO; yoksa footer ile ORTAK doğrulanmış yedek `inc/contact-helpers.php`); sosyal bağlantılar footer ile ortak `components/social-links.php`; form yalnız `gate()` açıkken `forms/form.php` (Ad Soyad + Telefon aynı satır); kapalıyken `<form>` yok |
 | 39 | `is-basvurusu.html` | İş Başvurusu | `/is-basvurusu/` | `page` | `page.php` (layout: form-disabled) | temel kabuk (bilinçli devre dışı) | Faz 8 | Madde 30 ile aynı yaklaşım; CV yükleme alanı yalnız etiket olarak listelenir |
 | 40 | `gizlilik-politikasi.html` | Gizlilik Politikası | `/gizlilik-politikasi/` | `page` | `page.php` (layout: default) | gelecek faz bağımlı | Faz 6 | `footer.php` zaten bu yola bağlanıyor (Faz 3) |
 | 41 | `kvkk.html` | KVKK Aydınlatma Metni | `/kvkk/` | `page` | `page.php` (layout: default) | gelecek faz bağımlı | Faz 6 | `footer.php` zaten bu yola bağlanıyor (Faz 3) |
@@ -67,3 +67,16 @@ Aşağıdaki 3 sayfada statik dosya adı ile CPT/taksonominin **gerçekten kayı
 ## Faz 7/8 güncellemesi
 `haberler`, `dokumanlar`, `referanslar`, `sss`, ana sayfa haber/referans şeritleri, tekil şablonlar ve `iletisim` lokasyon bölümü artık `MaviBelge_Core_Content_Service` üzerinden beslenir.
 Beş form sayfası, kurum kararları girilip kapı açılınca gerçek forma dönüşür (`institution-decisions.md`); aksi hâlde `<form>` çizilmez. 41/41 eşleme render kanıtı: `docs/qa-report.md`.
+
+## Faz 12 notu — bu harita artık import manifestinin çapraz kontrol kaynağıdır
+32 `page` kaydı (3 hub + 21 içerik + 5 form + 3 CPT-verili) `data/content/pages.manifest.json` ile içe aktarılır (taslak). Bu haritadaki slug/şablon/düzen bilgisi `tools/import/verify-page-manifest.js` tarafından envanterle karşılaştırılır; uyumsuzluk kapıyı düşürür. Harita değişmedi.
+
+## Faz 13 güncellemesi — referans sayfa aileleri (tema 0.6.8)
+Yukarıdaki tablo satırları (slug, başlık, layout) `tools/import/lib/page-inventory.js` tarafından okunur ve DEĞİŞMEDİ. Sunum artık tek merkezi kayıttan gelir:
+
+- Kayıt: `inc/page-layouts.php` → `mavibelge_page_presentation( $slug )` (sayfalar) ve `mavibelge_archive_presentation( $key )` (arşiv/taksonomi). Kahraman: `mavibelge_page_hero_args()` / `mavibelge_archive_hero_args()` (`inc/presentation-helpers.php`) — kırıntı Anasayfa'dan, eyebrow = menü grubu, lead = WordPress sayfa özeti (yoksa kayıt metni), H1 = WordPress başlığı.
+- Gövde: `template-parts/page/content-presentation.php` (tek ortak parça). Aileler: `prose` (myk, turkak), `list` (sinav-surecleri numaralı, mevzuat madde), `card` (banka-hesap-bilgileri h4→kart, sinav-takvimi, sonuc-belge-sorgulama), `cards` (yetki-akreditasyon 2 sütun + MYK/TÜRKAK logosu, belge-yenileme 3 sütun + "Süreç" listesi), `steps` (nasil-basvururum), `split` (itiraz-sikayet: içerik + form kartı; `content-form-disabled.php` / `content-form-live.php`).
+- Genişlik: wide 1280 / prose 820 (myk, turkak, mevzuat) / narrow 760 (banka, sinav-takvimi, sonuc-belge-sorgulama).
+- Arşivler: `archive-mb_haber.php`, `archive-mb_dokuman.php`, `taxonomy.php` ortak `page-hero` + `section.mb-archive` (servis sorgusu, süzgeç, sayfalama değişmedi; haber kartları `.news-grid`, dokümanlar `.doc-list`).
+- İçerikteki kök-göreli iç bağlantılar (`/slug/`) tüm sayfa gövdelerinde `mavibelge_rendered_content()` ile etkin kalıcı bağlantı yapısına çevrilir (saklanan içerik değişmez).
+- Kanıt: `tests/static/page-presentation-contract.test.js`, `tools/runtime-test/page-parity-test.js` (`pages-render.sh`; güzel + `/index.php/` yapısı, headless Chrome 390/1024/1279/1280/1440). Rapor: `raporlar/sayfa-gorsel-uyum-raporu.md`.

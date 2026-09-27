@@ -10,8 +10,8 @@
 | Toplam benzersiz eski URL | 57 |
 | keep (aynı yol yeni sitede var; kural yok) | 9 |
 | redirect (kural üretildi) | 29 |
-| ↳ verified (aktif aday) | 2 |
-| ↳ proposed (PASİF; onay bekliyor) | 27 |
+| ↳ verified (aktif aday) | 4 |
+| ↳ proposed (PASİF; onay bekliyor) | 25 |
 | infrastructure (kural yok) | 6 |
 | needs_decision (bire bir karşılık DOĞRULANAMADI; kural yok) | 13 |
 
@@ -33,7 +33,7 @@ Uygulama kuralları: yalnız `origin=verified` kurallar aktif adaydır ve hedef 
 | `/elektrik/` | needs_decision | — | — | Statik referansta "elektrik" adlı sektör yok (enerji ile ilişkisi doğrulanamadı). |
 | `/fiyat-list/` | redirect | proposed | `/sinav-ucretleri/` | Fiyat listesi -> sınav ücretleri sayfası; onay bekliyor. |
 | `/gecerlilik-suresi-dolan-myk-mesleki-yeterlilik-belgelerinin-yenilenmesi-ve-gozetim-ile-ilgili-duyurular/` | redirect | proposed | `/haberler/gecerlilik-suresi-dolan-belgelerin-yenilenmesi/` | Başlık/konu eşleşmesi; slug farklı — kurum/GSC onayı olmadan aktif edilmez. |
-| `/gizlilik-politikamiz/` | redirect | proposed | `/gizlilik-politikasi/` | Aynı konu, farklı slug (statik gizlilik-politikasi); onay bekliyor. |
+| `/gizlilik-politikamiz/` | redirect | verified | `/gizlilik-politikasi/` | Kullanıcı/kurum onayı (26 Eylül 2026): sayfa içeriği bu eski adresten (onaylı kaynak) yeni WordPress sayfasına aktarıldı; hedef sayfa aynı içeriği taşır. Tek atlamalı 301. |
 | `/guzellik-ve-sac-bakim/` | redirect | proposed | `/sektor/guzellik-sac-bakim/` | Statik sektör guzellik-sac-bakim; onay bekliyor. |
 | `/haberler/` | keep | — | — | Statik referansta aynı yolla sayfa var (tanitim-site). |
 | `/iletisim/` | keep | — | — | Statik referansta aynı yolla sayfa var (tanitim-site). |
@@ -41,7 +41,7 @@ Uygulama kuralları: yalnız `origin=verified` kurallar aktif adaydır ve hedef 
 | `/is-basvurusu/` | keep | — | — | Statik referansta aynı yolla sayfa var (tanitim-site). |
 | `/itiraz-ve-sikayetler/` | redirect | proposed | `/itiraz-sikayet/` | Aynı konu, farklı slug (statik itiraz-sikayet); onay bekliyor. |
 | `/kalite-politikamiz/` | keep | — | — | Statik referansta aynı yolla sayfa var (tanitim-site). |
-| `/kvkk-2/` | redirect | proposed | `/kvkk/` | WordPress çift slug (-2) — statik kvkk sayfası; onay bekliyor. |
+| `/kvkk-2/` | redirect | verified | `/kvkk/` | Kullanıcı/kurum onayı (26 Eylül 2026): sayfa içeriği bu eski adresten (onaylı kaynak) yeni WordPress sayfasına aktarıldı; hedef sayfa aynı içeriği taşır. Tek atlamalı 301. |
 | `/liman-meslekleri/` | needs_decision | — | — | Statik referansta "liman" adlı sektör yok (lojistik ile ilişkisi doğrulanamadı). |
 | `/logo-kullanim-talimati/` | needs_decision | — | — | Statik referansta karşılığı yok. |
 | `/makine-bakimci-3-belgelendirme-programi/` | needs_decision | — | — | Yeterlilik sayfası; hedef slug ancak yeterlilik içe aktarımı ve slug kararı sonrası bilinir. |
@@ -81,4 +81,4 @@ Uygulama kuralları: yalnız `origin=verified` kurallar aktif adaydır ve hedef 
 
 ## Kural-seti özeti
 
-`data/redirects/redirects.manifest.json` — 29 kural (2 aktif aday). Doğrulama ve dry-run: `wp mavibelge redirects import --file=<manifest>` (PHP doğrulayıcısı: çakışma/döngü/zincir/dış hedef/korumalı yol reddi). Apply varsayılan kapalıdır (`MAVIBELGE_REDIRECTS_APPLY_ENABLED`).
+`data/redirects/redirects.manifest.json` — 29 kural (4 aktif aday). Doğrulama ve dry-run: `wp mavibelge redirects import --file=<manifest>` (PHP doğrulayıcısı: çakışma/döngü/zincir/dış hedef/korumalı yol reddi). Apply varsayılan kapalıdır (`MAVIBELGE_REDIRECTS_APPLY_ENABLED`).

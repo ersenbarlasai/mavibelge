@@ -209,7 +209,7 @@ $US = 'MaviBelge_Core_Uninstall_Scope';
 mb_test( "Faz 10 uninstall: varsayılan (seçenek yok/false/boş/'true'/'yes'/0/int 1) HİÇBİR ŞEY silmez; yalnız boolean true veya WordPress'in sakladığı tam '1' siler",
 	! $US::should_delete( false ) && ! $US::should_delete( 'true' ) && ! $US::should_delete( 'yes' ) && ! $US::should_delete( '' ) && ! $US::should_delete( '0' ) && ! $US::should_delete( 1 ) && ! $US::should_delete( null ) && ! $US::should_delete( array( 1 ) ) && $US::should_delete( true ) && $US::should_delete( '1' ) );
 mb_test( 'Faz 10 uninstall: kapsam KAPALI allowlist — yalnız eklenti tabloları/seçenekleri; içerik, roller ve tarife dönemi YOK',
-	array( 'wp_mb_audit_log', 'wp_mb_import_runs', 'wp_mb_import_run_items' ) === $US::tables( 'wp_' ) && ! in_array( 'mb_active_tariff_period', $US::OPTIONS, true ) && ! in_array( 'blogname', $US::OPTIONS, true ) && ! in_array( 'siteurl', $US::OPTIONS, true )
+	array( 'wp_mb_audit_log', 'wp_mb_import_runs', 'wp_mb_import_run_items', 'wp_mb_import_run_plan_items' ) === $US::tables( 'wp_' ) && in_array( 'mavibelge_core_sector_image_map', $US::OPTIONS, true ) && ! in_array( 'mb_active_tariff_period', $US::OPTIONS, true ) && ! in_array( 'blogname', $US::OPTIONS, true ) && ! in_array( 'siteurl', $US::OPTIONS, true )
 	&& array( 'mavibelge_core_daily_maintenance' ) === $US::CRON_HOOKS && count( $US::OPTIONS ) === count( array_unique( $US::OPTIONS ) ) );
 $unins = file_get_contents( dirname( __DIR__, 2 ) . '/uninstall.php' );
 mb_test( 'Faz 10 uninstall.php: yazı/terim/medya/kullanıcı silme çağrısı YOK; silme yalnız should_delete() kapısı içinde',

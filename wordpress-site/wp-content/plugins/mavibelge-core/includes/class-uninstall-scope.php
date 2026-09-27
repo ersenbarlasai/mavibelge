@@ -17,6 +17,7 @@ class MaviBelge_Core_Uninstall_Scope {
 		'mavibelge_core_delete_data_on_uninstall',
 		'mavibelge_core_audit_table_version',
 		'mavibelge_core_import_tables_version',
+		'mavibelge_core_sector_image_map',
 		'mavibelge_core_redirects',
 		'mavibelge_core_forms_config',
 		'mavibelge_core_seo',
@@ -25,7 +26,7 @@ class MaviBelge_Core_Uninstall_Scope {
 	);
 
 	/** Tablo adları ($wpdb->prefix ile birleştirilir). */
-	const TABLES = array( 'mb_audit_log', 'mb_import_runs', 'mb_import_run_items' );
+	const TABLES = array( 'mb_audit_log', 'mb_import_runs', 'mb_import_run_items', 'mb_import_run_plan_items' );
 
 	const CRON_HOOKS = array( 'mavibelge_core_daily_maintenance' );
 

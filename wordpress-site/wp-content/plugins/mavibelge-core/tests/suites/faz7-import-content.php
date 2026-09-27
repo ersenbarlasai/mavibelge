@@ -30,22 +30,22 @@ $f7_ref_h    = MaviBelge_Core_Import_Hash::hash( $f7_ref_fx );
 
 /* --- A) source_key sınıflandırıcı (tek kanonik) --- */
 mb_test( 'Faz 7 source_key: news:<slug> ve reference:<slug> yalnız kendi ailesinde geçerli',
-	$F7_V::IMPORT_KEY_VALID === $F7_V::classify_import_source_key( 'news:zz-test-haber-a', 'news' ) && $F7_V::IMPORT_KEY_VALID === $F7_V::classify_import_source_key( 'reference:zz-test-ref-a', 'reference' )
-	&& $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'news:zz-test-haber-a', 'reference' ) && $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'reference:zz-test-ref-a', 'news' )
+	$F7_V::IMPORT_KEY_VALID === $F7_V::classify_import_source_key( 'news:zz-test-haber-a', 'news' ) && $F7_V::IMPORT_KEY_VALID === $F7_V::classify_import_source_key( 'reference:referans-01', 'reference' )
+	&& $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'news:zz-test-haber-a', 'reference' ) && $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'reference:referans-01', 'news' )
 	&& $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'sector:zz-test-a', 'news' ) && $F7_V::IMPORT_KEY_WRONG_PREFIX === $F7_V::classify_import_source_key( 'news:zz-test-haber-a', 'sector' ) );
 mb_test( 'Faz 7 source_key: büyük harf, çift tire, uç tire, iki nokta, boş slug, boşluk, satır sonu, 200+ karakter -> malformed',
 	$F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:Zz', 'news' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:a--b', 'news' )
 	&& $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:-a', 'news' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:a-', 'news' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:a:b', 'news' )
 	&& $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'reference:', 'reference' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'reference:a b', 'reference' )
 	&& $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( "news:abc\n", 'news' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'news:' . str_repeat( 'a', 200 ), 'news' ) );
-mb_test( 'Faz 7 source_key: boş/null -> empty, dizi/int -> not_string; bilinmeyen tür (location/document/faq) reddedilir',
+mb_test( 'Faz 7 source_key: boş/null -> empty, dizi/int -> not_string; bilinmeyen tür (location/document/lokasyon) reddedilir; faq Faz 12b ile bilinen aileye geçti',
 	$F7_V::IMPORT_KEY_EMPTY === $F7_V::classify_import_source_key( '', 'news' ) && $F7_V::IMPORT_KEY_EMPTY === $F7_V::classify_import_source_key( null, 'reference' ) && $F7_V::IMPORT_KEY_NOT_STRING === $F7_V::classify_import_source_key( array( 'news:a' ), 'news' )
-	&& $F7_V::IMPORT_KEY_NOT_STRING === $F7_V::classify_import_source_key( 5, 'reference' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'location:a', 'location' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'faq:a', 'faq' ) );
+	&& $F7_V::IMPORT_KEY_NOT_STRING === $F7_V::classify_import_source_key( 5, 'reference' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'location:a', 'location' ) && $F7_V::IMPORT_KEY_MALFORMED === $F7_V::classify_import_source_key( 'lokasyon:a', 'lokasyon' ) && $F7_V::IMPORT_KEY_VALID === $F7_V::classify_import_source_key( 'faq:a', 'faq' ) );
 
 /* --- B) doğal anahtar ayrıştırma (SAF) --- */
 mb_test( 'Faz 7 doğal anahtar: news/reference source_key -> {slug}; geçersiz/yanlış aile -> null',
-	array( 'slug' => 'zz-test-haber-a' ) === $F7_RP::natural_key_from_source_key( 'news', 'news:zz-test-haber-a' ) && array( 'slug' => 'zz-test-ref-a' ) === $F7_RP::natural_key_from_source_key( 'reference', 'reference:zz-test-ref-a' )
-	&& null === $F7_RP::natural_key_from_source_key( 'news', 'reference:zz-test-ref-a' ) && null === $F7_RP::natural_key_from_source_key( 'reference', 'news:x' ) && null === $F7_RP::natural_key_from_source_key( 'news', 'news:A' ) && null === $F7_RP::natural_key_from_source_key( 'location', 'location:x' ) );
+	array( 'slug' => 'zz-test-haber-a' ) === $F7_RP::natural_key_from_source_key( 'news', 'news:zz-test-haber-a' ) && array( 'slug' => 'referans-01' ) === $F7_RP::natural_key_from_source_key( 'reference', 'reference:referans-01' )
+	&& null === $F7_RP::natural_key_from_source_key( 'news', 'reference:referans-01' ) && null === $F7_RP::natural_key_from_source_key( 'reference', 'news:x' ) && null === $F7_RP::natural_key_from_source_key( 'news', 'news:A' ) && null === $F7_RP::natural_key_from_source_key( 'location', 'location:x' ) );
 mb_test( 'Faz 7 doğal anahtar durumu: marker sınıfları news/reference için de tek sınıflandırıcıdan',
 	'unmanaged' === $F7_RP::natural_key_state_from_marker( '', 'news', 'news:a' ) && 'wrong_marker_prefix' === $F7_RP::natural_key_state_from_marker( 'reference:a', 'news', 'news:a' ) && 'foreign_marker' === $F7_RP::natural_key_state_from_marker( 'news:b', 'news', 'news:a' )
 	&& 'undiscovered_marker' === $F7_RP::natural_key_state_from_marker( 'reference:a', 'reference', 'reference:a' ) && 'corrupt_marker' === $F7_RP::natural_key_state_from_marker( array( 'news:a' ), 'news', 'news:a' ) && 'corrupt_marker' === $F7_RP::natural_key_state_from_marker( 'news:A', 'news', 'news:a' ) );
@@ -89,11 +89,11 @@ mb_test( 'Faz 7 doğrulayıcı (referans): dizi olmayan, fazla/eksik anahtar, ya
 	false === $F7_RV::validate_reference( null )['valid'] && false === $f7_vr( array( 'website_url' => 'https://x.example' ) ) && false === $f7_vr( array(), array( 'name' ) ) && false === $f7_vr( array(), array( 'slug' ) ) && false === $f7_vr( array(), array( 'logo_file' ) ) && false === $f7_vr( array(), array( 'alt' ) )
 	&& false === $f7_vr( array(), array( 'source_index' ) ) && false === $f7_vr( array(), array( 'source' ) ) && false === $f7_vr( array( 'name' => 5 ) ) && false === $f7_vr( array( 'alt' => null ) ) && false === $f7_vr( array( 'source_index' => '0' ) ) );
 mb_test( 'Faz 7 doğrulayıcı (referans): slug = slugify(name) ve source_key = "reference:"+slug zorunlu; boş ad/alt reddedilir',
-	false === $f7_vr( array( 'slug' => 'baska-slug', 'source_key' => 'reference:baska-slug' ) ) && false === $f7_vr( array( 'source_key' => 'reference:baska' ) ) && false === $f7_vr( array( 'source_key' => 'news:zz-test-ref-a' ) ) && false === $f7_vr( array( 'name' => '' ) )
+	false === $f7_vr( array( 'slug' => 'baska-slug', 'source_key' => 'reference:baska-slug' ) ) && false === $f7_vr( array( 'source_key' => 'reference:baska' ) ) && false === $f7_vr( array( 'source_key' => 'news:referans-01' ) ) && false === $f7_vr( array( 'name' => '' ) )
 	&& false === $f7_vr( array( 'alt' => '' ) ) && false === $f7_vr( array( 'name' => 'ZZ  Test <b>Ref</b>' ) ) && false === $f7_vr( array( 'slug' => 'ZZ-test-ref-a', 'source_key' => 'reference:ZZ-test-ref-a' ) ) && false === $f7_vr( array( 'source_index' => -1 ) ) );
-mb_test( 'Faz 7 doğrulayıcı (referans): Türkçe adın slug\'ı Faz 6A slugify ile birebir (ZZ Çağrı Şişli Ünvan -> zz-cagri-sisli-unvan)',
-	true === $F7_RV::validate_reference( array_merge( $f7_refs[0], array( 'name' => 'ZZ Çağrı Şişli Ünvan', 'slug' => 'zz-cagri-sisli-unvan', 'source_key' => 'reference:zz-cagri-sisli-unvan' ) ) )['valid']
-	&& false === $F7_RV::validate_reference( array_merge( $f7_refs[0], array( 'name' => 'ZZ Çağrı Şişli Ünvan', 'slug' => 'zz-cagri-sisli-nvan', 'source_key' => 'reference:zz-cagri-sisli-nvan' ) ) )['valid'] );
+mb_test( 'Faz 12b doğrulayıcı (referans): firma adı tahmin edilmez — name yalnız nötr "Referans NN"; name_status yalnız "unverified"; logo alanları katı',
+	false === $F7_RV::validate_reference( array_merge( $f7_refs[0], array( 'name' => 'ZZ Çağrı Şişli Ünvan', 'slug' => 'zz-cagri-sisli-unvan', 'source_key' => 'reference:zz-cagri-sisli-unvan' ) ) )['valid']
+	&& false === $f7_vr( array( 'name_status' => 'verified' ) ) && false === $f7_vr( array( 'logo_sha256' => 'xyz' ) ) && false === $f7_vr( array( 'logo_sha256' => strtoupper( $f7_refs[0]['logo_sha256'] ) ) ) && false === $f7_vr( array( 'logo_bytes' => 0 ) ) && false === $f7_vr( array( 'logo_width' => '250' ) ) && false === $f7_vr( array(), array( 'logo_sha256' ) ) && false === $f7_vr( array(), array( 'name_status' ) ) );
 mb_test( 'Faz 7 doğrulayıcı (referans): logo_file yalnız bilgi; mutlak yol / ".." / boş reddedilir',
 	false === $f7_vr( array( 'logo_file' => '' ) ) && false === $f7_vr( array( 'logo_file' => '/var/www/x.svg' ) ) && false === $f7_vr( array( 'logo_file' => 'C:\\x\\a.svg' ) ) && false === $f7_vr( array( 'logo_file' => '../a.svg' ) ) && false === $f7_vr( array( 'logo_file' => 5 ) ) );
 
@@ -117,12 +117,12 @@ mb_test( 'Faz 7 bağımlılık DTO: news_type_term_ids kapalı şekil — type_v
 
 /* --- E) yönetilen alanlar: projeksiyon + hash determinizmi --- */
 mb_test( 'Faz 7 yönetilen alanlar: news tek kaynak listesi TAM ve sıralı; reference tek kaynak listesi TAM',
-	array( 'slug', 'title', 'content', 'excerpt', 'published_on', 'news_type_term_id', 'approval_status' ) === $F7_MF::NEWS_FIELDS && array( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_attachment_id' ) === $F7_MF::REFERENCE_FIELDS );
+	array( 'slug', 'title', 'content', 'excerpt', 'published_on', 'news_type_term_id', 'approval_status' ) === $F7_MF::NEWS_FIELDS && array( 'slug', 'title', 'reference_status', 'record_status', 'sort_order', 'website_url', 'logo_sha256' ) === $F7_MF::REFERENCE_FIELDS );
 mb_test( 'Faz 7 projeksiyon (haber): slug/title/content(=body ham)/excerpt(=summary)/published_on/news_type_term_id(çözülmüş)/approval_status=in_review',
 	array( 'slug' => 'zz-test-haber-a', 'title' => 'TEST Haber A', 'content' => $f7_news[0]['body'], 'excerpt' => $f7_news[0]['summary'], 'published_on' => '2026-01-15', 'news_type_term_id' => 501, 'approval_status' => 'in_review' ) === $f7_news_fx
 	&& 502 === $F7_MF::project_news( $f7_news[1], array( 'news_type_term_id' => 502 ) )['fields']['news_type_term_id'] && $f7_news[2]['body'] === $F7_MF::project_news( $f7_news[2], array( 'news_type_term_id' => 501 ) )['fields']['content'] );
-mb_test( 'Faz 7 projeksiyon (referans): sabitler representative/active/website_url=""/logo=0; sort_order = source_index+1',
-	array( 'slug' => 'zz-test-ref-a', 'title' => 'ZZ Test Ref A', 'reference_status' => 'representative', 'record_status' => 'active', 'sort_order' => 1, 'website_url' => '', 'logo_attachment_id' => 0 ) === $f7_ref_fx
+mb_test( 'Faz 12b projeksiyon (referans): sabitler real/active/website_url=""; logo_sha256 = manifest özeti; sort_order = source_index+1',
+	array( 'slug' => 'referans-01', 'title' => 'Referans 01', 'reference_status' => 'real', 'record_status' => 'active', 'sort_order' => 1, 'website_url' => '', 'logo_sha256' => $f7_refs[0]['logo_sha256'] ) === $f7_ref_fx
 	&& 3 === $F7_MF::project_reference( $f7_refs[2], array() )['fields']['sort_order'] );
 mb_test( 'Faz 7 hash: deterministik (iki hesap eşit), 64-hex; anahtar sırasından bağımsız; her yönetilen alan değişimi hash\'i değiştirir; marker/hash alanı girdide YOK',
 	$f7_news_h === MaviBelge_Core_Import_Hash::hash( $F7_MF::project_news( $f7_news[0], array( 'news_type_term_id' => 501 ) )['fields'] ) && 1 === preg_match( '/^[0-9a-f]{64}\z/', $f7_news_h ) && $f7_news_h === MaviBelge_Core_Import_Hash::hash( array_reverse( $f7_news_fx, true ) )
@@ -150,18 +150,19 @@ mb_test( 'Faz 7 alan kümesi (haber): geçerli; eksik/fazla anahtar; yanlış ti
 	&& false === $f7_ok_n( array( 'news_type_term_id' => 0 ) ) && false === $f7_ok_n( array( 'news_type_term_id' => '7' ) ) && false === $f7_ok_n( array( 'approval_status' => 'publish' ) ) && true === $f7_ok_n( array( 'approval_status' => 'approved' ) ) );
 mb_test( 'Faz 7 alan kümesi (referans): geçerli; sabit alanların zorunlu enumu; tip/aralık ihlalleri -> ret',
 	true === $f7_ok_r( array() ) && false === $f7_ok_r( array( 'reference_status' => 'fake' ) ) && true === $f7_ok_r( array( 'reference_status' => 'real' ) ) && false === $f7_ok_r( array( 'record_status' => 'draft' ) ) && true === $f7_ok_r( array( 'record_status' => 'passive' ) )
-	&& false === $f7_ok_r( array( 'sort_order' => -1 ) ) && false === $f7_ok_r( array( 'sort_order' => '1' ) ) && false === $f7_ok_r( array( 'website_url' => null ) ) && false === $f7_ok_r( array( 'logo_attachment_id' => -1 ) ) && false === $f7_ok_r( array( 'slug' => '' ) ) && false === $f7_ok_r( array( 'title' => '' ) ) && false === $F7_RV::is_valid_managed_field_set( 'location', array() ) );
+	&& false === $f7_ok_r( array( 'sort_order' => -1 ) ) && false === $f7_ok_r( array( 'sort_order' => '1' ) ) && false === $f7_ok_r( array( 'website_url' => null ) ) && false === $f7_ok_r( array( 'logo_sha256' => 'zz' ) ) && true === $f7_ok_r( array( 'logo_sha256' => '' ) ) && false === $f7_ok_r( array( 'slug' => '' ) ) && false === $f7_ok_r( array( 'title' => '' ) ) && false === $F7_RV::is_valid_managed_field_set( 'location', array() ) );
 
 /* --- G) yazma yükü (atomik, kapalı şekil) --- */
 $f7_pn = $F7_WP::prepare( 'news', $f7_news_fx, 'news:zz-test-haber-a', $f7_news_h );
-$f7_pr = $F7_WP::prepare( 'reference', $f7_ref_fx, 'reference:zz-test-ref-a', $f7_ref_h );
+$f7_pr = $F7_WP::prepare( 'reference', $f7_ref_fx, 'reference:referans-01', $f7_ref_h );
 mb_test( 'Faz 7 yük: news payload çekirdek alanları (post_name/content/excerpt/post_date "Y-m-d 12:00:00"), yönetilen meta ve mb_haber_turu terimi; type/marker/hash',
 	true === $f7_pn['ok'] && array( 'post_type' => 'mb_haber', 'post_title' => 'TEST Haber A', 'post_name' => 'zz-test-haber-a', 'post_content' => $f7_news[0]['body'], 'post_excerpt' => $f7_news[0]['summary'], 'post_date' => '2026-01-15 12:00:00' ) === $f7_pn['payload']['post']
 	&& array( '_mb_approval_status' => 'in_review', '_mb_import_source_key' => 'news:zz-test-haber-a', '_mb_last_applied_hash' => $f7_news_h ) === $f7_pn['payload']['post_meta'] && array( 'mb_haber_turu' => array( 501 ) ) === $f7_pn['payload']['terms']
 	&& 'news' === $f7_pn['payload']['type'] && $f7_news_h === $f7_pn['payload']['managed_hash'] );
-mb_test( 'Faz 7 yük: reference payload (post_name + beş yönetilen meta; ek/terim YOK; logo 0; website_url "")',
-	true === $f7_pr['ok'] && array( 'post_type' => 'mb_referans', 'post_title' => 'ZZ Test Ref A', 'post_name' => 'zz-test-ref-a' ) === $f7_pr['payload']['post'] && ! isset( $f7_pr['payload']['terms'] )
-	&& array( '_mb_reference_status' => 'representative', '_mb_record_status' => 'active', '_mb_sort_order' => 1, '_mb_website_url' => '', '_mb_logo_attachment_id' => 0, '_mb_import_source_key' => 'reference:zz-test-ref-a', '_mb_last_applied_hash' => $f7_ref_h ) === $f7_pr['payload']['post_meta'] );
+mb_test( 'Faz 12b yük: reference payload (post_name + dört yönetilen meta + marker/hash; terim YOK; logo {sha256} — attachment kimliği yükten GELMEZ; website_url "")',
+	true === $f7_pr['ok'] && array( 'post_type' => 'mb_referans', 'post_title' => 'Referans 01', 'post_name' => 'referans-01' ) === $f7_pr['payload']['post'] && ! isset( $f7_pr['payload']['terms'] )
+	&& array( '_mb_reference_status' => 'real', '_mb_record_status' => 'active', '_mb_sort_order' => 1, '_mb_website_url' => '', '_mb_import_source_key' => 'reference:referans-01', '_mb_last_applied_hash' => $f7_ref_h ) === $f7_pr['payload']['post_meta']
+	&& array( 'sha256' => $f7_refs[0]['logo_sha256'] ) === $f7_pr['payload']['logo'] );
 mb_test( 'Faz 7 yük: MANAGED_POST_META news/reference TAM listeleri ve yükün ürettiği meta anahtarlarıyla birebir; qualification/fee değişmedi',
 	array( '_mb_approval_status', '_mb_import_source_key', '_mb_last_applied_hash' ) === $F7_WP::MANAGED_POST_META['news'] && array( '_mb_reference_status', '_mb_record_status', '_mb_sort_order', '_mb_website_url', '_mb_logo_attachment_id', '_mb_import_source_key', '_mb_last_applied_hash' ) === $F7_WP::MANAGED_POST_META['reference']
 	&& (function () use ( $f7_pn, $f7_pr, $F7_WP ) {
@@ -170,22 +171,22 @@ mb_test( 'Faz 7 yük: MANAGED_POST_META news/reference TAM listeleri ve yükün 
 		sort( $a );
 		sort( $b );
 		$ea = $F7_WP::MANAGED_POST_META['news'];
-		$eb = $F7_WP::MANAGED_POST_META['reference'];
+		$eb = array_values( array_diff( $F7_WP::MANAGED_POST_META['reference'], array( '_mb_logo_attachment_id' ) ) ); // attachment kimliğini yazıcı yazar (yükte değil)
 		sort( $ea );
 		sort( $eb );
 		return $a === $ea && $b === $eb;
 	})() && 6 === count( $F7_WP::MANAGED_POST_META['qualification'] ) && 20 === count( $F7_WP::MANAGED_POST_META['fee'] ) );
 mb_test( 'Faz 7 yük: yanlış hash / yanlış aile marker / geçersiz marker / bozuk alan -> ret, payload null (kısmi yük YOK)',
 	false === $F7_WP::prepare( 'news', $f7_news_fx, 'news:zz-test-haber-a', str_repeat( 'a', 64 ) )['ok'] && false === $F7_WP::prepare( 'news', $f7_news_fx, 'reference:zz-test-haber-a', $f7_news_h )['ok'] && false === $F7_WP::prepare( 'news', $f7_news_fx, 'news:A', $f7_news_h )['ok']
-	&& false === $F7_WP::prepare( 'reference', $f7_ref_fx, 'news:zz-test-ref-a', $f7_ref_h )['ok'] && null === $F7_WP::prepare( 'news', $f7_news_fx, '', $f7_news_h )['payload'] && false === $F7_WP::prepare( 'news', array_merge( $f7_news_fx, array( 'x' => 1 ) ), 'news:zz-test-haber-a', $f7_news_h )['ok']
+	&& false === $F7_WP::prepare( 'reference', $f7_ref_fx, 'news:referans-01', $f7_ref_h )['ok'] && null === $F7_WP::prepare( 'news', $f7_news_fx, '', $f7_news_h )['payload'] && false === $F7_WP::prepare( 'news', array_merge( $f7_news_fx, array( 'x' => 1 ) ), 'news:zz-test-haber-a', $f7_news_h )['ok']
 	&& false === $F7_WP::prepare( 'location', $f7_news_fx, 'location:x', $f7_news_h )['ok'] );
 $f7_forced = function ( $type, array $fields, $sk ) use ( $F7_WP ) {
 	return $F7_WP::prepare( $type, $fields, $sk, MaviBelge_Core_Import_Hash::hash( $fields ) );
 };
-mb_test( 'Faz 7 yük: import ASLA onaylı/yayın haber veya gerçek/pasif referans yazmaz (hash tutarlı olsa bile yük reddedilir)',
+mb_test( 'Faz 12b yük: import ASLA onaylı/yayın haber, temsili/pasif referans veya logosuz referans yazmaz (hash tutarlı olsa bile yük reddedilir)',
 	false === $f7_forced( 'news', array_merge( $f7_news_fx, array( 'approval_status' => 'approved' ) ), 'news:zz-test-haber-a' )['ok'] && false === $f7_forced( 'news', array_merge( $f7_news_fx, array( 'approval_status' => 'draft' ) ), 'news:zz-test-haber-a' )['ok']
-	&& false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'reference_status' => 'real' ) ), 'reference:zz-test-ref-a' )['ok'] && false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'record_status' => 'passive' ) ), 'reference:zz-test-ref-a' )['ok']
-	&& false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'website_url' => 'https://x.example' ) ), 'reference:zz-test-ref-a' )['ok'] && false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'logo_attachment_id' => 5 ) ), 'reference:zz-test-ref-a' )['ok'] );
+	&& false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'reference_status' => 'representative' ) ), 'reference:referans-01' )['ok'] && false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'record_status' => 'passive' ) ), 'reference:referans-01' )['ok']
+	&& false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'website_url' => 'https://x.example' ) ), 'reference:referans-01' )['ok'] && false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'logo_sha256' => '' ) ), 'reference:referans-01' )['ok'] && false === $f7_forced( 'reference', array_merge( $f7_ref_fx, array( 'logo_sha256' => 'abc' ) ), 'reference:referans-01' )['ok'] );
 mb_test( 'Faz 7 yük: meta şemasında news/reference sistem alanları (marker + hash) tanımlı, salt-okunur ve system_managed',
 	(function () {
 		foreach ( array( 'mb_haber', 'mb_referans' ) as $pt ) {
@@ -208,7 +209,7 @@ $f7_lk = function ( $sourceKey, array $fields, $lastHash = null, $targetId = 41 
 		),
 	);
 };
-$f7_none = array( 'news:zz-test-haber-a' => array( 'target_found' => false, 'natural_key' => 'none' ), 'reference:zz-test-ref-a' => array( 'target_found' => false, 'natural_key' => 'none' ) );
+$f7_none = array( 'news:zz-test-haber-a' => array( 'target_found' => false, 'natural_key' => 'none' ), 'reference:referans-01' => array( 'target_found' => false, 'natural_key' => 'none' ) );
 $f7_pn_create = $F7_PL::plan_news( $f7_news[0], $f7_none, $f7_deps );
 mb_test( 'Faz 7 plan (haber): hedef yok + doğal anahtar none -> create; incoming_hash yönetilen alanların hash\'i; changed_fields boş',
 	'create' === $f7_pn_create['decision'] && 'news' === $f7_pn_create['type'] && $f7_news_h === $f7_pn_create['incoming_hash'] && 'none' === $f7_pn_create['natural_key_check'] && null === $f7_pn_create['target_id'] );
@@ -249,13 +250,13 @@ mb_test( 'Faz 7 plan (haber): marker ile hedef yok ama doğal anahtar dolu (unma
 	})() );
 mb_test( 'Faz 7 plan (haber): mevcut durum bozuk (sahte tip/eksik alan) -> invalid_target_state conflict; hiçbir sessiz varsayılan',
 	'conflict' === $F7_PL::plan_news( $f7_news[0], $f7_lk( 'news:zz-test-haber-a', array_merge( $f7_news_fx, array( 'news_type_term_id' => '501' ) ) ), $f7_deps )['decision'] && 'conflict' === $F7_PL::plan_news( $f7_news[0], $f7_lk( 'news:zz-test-haber-a', array_diff_key( $f7_news_fx, array( 'excerpt' => 1 ) ), $f7_news_h ), $f7_deps )['decision'] );
-$f7_rn = array( 'reference:zz-test-ref-a' => array( 'target_found' => false, 'natural_key' => 'none' ) );
+$f7_rn = array( 'reference:referans-01' => array( 'target_found' => false, 'natural_key' => 'none' ) );
 mb_test( 'Faz 7 plan (referans): create (bağımlılık gerekmez, boş DTO ile de); unchanged; sort_order değişimi update; editör pasife almış -> conflict; geçersiz -> invalid',
 	'create' === $F7_PL::plan_reference( $f7_refs[0], $f7_rn, mb_empty_dependencies() )['decision'] && $f7_ref_h === $F7_PL::plan_reference( $f7_refs[0], $f7_rn, mb_empty_dependencies() )['incoming_hash']
-	&& 'unchanged' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:zz-test-ref-a', $f7_ref_fx ), mb_empty_dependencies() )['decision']
-	&& array( 'sort_order' ) === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:zz-test-ref-a', array_merge( $f7_ref_fx, array( 'sort_order' => 9 ) ) ), mb_empty_dependencies() )['changed_fields']
-	&& 'update' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:zz-test-ref-a', array_merge( $f7_ref_fx, array( 'sort_order' => 9 ) ) ), mb_empty_dependencies() )['decision']
-	&& 'conflict' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:zz-test-ref-a', array_merge( $f7_ref_fx, array( 'record_status' => 'passive' ) ), $f7_ref_h ), mb_empty_dependencies() )['decision']
+	&& 'unchanged' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:referans-01', $f7_ref_fx ), mb_empty_dependencies() )['decision']
+	&& array( 'sort_order' ) === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:referans-01', array_merge( $f7_ref_fx, array( 'sort_order' => 9 ) ) ), mb_empty_dependencies() )['changed_fields']
+	&& 'update' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:referans-01', array_merge( $f7_ref_fx, array( 'sort_order' => 9 ) ) ), mb_empty_dependencies() )['decision']
+	&& 'conflict' === $F7_PL::plan_reference( $f7_refs[0], $f7_lk( 'reference:referans-01', array_merge( $f7_ref_fx, array( 'record_status' => 'passive' ) ), $f7_ref_h ), mb_empty_dependencies() )['decision']
 	&& 'invalid' === $F7_PL::plan_reference( array_merge( $f7_refs[0], array( 'slug' => 'baska', 'source_key' => 'reference:baska' ) ), $f7_rn, mb_empty_dependencies() )['decision'] );
 $f7_full = $F7_PL::plan( array_merge( $f7_cat, array( 'news' => $f7_news, 'references' => $f7_refs ) ), array(), $f7_deps );
 mb_test( 'Faz 7 plan: news+references içeren manifest tam plan; toplam 6; by_type news/reference sayılır; sum(by_type)=total',
@@ -290,8 +291,8 @@ mb_test( 'Faz 7 project_for_apply: news/reference planlayıcıyla aynı alanlar;
 
 /* --- I) aşama modeli --- */
 mb_test( 'Faz 7 aşama: content aşaması eklendi; mevcut üç aşama ve tür listeleri AYNEN',
-	array( 'sectors', 'qualifications', 'all' ) === $F7_AP::STAGES && array( 'content' ) === $F7_AP::CONTENT_STAGES && array( 'sectors', 'qualifications', 'all', 'content' ) === $F7_AP::ALL_STAGES && array( 'news', 'reference' ) === $F7_AP::STAGE_TYPES['content'] && array( 'sector' ) === $F7_AP::STAGE_TYPES['sectors'] && array( 'sector', 'qualification' ) === $F7_AP::STAGE_TYPES['qualifications'] && array( 'sector', 'qualification', 'fee' ) === $F7_AP::STAGE_TYPES['all']
-	&& 'news' === $F7_AP::TYPE_LISTS['news'] && 'references' === $F7_AP::TYPE_LISTS['reference'] && 'sectors' === $F7_AP::TYPE_LISTS['sector'] && 'fees' === $F7_AP::TYPE_LISTS['fee'] );
+	array( 'sectors', 'qualifications', 'all' ) === $F7_AP::STAGES && array( 'content' ) === $F7_AP::CONTENT_STAGES && array( 'pages' ) === $F7_AP::PAGE_STAGES && array( 'pages', 'sectors', 'qualifications', 'all', 'content' ) === $F7_AP::ALL_STAGES && array( 'news', 'reference', 'faq' ) === $F7_AP::STAGE_TYPES['content'] && array( 'sector' ) === $F7_AP::STAGE_TYPES['sectors'] && array( 'sector', 'qualification' ) === $F7_AP::STAGE_TYPES['qualifications'] && array( 'sector', 'qualification', 'fee' ) === $F7_AP::STAGE_TYPES['all']
+	&& 'news' === $F7_AP::TYPE_LISTS['news'] && 'references' === $F7_AP::TYPE_LISTS['reference'] && 'faqs' === $F7_AP::TYPE_LISTS['faq'] && 'sectors' === $F7_AP::TYPE_LISTS['sector'] && 'fees' === $F7_AP::TYPE_LISTS['fee'] );
 mb_test( 'Faz 7 aşama: yazma sırası news sonra reference; rollback sırası reference sonra news; katalog sırası aynen (sektör<yeterlilik<ücret; ücret->yeterlilik->sektör)',
 	(function () use ( $F7_AP ) {
 		$w = array( array( 'type' => 'reference', 'source_key' => 'r' ), array( 'type' => 'news', 'source_key' => 'n' ), array( 'type' => 'fee', 'source_key' => 'f' ), array( 'type' => 'sector', 'source_key' => 's' ), array( 'type' => 'qualification', 'source_key' => 'q' ) );
@@ -316,27 +317,27 @@ mb_test( 'Faz 7 aşama: filter_manifest content -> yalnız news+references dolu 
 		$a    = $F7_AP::filter_manifest( $full, 'all' );
 		$s    = $F7_AP::filter_manifest( array( 'sectors' => array( 1 ), 'qualifications' => array( 2 ), 'fees' => array( 3 ) ), 'sectors' );
 		$noc  = $F7_AP::filter_manifest( $f7_cat, 'content' );
-		return array( 'sectors' => array(), 'qualifications' => array(), 'fees' => array(), 'news' => $f7_news, 'references' => $f7_refs ) === $c && array( 'sectors', 'qualifications', 'fees' ) === array_keys( $a ) && array( 'sectors' => array( 1 ), 'qualifications' => array(), 'fees' => array() ) === $s
-			&& array( 'sectors' => array(), 'qualifications' => array(), 'fees' => array(), 'news' => array(), 'references' => array() ) === $noc && null === $F7_AP::filter_manifest( array( 'sectors' => array() ), 'content' ) && null === $F7_AP::filter_manifest( array_merge( $f7_cat, array( 'news' => 'x' ) ), 'content' ) && null === $F7_AP::filter_manifest( $f7_cat, 'kontent' );
+		return array( 'sectors' => array(), 'qualifications' => array(), 'fees' => array(), 'news' => $f7_news, 'references' => $f7_refs, 'faqs' => array() ) === $c && array( 'sectors', 'qualifications', 'fees' ) === array_keys( $a ) && array( 'sectors' => array( 1 ), 'qualifications' => array(), 'fees' => array() ) === $s
+			&& array( 'sectors' => array(), 'qualifications' => array(), 'fees' => array(), 'news' => array(), 'references' => array(), 'faqs' => array() ) === $noc && null === $F7_AP::filter_manifest( array( 'sectors' => array() ), 'content' ) && null === $F7_AP::filter_manifest( array_merge( $f7_cat, array( 'news' => 'x' ) ), 'content' ) && null === $F7_AP::filter_manifest( $f7_cat, 'kontent' );
 	})() );
 
 /* --- J) rollback kaydı ve audit context --- */
 $f7_rb_c = $F7_AE::build_rollback_record( 'news', 'news:zz-test-haber-a', 41, 'create', null, $f7_news_fx, null, $f7_news_h, str_repeat( 'c', 64 ) );
-$f7_rb_r = $F7_AE::build_rollback_record( 'reference', 'reference:zz-test-ref-a', 42, 'create', null, $f7_ref_fx, null, $f7_ref_h, str_repeat( 'c', 64 ) );
+$f7_rb_r = $F7_AE::build_rollback_record( 'reference', 'reference:referans-01', 42, 'create', null, $f7_ref_fx, null, $f7_ref_h, str_repeat( 'c', 64 ) );
 mb_test( 'Faz 7 rollback kaydı: news/reference create kaydı geçerli; changed_fields tüm allowlist (deterministik); validate_rollback_record true',
 	is_array( $f7_rb_c ) && $F7_MF::NEWS_FIELDS === $f7_rb_c['changed_fields'] && true === $F7_AE::validate_rollback_record( $f7_rb_c ) && is_array( $f7_rb_r ) && $F7_MF::REFERENCE_FIELDS === $f7_rb_r['changed_fields'] && true === $F7_AE::validate_rollback_record( $f7_rb_r ) );
 $f7_old_h  = MaviBelge_Core_Import_Hash::hash( $f7_old_news );
 $f7_rb_u   = $F7_AE::build_rollback_record( 'news', 'news:zz-test-haber-a', 41, 'update', $f7_old_news, $f7_news_fx, $f7_old_h, $f7_news_h );
 mb_test( 'Faz 7 rollback kaydı: update kaydı changed_fields = yalnız farklı alanlar; alan–hash uyumsuzluğu, yanlış tür/anahtar ailesi, kurcalanmış alan -> null/false',
 	is_array( $f7_rb_u ) && array( 'content', 'excerpt' ) === $f7_rb_u['changed_fields'] && null === $F7_AE::build_rollback_record( 'news', 'news:zz-test-haber-a', 41, 'update', $f7_old_news, $f7_news_fx, str_repeat( 'a', 64 ), $f7_news_h )
-	&& null === $F7_AE::build_rollback_record( 'news', 'reference:zz-test-ref-a', 41, 'create', null, $f7_news_fx, null, $f7_news_h, str_repeat( 'c', 64 ) ) && null === $F7_AE::build_rollback_record( 'news', 'news:zz-test-haber-a', 41, 'create', null, $f7_news_fx, null, $f7_news_h )
+	&& null === $F7_AE::build_rollback_record( 'news', 'reference:referans-01', 41, 'create', null, $f7_news_fx, null, $f7_news_h, str_repeat( 'c', 64 ) ) && null === $F7_AE::build_rollback_record( 'news', 'news:zz-test-haber-a', 41, 'create', null, $f7_news_fx, null, $f7_news_h )
 	&& false === $F7_AE::validate_rollback_record( array_merge( $f7_rb_c, array( 'type' => 'reference' ) ) ) && false === $F7_AE::validate_rollback_record( array_merge( $f7_rb_c, array( 'new_fields' => array_merge( $f7_news_fx, array( 'content' => 'Kurcalanmış' ) ) ) ) ) && null === $F7_AE::build_rollback_record( 'location', 'location:x', 1, 'create', null, $f7_news_fx, null, $f7_news_h, str_repeat( 'c', 64 ) ) );
 mb_test( 'Faz 7 rollback: hedefin şu anki hash\'i new_hash\'e eşit değilse (editör içeriği değiştirmiş) izin YOK',
 	true === $F7_AE::rollback_allowed( $f7_rb_c, $f7_news_h ) && false === $F7_AE::rollback_allowed( $f7_rb_c, MaviBelge_Core_Import_Hash::hash( array_merge( $f7_news_fx, array( 'content' => 'Editör' ) ) ) ) );
 $AC7 = 'MaviBelge_Core_Import_Audit_Context';
 mb_test( 'Faz 7 audit: news/reference source_key + tür + değişen alan ADLARI (content/excerpt/news_type_term_id/sort_order/...) kabul; içerik değeri taşınamaz',
 	is_array( $AC7::build( array( 'run_id' => str_repeat( 'a', 32 ), 'items' => array( array( 'source_key' => 'news:zz-test-haber-a', 'type' => 'news', 'decision' => 'create', 'target_id' => 41, 'old_hash' => null, 'new_hash' => $f7_news_h, 'changed_fields' => $F7_MF::NEWS_FIELDS ) ) ) ) )
-	&& is_array( $AC7::build( array( 'source_key' => 'reference:zz-test-ref-a', 'type' => 'reference', 'changed_fields' => $F7_MF::REFERENCE_FIELDS ) ) )
+	&& is_array( $AC7::build( array( 'source_key' => 'reference:referans-01', 'type' => 'reference', 'changed_fields' => $F7_MF::REFERENCE_FIELDS ) ) )
 	&& null === $AC7::build( array( 'changed_fields' => array( 'body' ) ) ) && null === $AC7::build( array( 'items' => array( array( 'source_key' => 'news:zz-test-haber-a', 'new_fields' => array( 'content' => 'x' ) ) ) ) ) );
 mb_test( 'Faz 7 audit: bilinmeyen tür (location/document/faq) ve yanlış aile source_key reddedilir',
 	null === $AC7::build( array( 'type' => 'location' ) ) && null === $AC7::build( array( 'source_key' => 'location:x' ) ) && null === $AC7::build( array( 'source_key' => 'news:A' ) ) && null === $AC7::build( array( 'source_key' => 'news:' ) ) && null === $AC7::build( array( 'type' => 'document' ) ) );
@@ -357,7 +358,7 @@ mb_test( 'Faz 7 depo (haber): TEK bozuk alan tüm alan kümesini null yapar (diz
 	&& null === $f7_bn( array( 'post_date' => '' ) ) && null === $f7_bn( array( 'post_date' => '2026-02-30 12:00:00' ) ) && null === $f7_bn( array( 'post_date' => '15.01.2026' ) ) && null === $f7_bn( array( 'post_date' => 20260115 ) ) && null === $f7_bn( array( 'post_date' => "2026-01-15 12:00:00\n" ) )
 	&& null === $f7_bn( array( 'news_type_term_ids' => array() ) ) && null === $f7_bn( array( 'news_type_term_ids' => array( 501, 502 ) ) ) && null === $f7_bn( array( 'news_type_term_ids' => 501 ) ) && null === $f7_bn( array( 'news_type_term_ids' => array( 'x' ) ) ) && null === $f7_bn( array( 'news_type_term_ids' => array( 0 ) ) )
 	&& null === $f7_bn( array(), array( 'excerpt' ) ) && null === $f7_bn( array( 'fazla' => 1 ) ) );
-$f7_raw_r = array( 'slug' => 'zz-test-ref-a', 'title' => 'ZZ Test Ref A', 'reference_status' => 'representative', 'record_status' => 'active', 'sort_order' => '1', 'website_url' => '', 'logo_attachment_id' => '' );
+$f7_raw_r = array( 'slug' => 'referans-01', 'title' => 'Referans 01', 'reference_status' => 'real', 'record_status' => 'active', 'sort_order' => '1', 'website_url' => '', 'logo_sha256' => '' );
 $f7_br = function ( array $patch, $drop = array() ) use ( $F7_RP, $f7_raw_r ) {
 	$r = array_merge( $f7_raw_r, $patch );
 	foreach ( $drop as $k ) {
@@ -366,8 +367,8 @@ $f7_br = function ( array $patch, $drop = array() ) use ( $F7_RP, $f7_raw_r ) {
 	return $F7_RP::reference_fields_from_raw( $r );
 };
 mb_test( 'Faz 7 depo (referans): meta metin temsilleri katı dönüştürülür ("1"->1, ""->0); bozuk her alan tüm kümeyi null yapar',
-	array( 'slug' => 'zz-test-ref-a', 'title' => 'ZZ Test Ref A', 'reference_status' => 'representative', 'record_status' => 'active', 'sort_order' => 1, 'website_url' => '', 'logo_attachment_id' => 0 ) === $f7_br( array() ) && 0 === $f7_br( array( 'sort_order' => '' ) )['sort_order']
-	&& null === $f7_br( array( 'sort_order' => '1x' ) ) && null === $f7_br( array( 'sort_order' => '-1' ) ) && null === $f7_br( array( 'sort_order' => array( 1 ) ) ) && null === $f7_br( array( 'logo_attachment_id' => '1.5' ) ) && null === $f7_br( array( 'website_url' => array() ) ) && null === $f7_br( array( 'reference_status' => 5 ) )
+	array( 'slug' => 'referans-01', 'title' => 'Referans 01', 'reference_status' => 'real', 'record_status' => 'active', 'sort_order' => 1, 'website_url' => '', 'logo_sha256' => '' ) === $f7_br( array() ) && 0 === $f7_br( array( 'sort_order' => '' ) )['sort_order']
+	&& null === $f7_br( array( 'sort_order' => '1x' ) ) && null === $f7_br( array( 'sort_order' => '-1' ) ) && null === $f7_br( array( 'sort_order' => array( 1 ) ) ) && null === $f7_br( array( 'logo_sha256' => 5 ) ) && null === $f7_br( array( 'website_url' => array() ) ) && null === $f7_br( array( 'reference_status' => 5 ) )
 	&& null === $f7_br( array( 'slug' => null ) ) && null === $f7_br( array(), array( 'title' ) ) && null === $f7_br( array( 'x' => 1 ) ) );
 
 /* --- L) manifest yükleyici: içerik dosyaları YALNIZ content aşaması için --- */
@@ -381,7 +382,7 @@ $f7_dir_k = mb6b2_temp_dir( 'f7catonly' );
 mb_apply_fixture_write_dir( $f7_dir_k, mb_apply_fixture_envelopes() );
 $f7_lc = $ML7::load_content( $f7_dir_c );
 mb_test( 'Faz 7 yükleyici: load_content news+references kayıtlarını OLDUĞU GİBİ (sırasıyla) döndürür; sabit dosya adları',
-	true === $f7_lc['ok'] && array( 'news', 'references' ) === array_keys( $f7_lc['manifest'] ) && $f7_news === $f7_lc['manifest']['news'] && $f7_refs === $f7_lc['manifest']['references'] && 'news.manifest.json' === $ML7::CONTENT_FILES['news'] && 'references.manifest.json' === $ML7::CONTENT_FILES['reference'] );
+	true === $f7_lc['ok'] && array( 'news', 'references', 'faqs' ) === array_keys( $f7_lc['manifest'] ) && $f7_news === $f7_lc['manifest']['news'] && $f7_refs === $f7_lc['manifest']['references'] && array() === $f7_lc['manifest']['faqs'] && 'news.manifest.json' === $ML7::CONTENT_FILES['news'] && 'references.manifest.json' === $ML7::CONTENT_FILES['reference'] && 'faqs.manifest.json' === $ML7::CONTENT_FILES['faq'] );
 mb_test( 'Faz 7 yükleyici: katalog load_all içerik dosyaları YOKKEN de VARKEN de aynı sonucu verir; yalnız üç katalog dosyası (FILES değişmedi)',
 	true === $ML7::load_all( $f7_dir_k )['ok'] && true === $ML7::load_all( $f7_dir_a )['ok'] && $ML7::load_all( $f7_dir_k ) === $ML7::load_all( $f7_dir_a ) && array( 'sectors', 'qualifications', 'fees' ) === array_keys( $ML7::load_all( $f7_dir_a )['manifest'] ) && 3 === count( $ML7::FILES ) );
 mb_test( 'Faz 7 yükleyici: içerik dosyası yoksa load_content hata verir (katalog etkilenmez)', false === $ML7::load_content( $f7_dir_k )['ok'] && null === $ML7::load_content( $f7_dir_k )['manifest'] && ! empty( $ML7::load_content( $f7_dir_k )['errors'] ) );
@@ -491,7 +492,9 @@ $E7ar = $E7a->apply->apply( 'content', $E7ap['plan_digest'], null, 1 );
 mb_test( 'Faz 7 apply: content aşaması completed, 6 item, tek batch, run satırı stage=content',
 	true === $E7ar['ok'] && 'completed' === $E7ar['status'] && 6 === $E7ar['committed_items'] && 1 === $E7ar['committed_batches'] && 'content' === $E7a->store->get_run( $E7ar['run_uid'] )['stage'] && 6 === count( $E7a->world->items ) );
 mb_test( 'Faz 7 apply: yazma sırası news sonra reference (haber a,b,c; referans a,b,c)',
-	array( 'create_post:news:zz-test-haber-a', 'create_post:news:zz-test-haber-b', 'create_post:news:zz-test-haber-c', 'create_post:reference:zz-test-ref-a', 'create_post:reference:zz-test-ref-b', 'create_post:reference:zz-test-ref-c' ) === $E7a->world->writeLog );
+	array( 'create_post:news:zz-test-haber-a', 'create_post:news:zz-test-haber-b', 'create_post:news:zz-test-haber-c', 'create_post:reference:referans-01', 'create_post:reference:referans-02', 'create_post:reference:referans-03' ) === array_values( array_filter( $E7a->world->writeLog, function ( $l ) {
+		return 0 !== strpos( $l, 'create_logo_attachment:' );
+	} ) ) && 3 === count( $E7a->world->logoAttachments ) );
 list( $f7_id_a, $f7_p_a ) = f7ic_by_key( $E7a, 'mb_haber', 'news:zz-test-haber-a' );
 list( $f7_id_b, $f7_p_b ) = f7ic_by_key( $E7a, 'mb_haber', 'news:zz-test-haber-b' );
 mb_test( 'Faz 7 apply: haber DRAFT olarak yazıldı (asla publish), post_name/başlık/ham içerik/özet/tarih doğru, onay durumu in_review, tür terimi doğru (haber=501, duyuru=502)',
@@ -499,10 +502,10 @@ mb_test( 'Faz 7 apply: haber DRAFT olarak yazıldı (asla publish), post_name/ba
 	&& 'in_review' === $f7_p_a['meta']['_mb_approval_status'] && array( 501 ) === $f7_p_a['terms']['mb_haber_turu'] && array( 502 ) === $f7_p_b['terms']['mb_haber_turu'] && 3 === count( f7ic_posts( $E7a, 'mb_haber', 'draft' ) ) && 0 === count( f7ic_posts( $E7a, 'mb_haber', 'publish' ) ) );
 mb_test( 'Faz 7 apply: çok satırlı gövde ham korunur; marker + hash yazıldı ve plan hash\'ine eşit',
 	"Sahte haber C gövdesi.\nİkinci satır." === f7ic_by_key( $E7a, 'mb_haber', 'news:zz-test-haber-c' )[1]['content'] && $f7_news_h === $f7_p_a['meta']['_mb_last_applied_hash'] && 'news:zz-test-haber-a' === $f7_p_a['meta']['_mb_import_source_key'] );
-list( $f7_id_ra, $f7_p_ra ) = f7ic_by_key( $E7a, 'mb_referans', 'reference:zz-test-ref-a' );
-mb_test( 'Faz 7 apply: referans DRAFT, post_name=slug, temsili/aktif, sort_order 1/2/3, website_url "" ve logo 0 (ek eşlemesi yok); marker+hash',
-	null !== $f7_p_ra && 'draft' === $f7_p_ra['status'] && 'zz-test-ref-a' === $f7_p_ra['name'] && 'ZZ Test Ref A' === $f7_p_ra['title'] && 'representative' === $f7_p_ra['meta']['_mb_reference_status'] && 'active' === $f7_p_ra['meta']['_mb_record_status'] && '1' === $f7_p_ra['meta']['_mb_sort_order']
-	&& '2' === f7ic_by_key( $E7a, 'mb_referans', 'reference:zz-test-ref-b' )[1]['meta']['_mb_sort_order'] && '3' === f7ic_by_key( $E7a, 'mb_referans', 'reference:zz-test-ref-c' )[1]['meta']['_mb_sort_order'] && '' === $f7_p_ra['meta']['_mb_website_url'] && '0' === $f7_p_ra['meta']['_mb_logo_attachment_id']
+list( $f7_id_ra, $f7_p_ra ) = f7ic_by_key( $E7a, 'mb_referans', 'reference:referans-01' );
+mb_test( 'Faz 12b apply: referans DRAFT, post_name=slug, real/aktif, sort_order 1/2/3, website_url "", GERÇEK logo attachment (kimlik > 0, içerik özeti manifestle eşit); marker+hash',
+	null !== $f7_p_ra && 'draft' === $f7_p_ra['status'] && 'referans-01' === $f7_p_ra['name'] && 'Referans 01' === $f7_p_ra['title'] && 'real' === $f7_p_ra['meta']['_mb_reference_status'] && 'active' === $f7_p_ra['meta']['_mb_record_status'] && '1' === $f7_p_ra['meta']['_mb_sort_order']
+	&& '2' === f7ic_by_key( $E7a, 'mb_referans', 'reference:referans-02' )[1]['meta']['_mb_sort_order'] && '3' === f7ic_by_key( $E7a, 'mb_referans', 'reference:referans-03' )[1]['meta']['_mb_sort_order'] && '' === $f7_p_ra['meta']['_mb_website_url'] && (int) $f7_p_ra['meta']['_mb_logo_attachment_id'] > 0 && $f7_refs[0]['logo_sha256'] === $E7a->world->logoAttachments[ (int) $f7_p_ra['meta']['_mb_logo_attachment_id'] ]
 	&& $f7_ref_h === $f7_p_ra['meta']['_mb_last_applied_hash'] && 3 === count( f7ic_posts( $E7a, 'mb_referans', 'draft' ) ) && array() === $f7_p_ra['terms'] );
 mb_test( 'Faz 7 apply: katalog türlerine dokunulmadı (yalnız iki kontrollü haber türü terimi); audit started -> batch_committed -> completed; audit yalnız alan ADLARI',
 	2 === count( $E7a->world->terms ) && 0 === count( f7ic_posts( $E7a, 'mb_yeterlilik' ) ) && 0 === count( f7ic_posts( $E7a, 'mb_ucret' ) ) && array( 'import_run_started', 'import_batch_committed', 'import_run_completed' ) === array_map( function ( $a ) {
@@ -523,7 +526,7 @@ mb_test( 'Faz 7 idempotent: plan yeniden -> 6 unchanged, applicable, 0 yazma; ik
 	(function () use ( $E7a ) {
 		$p = $E7a->apply->preview( 'content' );
 		$n = f7ic_apply( $E7a );
-		return 6 === $p['summary']['operations']['unchanged'] && true === $p['summary']['applicable'] && 0 === $p['writes'] && 'noop' === $n['status'] && 1 === count( $E7a->world->runs ) && 6 === count( $E7a->world->items ) && 3 === count( $E7a->world->audit ) && 6 === count( $E7a->world->writeLog );
+		return 6 === $p['summary']['operations']['unchanged'] && true === $p['summary']['applicable'] && 0 === $p['writes'] && 'noop' === $n['status'] && 1 === count( $E7a->world->runs ) && 6 === count( $E7a->world->items ) && 3 === count( $E7a->world->audit ) && 9 === count( $E7a->world->writeLog ); // 6 post + 3 logo attachment
 	})() );
 
 // Rollback -> yeniden apply döngüsü.
@@ -578,19 +581,19 @@ foreach ( $f7_up_p['plan']['entries'] as $e ) {
 }
 mb_test( 'Faz 7 güncelleme planı: haber-a update(content+excerpt), haber-c update(published_on+news_type_term_id), referans a/b update(sort_order), diğerleri unchanged; changed_fields yalnız ad',
 	'update' === $f7_up_entries['news:zz-test-haber-a']['decision'] && array( 'content', 'excerpt' ) === $f7_up_entries['news:zz-test-haber-a']['changed_fields'] && 'update' === $f7_up_entries['news:zz-test-haber-c']['decision'] && array( 'published_on', 'news_type_term_id' ) === $f7_up_entries['news:zz-test-haber-c']['changed_fields']
-	&& 'unchanged' === $f7_up_entries['news:zz-test-haber-b']['decision'] && 'update' === $f7_up_entries['reference:zz-test-ref-a']['decision'] && array( 'sort_order' ) === $f7_up_entries['reference:zz-test-ref-a']['changed_fields'] && 'update' === $f7_up_entries['reference:zz-test-ref-b']['decision'] && 'unchanged' === $f7_up_entries['reference:zz-test-ref-c']['decision']
+	&& 'unchanged' === $f7_up_entries['news:zz-test-haber-b']['decision'] && 'update' === $f7_up_entries['reference:referans-01']['decision'] && array( 'sort_order' ) === $f7_up_entries['reference:referans-01']['changed_fields'] && 'update' === $f7_up_entries['reference:referans-02']['decision'] && 'unchanged' === $f7_up_entries['reference:referans-03']['decision']
 	&& true === $f7_up_p['eligible'] && 4 === $f7_up_p['writes'] && false === strpos( json_encode( $f7_up_p['plan'] ), 'Güncellenmiş sahte gövde' ) );
 list( $f7_id_ua, $f7_p_ua_before ) = f7ic_by_key( $E7b, 'mb_haber', 'news:zz-test-haber-a' );
 list( $f7_id_uc, $f7_p_uc_before ) = f7ic_by_key( $E7b, 'mb_haber', 'news:zz-test-haber-c' );
 $f7_up_r = $E7b->apply->apply( 'content', $f7_up_p['plan_digest'], null, 1 );
 mb_test( 'Faz 7 güncelleme apply: completed; aynı post ID\'leri güncellenir (yeni post YOK), post_status DEĞİŞMEZ (draft), yalnız yönetilen alanlar; tür terimi değişti; readback unchanged',
 	true === $f7_up_r['ok'] && 'completed' === $f7_up_r['status'] && 4 === $f7_up_r['committed_items'] && 6 === count( $E7b->world->posts ) && 'Güncellenmiş sahte gövde.' === $E7b->world->posts[ $f7_id_ua ]['content'] && 'draft' === $E7b->world->posts[ $f7_id_ua ]['status'] && 'draft' === $E7b->world->posts[ $f7_id_uc ]['status']
-	&& array( 502 ) === $E7b->world->posts[ $f7_id_uc ]['terms']['mb_haber_turu'] && '2026-03-01 12:00:00' === $E7b->world->posts[ $f7_id_uc ]['date'] && 'ZZ Test Ref A' === f7ic_by_key( $E7b, 'mb_referans', 'reference:zz-test-ref-a' )[1]['title'] && '2' === f7ic_by_key( $E7b, 'mb_referans', 'reference:zz-test-ref-a' )[1]['meta']['_mb_sort_order']
+	&& array( 502 ) === $E7b->world->posts[ $f7_id_uc ]['terms']['mb_haber_turu'] && '2026-03-01 12:00:00' === $E7b->world->posts[ $f7_id_uc ]['date'] && 'Referans 01' === f7ic_by_key( $E7b, 'mb_referans', 'reference:referans-01' )[1]['title'] && '2' === f7ic_by_key( $E7b, 'mb_referans', 'reference:referans-01' )[1]['meta']['_mb_sort_order']
 	&& 6 === $E7b->apply->preview( 'content' )['summary']['operations']['unchanged'] );
 $f7_rb_up = f7ic_rollback( $E7b, $f7_up_r['run_uid'] );
 mb_test( 'Faz 7 güncelleme rollback: eski yönetilen alanlar geri yazıldı (gövde, özet, tarih, tür terimi, sıralama); yönetilmeyen alana dokunulmadı; yeniden planlama v1 manifestine karşı unchanged',
 	true === $f7_rb_up['ok'] && 'rolled_back' === $f7_rb_up['status'] && $f7_news[0]['body'] === $E7b->world->posts[ $f7_id_ua ]['content'] && array( 501 ) === $E7b->world->posts[ $f7_id_uc ]['terms']['mb_haber_turu'] && '2025-12-31 12:00:00' === $E7b->world->posts[ $f7_id_uc ]['date'] && 'draft' === $E7b->world->posts[ $f7_id_ua ]['status']
-	&& '1' === f7ic_by_key( $E7b, 'mb_referans', 'reference:zz-test-ref-a' )[1]['meta']['_mb_sort_order'] && 6 === count( $E7b->world->posts ) );
+	&& '1' === f7ic_by_key( $E7b, 'mb_referans', 'reference:referans-01' )[1]['meta']['_mb_sort_order'] && 6 === count( $E7b->world->posts ) );
 
 /* --- N) çakışma, kirli hedef ve reddedilen apply'lar --- */
 $E7c = f7ic_env( $f7_dir_c, false );
@@ -616,18 +619,18 @@ $E7d = $f7_kirli( 'mb_haber', 'zz-test-haber-b' );
 $E7dp = $E7d->apply->preview( 'content' );
 mb_test( 'Faz 7 çakışma: çöpteki kullanıcı haberi aynı post_name\'i tutuyor (marker yok) -> conflict (unmanaged doğal anahtar); BÜTÜN run reddedilir, hiçbir şey yazılmaz',
 	1 === $E7dp['summary']['operations']['conflict'] && false === $E7dp['eligible'] && 'plan_not_applicable' === $E7d->apply->apply( 'content', (string) $E7dp['plan_digest'], null, 1 )['error_code'] && array() === $E7d->world->writeLog && array() === $E7d->world->runs && 1 === count( $E7d->world->posts ) );
-$E7e = $f7_kirli( 'mb_referans', 'zz-test-ref-c', array( 'status' => 'publish', 'name' => 'zz-test-ref-c', 'desired_slug' => null ) );
+$E7e = $f7_kirli( 'mb_referans', 'referans-03', array( 'status' => 'publish', 'name' => 'referans-03', 'desired_slug' => null ) );
 mb_test( 'Faz 7 çakışma: yayında kullanıcı referansı aynı post_name\'i tutuyor -> conflict, apply reddedilir', 1 === $E7e->apply->preview( 'content' )['summary']['operations']['conflict'] && false === $E7e->apply->preview( 'content' )['eligible'] );
 $E7dd = f7ic_env( $f7_dir_c );
 $E7dd->world->posts[904] = array( 'post_type' => 'mb_haber', 'title' => 'Import kabuğu', 'status' => 'trash', 'content' => '', 'name' => '', 'excerpt' => '', 'date' => '', 'extra' => array(), 'meta' => array(), 'terms' => array() );
-$E7dd->world->posts[905] = array( 'post_type' => 'mb_referans', 'title' => 'Başka kabuk', 'status' => 'trash', 'content' => '', 'name' => 'zz-test-ref-a__trashed', 'desired_slug' => '', 'excerpt' => '', 'date' => '', 'extra' => array(), 'meta' => array(), 'terms' => array() );
+$E7dd->world->posts[905] = array( 'post_type' => 'mb_referans', 'title' => 'Başka kabuk', 'status' => 'trash', 'content' => '', 'name' => 'referans-01__trashed', 'desired_slug' => '', 'excerpt' => '', 'date' => '', 'extra' => array(), 'meta' => array(), 'terms' => array() );
 mb_test( 'Faz 7 çakışma: importun kendi rollback kabuğu (post_name boş / "__trashed" + boş istenen slug) doğal anahtarı TUTMAZ -> 6 create, applicable',
 	6 === $E7dd->apply->preview( 'content' )['summary']['operations']['create'] && true === $E7dd->apply->preview( 'content' )['eligible'] );
 $E7f = $f7_kirli( 'mb_haber', 'zz-test-haber-a', array( 'meta' => array( '_mb_import_source_key' => 'news:zz-test-haber-x' ) ) );
 mb_test( 'Faz 7 çakışma: post_name aynı ama marker BAŞKA source_key\'e ait (foreign_marker) -> conflict', 1 === $E7f->apply->preview( 'content' )['summary']['operations']['conflict'] && false === $E7f->apply->preview( 'content' )['eligible'] );
-$E7g = $f7_kirli( 'mb_haber', 'baska-bir-haber', array( 'status' => 'draft', 'meta' => array( '_mb_import_source_key' => 'reference:zz-test-ref-a' ) ) );
+$E7g = $f7_kirli( 'mb_haber', 'baska-bir-haber', array( 'status' => 'draft', 'meta' => array( '_mb_import_source_key' => 'reference:referans-01' ) ) );
 $E7gp = $E7g->apply->preview( 'content' );
-mb_test( 'Faz 7 çakışma: reference marker\'ı bir mb_haber postunda -> reference:zz-test-ref-a conflict_wrong_target_type (tür uyuşmazlığı); apply reddedilir',
+mb_test( 'Faz 7 çakışma: reference marker\'ı bir mb_haber postunda -> reference:referans-01 conflict_wrong_target_type (tür uyuşmazlığı); apply reddedilir',
 	1 === $E7gp['summary']['by_decision']['conflict_wrong_target_type'] && false === $E7gp['eligible'] && 'plan_not_applicable' === $E7g->apply->apply( 'content', (string) $E7gp['plan_digest'], null, 1 )['error_code'] );
 $E7h = f7ic_env( $f7_dir_c );
 $E7h->world->posts[901] = array( 'post_type' => 'mb_haber', 'title' => 'A', 'status' => 'draft', 'content' => '', 'name' => 'x', 'excerpt' => '', 'date' => '', 'extra' => array(), 'meta' => array( '_mb_import_source_key' => 'news:zz-test-haber-a' ), 'terms' => array() );
@@ -648,7 +651,7 @@ $E7i  = f7ic_env( $f7_dir_a );
 $E7ia = $E7i->apply->preview( 'all' );
 $E7ic = $E7i->apply->preview( 'content' );
 mb_test( 'Faz 7 aşama yalıtımı: aynı dizinde katalog+içerik dosyaları varken all aşaması yalnız katalog (11 kayıt; by_type üç anahtar), content yalnız içerik (6 kayıt)',
-	11 === $E7ia['summary']['total'] && array( 'sector', 'qualification', 'fee' ) === array_keys( $E7ia['summary']['by_type'] ) && 6 === $E7ic['summary']['total'] && array( 'sector', 'qualification', 'fee', 'news', 'reference' ) === array_keys( $E7ic['summary']['by_type'] ) && $E7ia['manifest_digest'] !== $E7ic['manifest_digest'] );
+	11 === $E7ia['summary']['total'] && array( 'sector', 'qualification', 'fee' ) === array_keys( $E7ia['summary']['by_type'] ) && 6 === $E7ic['summary']['total'] && array( 'sector', 'qualification', 'fee', 'news', 'reference', 'faq' ) === array_keys( $E7ic['summary']['by_type'] ) && $E7ia['manifest_digest'] !== $E7ic['manifest_digest'] );
 mb_test( 'Faz 7 aşama yalıtımı: content apply katalog tablolarına/terimlerine dokunmaz; sonra sectors aşaması bağımsız uygulanır (sektör terimleri haber türü terimlerinden ayrı sayılır)',
 	'completed' === f7ic_apply( $E7i )['status'] && 0 === count( f7ic_posts( $E7i, 'mb_yeterlilik' ) ) && 'completed' === f7ic_apply( $E7i, 'sectors' )['status'] && 5 === count( $E7i->world->terms ) && 6 === count( $E7i->world->posts ) && 3 === $E7i->apply->preview( 'sectors' )['summary']['operations']['unchanged'] );
 $E7j = f7ic_env( $f7_dir_k );
@@ -661,7 +664,7 @@ $f7_drift = function ( callable $mutate, $stage = 'content' ) use ( $f7_dir_c ) 
 	$env = f7ic_env( $f7_dir_c );
 	$run = f7ic_apply( $env );
 	list( $id ) = f7ic_by_key( $env, 'mb_haber', 'news:zz-test-haber-a' );
-	list( $rid ) = f7ic_by_key( $env, 'mb_referans', 'reference:zz-test-ref-a' );
+	list( $rid ) = f7ic_by_key( $env, 'mb_referans', 'reference:referans-01' );
 	$mutate( $env->world, $id, $rid );
 	$env->world->writeLog = array();
 	$res = f7ic_rollback( $env, $run['run_uid'] );
@@ -769,7 +772,7 @@ mb_test( 'Faz 7 batch atomikliği: 2. batch\'te yazma hatası -> 2. batch TAMAME
 $f7_m_rb = f7ic_rollback( $E7m, $E7mr['run_uid'] );
 mb_test( 'Faz 7 batch atomikliği: yarım run\'ın yalnız commit edilen 2 item\'ı geri alınır', true === $f7_m_rb['ok'] && 2 === $f7_m_rb['rolled_back_items'] && 2 === count( f7ic_posts( $E7m, 'mb_haber', 'trash' ) ) );
 $E7n = f7ic_env( $f7_dir_c );
-$E7n->world->faults = array( array( 'op' => 'corrupt_meta', 'source_key' => 'reference:zz-test-ref-b' ) );
+$E7n->world->faults = array( array( 'op' => 'corrupt_meta', 'source_key' => 'reference:referans-02' ) );
 $E7nr = f7ic_apply( $E7n, 'content', 20 );
 mb_test( 'Faz 7 readback: yazılan referansın meta değeri bozulursa readback_mismatch -> BÜTÜN batch geri alınır, run failed (hiçbir post kalmaz)',
 	false === $E7nr['ok'] && 'readback_mismatch' === $E7nr['error_code'] && 'failed' === $E7n->store->get_run( $E7nr['run_uid'] )['status'] && 0 === count( $E7n->world->posts ) );

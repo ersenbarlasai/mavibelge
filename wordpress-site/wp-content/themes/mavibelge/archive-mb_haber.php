@@ -5,6 +5,7 @@
  * Liste MaviBelge_Core_Content_Service::get_news() servisinden gelir (tema doğrudan sorgu yapmaz):
  * yalnız yayınlanmış VE onaylı (`_mb_approval_status === 'approved'`) kayıtlar listelenir. Tür süzgeci
  * (`?mb_type=haber|duyuru`) ve sayfalama (`?mb_page=N`) gerçek bağlantılardır; JavaScript gerektirmez.
+ * Faz 13: ortak page-hero (kayıt: inc/page-layouts.php mavibelge_archive_presentation('haberler')) + statik referans ızgarası.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 $news     = mavibelge_get_news( mavibelge_content_request_args() );
-$base_url = post_type_exists( 'mb_haber' ) ? (string) get_post_type_archive_link( 'mb_haber' ) : home_url( '/haberler/' );
+$base_url = post_type_exists( 'mb_haber' ) ? (string) get_post_type_archive_link( 'mb_haber' ) : mavibelge_url( 'haberler' );
 $type     = isset( $news['args']['type'] ) ? $news['args']['type'] : '';
 $links    = mavibelge_content_filter_links(
 	$base_url,
@@ -27,32 +28,17 @@ $links    = mavibelge_content_filter_links(
 );
 ?>
 
-<div class="container section-tight">
+<?php get_template_part( 'template-parts/page/page-hero', null, mavibelge_archive_hero_args( 'haberler', __( 'Haberler', 'mavibelge' ) ) ); ?>
+
+<section class="section-tight mb-archive">
+<div class="container">
+	<h2 class="screen-reader-text"><?php esc_html_e( 'Haber listesi', 'mavibelge' ); ?></h2>
 	<?php
-	get_template_part(
-		'template-parts/components/breadcrumb',
-		null,
-		array(
-			'items' => array(
-				array( 'label' => __( 'Bilgi Merkezi', 'mavibelge' ), 'url' => home_url( '/bilgi-merkezi/' ) ),
-				array( 'label' => __( 'Haberler', 'mavibelge' ) ),
-			),
-		)
-	);
-	get_template_part(
-		'template-parts/components/section-heading',
-		null,
-		array(
-			'eyebrow' => __( 'Bilgi Merkezi', 'mavibelge' ),
-			'title'   => __( 'Haberler', 'mavibelge' ),
-			'level'   => 1,
-		)
-	);
 	get_template_part( 'template-parts/content/filter-links', null, array( 'links' => $links, 'label' => __( 'Haber türüne göre süz', 'mavibelge' ) ) );
 
 	if ( ! empty( $news['items'] ) ) :
 		?>
-		<div class="card-grid-3">
+		<div class="news-grid">
 			<?php
 			foreach ( $news['items'] as $item ) {
 				get_template_part( 'template-parts/content/news-card', null, array( 'item' => $item ) );
@@ -85,6 +71,7 @@ $links    = mavibelge_content_filter_links(
 	endif;
 	?>
 </div>
+</section>
 
 <?php
 get_footer();

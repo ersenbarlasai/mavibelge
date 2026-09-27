@@ -1,32 +1,34 @@
 'use strict';
 /**
- * Faz 7 — İÇERİK manifest üretimi: tanitim-site/assets/data/news.js (6 gerçek haber/duyuru) ve
- * references.js (12 TEMSİLİ referans logosu — gerçek müşteri DEĞİL) -> wordpress-site/data/content/
- * {news,references}.manifest.json. Katalog üretimi (build-manifest.js) ve onun 5 dosyası DEĞİŞMEZ.
+ * Faz 7/12b — İÇERİK manifest üretimi. Üç yerel kaynak, üç manifest dosyası:
+ *   tanitim-site/assets/data/news.js                                   -> content/news.manifest.json       (6 gerçek haber/duyuru)
+ *   wordpress-site/data/sources/reference-logos/ (onaylı, yerel)       -> content/references.manifest.json (15 logo; firma adı DOĞRULANMAMIŞ)
+ *   tanitim-site/sss.html (kurumca onaylanmış, dondurulmuş)            -> content/faqs.manifest.json       (6 soru-cevap)
+ * Katalog üretimi (build-manifest.js) ve onun 5 dosyası DEĞİŞMEZ.
  *
  * Yalnız wordpress-site/data/content/ altına yazar; WordPress'e dokunmaz, ağ isteği yapmaz.
  *
  * Run: node wordpress-site/tools/import/build-content-manifest.js
  *
  * Güvenceler (build-manifest.js ile AYNI dürüst çerçeve):
- *  1. ÖN-DOĞRULAMA başarısız (sayı 6/12'den farklı, tekrar eden slug, geçersiz tarih/tür, şema/çapraz-alan
- *     ihlali, ...) -> çıkış 1 ve HİÇBİR şey yazılmaz: yazıcı çağrılmaz (bkz. runBuild()).
- *  2. Yazma sırasında I/O hatası: iki dosya için "ya hep ya hiç" — writeContentAtomic() yeni içerik
- *     dosyalarını önce geçici dosyaya yazar, sonra yeniden adlandırır; ikinci yeniden adlandırma
- *     başarısız olursa ilk dosya ESKİ içeriğine (veya yokluğuna) geri döndürülür. Geri döndürmenin de
- *     başarısız olduğu (disk dolu vb.) durumda hata yeniden fırlatılır; verify-content-manifest.js
- *     karışık seti disk-eşitliği kontrolüyle yakalar.
+ *  1. ÖN-DOĞRULAMA başarısız (sayı 6/15/6'dan farklı, tekrar eden slug, geçersiz tarih/tür, logo SHA/PNG/boyut uyuşmazlığı,
+ *     şema/çapraz-alan ihlali, ...) -> çıkış 1 ve HİÇBİR şey yazılmaz: yazıcı çağrılmaz (bkz. runBuild()).
+ *  2. Yazma sırasında I/O hatası: üç dosya için "ya hep ya hiç" — writeContentAtomic() yeni içerik dosyalarını önce geçici dosyaya
+ *     yazar, sonra yeniden adlandırır; bir yeniden adlandırma başarısız olursa daha önce yeniden adlandırılanlar ESKİ içeriğine
+ *     (veya yokluğuna) geri döndürülür. Geri döndürmenin de başarısız olduğu durumda hata yeniden fırlatılır;
+ *     verify-content-manifest.js karışık seti disk-eşitliği kontrolüyle yakalar.
  *  3. Deterministik: iki koşu byte-eşit çıktı üretir (zaman damgası/rastgelelik yok).
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const { extractContent, REPO_ROOT } = require('./extract-source');
+const { extractOne, REPO_ROOT } = require('./extract-source');
+const { loadReferenceLogoSource, loadFaqSource } = require('./lib/content-sources');
 const { sha256Hex, toDeterministicJson } = require('./lib/hash');
 const { slugify } = require('./lib/slug');
 const { CONTENT_EXPECTED } = require('./lib/expected-counts');
-const { validateContentFiles, isRealCalendarDate, isCanonicalPlainText, NEWS_PATH, REFERENCES_PATH } = require('./lib/validate-content-set');
+const { validateContentFiles, isRealCalendarDate, isCanonicalPlainText, NEWS_PATH, REFERENCES_PATH, FAQS_PATH } = require('./lib/validate-content-set');
 
 const SCHEMA_VERSION = '2.0.0';
 const DATA_DIR = path.join(REPO_ROOT, 'wordpress-site', 'data');
@@ -38,7 +40,12 @@ const NEWS_NOTES = [
 	'news.js: 6 gerçek haber/duyuru (başlık ve tarihler gerçektir). Kaynaktaki image alanı AKTARILMAZ (yazıya özel fotoğraf yoktur; ek eşlemesi bu fazda yok). İçe aktarılan haber taslak + in_review yazılır, asla yayınlanmaz/onaylanmaz.',
 ];
 const REFERENCE_NOTES = [
-	'references.js: 12 TEMSİLİ referans logosu — gerçek müşteri DEĞİLDİR (reference_status=representative). logo_file yalnız bilgi amaçlı kaynak yoludur (SVG izinli logo MIME türü değildir; logo eki aktarılmaz). Kurum/tarih/bağlantı uydurulmadı.',
+	'Kaynak: onaylı canlı referans sayfasından (https://mavibelge.com.tr/referanslar/) bir kez alınmış 15 logo; yerel envanter wordpress-site/data/sources/reference-logos/reference-logos.manifest.json (URL, alınma tarihi, SHA-256, boyut). Derleme sırasında ağ isteği yoktur.',
+	'Firma adı görselden TAHMİN EDİLMEDİ (name_status=unverified): canlı kaynak logolar için başlık/alt metin/bağlantı taşımıyor. name nötr sıra etiketidir; kurum adları doğrulanınca ayrı bir onaylı karar ve manifest güncellemesiyle girilir.',
+	'Her logo içe aktarımda gerçek bir WordPress attachment\'ına çevrilir (aynı içerikli logo tekrar eklenmez); _mb_logo_attachment_id gerçek attachment kimliğidir. Kayıtlar taslak yazılır.',
+];
+const FAQ_NOTES = [
+	'Kaynak: tanitim-site/sss.html (kullanıcı tarafından görsel kabul edilmiş, kurumca onaylanmış; dondurulmuş, yalnız okunur). 6 gerçek soru-cevap. Soru mb_sss başlığına, cevap gövdesine düz metin olarak yazılır; kayıtlar taslak yazılır.',
 ];
 
 function reportFail(errors) {
@@ -47,6 +54,11 @@ function reportFail(errors) {
 		process.stderr.write('  - ' + e + '\n');
 	});
 	process.stderr.write('\nHiçbir dosya yazılmadı (tümü-ya-da-hiçbiri).\n');
+}
+
+/** Üç yerel içerik kaynağını okur. @returns {{news, references, faqs}} */
+function loadContentSources() {
+	return { news: extractOne('news'), references: loadReferenceLogoSource(), faqs: loadFaqSource() };
 }
 
 function buildNewsManifest(source) {
@@ -97,15 +109,21 @@ function buildNewsManifest(source) {
 	return { errors: errors, records: records };
 }
 
+/** Nötr sıra etiketi ("Referans 01"): firma adı DEĞİLDİR. */
+function referenceName(index) {
+	return 'Referans ' + String(index + 1).padStart(2, '0');
+}
+
 function buildReferenceManifest(source) {
-	const errors = [];
+	const errors = (source.errors || []).slice();
 	const records = [];
 	const seen = {};
-	source.data.forEach(function (row, index) {
+	source.data.forEach(function (logo, index) {
 		const where = 'references[' + index + ']';
-		const slug = slugify(row.name);
-		if ('' === slug || !SLUG_RE.test(slug)) {
-			errors.push(where + ': ad geçerli bir slug üretmiyor ("' + row.name + '").');
+		const name = referenceName(index);
+		const slug = slugify(name);
+		if ('' === slug || !SLUG_RE.test(slug) || slug !== logo.slug) {
+			errors.push(where + ': slug beklenen sıra etiketinden türemiyor ("' + logo.slug + '").');
 			return;
 		}
 		if (Object.prototype.hasOwnProperty.call(seen, slug)) {
@@ -113,28 +131,19 @@ function buildReferenceManifest(source) {
 			return;
 		}
 		seen[slug] = true;
-		if (!/^[A-Za-z0-9._/-]+$/.test(row.file) || row.file.indexOf('..') !== -1 || row.file.charAt(0) === '/') {
-			errors.push(where + ': logo yolu geçersiz ("' + row.file + '").');
-			return;
-		}
-		const logoRepoPath = 'tanitim-site/' + row.file;
-		if (!fs.existsSync(path.join(REPO_ROOT, logoRepoPath))) {
-			errors.push(where + ': logo dosyası kaynak sitede yok ("' + logoRepoPath + '").');
-			return;
-		}
-		['name', 'alt'].forEach(function (f) {
-			if (!isCanonicalPlainText(row[f])) {
-				errors.push(where + ': ' + f + ' kanonik düz metin değil.');
-			}
-		});
 		records.push({
 			schema_version: SCHEMA_VERSION,
 			source_key: 'reference:' + slug,
 			source_index: index,
-			name: row.name,
+			name: name,
 			slug: slug,
-			logo_file: logoRepoPath,
-			alt: row.alt,
+			logo_file: logo.file,
+			logo_sha256: logo.sha256,
+			logo_bytes: logo.bytes,
+			logo_width: logo.width,
+			logo_height: logo.height,
+			alt: 'Referans kuruluş logosu ' + String(index + 1).padStart(2, '0'),
+			name_status: logo.name_status,
 			source: { file: source.repoRelativePath, sha256: source.sha256 },
 		});
 	});
@@ -144,12 +153,50 @@ function buildReferenceManifest(source) {
 	return { errors: errors, records: records };
 }
 
+function buildFaqManifest(source) {
+	const errors = (source.errors || []).slice();
+	const records = [];
+	const seen = {};
+	source.data.forEach(function (row, index) {
+		const where = 'faqs[' + index + ']';
+		const slug = slugify(row.question);
+		if ('' === slug || !SLUG_RE.test(slug)) {
+			errors.push(where + ': soru geçerli bir slug üretmiyor ("' + row.question + '").');
+			return;
+		}
+		if (Object.prototype.hasOwnProperty.call(seen, slug)) {
+			errors.push(where + ': slug tekrarlanıyor ("' + slug + '").');
+			return;
+		}
+		seen[slug] = true;
+		['question', 'answer'].forEach(function (f) {
+			if (!isCanonicalPlainText(row[f])) {
+				errors.push(where + ': ' + f + ' kanonik düz metin değil.');
+			}
+		});
+		records.push({
+			schema_version: SCHEMA_VERSION,
+			source_key: 'faq:' + slug,
+			source_index: index,
+			slug: slug,
+			question: row.question,
+			answer: row.answer,
+			source: { file: source.repoRelativePath, sha256: source.sha256 },
+		});
+	});
+	if (records.length !== CONTENT_EXPECTED.faqs) {
+		errors.push('faqs: beklenen ' + CONTENT_EXPECTED.faqs + ' kayıt, gerçek ' + records.length + '.');
+	}
+	return { errors: errors, records: records };
+}
+
 /** Kaynaktan dosya değerlerini TÜRETİR (doğrulamasız); computeContent() ve doğrulayıcının taze türetimi bunu kullanır. */
 function deriveFiles(sources) {
 	const news = buildNewsManifest(sources.news);
 	const refs = buildReferenceManifest(sources.references);
+	const faqs = buildFaqManifest(sources.faqs);
 	return {
-		errors: [].concat(news.errors, refs.errors),
+		errors: [].concat(news.errors, refs.errors, faqs.errors),
 		files: {
 			[NEWS_PATH]: {
 				schema_version: SCHEMA_VERSION,
@@ -167,6 +214,14 @@ function deriveFiles(sources) {
 				notes: REFERENCE_NOTES.slice(),
 				records: refs.records,
 			},
+			[FAQS_PATH]: {
+				schema_version: SCHEMA_VERSION,
+				record_type: 'faq',
+				count: faqs.records.length,
+				source: { file: sources.faqs.repoRelativePath, sha256: sources.faqs.sha256 },
+				notes: FAQ_NOTES.slice(),
+				records: faqs.records,
+			},
 		},
 	};
 }
@@ -174,11 +229,11 @@ function deriveFiles(sources) {
 /**
  * Saf hesaplama (diske YAZMAZ). Hem build hem verify kullanır.
  *
- * @param {object} [sourcesOverride] yalnız testler için: extractContent() biçiminde bellek içi kaynak.
+ * @param {object} [sourcesOverride] yalnız testler için: loadContentSources() biçiminde bellek içi kaynak.
  * @returns {{errors: string[], files: Object|null, sources: Object}}
  */
 function computeContent(sourcesOverride) {
-	const sources = sourcesOverride || extractContent();
+	const sources = sourcesOverride || loadContentSources();
 	const derived = deriveFiles(sources);
 	if (derived.errors.length > 0) {
 		return { errors: derived.errors, files: null, sources: sources };
@@ -193,7 +248,7 @@ function computeContent(sourcesOverride) {
 }
 
 /**
- * İki dosya için "ya hep ya hiç": geçici dosyalar -> yeniden adlandırma; herhangi bir adım başarısız olursa
+ * Üç dosya için "ya hep ya hiç": geçici dosyalar -> yeniden adlandırma; herhangi bir adım başarısız olursa
  * daha önce yeniden adlandırılan dosyalar ESKİ içeriğine (yoksa yokluğuna) döndürülür. `fsImpl` testlerde
  * `renameSync`'i ortada başarısız eden sahte bir uygulama olabilir.
  */
@@ -248,7 +303,8 @@ function runBuild(computeFn, writerFn) {
 
 	process.stdout.write('İçerik manifest üretimi tamam.\n');
 	process.stdout.write('  haber: ' + result.files[NEWS_PATH].count + '\n');
-	process.stdout.write('  referans (temsili): ' + result.files[REFERENCES_PATH].count + '\n');
+	process.stdout.write('  referans (logo; firma adı doğrulanmamış): ' + result.files[REFERENCES_PATH].count + '\n');
+	process.stdout.write('  SSS: ' + result.files[FAQS_PATH].count + '\n');
 	return { wrote: true, result: result };
 }
 
@@ -264,6 +320,6 @@ if (require.main === module) {
 }
 
 module.exports = {
-	main, runBuild, computeContent, deriveFiles, writeContentAtomic, buildNewsManifest, buildReferenceManifest,
-	DATA_DIR, SCHEMA_DIR, SCHEMA_VERSION, NEWS_PATH, REFERENCES_PATH, sha256Hex,
+	main, runBuild, computeContent, deriveFiles, writeContentAtomic, buildNewsManifest, buildReferenceManifest, buildFaqManifest, loadContentSources, referenceName,
+	DATA_DIR, SCHEMA_DIR, SCHEMA_VERSION, NEWS_PATH, REFERENCES_PATH, FAQS_PATH, sha256Hex,
 };

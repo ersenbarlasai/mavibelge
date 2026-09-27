@@ -21,6 +21,9 @@ body {
   background: var(--color-white);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Faz 12e: clip, body'yi kaydırma kabı YAPMAZ -> position: sticky (site başlığı, yeterlilik CTA kartı) çalışır;
+   * clip desteklemeyen tarayıcı hidden'a düşer (yalnız yapışkanlık kaybolur). */
+  overflow-x: clip;
   width: 100%;
 }
 img { max-width: 100%; height: auto; display: block; }
@@ -83,6 +86,7 @@ section { padding: var(--space-8) 0; }
 .bg-light { background: var(--color-gray-50); }
 .bg-navy { background: var(--color-navy-900); color: var(--color-white); }
 .bg-navy h2, .bg-navy h3 { color: var(--color-white); }
+.bg-navy .section-title p { color: var(--color-gray-200); }
 .bg-navy a { color: var(--color-blue-100); }
 
 .eyebrow {

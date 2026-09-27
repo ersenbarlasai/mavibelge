@@ -32,5 +32,7 @@ get_template_part(
 		'url'          => $item['permalink'],
 		'content'      => $item['excerpt'],
 		'content_html' => '' !== $badges ? '<div class="card-badges">' . $badges . '</div>' : '',
+		// Faz 13: statik haberler.html kart görseli — yalnız WordPress öne çıkan görseli varsa (DTO thumbnail_id); dekoratif (alt boş, başlık hemen altta).
+		'media_html'   => ! empty( $item['thumbnail_id'] ) ? wp_get_attachment_image( (int) $item['thumbnail_id'], 'medium_large', false, array( 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async' ) ) : '',
 	)
 );

@@ -11,6 +11,9 @@
  * - filters (array, required) — normalized MaviBelge_Core_Catalog_Query shape (q/sector/level/priced/page)
  * - sectors (array) — WP_Term list; omit or pass empty to hide the sector select (e.g. locked taxonomy context)
  * - show_priced (bool) default true
+ *
+ * Faz 12e: arama/sektör/seviye tek satırda (tanitim-site/meslekler.html .filter-bar düzeni); "yalnız güncel fiyatı
+ * bulunanlar" ve Filtrele/Temizle ikincil satırda (.filter-row-secondary). GET sözleşmesi değişmedi.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -54,11 +57,12 @@ $has_active_filter = '' !== $filters['q'] || '' !== $filters['sector'] || '' !==
 			<select id="mb_level" name="mb_level">
 				<option value=""><?php esc_html_e( 'Tüm Seviyeler', 'mavibelge' ); ?></option>
 				<?php for ( $level = 1; $level <= 8; $level++ ) : ?>
-					<option value="<?php echo esc_attr( (string) $level ); ?>" <?php selected( $filters['level'], (string) $level ); ?>><?php echo esc_html( (string) $level ); ?></option>
+					<option value="<?php echo esc_attr( (string) $level ); ?>" <?php selected( $filters['level'], (string) $level ); ?>><?php /* translators: %d: MYK level */ echo esc_html( sprintf( __( 'Seviye %d', 'mavibelge' ), $level ) ); ?></option>
 				<?php endfor; ?>
 			</select>
 		</div>
-
+	</div>
+	<div class="filter-row filter-row-secondary">
 		<?php if ( $show_priced ) : ?>
 			<div class="form-field form-field-checkbox">
 				<label>

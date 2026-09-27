@@ -6,46 +6,15 @@
  * them exist — see docs/design-system.md.
  */
 
-/* ===== Tablet (<=1024px) ===== */
-@media (max-width: 1024px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-locations { grid-template-columns: 1fr; }
-
-  .task-grid { grid-template-columns: repeat(3, 1fr); }
-  .sector-grid { grid-template-columns: repeat(3, 1fr); }
-  .news-grid { grid-template-columns: repeat(2, 1fr); }
-  .qual-list { grid-template-columns: repeat(2, 1fr); }
-  .process-steps { grid-template-columns: repeat(2, 1fr); }
-  .ref-grid { grid-template-columns: repeat(3, 1fr); }
-  .qual-detail-grid { grid-template-columns: 1fr; }
-  .hero .container { grid-template-columns: 1fr; }
-  .hero-search-panel { margin-top: var(--space-6); }
-
-  .header-main { gap: var(--space-3); min-height: 84px; }
-  .main-nav > ul { gap: var(--space-3); }
-  .main-nav > ul > li > a,
-  .main-nav > ul > li > .nav-parent-link,
-  .main-nav > ul > li > button.nav-toggle { padding: var(--space-3) 2px; font-size: 0.8125rem; }
-  .trust-logo-item img { height: 56px; }
-  .trust-code { font-size: 11px; }
-}
-
-/* ===== Small tablet (<=768px) ===== */
-@media (max-width: 768px) {
-  :root { --header-h: 64px; }
-  .container { padding: 0 var(--space-4); }
-  section { padding: var(--space-6) 0; }
-
-  .trust-bar .container { justify-content: center; text-align: center; }
-  .trust-bar ul { justify-content: center; }
-
-  .header-main { flex-wrap: wrap; padding: var(--space-2) 0; min-height: 0; align-items: center; }
-  .brand-logo img { height: 38px; }
+/* ===== Başlık: hamburger menü (<=1279px) — Faz 12e kapanış =====
+ * Masaüstü başlığının (marka + 5 üst menü + MYK/TÜRKAK + CTA) doğal genişliği gerçek Chrome ölçümüyle ~1253px'tir
+ * (tools/runtime-test/header-geometry-test.js). Bu genişliğin altında masaüstü menü SIĞMAZ; etiket küçültme/gizleme/
+ * overflow yerine mevcut erişilebilir hamburger menü kullanılır. navigation.js MOBILE_MQ aynı değeri kullanır. */
+@media (max-width: 1279px) {
+  .header-main { flex-wrap: wrap; padding: var(--space-2) 0; min-height: 0; align-items: center; gap: var(--space-3); }
   .brand-logo { order: 1; }
   .menu-toggle { display: inline-flex; order: 3; }
   .trust-group { order: 2; border-left: none; padding-left: 0; gap: 8px; margin-left: auto; margin-right: var(--space-2); }
-  .trust-logo-item img { height: 40px; }
-  .trust-code { font-size: 9px; letter-spacing: 0.02em; }
   .header-cta { display: none; }
 
   .main-nav {
@@ -57,7 +26,7 @@
   }
   .main-nav.is-open { display: block; }
   .main-nav > ul { flex-direction: column; gap: 0; padding: var(--space-2) 0; }
-  .main-nav > ul > li { width: 100%; flex-wrap: wrap; }
+  .main-nav > ul > li { width: 100%; flex-wrap: wrap; flex-shrink: 1; }
   .main-nav > ul > li > a,
   .main-nav > ul > li > .nav-parent-link {
     flex: 1 1 auto;
@@ -65,10 +34,10 @@
     padding: var(--space-3) var(--space-2);
   }
   /*
-   * On mobile the link and the toggle are independent, full-height
-   * controls sitting side by side on the same row: tapping the label
-   * navigates, tapping the toggle (own >=44px square) opens the
-   * submenu — neither overlaps or requires guessing which part of a
+   * In the hamburger menu the link and the toggle are independent,
+   * full-height controls sitting side by side on the same row: tapping
+   * the label navigates, tapping the toggle (own >=44px square) opens
+   * the submenu — neither overlaps or requires guessing which part of a
    * merged control does what.
    */
   .main-nav > ul > li > button.nav-toggle {
@@ -77,10 +46,56 @@
     justify-content: center;
     padding: var(--space-3);
   }
-  .main-nav > ul > li:not(.menu-item-has-children) > a { width: 100%; }
+  /* Alt menüsü olmayan öğe tam satır; ÜST bağlantı (.nav-parent-link) değil — yedek menüde li sınıfsızdır ve
+   * width:100% açma düğmesini alt satıra itiyordu (Faz 12e kapanış: gerçek Chrome ölçümüyle bulundu). */
+  .main-nav > ul > li:not(.menu-item-has-children) > a:not(.nav-parent-link) { width: 100%; }
   .submenu { position: static; box-shadow: none; border: none; border-left: 2px solid var(--color-blue-100); margin-left: var(--space-3); display: none; flex-basis: 100%; }
+  /* Hamburger menüde alt menü YALNIZ düğmesiyle (aria-expanded ile tutarlı) açılır; masaüstünün hover/focus-within
+   * açılışı burada kapatılır — aksi hâlde Escape sonrası odak düğmede kaldığında kapalı (aria-expanded=false) alt menü
+   * görünür kalıyordu. */
+  .main-nav li:hover > .submenu,
+  .main-nav li:focus-within > .submenu { display: none; }
   .main-nav li.is-open > .submenu { display: block; }
   .mobile-header-cta { display: block; padding: var(--space-3) var(--space-2); }
+}
+
+/* ===== Tablet (<=1024px) ===== */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .mb-cards--3 { grid-template-columns: repeat(2, 1fr); }
+  .mb-split { grid-template-columns: 1fr; gap: var(--space-6); }
+  .footer-locations { grid-template-columns: 1fr; }
+
+  .task-grid { grid-template-columns: repeat(3, 1fr); }
+  .sector-grid { grid-template-columns: repeat(3, 1fr); }
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .qual-list { grid-template-columns: repeat(2, 1fr); }
+  .location-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .ref-grid { grid-template-columns: repeat(3, 1fr); }
+  .qual-detail-grid { grid-template-columns: 1fr; }
+  .sticky-cta { position: static; }
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-search-panel { margin-top: var(--space-6); }
+
+  .trust-logo-item img { height: 56px; }
+  .trust-code { font-size: 11px; }
+}
+
+/* ===== Small tablet (<=768px) ===== */
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+  .mb-cards--2, .mb-cards--3 { grid-template-columns: 1fr; }
+  .mb-logo { height: 64px; }
+  .container { padding: 0 var(--space-4); }
+  section { padding: var(--space-6) 0; }
+
+  .trust-bar .container { justify-content: center; text-align: center; }
+  .trust-bar ul { justify-content: center; }
+
+  .brand-logo img { height: 38px; }
+  .trust-logo-item img { height: 40px; }
+  .trust-code { font-size: 9px; letter-spacing: 0.02em; }
 
   .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
@@ -95,6 +110,7 @@
   .sector-grid { grid-template-columns: 1fr 1fr; }
   .news-grid { grid-template-columns: 1fr; }
   .qual-list { grid-template-columns: 1fr; }
+  .location-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr 1fr; }
   .ref-grid { grid-template-columns: repeat(2, 1fr); }
   .impact-stats { padding: var(--space-5) 0; }

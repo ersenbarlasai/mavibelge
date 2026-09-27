@@ -5,14 +5,13 @@
  * (MaviBelge_Core_Catalog_Service::get_qualification_results()'s
  * 'items' shape: id/title/permalink/myk_code/level/excerpt/sectors[]).
  *
- * This does NOT call get_post()/get_post_meta()/get_the_terms() itself —
- * archive-mb_yeterlilik.php and taxonomy-mb_sektor.php used to hand
- * only $item['id'] to template-parts/content/content-card.php, which
- * then re-read the SAME title/MYK-code/level/sector data the service
- * had already resolved a moment earlier. content-card.php itself is
- * untouched (still used, unchanged, by archive-mb_haber.php,
- * archive-mb_dokuman.php, taxonomy.php and front-page.php's news
- * section) — this is a separate, catalog-only part.
+ * This does NOT re-read post/meta/term data itself — the service already
+ * resolved title/MYK-code/level/sector a moment earlier.
+ *
+ * Faz 12e: tanitim-site/meslekler.html kart yapısı — başlık, MYK kodu /
+ * seviye / sektör etiketleri ve İKİ ayrı aksiyon ("Detayları Gör" ->
+ * gerçek permalink, "Başvuru Yap" -> mavibelge_application_url()). Kartın
+ * kendisi bağlantı DEĞİLDİR (iç içe bağlantı yok).
  *
  * $args:
  * - item (array, required) — one element of get_qualification_results()['items']
@@ -27,34 +26,33 @@ if ( null === $item ) {
 	return;
 }
 
-$badges = array();
-if ( ! empty( $item['myk_code'] ) ) {
-	$badges[] = '<span class="badge badge-neutral">' . esc_html( $item['myk_code'] ) . '</span>';
-}
-if ( ! empty( $item['level'] ) ) {
-	$badges[] = '<span class="badge">' . esc_html(
-		sprintf(
-			/* translators: %s: MYK qualification level, "1"-"8" */
-			__( 'Seviye %s', 'mavibelge' ),
-			$item['level']
-		)
-	) . '</span>';
-}
-if ( ! empty( $item['sectors'] ) && is_array( $item['sectors'] ) ) {
-	foreach ( $item['sectors'] as $sector ) {
-		$badges[] = '<span class="badge badge-neutral">' . esc_html( $sector['name'] ) . '</span>';
-	}
-}
-
-$meta_html = $badges ? '<div class="card-badges">' . implode( ' ', $badges ) . '</div>' : '';
-
-get_template_part(
-	'template-parts/components/card',
-	null,
-	array(
-		'title'        => $item['title'],
-		'url'          => $item['permalink'],
-		'content'      => isset( $item['excerpt'] ) ? $item['excerpt'] : '',
-		'content_html' => $meta_html,
-	)
-);
+$title    = isset( $item['title'] ) ? (string) $item['title'] : '';
+$myk_code = ! empty( $item['myk_code'] ) ? (string) $item['myk_code'] : '';
+?>
+<article class="qual-card">
+	<div class="qual-info">
+		<h2 class="qual-card-title"><?php echo esc_html( $title ); ?></h2>
+		<div class="qual-tags">
+			<?php if ( '' !== $myk_code ) : ?>
+				<span class="tag"><?php echo esc_html( $myk_code ); ?></span>
+			<?php endif; ?>
+			<?php if ( ! empty( $item['level'] ) ) : ?>
+				<span class="tag">
+					<?php
+					/* translators: %s: MYK qualification level, "1"-"8" */
+					printf( esc_html__( 'Seviye %s', 'mavibelge' ), esc_html( $item['level'] ) );
+					?>
+				</span>
+			<?php endif; ?>
+			<?php if ( ! empty( $item['sectors'] ) && is_array( $item['sectors'] ) ) : ?>
+				<?php foreach ( $item['sectors'] as $sector ) : ?>
+					<span class="tag"><?php echo esc_html( $sector['name'] ); ?></span>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
+	</div>
+	<div class="qual-actions">
+		<a class="btn btn-secondary btn-sm" href="<?php echo esc_url( $item['permalink'] ); ?>" aria-label="<?php /* translators: %s: qualification title */ echo esc_attr( sprintf( __( 'Detayları Gör: %s', 'mavibelge' ), $title ) ); ?>"><?php esc_html_e( 'Detayları Gör', 'mavibelge' ); ?></a>
+		<a class="btn btn-primary btn-sm" href="<?php echo esc_url( mavibelge_application_url( $myk_code ) ); ?>" aria-label="<?php /* translators: %s: qualification title */ echo esc_attr( sprintf( __( 'Başvuru Yap: %s', 'mavibelge' ), $title ) ); ?>"><?php esc_html_e( 'Başvuru Yap', 'mavibelge' ); ?></a>
+	</div>
+</article>

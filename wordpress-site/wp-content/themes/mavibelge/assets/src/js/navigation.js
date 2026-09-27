@@ -128,7 +128,8 @@
 		return null;
 	}
 
-	var MOBILE_MQ = '(max-width: 768px)';
+	// Faz 12e kapanış: responsive.css hamburger bloğu ile AYNI değer (masaüstü başlık ancak >=1280px'te sığar).
+	var MOBILE_MQ = '(max-width: 1279px)';
 	var TOGGLE_LABEL_OPEN  = 'Menüyü aç';
 	var TOGGLE_LABEL_CLOSE = 'Menüyü kapat';
 
@@ -168,6 +169,20 @@
 			} else {
 				openMobileMenu();
 			}
+		} );
+
+		// Outside click: an open mobile menu closes when the click lands
+		// outside both the nav and its toggle (the toggle has its own
+		// handler). Focus is NOT forced back here — the user clicked
+		// somewhere else on purpose.
+		document.addEventListener( 'click', function ( e ) {
+			if ( ! nav.classList.contains( 'is-open' ) ) {
+				return;
+			}
+			if ( nav.contains( e.target ) || toggle.contains( e.target ) ) {
+				return;
+			}
+			closeMobileMenu( false );
 		} );
 
 		// Single authoritative Escape listener for the whole nav (desktop

@@ -17,6 +17,8 @@
  * $args:
  * - fields (array) optional list of field label strings (eklenti pasifken yedek)
  * - form (array|null) optional MaviBelge_Core_Forms_Service::describe() DTO'su
+ * - presentation (array) optional Faz 13 sunum kaydı; family 'split' ise içerik + form kartı iki sütunda (statik
+ *   itiraz-sikayet.html düzeni). Kapı/alan davranışı DEĞİŞMEZ.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,6 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $fields = isset( $args['fields'] ) && is_array( $args['fields'] ) ? $args['fields'] : array();
 $form   = isset( $args['form'] ) && is_array( $args['form'] ) ? $args['form'] : null;
+$split  = isset( $args['presentation']['family'] ) && 'split' === $args['presentation']['family'];
 if ( $form ) {
 	$fields = array();
 	foreach ( $form['fields'] as $form_field ) {
@@ -34,10 +37,22 @@ if ( $form ) {
 	}
 }
 ?>
+<?php if ( $split ) : ?>
+<section class="section-tight mb-section">
+<div class="container mb-body mb-body--wide" data-mb-family="split">
+<?php else : ?>
 <div class="container section-tight">
-	<?php if ( trim( (string) get_the_content() ) ) : ?>
+<?php endif; ?>
+	<?php if ( $split ) : ?>
+		<div class="mb-split<?php echo trim( (string) get_the_content() ) ? '' : ' mb-split--single'; ?>">
+		<?php if ( trim( (string) get_the_content() ) ) : ?>
+		<div class="entry-content mb-list mb-list--numbered">
+			<?php echo mavibelge_rendered_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content çıktısı. ?>
+		</div>
+		<?php endif; ?>
+	<?php elseif ( trim( (string) get_the_content() ) ) : ?>
 		<div class="entry-content content-narrow">
-			<?php the_content(); ?>
+			<?php echo mavibelge_rendered_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the_content çıktısı. ?>
 		</div>
 	<?php endif; ?>
 
@@ -77,4 +92,10 @@ if ( $form ) {
 			</ul>
 		<?php endif; ?>
 	</div>
+	<?php if ( $split ) : ?>
+		</div>
+	<?php endif; ?>
 </div>
+<?php if ( $split ) : ?>
+</section>
+<?php endif; ?>

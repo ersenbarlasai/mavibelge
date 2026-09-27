@@ -98,5 +98,7 @@ get_template_part(
 		'url'          => get_permalink( $post ),
 		'content'      => $content,
 		'content_html' => $meta_html,
+		// Faz 13: haber/duyuru kartında öne çıkan görsel (varsa), haber arşiviyle aynı sunum.
+		'media_html'   => 'mb_haber' === $post_type && has_post_thumbnail( $post ) ? get_the_post_thumbnail( $post, 'medium_large', array( 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async' ) ) : '',
 	)
 );

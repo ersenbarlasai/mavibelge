@@ -26,6 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class MaviBelge_Core_Import_Apply_Plan {
 
+	/** Faz 12 — çekirdek `page` aşaması (32 sayfa; katalogdan BAĞIMSIZ, zincirin İLK aşaması). */
+	const STAGE_PAGES          = 'pages';
 	const STAGE_SECTORS        = 'sectors';
 	const STAGE_QUALIFICATIONS = 'qualifications';
 	const STAGE_ALL            = 'all';
@@ -37,15 +39,37 @@ class MaviBelge_Core_Import_Apply_Plan {
 	/** Faz 7 içerik aşaması (katalogdan bağımsız). */
 	const CONTENT_STAGES = array( 'content' );
 
-	/** Tanınan BÜTÜN aşamalar (katalog + içerik): plan özeti, apply ve CLI doğrulaması BUNU kullanır. */
-	const ALL_STAGES = array( 'sectors', 'qualifications', 'all', 'content' );
+	/** Faz 12 sayfa aşaması (katalogdan bağımsız). */
+	const PAGE_STAGES = array( 'pages' );
+
+	/**
+	 * Tanınan BÜTÜN aşamalar: plan özeti, apply ve CLI doğrulaması BUNU kullanır. SIRA bağlayıcıdır (sunucu tarafında zorunlu:
+	 * MaviBelge_Core_Import_Admin_Run_Service::PREREQUISITE_STAGE): pages -> sectors -> qualifications -> all -> content.
+	 * Gerekçe: sayfalar katalog verisine BAĞIMLI DEĞİLDİR (teknik bir bağımlılık yoktur); sayfa iskeleti (kalıcı bağlantılar, hub/form/CPT
+	 * sayfaları) veri aktarımından ÖNCE kurulup doğrulanır ve staging'de katalog aktarımı boş bir siteye yapılmaz.
+	 */
+	const ALL_STAGES = array( 'pages', 'sectors', 'qualifications', 'all', 'content' );
+
+	/**
+	 * Aşama => önkoşul aşaması (bu aşamanın TAM planı GERÇEK readback sonucunda unchanged olmalı). TEK kaynak: admin (Admin_Run_Service)
+	 * ve WP-CLI (--apply) aynı haritayı sunucu tarafında zorunlu kılar; istemci sırasına güvenilmez.
+	 * Zincir: pages -> sectors -> qualifications -> all -> content.
+	 */
+	const PREREQUISITE_STAGE = array(
+		'pages'          => null,
+		'sectors'        => 'pages',
+		'qualifications' => 'sectors',
+		'all'            => 'qualifications',
+		'content'        => 'all',
+	);
 
 	/** Aşama => kapsadığı import türleri (bağımlılık sırasıyla kapalı önek). */
 	const STAGE_TYPES = array(
 		'sectors'        => array( 'sector' ),
 		'qualifications' => array( 'sector', 'qualification' ),
 		'all'            => array( 'sector', 'qualification', 'fee' ),
-		'content'        => array( 'news', 'reference' ),
+		'content'        => array( 'news', 'reference', 'faq' ),
+		'pages'          => array( 'page' ),
 	);
 
 	/** Tür => manifest listesi anahtarı. */
@@ -55,10 +79,15 @@ class MaviBelge_Core_Import_Apply_Plan {
 		'fee'           => 'fees',
 		'news'          => 'news',
 		'reference'     => 'references',
+		'faq'           => 'faqs',
+		'page'          => 'pages',
 	);
 
 	/** Manifestte İSTEĞE BAĞLI olan tür listeleri (yoksa boş sayılır); üç katalog listesi zorunludur. */
-	const OPTIONAL_LISTS = array( 'news', 'references' );
+	const OPTIONAL_LISTS = array( 'news', 'references', 'faqs', 'pages' );
+
+	/** İsteğe bağlı liste => YALNIZ o aşamada manifestte yer alan liste (diğer aşamalar eski şekli korur). */
+	const OPTIONAL_LIST_STAGE = array( 'news' => 'content', 'references' => 'content', 'faqs' => 'content', 'pages' => 'pages' );
 
 	/** Yazma sırası (apply). Rollback bunun tersidir. */
 	const TYPE_RANK = array(
@@ -67,6 +96,8 @@ class MaviBelge_Core_Import_Apply_Plan {
 		'fee'           => 2,
 		'news'          => 3,
 		'reference'     => 4,
+		'faq'           => 5,
+		'page'          => 6,
 	);
 
 	/** Tek merkezi batch boyutu sabitleri. */
@@ -106,8 +137,8 @@ class MaviBelge_Core_Import_Apply_Plan {
 		foreach ( self::TYPE_LISTS as $type => $list ) {
 			$inStage = in_array( $type, self::STAGE_TYPES[ $stage ], true );
 			if ( in_array( $list, self::OPTIONAL_LISTS, true ) ) {
-				if ( 'content' !== $stage ) {
-					continue; // Katalog aşamaları eski üç anahtarlı şekli korur.
+				if ( self::OPTIONAL_LIST_STAGE[ $list ] !== $stage ) {
+					continue; // Diğer aşamalar eski şekli korur (katalog: üç anahtar; content: news+references).
 				}
 				$out[ $list ] = $inStage && array_key_exists( $list, $manifest ) ? $manifest[ $list ] : array();
 				continue;

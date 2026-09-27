@@ -27,12 +27,25 @@ class MaviBelge_Core_Import_Wpdb_Transaction implements MaviBelge_Core_Import_Tr
 
 	public function preflight() {
 		global $wpdb;
-		$tables = array(
-			$wpdb->posts, $wpdb->postmeta, $wpdb->terms, $wpdb->term_taxonomy, $wpdb->term_relationships, $wpdb->termmeta, $wpdb->options,
-			MaviBelge_Core_Audit_Log::table_name(),
-			MaviBelge_Core_Import_Wpdb_Run_Store::runs_table(),
-			MaviBelge_Core_Import_Wpdb_Run_Store::items_table(),
+		return $this->preflight_tables(
+			array(
+				$wpdb->posts, $wpdb->postmeta, $wpdb->terms, $wpdb->term_taxonomy, $wpdb->term_relationships, $wpdb->termmeta, $wpdb->options,
+				MaviBelge_Core_Audit_Log::table_name(),
+				MaviBelge_Core_Import_Wpdb_Run_Store::runs_table(),
+				MaviBelge_Core_Import_Wpdb_Run_Store::items_table(),
+			)
 		);
+	}
+
+	/**
+	 * Faz 6B4 — yalnız VERİLEN tabloların transactional (InnoDB) ve utf8mb4 olduğunu ve bağlantının utf8mb4 olduğunu
+	 * SALT OKUNUR doğrular (görsel eşleme kaydı yalnız option + audit tablolarına dokunur; run tabloları gerekmez).
+	 *
+	 * @param string[] $tables Tam tablo adları.
+	 * @return array{ok: bool, error: string|null}
+	 */
+	public function preflight_tables( array $tables ) {
+		global $wpdb;
 		// Görev kartı 04 §8: veritabanı utf8mb4 doğrulanmadan Türkçe içerik yazılmaz.
 		if ( 'utf8mb4' !== $wpdb->charset ) {
 			return array( 'ok' => false, 'error' => 'non_utf8mb4_connection' );

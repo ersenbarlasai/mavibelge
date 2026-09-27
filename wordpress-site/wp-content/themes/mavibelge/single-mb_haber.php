@@ -29,11 +29,11 @@ while ( have_posts() ) :
 				'items' => array(
 					array(
 						'label' => __( 'Bilgi Merkezi', 'mavibelge' ),
-						'url'   => home_url( '/bilgi-merkezi/' ),
+						'url'   => mavibelge_url( 'bilgi-merkezi' ),
 					),
 					array(
 						'label' => __( 'Haberler', 'mavibelge' ),
-						'url'   => home_url( '/haberler/' ),
+						'url'   => mavibelge_url( 'haberler' ),
 					),
 					array( 'label' => get_the_title() ),
 				),

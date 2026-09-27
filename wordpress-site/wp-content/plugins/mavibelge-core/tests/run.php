@@ -3608,9 +3608,10 @@ $mb_sc_S = 'MaviBelge_Core_Meta_Schema';
 mb_test( 'by-mid kapsam (post): kayıtlı MaviBelge alanları kapsamda (mb_yeterlilik/_mb_level, mb_ucret/_mb_certificate_print_fee_kurus, mb_ucret/_mb_import_source_key)',
 	true === $mb_sc_S::is_managed_meta_key( 'post', 'mb_yeterlilik', '_mb_level' ) && true === $mb_sc_S::is_managed_meta_key( 'post', 'mb_ucret', '_mb_certificate_print_fee_kurus' )
 	&& true === $mb_sc_S::is_managed_meta_key( 'post', 'mb_ucret', '_mb_import_source_key' ) );
-mb_test( 'by-mid kapsam (post): şema dışı anahtar / MaviBelge dışı post türü / aynı ad başka türde -> kapsam DIŞI',
+mb_test( 'by-mid kapsam (post): şema dışı anahtar / MaviBelge dışı post türü / aynı ad başka türde -> kapsam DIŞI; Faz 12: çekirdek `page` YALNIZ iki sistem anahtarıyla kapsamda',
 	false === $mb_sc_S::is_managed_meta_key( 'post', 'mb_yeterlilik', '_mb_test_external_meta' ) && false === $mb_sc_S::is_managed_meta_key( 'post', 'post', '_mb_level' )
-	&& false === $mb_sc_S::is_managed_meta_key( 'post', 'page', '_mb_import_source_key' ) && false === $mb_sc_S::is_managed_meta_key( 'post', 'mb_sss', '_mb_certificate_print_fee_kurus' ) );
+	&& true === $mb_sc_S::is_managed_meta_key( 'post', 'page', '_mb_import_source_key' ) && true === $mb_sc_S::is_managed_meta_key( 'post', 'page', '_mb_last_applied_hash' )
+	&& false === $mb_sc_S::is_managed_meta_key( 'post', 'page', '_mb_level' ) && false === $mb_sc_S::is_managed_meta_key( 'post', 'page', '_wp_page_template' ) && false === $mb_sc_S::is_managed_meta_key( 'post', 'mb_sss', '_mb_certificate_print_fee_kurus' ) );
 mb_test( 'by-mid kapsam: her MaviBelge post türünün her şema alanı kapsamda (şemanın kendisi tek kaynak)',
 	(function () use ( $mb_sc_S ) {
 		$n = 0;
@@ -3674,7 +3675,7 @@ $CD6 = 'MaviBelge_Core_Import_Rollback_Codec';
 $AC6 = 'MaviBelge_Core_Import_Audit_Context';
 
 /* --- 6B3-A) Run durum makinesi: kapalı geçişler --- */
-mb_test( '6B3 durum: sekiz durum tam olarak tanımlı', array( 'planned', 'running', 'failed', 'completed', 'rollback_required', 'rolling_back', 'rolled_back', 'rollback_failed' ) === $S6::ALL );
+mb_test( '6B3 durum: eski sekiz durum hâlâ tanımlı (Faz 6B4 dört bekleme durumu ekledi; bkz. faz6b4 paketi)', array() === array_diff( array( 'planned', 'running', 'failed', 'completed', 'rollback_required', 'rolling_back', 'rolled_back', 'rollback_failed' ), $S6::ALL ) && 12 === count( $S6::ALL ) );
 mb_test( '6B3 durum: izinli geçişler (planned->running, running->completed/failed/rollback_required, completed/rollback_required/rollback_failed->rolling_back, rolling_back->rolled_back/rollback_failed)',
 	$S6::can_transition( 'planned', 'running' ) && $S6::can_transition( 'planned', 'failed' ) && $S6::can_transition( 'running', 'completed' ) && $S6::can_transition( 'running', 'failed' )
 	&& $S6::can_transition( 'running', 'rollback_required' ) && $S6::can_transition( 'completed', 'rolling_back' ) && $S6::can_transition( 'rollback_required', 'rolling_back' )

@@ -6,7 +6,8 @@
  *   node tools/package/build-packages.js --write   wordpress-site/dist-packages/ altına iki zip + checksum manifesti yazar
  *   node tools/package/build-packages.js --check   diskteki paketler kaynaktan üretilenle BYTE-EŞİT mi (aksi hâlde çıkış 1)
  *
- * Çıktılar: mavibelge-theme-<sürüm>.zip, mavibelge-core-<sürüm>.zip, checksums.sha256, package-manifest.json.
+ * `--write` mevcut tarihsel zip'leri SİLMEZ (yalnız güncel sürüm adlı dosyaları, checksums.sha256 ve package-manifest.json'ı yazar;
+ * ikisi yalnız GÜNCEL sürümleri listeler). Çıktılar: mavibelge-theme-<sürüm>.zip, mavibelge-core-<sürüm>.zip, checksums.sha256, package-manifest.json.
  * Zip: girişler ada göre sıralı, sabit zaman damgası (1980-01-01), sabit izinler (0644), UTF-8 adlar, deflate düzey 9 —
  * aynı kaynak + aynı Node sürümü = byte-eşit çıktı. Paket ALLOWLIST ile kurulur (yalnız çalışma zamanı dosyaları); test,
  * fixture, rapor, gizli dosya, geliştirme aracı ve kaynak-dist kopyaları pakete GİRMEZ (tools/package/test-package.js doğrular).
@@ -17,7 +18,8 @@ const zlib = require('zlib');
 const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..', '..');
-const OUT = path.join(ROOT, 'dist-packages');
+// MB_PACKAGE_OUT yalnız testler içindir (geçici dizin); varsayılan wordpress-site/dist-packages/.
+const OUT = process.env.MB_PACKAGE_OUT ? path.resolve(process.env.MB_PACKAGE_OUT) : path.join(ROOT, 'dist-packages');
 const TARGETS = [
 	{ name: 'mavibelge-theme', dir: path.join('wp-content', 'themes', 'mavibelge'), prefix: 'mavibelge', versionFile: 'style.css', versionRe: /^\s*Version:\s*([0-9][0-9A-Za-z.\-]*)/m },
 	{ name: 'mavibelge-core', dir: path.join('wp-content', 'plugins', 'mavibelge-core'), prefix: 'mavibelge-core', versionFile: 'mavibelge-core.php', versionRe: /^\s*\*\s*Version:\s*([0-9][0-9A-Za-z.\-]*)/m },
@@ -148,7 +150,7 @@ if (require.main === module) {
 	const outputs = buildAll();
 	if (mode === '--write') {
 		fs.mkdirSync(OUT, { recursive: true });
-		for (const f of fs.readdirSync(OUT)) fs.unlinkSync(path.join(OUT, f));
+		// Faz 12c: TARİHSEL zip'ler (ör. mavibelge-core-0.5.0.zip) SİLİNMEZ; yalnız bu koşunun ürettiği dosyalar yazılır/üzerine yazılır.
 		for (const [name, buf] of Object.entries(outputs)) {
 			fs.writeFileSync(path.join(OUT, name), buf);
 			console.log('yazıldı  dist-packages/' + name + ' (' + buf.length + ' bayt)');

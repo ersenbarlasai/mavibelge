@@ -86,7 +86,7 @@ node wordpress-site/tools/import/test-content-manifest.js     # negatif/regresyo
 
 ```text
 build-content-manifest.js    İçerik manifest üretimi. Ön-doğrulama hatasında yazıcı ASLA çağrılmaz; yazma sırasında ikinci rename başarısız olursa ilk dosya eski içeriğine (veya yokluğuna) döndürülür.
-verify-content-manifest.js   Doğrulama modu (yazmaz): taze üretim + disk byte-eşitliği + şema + çapraz alan + sayılar (haber 6, referans 12) + beklenmeyen dosya.
+verify-content-manifest.js   Doğrulama modu (yazmaz): taze üretim + disk byte-eşitliği + şema + çapraz alan + sayılar (haber 6, referans logosu 15, SSS 6) + beklenmeyen dosya. Faz 12b: referans kaynağı `data/sources/reference-logos/` (yerel, künyeli), SSS kaynağı `tanitim-site/sss.html`; üç dosya: news / references / faqs.
 test-content-manifest.js     56 negatif/regresyon testi (değiştirilmiş slug/tarih/tür, eksik/fazla kayıt, sayı uyuşmazlığı, tekrar eden source_key, fazladan dosya, karışık disk seti, atomik yazma).
 lib/validate-content-set.js  İçerik çifti için TEK doğrulayıcı (build + verify + test ortak).
 lib/expected-counts.js       Yeni AYRI sabit CONTENT_EXPECTED {news: 6, references: 12}; katalog EXPECTED değişmedi.

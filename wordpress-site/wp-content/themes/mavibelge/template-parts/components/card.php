@@ -13,6 +13,7 @@
  *   caller cannot inject <script>, event-handler attributes, etc. even
  *   if the value came indirectly from untrusted input
  * - url (string) optional — if set, the whole title becomes a link
+ * - media_html (string) optional (Faz 13) kartın üstünde görsel (ör. wp_get_attachment_image çıktısı); wp_kses_post'tan geçer
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,8 +24,12 @@ $title        = isset( $args['title'] ) ? $args['title'] : '';
 $content      = isset( $args['content'] ) ? $args['content'] : '';
 $content_html = isset( $args['content_html'] ) ? $args['content_html'] : '';
 $url          = isset( $args['url'] ) ? $args['url'] : '';
+$media_html   = isset( $args['media_html'] ) ? (string) $args['media_html'] : '';
 ?>
-<div class="card-shell">
+<div class="card-shell<?php echo '' !== $media_html ? ' card-shell--media' : ''; ?>">
+	<?php if ( '' !== $media_html ) : ?>
+		<div class="card-media"><?php echo wp_kses_post( $media_html ); ?></div>
+	<?php endif; ?>
 	<?php if ( '' !== $title ) : ?>
 		<h3>
 			<?php if ( '' !== $url ) : ?>

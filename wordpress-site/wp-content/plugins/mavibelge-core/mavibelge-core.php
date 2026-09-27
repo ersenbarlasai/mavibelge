@@ -3,7 +3,7 @@
  * Plugin Name: Mavi Belge Core
  * Plugin URI: https://mavibelge.com.tr
  * Description: Mavi Belge kurumsal veri ve is kurallari eklentisi. Faz 2: icerik turleri, taksonomiler, alan sozlesmesi, rol/yetenek modeli ve denetim gunlugu temeli. Faz 2 duzeltme turlari: MYK/TL/yetki/yayin butunlugu, tek dogrulama servisi (Field_Repository), register_meta sanitize callback imza duzeltmesi, kismi fiyat listesi kaydi kapatildi, yetki belgeleri tutarlilastirildi. Faz 5: tema icin tek genel katalog servisi (Catalog_Service) - meslek/sektor arama, aktif tarife donemi kurallarina uyan ucret sorgulari - ve yonetim liste filtreleri. Veri importu, REST ve SEO hala kapsam disi.
- * Version: 0.4.0
+ * Version: 0.5.3
  * Requires at least: 6.9
  * Requires PHP: 7.3
  * Author: Mavi Belge
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MAVIBELGE_CORE_VERSION', '0.4.0' );
+define( 'MAVIBELGE_CORE_VERSION', '0.5.3' );
 define( 'MAVIBELGE_CORE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MAVIBELGE_CORE_URL', plugin_dir_url( __FILE__ ) );
 
@@ -65,6 +65,7 @@ require_once MAVIBELGE_CORE_PATH . 'public/class-content-service.php';
 // Faz 8 — güvenli form altyapısı (şema -> doğrulayıcı -> yapılandırma/kapı -> güvenlik -> ileti -> e-posta adaptörü -> hizmet).
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-schema.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-validator.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-qualification-options.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-config.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-security.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-mail-builder.php';
@@ -133,6 +134,17 @@ require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-wordpress-targe
 require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-wpdb-transaction.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-wpdb-run-store.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-wp-audit-sink.php';
+// Faz 6B4 — sektör görsel eşleme, kalıcı plan snapshot'ı, ortak runtime factory, admin kapıları ve çalıştırma servisi.
+// Hiçbiri yükleme sırasında WordPress fonksiyonu çağırmaz; admin controller'ı (admin/class-import-apply-page.php)
+// yalnız admin bağlamında class-plugin.php tarafından yüklenir.
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-plan-snapshot.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/interface-import-image-map-store.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-sector-image-map.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-wp-image-map-store.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-page-publisher.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-runtime-factory.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-admin-gates.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/import/class-import-admin-run-service.php';
 
 require_once MAVIBELGE_CORE_PATH . 'includes/class-plugin.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/class-activator.php';

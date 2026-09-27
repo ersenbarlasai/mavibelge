@@ -83,7 +83,7 @@ class MaviBelge_Core_Import_Rollback_Service {
 		if ( null !== $load['error'] ) {
 			return array( 'ok' => false, 'error_code' => $load['error'], 'run_uid' => null, 'status' => null, 'items_pending' => 0, 'rollback_digest' => null, 'blockers' => array() );
 		}
-		$blockers = in_array( $load['run']['status'], MaviBelge_Core_Import_Run_State::ROLLBACKABLE, true )
+		$blockers = self::startable( $load['run']['status'] )
 			? $this->preflight( $load['run'], $load['items'] )
 			: array( array( 'source_key' => null, 'code' => 'run_not_rollbackable' ) );
 		return array(
@@ -115,7 +115,7 @@ class MaviBelge_Core_Import_Rollback_Service {
 		if ( null !== $load['error'] ) {
 			return self::result( false, null, $load['error'] );
 		}
-		if ( ! in_array( $load['run']['status'], MaviBelge_Core_Import_Run_State::ROLLBACKABLE, true ) ) {
+		if ( ! self::startable( $load['run']['status'] ) ) {
 			return self::result( false, $load['run']['status'], 'run_not_rollbackable', array(), $load['run']['uid'] );
 		}
 		if ( $load['digest'] !== $confirmDigest ) {
@@ -138,6 +138,210 @@ class MaviBelge_Core_Import_Rollback_Service {
 		} finally {
 			$this->store->release_lock();
 		}
+	}
+
+	/**
+	 * Faz 6B4 — RESUMABLE rollback, adım 1: önizlemede gösterilen digest'i onaylanmış bir rollback'i BAŞLATIR. Bütün
+	 * kalan item'lar salt okunur doğrulanır (tek engel bile varsa run durumu DEĞİŞMEZ ve hiçbir şey geri alınmaz);
+	 * geçerse run `rollback_ready` olur (rollback_started audit'i ile aynı transaction'da). Henüz hiçbir kayıt geri alınmaz.
+	 *
+	 * @param mixed $uid
+	 * @param mixed $confirmDigest preview()'ın rollback_digest'i.
+	 * @return array Bkz. resumable_result().
+	 */
+	public function start_resumable( $uid, $confirmDigest ) {
+		if ( ! MaviBelge_Core_Import_Apply_Plan::is_digest( $confirmDigest ) ) {
+			return self::resumable_result( false, null, 'invalid_confirmation', null, 0, 0, 0 );
+		}
+		$load = $this->load( $uid );
+		if ( null !== $load['error'] ) {
+			return self::resumable_result( false, null, $load['error'], null, 0, 0, 0 );
+		}
+		if ( ! in_array( $load['run']['status'], MaviBelge_Core_Import_Run_State::ROLLBACKABLE, true ) ) {
+			return self::resumable_from_run( $load['run'], count( $load['items'] ), 'run_not_rollbackable' );
+		}
+		if ( $load['digest'] !== $confirmDigest ) {
+			return self::resumable_from_run( $load['run'], count( $load['items'] ), 'confirmation_mismatch' );
+		}
+		$preflight = $this->tx->preflight();
+		if ( ! is_array( $preflight ) || true !== $preflight['ok'] || ! $this->audit->ready() ) {
+			return self::resumable_from_run( $load['run'], count( $load['items'] ), 'infrastructure_unavailable' );
+		}
+		if ( ! $this->store->acquire_lock() ) {
+			return self::resumable_from_run( $load['run'], count( $load['items'] ), 'locked' );
+		}
+		try {
+			MaviBelge_Core_Import_Apply_Service::expire_stale_runs( $this->store, $this->audit, $this->tx );
+			$load = $this->load( $uid );
+			if ( null !== $load['error'] ) {
+				return self::resumable_result( false, null, $load['error'], null, 0, 0, 0 );
+			}
+			if ( ! in_array( $load['run']['status'], MaviBelge_Core_Import_Run_State::ROLLBACKABLE, true ) ) {
+				return self::resumable_from_run( $load['run'], count( $load['items'] ), 'run_not_rollbackable' );
+			}
+			if ( $load['digest'] !== $confirmDigest ) {
+				return self::resumable_from_run( $load['run'], count( $load['items'] ), 'confirmation_mismatch' );
+			}
+			$blockers = $this->preflight( $load['run'], $load['items'] );
+			if ( ! empty( $blockers ) ) {
+				$result             = self::resumable_from_run( $load['run'], count( $load['items'] ), $blockers[0]['code'] );
+				$result['blockers'] = $blockers;
+				return $result;
+			}
+			$run = $load['run'];
+			if ( ! $this->finalizer->transition_atomic( $run, $run['status'], MaviBelge_Core_Import_Run_State::ROLLBACK_READY, array(), MaviBelge_Core_Audit_Log::EVENT_IMPORT_ROLLBACK_STARTED, array( 'run_id' => $run['uid'] ) ) ) {
+				return self::resumable_result( false, $this->finalizer->actual_status( $run['uid'] ), 'state_transition_failed', $run['uid'], count( $load['items'] ), $run['rollback_items'], $run['rollback_batches'] );
+			}
+			return self::resumable_result( true, $this->finalizer->actual_status( $run['uid'] ), null, $run['uid'], count( $load['items'] ) + $run['rollback_items'], $run['rollback_items'], $run['rollback_batches'] );
+		} finally {
+			$this->store->release_lock();
+		}
+	}
+
+	/**
+	 * Faz 6B4 — RESUMABLE rollback, adım 2: SIRADAKİ tek rollback batch'ini (ters sırada, en çok `$batchSize` item)
+	 * yürütür. `rollback_ready|rollback_paused` durumu ve `$expectedCheckpoint === run.rollback_batches` zorunludur.
+	 * Her istekte KALAN bütün item'lar salt okunur yeniden doğrulanır: tek drift/engel bile varsa o istekte HİÇBİR
+	 * kayıt geri alınmaz, run `rollback_failed` olur ve kullanıcı değişikliği korunur. Batch commit sonrası run
+	 * `rollback_paused` veya `rolled_back` olur; sonuç deponun GERÇEK durumunu raporlar.
+	 *
+	 * @return array Bkz. resumable_result().
+	 */
+	public function advance_resumable( $uid, $expectedCheckpoint, $batchSize ) {
+		if ( ! is_string( $uid ) || 1 !== preg_match( '/^[0-9a-f]{32}\z/', $uid ) || ! is_int( $expectedCheckpoint ) || $expectedCheckpoint < 0 ) {
+			return self::resumable_result( false, null, 'invalid_request', null, 0, 0, 0 );
+		}
+		$size = MaviBelge_Core_Import_Apply_Plan::normalize_batch_size( $batchSize );
+		if ( null === $size ) {
+			return self::resumable_result( false, null, 'invalid_batch_size', null, 0, 0, 0 );
+		}
+		if ( ! $this->store->is_installed() ) {
+			return self::resumable_result( false, null, 'run_not_found', null, 0, 0, 0 );
+		}
+		$preflight = $this->tx->preflight();
+		if ( ! is_array( $preflight ) || true !== $preflight['ok'] || ! $this->audit->ready() ) {
+			return self::resumable_result( false, null, 'infrastructure_unavailable', null, 0, 0, 0 );
+		}
+		if ( ! $this->store->acquire_lock() ) {
+			return self::resumable_result( false, null, 'locked', null, 0, 0, 0 );
+		}
+		try {
+			MaviBelge_Core_Import_Apply_Service::expire_stale_runs( $this->store, $this->audit, $this->tx );
+			$load = $this->load( $uid );
+			if ( null !== $load['error'] ) {
+				return self::resumable_result( false, null, $load['error'], null, 0, 0, 0 );
+			}
+			$run     = $load['run'];
+			$items   = $load['items'];
+			$pending = count( $items );
+			$total   = $pending + $run['rollback_items'];
+			if ( ! in_array( $run['status'], MaviBelge_Core_Import_Run_State::ROLLBACK_RESUMABLE, true ) ) {
+				return self::resumable_result( false, $run['status'], 'run_not_resumable', $run['uid'], $total, $run['rollback_items'], $run['rollback_batches'] );
+			}
+			if ( $run['rollback_batches'] !== $expectedCheckpoint ) {
+				return self::resumable_result( false, $run['status'], 'stale_request', $run['uid'], $total, $run['rollback_items'], $run['rollback_batches'] );
+			}
+			// Bekleme durumundan çalışmaya geçiş compare-and-set'tir: eşzamanlı ikinci istek burada elenir.
+			if ( ! $this->finalizer->transition_atomic( $run, $run['status'], MaviBelge_Core_Import_Run_State::ROLLING_BACK, array(), null, array() ) ) {
+				return self::resumable_result( false, $this->finalizer->actual_status( $run['uid'] ), 'stale_request', $run['uid'], $total, $run['rollback_items'], $run['rollback_batches'] );
+			}
+			$batchNo  = $run['rollback_batches'] + 1;
+			$blockers = $this->preflight( $run, $items );
+			if ( ! empty( $blockers ) ) {
+				return self::legacy_to_resumable( $this->fail( $run, $blockers[0]['code'], $batchNo, $run['rollback_items'], $blockers[0]['source_key'], $run['rollback_batches'] ), $run, $total );
+			}
+			if ( 0 === $pending ) {
+				return self::legacy_to_resumable( $this->fail( $run, 'plan_items_invalid', $batchNo, $run['rollback_items'], null, $run['rollback_batches'] ), $run, $total );
+			}
+			$batch = array_slice( MaviBelge_Core_Import_Apply_Plan::rollback_order( $items ), 0, $size );
+			if ( true !== $this->tx->begin() ) {
+				return self::legacy_to_resumable( $this->fail( $run, 'transaction_begin_failed', $batchNo, $run['rollback_items'], null, $run['rollback_batches'] ), $run, $total );
+			}
+			$error    = null;
+			$errorKey = null;
+			try {
+				if ( true !== $this->writer->begin_side_effect_scope() ) {
+					$error = 'side_effect_scope_failed';
+				}
+				foreach ( null === $error ? $batch : array() as $item ) {
+					$error = $this->rollback_item( $item, $items );
+					if ( null === $error && true !== $this->store->mark_item_rolled_back( $item['id'] ) ) {
+						$error = 'item_store_failed';
+					}
+					if ( null !== $error ) {
+						$errorKey = $item['source_key'];
+						break;
+					}
+				}
+				if ( null === $error && true !== $this->store->record_rollback_checkpoint( $run['id'], $run['rollback_batches'], $run['rollback_batches'] + 1, $run['rollback_items'] + count( $batch ) ) ) {
+					$error = 'checkpoint_failed';
+				}
+				if ( null === $error && true !== $this->tx->commit() ) {
+					$error = 'commit_failed';
+				}
+			} catch ( Throwable $e ) {
+				$error = 'unexpected_exception';
+			}
+			if ( null === $error ) {
+				$this->writer->commit_side_effect_scope();
+			}
+			if ( null !== $error ) {
+				$txRolledBack = true === $this->tx->rollback();
+				$comp       = $this->writer->compensate_side_effect_scope( $txRolledBack );
+				if ( ! $txRolledBack ) {
+					$error = 'transaction_rollback_failed';
+				} elseif ( true !== $comp['ok'] ) {
+					$error = is_string( $comp['error'] ) ? $comp['error'] : 'side_effect_cleanup_failed';
+				}
+				return self::legacy_to_resumable( $this->fail( $run, $error, $batchNo, $run['rollback_items'], $errorKey, $run['rollback_batches'] ), $run, $total );
+			}
+			$batches   = $run['rollback_batches'] + 1;
+			$rolledNow = $run['rollback_items'] + count( $batch );
+
+			if ( $pending - count( $batch ) <= 0 ) {
+				$settled = $this->finalizer->settle(
+					$run,
+					MaviBelge_Core_Import_Run_State::ROLLING_BACK,
+					array(
+						array( 'to' => MaviBelge_Core_Import_Run_State::ROLLED_BACK, 'event' => MaviBelge_Core_Audit_Log::EVENT_IMPORT_ROLLBACK_COMPLETED, 'context' => array( 'run_id' => $run['uid'], 'checkpoint' => $batches ) ),
+						array(
+							'to'      => MaviBelge_Core_Import_Run_State::ROLLBACK_FAILED,
+							'fields'  => array( 'error_code' => 'finalization_failed' ),
+							'event'   => MaviBelge_Core_Audit_Log::EVENT_IMPORT_ROLLBACK_FAILED,
+							'context' => array( 'run_id' => $run['uid'], 'error_code' => 'finalization_failed', 'batch_no' => 0, 'checkpoint' => $batches ),
+						),
+						array( 'to' => MaviBelge_Core_Import_Run_State::ROLLBACK_FAILED, 'fields' => array( 'error_code' => 'finalization_failed' ) ),
+					)
+				);
+				$ok = true === $settled['ok'];
+				return self::resumable_result( $ok, $settled['status'], $ok ? null : 'finalization_failed', $run['uid'], $total, $rolledNow, $batches, $ok ? array() : self::settle_errors( $settled, MaviBelge_Core_Import_Run_State::ROLLBACK_FAILED, 1 ) );
+			}
+			$paused = $this->finalizer->transition_atomic( $run, MaviBelge_Core_Import_Run_State::ROLLING_BACK, MaviBelge_Core_Import_Run_State::ROLLBACK_PAUSED, array(), null, array() );
+			return self::resumable_result( $paused, $this->finalizer->actual_status( $run['uid'] ), $paused ? null : 'finalization_failed', $run['uid'], $total, $rolledNow, $batches );
+		} finally {
+			$this->store->release_lock();
+		}
+	}
+
+	private static function legacy_to_resumable( array $legacy, array $run, $total ) {
+		return self::resumable_result( $legacy['ok'], $legacy['status'], $legacy['error_code'], $run['uid'], $total, $legacy['rolled_back_items'], $run['rollback_batches'], $legacy['errors'] );
+	}
+
+	private static function resumable_from_run( array $run, $pending, $code ) {
+		return self::resumable_result( false, $run['status'], $code, $run['uid'], $pending + $run['rollback_items'], $run['rollback_items'], $run['rollback_batches'] );
+	}
+
+	/**
+	 * Güvenli sonuç (yalnız sayaç/durum/kod): checkpoint = commit edilmiş rollback batch sayısı, total = run'ın yazdığı
+	 * item sayısı, committed = geri alınan item sayısı, remaining = total - committed.
+	 */
+	private static function resumable_result( $ok, $status, $code, $uid, $total, $rolledBack, $batches, array $errors = array() ) {
+		$base                = self::result( $ok, $status, $code, $errors, $uid, $rolledBack );
+		$base['checkpoint']  = $batches;
+		$base['total']       = $total;
+		$base['committed']   = $rolledBack;
+		$base['remaining']   = max( 0, $total - $rolledBack );
+		return $base;
 	}
 
 	/**
@@ -274,7 +478,10 @@ class MaviBelge_Core_Import_Rollback_Service {
 			$error = null;
 			$errorKey = null;
 			try {
-				foreach ( $batch as $item ) {
+				if ( true !== $this->writer->begin_side_effect_scope() ) {
+					$error = 'side_effect_scope_failed';
+				}
+				foreach ( null === $error ? $batch : array() as $item ) {
 					$error = $this->rollback_item( $item, $items );
 					if ( null === $error && true !== $this->store->mark_item_rolled_back( $item['id'] ) ) {
 						$error = 'item_store_failed';
@@ -290,9 +497,16 @@ class MaviBelge_Core_Import_Rollback_Service {
 			} catch ( Throwable $e ) {
 				$error = 'unexpected_exception';
 			}
+			if ( null === $error ) {
+				$this->writer->commit_side_effect_scope();
+			}
 			if ( null !== $error ) {
-				if ( true !== $this->tx->rollback() ) {
+				$txRolledBack = true === $this->tx->rollback();
+				$comp       = $this->writer->compensate_side_effect_scope( $txRolledBack );
+				if ( ! $txRolledBack ) {
 					$error = 'transaction_rollback_failed';
+				} elseif ( true !== $comp['ok'] ) {
+					$error = is_string( $comp['error'] ) ? $comp['error'] : 'side_effect_cleanup_failed';
 				}
 				return $this->fail( $run, $error, $index + 1, $rolledBack, $errorKey, $batches );
 			}
@@ -409,6 +623,11 @@ class MaviBelge_Core_Import_Rollback_Service {
 			$errors[] = 'Başarısızlık audit kaydı yazılamadı; durum güvenle kapatıldı.';
 		}
 		return $errors;
+	}
+
+	/** Tek süreçli rollback()/preview() için geçerli durumlar: yeni başlatılabilenler + yarım kalmış (resumable) rollback. */
+	private static function startable( $status ) {
+		return in_array( $status, MaviBelge_Core_Import_Run_State::ROLLBACKABLE, true ) || in_array( $status, MaviBelge_Core_Import_Run_State::ROLLBACK_RESUMABLE, true );
 	}
 
 	private static function safe_hash( $fields ) {

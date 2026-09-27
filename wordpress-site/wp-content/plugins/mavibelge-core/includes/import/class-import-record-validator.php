@@ -63,7 +63,41 @@ class MaviBelge_Core_Import_Record_Validator {
 	 * (wordpress-site/data/schema/{news,reference}.schema.json ile AYNI kapalı politika).
 	 */
 	const NEWS_SCHEMA_KEYS      = array( 'schema_version', 'source_key', 'source_index', 'slug', 'title', 'published_on', 'news_type', 'summary', 'body', 'source' );
-	const REFERENCE_SCHEMA_KEYS = array( 'schema_version', 'source_key', 'source_index', 'name', 'slug', 'logo_file', 'alt', 'source' );
+	const REFERENCE_SCHEMA_KEYS = array( 'schema_version', 'source_key', 'source_index', 'name', 'slug', 'logo_file', 'logo_sha256', 'logo_bytes', 'logo_width', 'logo_height', 'alt', 'name_status', 'source' );
+
+	/** Faz 12b — SSS (mb_sss) manifest kaydı (data/schema/faq.schema.json ile AYNI kapalı politika). */
+	const FAQ_SCHEMA_KEYS = array( 'schema_version', 'source_key', 'source_index', 'slug', 'question', 'answer', 'source' );
+
+	/**
+	 * Faz 12 — `page` (WordPress çekirdek sayfa türü) manifest kaydı (data/schema/page.schema.json ile AYNI kapalı politika).
+	 * Yeni post type YOKTUR.
+	 */
+	const PAGE_SCHEMA_KEYS = array( 'schema_version', 'source_key', 'source_index', 'slug', 'title', 'content', 'excerpt', 'parent_source_key', 'menu_order', 'page_template', 'post_status', 'layout', 'content_sha256', 'pending_decisions', 'publish_hold', 'publish_requires', 'source' );
+
+	/** Kurum/kullanıcı onaylı sayfa kaynak parçalarının (hukuk/banka metni, harici hizmet bilgilendirmesi) depo yolu (künye: approved-sources.manifest.json). */
+	const PAGE_APPROVED_SOURCE_DIR = 'wordpress-site/data/sources/approved';
+
+	/** Sayfa düzenleri (tools/import/lib/page-inventory.js ile AYNI kapalı küme). */
+	const PAGE_LAYOUTS = array( 'hub', 'default', 'form-disabled', 'cpt-page' );
+
+	/**
+	 * Bekleyen kurum kararı kodları => bloklayıcı mı (yayın işlemini durdurur). Node tarafındaki PENDING_CODES ile AYNI kapalı sözlük
+	 * (tools/test-faz6b2-static-contract.js iki tarafın eşitliğini doğrular).
+	 */
+	const PAGE_PENDING_DECISIONS = array(
+		'form_gate_institution_decisions' => false,
+		'location_data_pending'           => false,
+		'fee_tariff_documents_pending'    => false,
+		'accreditation_documents_pending' => false,
+		'legislation_links_pending'       => false,
+		'static_counter_block_omitted'    => false,
+	);
+
+	/** Sayfa yayınının bağımlı olduğu içerik türleri (kapalı küme; tools/import/lib/page-inventory.js PUBLISH_REQUIRES ile AYNI). */
+	const PAGE_PUBLISH_REQUIRES = array( 'faq', 'reference' );
+
+	/** İçerikte izin verilen (kapalı) etiketler. */
+	const PAGE_CONTENT_TAGS = array( 'p', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'a', 'strong', 'em', 'br' );
 
 	/** Haber türü (mb_haber_turu kontrollü sözlüğüyle aynı iki slug). */
 	const NEWS_TYPES = array( 'haber', 'duyuru' );
@@ -265,9 +299,9 @@ class MaviBelge_Core_Import_Record_Validator {
 	}
 
 	/**
-	 * Faz 7 — referans kaydı (TEMSİLİ referans; gerçek müşteri değildir).
-	 * `slug` her zaman `slugify(name)` (tools/import/lib/slug.js ile AYNI kural);
-	 * `logo_file` yalnız bilgi amaçlı kaynak yoludur (ek eşlemesi YOKTUR).
+	 * Faz 12b — referans kaydı (gerçek logo). `name` NÖTR sıra etiketidir ("Referans NN"): firma adı görselden tahmin edilmez
+	 * (name_status KESİNLİKLE "unverified"). slug her zaman slugify(name) (tools/import/lib/slug.js ile AYNI kural).
+	 * logo_file depo yoludur; içe aktarımda dosya (SHA-256 + PNG + bayt boyutu doğrulanarak) gerçek WordPress attachment'ına çevrilir.
 	 *
 	 * @return array{valid: bool, errors: string[]}
 	 */
@@ -289,7 +323,12 @@ class MaviBelge_Core_Import_Record_Validator {
 		self::require_string( $record, 'name', $errors, 1 );
 		self::require_string( $record, 'slug', $errors, 1 );
 		self::require_string( $record, 'logo_file', $errors, 1 );
+		self::require_string( $record, 'logo_sha256', $errors, 1 );
+		self::require_int( $record, 'logo_bytes', $errors );
+		self::require_int( $record, 'logo_width', $errors );
+		self::require_int( $record, 'logo_height', $errors );
 		self::require_string( $record, 'alt', $errors, 1 );
+		self::require_string( $record, 'name_status', $errors, 1 );
 		self::require_source_object( $record, $errors );
 
 		if ( ! empty( $errors ) ) {
@@ -318,13 +357,326 @@ class MaviBelge_Core_Import_Record_Validator {
 			if ( null === $expectedSlug || $expectedSlug !== $record['slug'] ) {
 				$errors[] = 'slug, slugify(name) ile tutarlı değil.';
 			}
+			if ( 1 !== preg_match( '/^Referans [0-9]{2}\z/', $record['name'] ) ) {
+				$errors[] = 'name nötr sıra etiketi ("Referans NN") olmalı (firma adı tahmin edilmez).';
+			}
 		}
-		$logo = $record['logo_file'];
-		if ( 0 === strpos( $logo, '/' ) || 1 === preg_match( '#^[A-Za-z]:[\\\\/]#', $logo ) || false !== strpos( $logo, '..' ) || 1 !== preg_match( '/^[A-Za-z0-9._\/-]+\z/', $logo ) ) {
-			$errors[] = 'logo_file mutlak yol, ".." veya izin verilmeyen karakter içeremez.';
+		if ( 'unverified' !== $record['name_status'] ) {
+			$errors[] = 'name_status KESİNLİKLE "unverified" olmalı.';
+		}
+		if ( 1 !== preg_match( '#^wordpress-site/data/sources/reference-logos/ref-[0-9]{2}\.png\z#', $record['logo_file'] ) ) {
+			$errors[] = 'logo_file "wordpress-site/data/sources/reference-logos/ref-NN.png" olmalı.';
+		}
+		if ( 1 !== preg_match( '/^[0-9a-f]{64}\z/', $record['logo_sha256'] ) ) {
+			$errors[] = 'logo_sha256 tam 64 küçük-harf hex olmalı.';
+		}
+		if ( $record['logo_bytes'] < 1 || $record['logo_width'] < 1 || $record['logo_height'] < 1 ) {
+			$errors[] = 'logo_bytes/logo_width/logo_height pozitif olmalı.';
 		}
 
 		return empty( $errors ) ? self::ok() : self::fail( $errors );
+	}
+
+	/**
+	 * Faz 12b — SSS kaydı (mb_sss). slug = slugify(question); soru başlığa, cevap gövdeye DÜZ METİN olarak yazılır.
+	 *
+	 * @return array{valid: bool, errors: string[]}
+	 */
+	public static function validate_faq( $record ) {
+		$errors = array();
+
+		if ( ! is_array( $record ) ) {
+			return self::fail( array( 'SSS kaydı bir dizi (object) değil.' ) );
+		}
+
+		$extra = self::extra_keys( $record, self::FAQ_SCHEMA_KEYS );
+		if ( ! empty( $extra ) ) {
+			$errors[] = 'Beklenmeyen alan(lar): ' . implode( ', ', $extra ) . '.';
+		}
+
+		self::require_string( $record, 'schema_version', $errors, 1 );
+		self::require_string( $record, 'source_key', $errors, 1 );
+		self::require_int( $record, 'source_index', $errors );
+		self::require_string( $record, 'slug', $errors, 1 );
+		self::require_string( $record, 'question', $errors, 1 );
+		self::require_string( $record, 'answer', $errors, 1 );
+		self::require_source_object( $record, $errors );
+
+		if ( ! empty( $errors ) ) {
+			return self::fail( $errors );
+		}
+
+		if ( '2.0.0' !== $record['schema_version'] ) {
+			$errors[] = 'schema_version "2.0.0" olmalı.';
+		}
+		if ( $record['source_index'] < 0 ) {
+			$errors[] = 'source_index negatif olamaz.';
+		}
+		if ( 1 !== preg_match( '/^[a-z0-9]+(-[a-z0-9]+)*\z/', $record['slug'] ) ) {
+			$errors[] = 'slug biçimi geçersiz.';
+		}
+		if ( 1 !== preg_match( '/^faq:[a-z0-9]+(-[a-z0-9]+)*\z/', $record['source_key'] ) ) {
+			$errors[] = 'source_key biçimi geçersiz ("faq:<slug>" olmalı).';
+		}
+		if ( empty( $errors ) && 'faq:' . $record['slug'] !== $record['source_key'] ) {
+			$errors[] = 'source_key, slug ile tutarlı değil ("faq:" + slug olmalı).';
+		}
+		if ( ! self::is_canonical_plain_text( $record['question'] ) || ! self::is_canonical_plain_text( $record['answer'] ) ) {
+			$errors[] = "question/answer kanonik düz metin olmalı (baş/son boşluk, '<', '>', kontrol karakteri veya geçersiz UTF-8 içeremez).";
+		} else {
+			$expectedSlug = self::slugify_tr( $record['question'] );
+			if ( null === $expectedSlug || $expectedSlug !== $record['slug'] ) {
+				$errors[] = 'slug, slugify(question) ile tutarlı değil.';
+			}
+		}
+
+		return empty( $errors ) ? self::ok() : self::fail( $errors );
+	}
+
+	/**
+	 * Faz 12 — sayfa kaydı. `parent_source_key` bu sürümde KESİNLİKLE null'dır (WordPress sayfa hiyerarşisi kalıcı bağlantıları
+	 * değiştirirdi; 32 sayfanın hepsi düz URL'dir). Manifest düzeyindeki parent grafiği (kayıp/döngü) Node doğrulayıcısında ayrıca
+	 * denetlenir; PHP tarafı yalnız null'ı kabul ederek bağımlılık çözümü gerektiren durumu YAPISAL olarak dışlar.
+	 * `content` KAPALI izin listeli kanonik HTML olmalıdır (bkz. page_content_errors()); `content_sha256` içerikten yeniden hesaplanır.
+	 *
+	 * @return array{valid: bool, errors: string[]}
+	 */
+	public static function validate_page( $record ) {
+		$errors = array();
+
+		if ( ! is_array( $record ) ) {
+			return self::fail( array( 'Sayfa kaydı bir dizi (object) değil.' ) );
+		}
+
+		$extra = self::extra_keys( $record, self::PAGE_SCHEMA_KEYS );
+		if ( ! empty( $extra ) ) {
+			$errors[] = 'Beklenmeyen alan(lar): ' . implode( ', ', $extra ) . '.';
+		}
+
+		self::require_string( $record, 'schema_version', $errors, 1 );
+		self::require_string( $record, 'source_key', $errors, 1 );
+		self::require_int( $record, 'source_index', $errors );
+		self::require_string( $record, 'slug', $errors, 1 );
+		self::require_string( $record, 'title', $errors, 1 );
+		self::require_string( $record, 'content', $errors, 0 );
+		self::require_string( $record, 'excerpt', $errors, 0 );
+		self::require_string_or_null( $record, 'parent_source_key', $errors );
+		self::require_int( $record, 'menu_order', $errors );
+		self::require_string( $record, 'page_template', $errors, 0 );
+		self::require_string( $record, 'post_status', $errors, 1 );
+		self::require_string( $record, 'layout', $errors, 1 );
+		self::require_string( $record, 'content_sha256', $errors, 1 );
+		self::require_array( $record, 'pending_decisions', $errors );
+		self::require_bool( $record, 'publish_hold', $errors );
+		self::require_array( $record, 'publish_requires', $errors );
+		self::require_source_object( $record, $errors );
+
+		if ( ! empty( $errors ) ) {
+			return self::fail( $errors );
+		}
+
+		if ( '2.0.0' !== $record['schema_version'] ) {
+			$errors[] = 'schema_version "2.0.0" olmalı.';
+		}
+		if ( ! self::is_list_array( $record['publish_requires'] ) || $record['publish_requires'] !== array_values( array_unique( $record['publish_requires'] ) ) || array() !== array_diff( $record['publish_requires'], self::PAGE_PUBLISH_REQUIRES ) ) {
+			$errors[] = 'publish_requires kapalı kümeden (faq/reference) benzersiz kodlar içeren bir liste olmalı.';
+		}
+		if ( $record['source_index'] < 0 || $record['source_index'] >= 32 ) {
+			$errors[] = 'source_index 0..31 aralığında olmalı.';
+		}
+		if ( 1 !== preg_match( '/^[a-z0-9]+(-[a-z0-9]+)*\z/', $record['slug'] ) ) {
+			$errors[] = 'slug biçimi geçersiz.';
+		}
+		if ( 1 !== preg_match( '/^page:[a-z0-9]+(-[a-z0-9]+)*\z/', $record['source_key'] ) ) {
+			$errors[] = 'source_key biçimi geçersiz ("page:<slug>" olmalı).';
+		}
+		if ( empty( $errors ) && 'page:' . $record['slug'] !== $record['source_key'] ) {
+			$errors[] = 'source_key, slug ile tutarlı değil ("page:" + slug olmalı).';
+		}
+		if ( ! self::is_canonical_plain_text( $record['title'] ) || 1 === preg_match( '/demo/i', $record['title'] ) ) {
+			$errors[] = 'title kanonik düz metin olmalı ve "demo" içermemeli.';
+		}
+		if ( '' !== $record['excerpt'] && ( ! self::is_canonical_plain_text( $record['excerpt'] ) || false !== strpos( $record['excerpt'], '&' ) || false !== strpos( $record['excerpt'], "\n" ) || self::str_length( $record['excerpt'] ) > 300 ) ) {
+			$errors[] = 'excerpt düz metin olmalı (en çok 300 karakter, işaretleme/satır sonu yok).';
+		}
+		if ( null !== $record['parent_source_key'] ) {
+			$errors[] = 'parent_source_key bu sürümde KESİNLİKLE null olmalı (düz URL yapısı).';
+		}
+		if ( $record['menu_order'] < 1 || $record['menu_order'] > 32 ) {
+			$errors[] = 'menu_order 1..32 aralığında olmalı.';
+		}
+		if ( '' !== $record['page_template'] ) {
+			$errors[] = 'page_template bu sürümde boş olmalı (tema slug/layout ile seçer).';
+		}
+		if ( 'draft' !== $record['post_status'] ) {
+			$errors[] = 'hedef post_status KESİNLİKLE "draft" olmalı (yayınlama ayrı, onaylı işlemdir).';
+		}
+		if ( ! in_array( $record['layout'], self::PAGE_LAYOUTS, true ) ) {
+			$errors[] = 'layout kapalı kümede değil.';
+		}
+		foreach ( self::page_content_errors( $record['content'] ) as $contentError ) {
+			$errors[] = 'content ' . $contentError . '.';
+		}
+		if ( 1 !== preg_match( '/^[0-9a-f]{64}\z/', $record['content_sha256'] ) || hash( 'sha256', $record['content'] ) !== $record['content_sha256'] ) {
+			$errors[] = 'content_sha256 içerikten hesaplanandan farklı.';
+		}
+		$hold = false;
+		if ( ! self::is_list_array( $record['pending_decisions'] ) ) {
+			$errors[] = 'pending_decisions liste olmalı.';
+		} else {
+			foreach ( $record['pending_decisions'] as $code ) {
+				if ( ! is_string( $code ) || ! array_key_exists( $code, self::PAGE_PENDING_DECISIONS ) ) {
+					$errors[] = 'pending_decisions kapalı sözlükte olmayan kod içeriyor.';
+					break;
+				}
+				$hold = $hold || true === self::PAGE_PENDING_DECISIONS[ $code ];
+			}
+			if ( $record['publish_hold'] !== $hold ) {
+				$errors[] = 'publish_hold bekleyen kararlardan türetilene eşit olmalı.';
+			}
+		}
+		if ( is_string( $record['slug'] ) && ! in_array( $record['source']['file'], array( 'tanitim-site/' . $record['slug'] . '.html', self::PAGE_APPROVED_SOURCE_DIR . '/' . $record['slug'] . '.html' ), true ) ) {
+			$errors[] = 'source.file "tanitim-site/<slug>.html" veya "' . self::PAGE_APPROVED_SOURCE_DIR . '/<slug>.html" olmalı.';
+		}
+
+		return empty( $errors ) ? self::ok() : self::fail( $errors );
+	}
+
+	/**
+	 * Faz 12 — sayfa içeriği KAPALI izin listesi denetimi (tools/import/lib/page-content.js `sanitizeCheck()` ile AYNI kurallar).
+	 * Kanonik biçim: bloklar "\n" ile ayrılır; yalnız p, h2-h4, ul, ol, li, a[href], strong, em, br (`<br />`). Script, olay işleyici,
+	 * iframe, görsel, stil, yorum, tehlikeli URL şemaları (javascript:, data:, vbscript:, //, http:) ve iç içe/kapanmamış etiket reddedilir.
+	 *
+	 * @param mixed $html
+	 * @return string[] Hata listesi (boş = geçerli).
+	 */
+	public static function page_content_errors( $html ) {
+		if ( ! is_string( $html ) ) {
+			return array( 'string değil' );
+		}
+		if ( '' === $html ) {
+			return array();
+		}
+		$errors = array();
+		if ( 1 !== preg_match( '//u', $html ) ) {
+			return array( 'geçersiz UTF-8' );
+		}
+		if ( 1 === preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $html ) ) {
+			$errors[] = 'kontrol karakteri yasak';
+		}
+		if ( 1 === preg_match( '/<!|<\?/', $html ) ) {
+			$errors[] = 'yorum/doctype/işleme talimatı yasak';
+		}
+		$inlineParents = array( 'p', 'h2', 'h3', 'h4', 'li', 'strong', 'em' );
+		$textParents   = array( 'p', 'h2', 'h3', 'h4', 'li', 'a', 'strong', 'em' );
+		$stack         = array();
+		$last          = 0;
+		$count         = preg_match_all( '/<(\/?)([A-Za-z][A-Za-z0-9]*)((?:[^<>"]|"[^"]*")*)>|<|>|&[^;\s]*;?/', $html, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
+		if ( false === $count ) {
+			return array( 'ayrıştırılamadı' );
+		}
+		$textCheck = function ( $seg ) use ( &$stack, &$errors, $textParents ) {
+			if ( '' === $seg ) {
+				return;
+			}
+			$top      = empty( $stack ) ? null : $stack[ count( $stack ) - 1 ];
+			$inInline = null !== $top && in_array( $top, $textParents, true );
+			if ( ! $inInline && "\n" !== $seg ) {
+				$errors[] = 'blok düzeyinde beklenmeyen metin';
+			}
+			if ( $inInline && false !== strpos( $seg, "\n" ) ) {
+				$errors[] = 'satır içi bağlamda satır sonu yasak';
+			}
+		};
+		foreach ( $matches as $m ) {
+			$whole  = $m[0][0];
+			$offset = $m[0][1];
+			$textCheck( substr( $html, $last, $offset - $last ) );
+			$last = $offset + strlen( $whole );
+			if ( '<' === $whole || '>' === $whole ) {
+				$errors[] = 'kaçışsız ' . $whole . ' karakteri';
+				continue;
+			}
+			if ( '&' === $whole[0] ) {
+				if ( 1 !== preg_match( '/^&(amp|lt|gt|quot|#39);\z/', $whole ) ) {
+					$errors[] = 'izinsiz karakter varlığı';
+				}
+				if ( empty( $stack ) ) {
+					$errors[] = 'blok düzeyinde varlık';
+				}
+				continue;
+			}
+			$closing = '/' === $m[1][0];
+			$rawTag  = $m[2][0];
+			$tag     = strtolower( $rawTag );
+			if ( $rawTag !== $tag ) {
+				$errors[] = 'etiket adı küçük harf olmalı';
+				continue;
+			}
+			if ( ! in_array( $tag, self::PAGE_CONTENT_TAGS, true ) ) {
+				$errors[] = 'izinsiz etiket: <' . $tag . '>';
+				continue;
+			}
+			$attr = $m[3][0];
+			$top  = empty( $stack ) ? null : $stack[ count( $stack ) - 1 ];
+			if ( $closing ) {
+				if ( '' !== trim( $attr ) ) {
+					$errors[] = 'kapanış etiketinde nitelik';
+				}
+				if ( null === $top || $top !== $tag ) {
+					$errors[] = 'kapanış etiketi eşleşmiyor: </' . $tag . '>';
+				} else {
+					array_pop( $stack );
+				}
+				continue;
+			}
+			if ( 'br' === $tag ) {
+				if ( ' /' !== $attr ) {
+					$errors[] = '<br /> kanonik biçimde olmalı';
+				}
+				if ( null === $top || ! in_array( $top, $inlineParents, true ) ) {
+					$errors[] = '<br /> bu bağlamda yasak';
+				}
+				continue;
+			}
+			if ( 'a' === $tag ) {
+				if ( 1 !== preg_match( '/^ href="([^"]*)"\z/', $attr, $am ) ) {
+					$errors[] = '<a> yalnız href niteliği taşıyabilir';
+				} else {
+					$href = str_replace( '&amp;', '&', $am[1] );
+					$ok   = 1 === preg_match( '#^/[a-z0-9/_-]*(\#[a-z0-9-]+)?\z#', $href )
+						|| 1 === preg_match( '#^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[^\s"<>]*)?\z#', $href )
+						|| 1 === preg_match( '/^tel:\+?[0-9]+\z/', $href )
+						|| 1 === preg_match( '/^mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\z/', $href );
+					if ( ! $ok || 0 === strpos( $href, '//' ) ) {
+						$errors[] = 'güvensiz bağlantı hedefi';
+					}
+				}
+				if ( in_array( 'a', $stack, true ) ) {
+					$errors[] = 'iç içe <a> yasak';
+				}
+				if ( null === $top || ! in_array( $top, $inlineParents, true ) ) {
+					$errors[] = '<a> bu bağlamda yasak';
+				}
+			} elseif ( '' !== trim( $attr ) ) {
+				$errors[] = '<' . $tag . '> nitelik taşıyamaz';
+			}
+			if ( in_array( $tag, array( 'p', 'h2', 'h3', 'h4', 'ul', 'ol' ), true ) && null !== $top ) {
+				$errors[] = '<' . $tag . '> yalnız üst düzeyde olabilir';
+			}
+			if ( 'li' === $tag && 'ul' !== $top && 'ol' !== $top ) {
+				$errors[] = '<li> yalnız liste içinde';
+			}
+			if ( ( 'strong' === $tag || 'em' === $tag ) && ( null === $top || 'ul' === $top || 'ol' === $top ) ) {
+				$errors[] = '<' . $tag . '> bu bağlamda yasak';
+			}
+			$stack[] = $tag;
+		}
+		$textCheck( substr( $html, $last ) );
+		if ( ! empty( $stack ) ) {
+			$errors[] = 'kapanmamış etiket: <' . $stack[ count( $stack ) - 1 ] . '>';
+		}
+		return array_values( array_unique( $errors ) );
 	}
 
 	/** Düz metin kanonik biçimi (bkz. validate_news()). */
@@ -520,7 +872,7 @@ class MaviBelge_Core_Import_Record_Validator {
 
 		$expectedKeys = array( 'sectors', 'qualifications', 'fees' );
 		// Faz 7 — İSTEĞE BAĞLI içerik listeleri: varsa liste olmalı, yoksa boş sayılır.
-		$optionalKeys = array( 'news', 'references' );
+		$optionalKeys = array( 'news', 'references', 'faqs', 'pages' );
 		$errors       = array();
 
 		$extraKeys = array_diff( array_keys( $manifest ), array_merge( $expectedKeys, $optionalKeys ) );
@@ -623,7 +975,7 @@ class MaviBelge_Core_Import_Record_Validator {
 			if ( array_key_exists( 'source_index', $record ) && is_int( $record['source_index'] ) && $record['source_index'] !== $index ) {
 				$errors[] = "{$typeLabel}[{$index}]: source_index ({$record['source_index']}) gerçek liste konumuyla ({$index}) uyuşmuyor.";
 			}
-			if ( array_key_exists( 'source', $record ) && is_array( $record['source'] ) ) {
+			if ( 'pages' !== $typeLabel && array_key_exists( 'source', $record ) && is_array( $record['source'] ) ) {
 				$file = array_key_exists( 'file', $record['source'] ) ? $record['source']['file'] : null;
 				$sha  = array_key_exists( 'sha256', $record['source'] ) ? $record['source']['sha256'] : null;
 				if ( ! $provenanceSet ) {
@@ -1150,6 +1502,10 @@ class MaviBelge_Core_Import_Record_Validator {
 				return self::validate_current_news_fields( $fields );
 			case 'reference':
 				return self::validate_current_reference_fields( $fields );
+			case 'faq':
+				return self::validate_current_faq_fields( $fields );
+			case 'page':
+				return self::validate_current_page_fields( $fields );
 			default:
 				return false;
 		}
@@ -1182,7 +1538,28 @@ class MaviBelge_Core_Import_Record_Validator {
 		return is_string( $f['approval_status'] ) && in_array( $f['approval_status'], MaviBelge_Core_Meta_Schema::APPROVAL_STATUS, true );
 	}
 
-	/** Faz 7 — referansın mevcut/yazılacak yönetilen alan değerleri (bkz. validate_current_news_fields()). */
+	/**
+	 * Faz 12 — sayfanın mevcut/yazılacak yönetilen alan değerleri. İçerik/özet yalnız string olmalıdır (editör HTML'i
+	 * değiştirmiş olabilir: geçersiz durum DEĞİL, hash uyuşmazlığıyla `conflict` olur; İÇERİĞİN güvenli olma şartı yalnız
+	 * import'un YAZDIĞI değer için validate_page()'te uygulanır). parent_id ve menu_order negatif olamaz.
+	 */
+	private static function validate_current_page_fields( array $f ) {
+		if ( ! is_string( $f['slug'] ) || 1 !== preg_match( '/^[a-z0-9]+(-[a-z0-9]+)*\z/', $f['slug'] ) ) {
+			return false;
+		}
+		if ( ! is_string( $f['title'] ) || '' === trim( $f['title'] ) ) {
+			return false;
+		}
+		if ( ! is_string( $f['content'] ) || ! is_string( $f['excerpt'] ) ) {
+			return false;
+		}
+		return is_int( $f['parent_id'] ) && $f['parent_id'] >= 0 && is_int( $f['menu_order'] ) && $f['menu_order'] >= 0;
+	}
+
+	/**
+	 * Faz 12b — referansın mevcut/yazılacak yönetilen alan değerleri. logo_sha256: bağlı attachment'ın GERÇEK dosya özeti
+	 * (geçerli/okunabilir logo yoksa '' — boş özet hash'te sapma üretir ve kayıt planda conflict olur, sahte "unchanged" olmaz).
+	 */
 	private static function validate_current_reference_fields( array $f ) {
 		if ( ! is_string( $f['slug'] ) || 1 !== preg_match( '/^[a-z0-9]+(-[a-z0-9]+)*\z/', $f['slug'] ) ) {
 			return false;
@@ -1202,7 +1579,21 @@ class MaviBelge_Core_Import_Record_Validator {
 		if ( ! is_string( $f['website_url'] ) ) {
 			return false;
 		}
-		return is_int( $f['logo_attachment_id'] ) && $f['logo_attachment_id'] >= 0;
+		return is_string( $f['logo_sha256'] ) && ( '' === $f['logo_sha256'] || 1 === preg_match( '/^[0-9a-f]{64}\z/', $f['logo_sha256'] ) );
+	}
+
+	/** Faz 12b — SSS'in mevcut/yazılacak yönetilen alan değerleri (editör cevabı değiştirmiş olabilir: hash uyuşmazlığıyla conflict). */
+	private static function validate_current_faq_fields( array $f ) {
+		if ( ! is_string( $f['slug'] ) || 1 !== preg_match( '/^[a-z0-9]+(-[a-z0-9]+)*\z/', $f['slug'] ) ) {
+			return false;
+		}
+		if ( ! is_string( $f['title'] ) || '' === trim( $f['title'] ) || ! is_string( $f['content'] ) ) {
+			return false;
+		}
+		if ( ! is_int( $f['sort_order'] ) || $f['sort_order'] < 0 ) {
+			return false;
+		}
+		return is_string( $f['record_status'] ) && in_array( $f['record_status'], MaviBelge_Core_Meta_Schema::RECORD_STATUS_ACTIVE_PASSIVE, true );
 	}
 
 	private static function validate_current_sector_fields( array $f ) {

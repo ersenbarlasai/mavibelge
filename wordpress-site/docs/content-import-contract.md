@@ -91,8 +91,8 @@ Marker keşfi (tür uyuşmazlığı, duplicate, marker'sız/yabancı marker) kat
 
 Doğrulanmış kaynak bulunmadığı için aşağıdakiler bu hatta **yoktur** ve uydurulmaz:
 
-- **Lokasyon** (`mb_lokasyon`), **doküman** (`mb_dokuman`), **SSS** (`mb_sss`): kaynakta doğrulanmış veri yok (adres/telefon/çalışma saati/doküman dosyası/SSS metni kurumdan gelmeli).
-- **Gerçek referans / müşteri logosu:** `references.js` yalnız temsili logolardır; gerçek müşteri referansı için kurum onayı ve gerçek logo gerekir. Logo eki (attachment) bu fazda eşlenmez.
+- **Lokasyon** (`mb_lokasyon`) ve **doküman** (`mb_dokuman`): kaynakta doğrulanmış veri yok (adres/telefon/çalışma saati/doküman dosyası kurumdan gelmeli).
+- ~~SSS ve gerçek referans logoları~~ **Faz 12b'de içe aktarılır** (aşağıdaki §10). Gerçek referans firma ADLARI hâlâ uydurulmaz: 15 logonun adı doğrulanmamıştır.
 - Haber görselleri, SEO/AIO alanları, yayınlama/onay kararları: import bunları yazmaz.
 
 ## 8. Doğrulama kaydı
@@ -101,3 +101,73 @@ Doğrulanmış kaynak bulunmadığı için aşağıdakiler bu hatta **yoktur** v
 - Gerçek WordPress: `tools/runtime-test/scripts/apply-cycle-test-3.php` (yalnız silinebilir `mbfx_` fixture veritabanı ve sahte manifest; iki kontrollü tür terimini betik kendisi oluşturur), `tools/runtime-test/apply-cycle.sh` adım 4c ile birlikte WP-CLI `--stage=content` kapıları.
 - Node: `test-extract-safety.js`, `test-manifest-validation.js`, `verify-manifest.js`, `test-content-manifest.js`, `verify-content-manifest.js`, `tools/verify-source-counts.js`, `tools/test-faz6b2-static-contract.js`.
 - Gerçek `data/content/{news,references}.manifest.json` **hiçbir** runtime testinde apply edilmez; gerçek staging/canlı apply çalıştırılmadı.
+
+## 9. Faz 12 — `pages` kaynağı/aşaması (32 gerçek `page` kaydı)
+
+- **Yeni post type YOK**: çekirdek `page`. Manifest: `data/content/pages.manifest.json` (şema `data/schema/page.schema.json`, `schema_version` 2.0.0, kapalı 16 anahtar: `schema_version`, `source_key` (`page:<slug>`), `source_index`, `slug`, `title`, `content`, `excerpt`, `parent_source_key` (şu an hepsi null), `menu_order`, `page_template`, `post_status` (hedef: `draft`), `layout`, `content_sha256`, `pending_decisions`, `publish_hold`, `source`). Tek yetkili envanter `tools/import/lib/page-inventory.js` (32 kayıt); `verify-page-manifest.js` bunu statik dosyalar, `docs/page-template-map.md` ve tema `$hub`/`$form_disabled` listeleriyle çapraz doğrular ve manifesti iki kez üretip byte-eşitliğini sınar.
+- **İçerik kaynağı**: yalnız `tanitim-site/*.html` ana içeriği. Kapalı HTML izin listesi Node (`sanitizeCheck`) ve PHP (`Record_Validator::page_content_errors`) tarafında aynıdır (`test-faz12-static-contract.js` eşitliği doğrular). Betik/olay işleyici/iframe/tehlikeli URL ret sebebidir. Kurumca onaysız KVKK/banka/alıcı/referans/URL verisi uydurulmaz (`pending_decisions` kapalı sözlüğü, 12 kod, 6'sı bloklayıcı).
+- **Yönetilen alanlar** (`Managed_Fields::PAGE_FIELDS`): `slug, title, content, excerpt, parent_id, menu_order`; marker `_mb_import_source_key` + `_mb_last_applied_hash`. `post_status` yönetilmez.
+- **Draft varsayılanı**: apply yalnız `draft` oluşturur/günceller; yayınlama ayrı işlemdir (`Page_Publisher`, bkz. `admin-import-operations.md` §8.2).
+- **Aşama zinciri (tek kaynak)**: `pages → sectors → qualifications → all → content` (`Apply_Plan::PREREQUISITE_STAGE`); admin ve CLI aynı doğrulamayı kullanır.
+- Doğrulama: `tests/suites/faz12-pages.php` (bellek içi sahte dünya), `tools/import/test-page-manifest.js`, `tools/test-faz12-static-contract.js`, gerçek WordPress: `admin-import.sh` (`pages` fazı: apply → readback → rollback → reapply → yayın), `admin-import-http.sh` (HTTP kapıları + yayın), `apply-cycle.sh` (CLI zincir), `pages-render.sh` (41 rota, güzel bağlantı, robots/sitemap).
+
+## 10. Faz 12b — SSS (`mb_sss`), gerçek logolu referanslar ve onaylı sayfa kaynakları
+
+Kullanıcı/kurum, yedi bekleyen sayfanın kaynaklarını açıkça onayladı (26 Eylül 2026). Derleme sırasında **ağ isteği yapılmaz**; onaylı içerik yerel, deterministik kaynak dosyalarına alındı ve künyelendi.
+
+### 10.1 Üç içerik manifesti (`content` aşaması: news → reference → faq)
+
+| | Haber | Referans | SSS |
+|---|---|---|---|
+| Kaynak | `tanitim-site/assets/data/news.js` | `wordpress-site/data/sources/reference-logos/` (onaylı canlı sayfadan bir kez alınmış 15 PNG + `reference-logos.manifest.json`: URL, alınma tarihi, SHA-256, bayt, boyut) | `tanitim-site/sss.html` (kurumca onaylanmış, dondurulmuş, yalnız okunur) |
+| Kayıt sayısı | 6 | **15** | **6** |
+| `source_key` | `news:<slug>` | `reference:referans-NN` | `faq:<slug>` (`slugify(soru)`) |
+| WordPress | `mb_haber` | `mb_referans` + **gerçek attachment** | `mb_sss` (başlık = soru, gövde = cevap, düz metin) |
+
+**Referans adı tahmin edilmez.** Canlı sayfadaki logo kaydırıcısı (Super Logo Showcase) logolar için başlık/alt metin/bağlantı taşımıyor; `logosliderwp` kayıtları yalnız sayısal ad taşır. Bu yüzden `name` nötr sıra etiketidir ("Referans 01" … "Referans 15") ve her kayıtta `name_status = "unverified"`. Gerçek firma adları kurumca doğrulanınca ayrı bir onaylı karar ve manifest güncellemesiyle girilir. Alt metin: "Referans NN — kuruluş logosu".
+
+### 10.2 Logo → gerçek attachment
+
+- Yönetilen alan `logo_sha256` (`REFERENCE_FIELDS`; `logo_attachment_id` alandan çıktı). **Manifestteki değer** logo dosyasının SHA-256'sıdır; **mevcut durum** değeri, bağlı attachment'ın GERÇEK dosya özetidir (`Repository::attachment_logo_sha256()`: attachment, çöpte değil, `image/png`, dosya okunabilir). Geçersiz/silinmiş/okunamayan logo '' üretir → kayıt `unchanged` sayılmaz (`conflict`); "geçerli ve erişilebilir logo" ayrı bir kontrol değil karar hash'inin kendisidir.
+- Yazıcı (`Target_Writer`, yeni `ensure_logo_attachment()`): önce AYNI içerik özetli attachment aranır (aynı logo tekrar eklenmez; rollback→reapply logoyu yeniden kullanır); yoksa özet, logo dizinindeki `ref-NN.png` dosyalarından **SHA-256 eşleşmesiyle** bulunur, uploads'a kopyalanır, gerçek `attachment` kaydı oluşturulur (yeniden boyutlandırma/kırpma yok; oran korunur), `_mb_logo_attachment_id` yazılır ve dosya özetiyle geri okunur. Hatalar sabit kodludur (`logo_source_missing`, `logo_copy_mismatch`, `logo_readback_mismatch`, …) ve tüm batch'i geri alır. Rollback attachment SİLMEZ.
+- Yükleyici (`Manifest_Loader::load_content()`): her logo dosyası (varlık, bayt, SHA-256, PNG imzası/IHDR boyutu, benzersizlik) içe aktarımdan ÖNCE doğrulanır; hata metni mutlak yol içermez; herhangi bir hata TÜM içerik manifestini reddettirir (**fail-closed**). Logo dizini manifest dizininin kardeşidir (`data/content` → `data/sources/reference-logos`): sunucuya **`data/` dizini bir bütün olarak** (içerik + sources) konur.
+- Referans kayıtları ve SSS kayıtları **taslak** oluşturulur (`draft`; hiçbir içerik türü otomatik yayınlanmaz). `mb_referans` yayın hazırlığı zaten logo attachment'ı ister (`Publish_Readiness`).
+
+### 10.2a Dosya sistemi yan etkisi telafisi (Faz 12c; eklenti 0.5.2)
+
+**Sorun (0.5.1):** logo dosyası uploads'a `copy()` ile kopyalanır; attachment satırı DB transaction'ı içinde oluşur. DB rollback'i **dosyayı geri almaz**; batch audit/checkpoint/commit/readback hatasında DB temizlenir ama dosya yetim kalırdı.
+
+**Çözüm:** `Target_Writer` üç yöntemli bir yan etki kapsamı taşır: `begin_side_effect_scope()` (batch transaction'ı açıldıktan sonra), `commit_side_effect_scope()` (başarılı commit sonrası; dosyalar KALIR), `compensate_side_effect_scope($dbRolledBack)` (hata yolunda, DB rollback denendikten SONRA).
+
+- Yalnız **bu batch'te YENİ oluşturulan** logo dosyaları günlüğe yazılır. SHA eşleşmesiyle **yeniden kullanılan** mevcut attachment/dosya günlüğe hiç girmez → asla silinmez.
+- Telafi yalnız `$dbRolledBack === true` iken çalışır. DB rollback başarısızsa **hiçbir dosya silinmez** (fail-closed); çağıran `transaction_rollback_failed` döner, günlük bırakılır ve uploads elle incelenmelidir.
+- Silmeden önce doğrulama: ad kalıbı `mavibelge-referans-logo-<12 hex>[-N].png`; `realpath()` ile uploads `basedir` içinde; symlink değil; dizin atlama yok; attachment satırı artık yok; başka hiçbir attachment `_wp_attached_file` ile bu dosyaya işaret etmiyor. Aksi hâlde silinmez ve sabit kod döner.
+- Sabit hata kodları (mutlak yol/içerik/sır içermez): `side_effect_scope_failed`, `side_effect_path_rejected`, `side_effect_attachment_still_present`, `side_effect_file_referenced`, `side_effect_cleanup_failed` (rollback başarısızsa `transaction_rollback_failed`). Temizlik hatası **yutulmaz**: run `failed`/`rollback_required` olur, başarı raporlanmaz.
+- Aynı kapsam `Rollback_Service` batch döngülerine de bağlıdır (geri yükleme `update_post` yolu attachment oluşturabilir).
+
+**Sınırlar (dürüst):** (a) Explicit run rollback, **commit edilmiş** attachment/dosyaları SİLMEZ (başka kayıt paylaşıyor olabilir; kanıt yok) — logo attachment'ları rollback sonrası kalır ve reapply'da yeniden kullanılır. Kapatılan açık: commit edilmemiş/geri alınmış batch'ten yetim dosya sızıntısı. (b) PHP süreci batch ortasında ölürse (fatal/OOM/güç kesintisi) günlük yalnız bellektedir; DB transaction'ı otomatik geri alınır ama o batch'in dosyası yetim kalabilir (dosya adı kalıbı `mavibelge-referans-logo-*` ile elle tespit edilir; `_mb_import_logo_sha256` meta'sı olmayan dosya yetimdir). (c) Kapsam yalnız logo dosyasını izler; başka dosya yan etkisi yoktur.
+
+### 10.3 Yedi sayfa
+
+| Sayfa | Kaynak | Uygulama |
+|---|---|---|
+| `kvkk` | `https://mavibelge.com.tr/kvkk-2/` | gövde parçası `data/sources/approved/kvkk.html`; yeniden yazım/özet yok |
+| `gizlilik-politikasi` | `https://mavibelge.com.tr/gizlilik-politikamiz/` | aynı |
+| `banka-hesap-bilgileri` | `https://mavibelge.com.tr/banka-hesap-bilgileri/` | aynı; banka/hesap verisi üretilmez/normalleştirilmez (rapora/teste yazılmaz) |
+| `sinav-takvimi` | `https://mavibelge.pratikteorik.com/home/examcalendar` | yerel kısa bilgilendirme + tek CTA (birebir adres); iframe yok |
+| `sonuc-belge-sorgulama` | MYK portalı `…layout=aday_bilgi_sorgu` | yerel kısa bilgilendirme + tek CTA (query string birebir); kimlik bilgisi/form/iframe yok |
+| `referanslar` | canlı referans sayfası | içerik boş; liste `mb_referans` kayıtlarından (gerçek logo) çizilir |
+| `sss` | `tanitim-site/sss.html` | içerik boş; liste `mb_sss` kayıtlarından çizilir |
+
+Künye: `data/sources/approved/approved-sources.manifest.json` (URL, alınma tarihi, tam sayfa SHA-256, fragment SHA-256, `cta_url`). Sayfa manifestinde `source.file` bu fragment'tır; Node doğrulayıcı içeriği fragment'tan YENİDEN türetip eşitliğini, CTA adresinin künyeyle birebirliğini ve iframe/script/form yokluğunu denetler (anlamsal doğrulama). Kapalı HTML izin listesi Node ve PHP'de aynıdır.
+
+### 10.4 Yayın kapıları (`pending_decisions` → `publish_requires`)
+
+Altı çözülen kod (`kvkk_text_not_approved`, `bank_details_not_approved`, `exam_calendar_url_missing`, `myk_query_url_missing`, `references_not_real`, `faq_content_not_approved`) **kaldırıldı** (Node ve PHP sözlükleri). 32 sayfanın hiçbiri kurum kararı nedeniyle bekletilmez. Yeni kapalı alan `publish_requires` (`faq` / `reference`): `referanslar` → `reference`, `sss` → `faq`. **SUNUCU tarafında** (`Page_Publisher`): bir sayfa yalnız, ilgili içerik türünün TÜM manifest kayıtları gerçek readback ile `unchanged` (referans için geçerli logo dahil) ve **yayında** ise `ready` olur; aksi halde `content_not_ready`. Kapı yayın anında yeniden doğrulanır (TOCTOU); JS yalnız gösterir. Stale run, çift tıklama, kilit, özet uyuşmazlığı, çözülmemiş run ve ortam (yalnız staging) kapıları aynen korunur.
+
+### 10.5 Eski URL yönlendirmeleri
+
+`/kvkk-2/` → `/kvkk/` ve `/gizlilik-politikamiz/` → `/gizlilik-politikasi/`: `origin=verified` (içerik bu adreslerden onayla aktarıldı), 301, tek atlamalı, döngüsüz; hedef gerçekten yoksa kural pasif yazılır, yalnız istek 404 ise uygulanır.
+
+### 10.6 Doğrulama
+`tests/suites/faz12b-faq-references.php` (bellek içi sahte dünya: dry-run/apply/readback/idempotency/rollback/reapply, logo yeniden kullanımı, fail-closed yükleyici, atomiklik), `tests/suites/faz12-pages.php` (yayın kapısı), `tools/import/test-content-manifest.js`, `tools/import/test-page-manifest.js`, `tools/test-faz12-static-contract.js`; gerçek WordPress: `apply-cycle.sh` (gerçek attachment), `admin-import.sh` (`pages` fazı: içerik kapısı), `admin-import-http.sh`, `pages-render.sh` (gerçek 15 logo + 6 SSS + onaylı sayfalar, 32/32 yayın).

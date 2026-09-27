@@ -34,6 +34,10 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 	// Faz 7 içerik aktarımı: mb_haber / mb_referans.
 	const TYPE_NEWS          = 'news';
 	const TYPE_REFERENCE     = 'reference';
+	// Faz 12b: SSS (mb_sss).
+	const TYPE_FAQ           = 'faq';
+	// Faz 12: WordPress çekirdek `page` (32 sayfa).
+	const TYPE_PAGE          = 'page';
 
 	/**
 	 * Faz 6B1 Son Kapanış Düzeltmesi: hiçbir parametre artık `array` tip
@@ -98,17 +102,21 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 		// katalog aşamalarının çıktı şekli (by_type üç anahtar) DEĞİŞMEZ.
 		$news        = isset( $manifest['news'] ) ? $manifest['news'] : array();
 		$references  = isset( $manifest['references'] ) ? $manifest['references'] : array();
-		$withContent = array_key_exists( 'news', $manifest ) || array_key_exists( 'references', $manifest );
+		$faqs        = isset( $manifest['faqs'] ) ? $manifest['faqs'] : array();
+		$withContent = array_key_exists( 'news', $manifest ) || array_key_exists( 'references', $manifest ) || array_key_exists( 'faqs', $manifest );
+		// Faz 12 — isteğe bağlı sayfa listesi; özetin by_type'ı yalnız `pages` anahtarı VARSA `page` taşır (katalog/içerik çıktısı DEĞİŞMEZ).
+		$pages     = isset( $manifest['pages'] ) ? $manifest['pages'] : array();
+		$withPages = array_key_exists( 'pages', $manifest );
 
 		// §10.13 / §5 son madde — girişte tekrar eden VEYA biçimsiz/eksik
 		// source_key fail-closed reddedilir (manifest zaten benzersiz
 		// olmalı — bu, planlayıcının kendi güvenlik ağı; Faz 6A'nın
 		// garantisine kör güvenmez; biçimsiz source_key'ler duplicate
 		// taramasından KAÇMAZ — ayrıca raporlanır).
-		$sourceKeyCheck = MaviBelge_Core_Import_Record_Validator::find_source_key_problems( array_merge( $sectors, $qualifications, $fees, $news, $references ) );
+		$sourceKeyCheck = MaviBelge_Core_Import_Record_Validator::find_source_key_problems( array_merge( $sectors, $qualifications, $fees, $news, $references, $faqs, $pages ) );
 		if ( ! empty( $sourceKeyCheck['duplicates'] ) ) {
 			$errors[] = 'Girişte tekrar eden source_key bulundu, plan üretilmedi: ' . implode( ', ', $sourceKeyCheck['duplicates'] );
-			return array( 'entries' => array(), 'summary' => self::empty_summary( $withContent ), 'errors' => $errors );
+			return array( 'entries' => array(), 'summary' => self::empty_summary( $withContent, $withPages ), 'errors' => $errors );
 		}
 		if ( ! empty( $sourceKeyCheck['errors'] ) ) {
 			$errors = array_merge( $errors, $sourceKeyCheck['errors'] );
@@ -124,10 +132,12 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $qualifications, 'qualifications' ),
 			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $fees, 'fees' ),
 			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $news, 'news' ),
-			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $references, 'references' )
+			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $references, 'references' ),
+			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $faqs, 'faqs' ),
+			MaviBelge_Core_Import_Record_Validator::check_batch_positional_integrity( $pages, 'pages' )
 		);
 		if ( ! empty( $positionalErrors ) ) {
-			return array( 'entries' => array(), 'summary' => self::empty_summary( $withContent ), 'errors' => array_merge( $errors, $positionalErrors ) );
+			return array( 'entries' => array(), 'summary' => self::empty_summary( $withContent, $withPages ), 'errors' => array_merge( $errors, $positionalErrors ) );
 		}
 
 		foreach ( $sectors as $record ) {
@@ -145,8 +155,14 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 		foreach ( $references as $record ) {
 			$entries[] = self::plan_reference( $record, $targetLookups, $dependencies );
 		}
+		foreach ( $faqs as $record ) {
+			$entries[] = self::plan_faq( $record, $targetLookups, $dependencies );
+		}
+		foreach ( $pages as $record ) {
+			$entries[] = self::plan_page( $record, $targetLookups, $dependencies );
+		}
 
-		$summary = self::summarize( $entries, count( $sectors ) + count( $qualifications ) + count( $fees ) + count( $news ) + count( $references ), $withContent );
+		$summary = self::summarize( $entries, count( $sectors ) + count( $qualifications ) + count( $fees ) + count( $news ) + count( $references ) + count( $faqs ) + count( $pages ), $withContent, $withPages );
 
 		return array( 'entries' => $entries, 'summary' => $summary, 'errors' => $errors );
 	}
@@ -181,6 +197,16 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 	/** @param mixed $targetLookups @param mixed $dependencies — Faz 7 referans; bkz. plan_sector() docblock'u. */
 	public static function plan_reference( $record, $targetLookups, $dependencies ) {
 		return self::plan_typed( self::TYPE_REFERENCE, $record, $targetLookups, $dependencies );
+	}
+
+	/** @param mixed $targetLookups @param mixed $dependencies — Faz 12b SSS; bkz. plan_sector() docblock'u. */
+	public static function plan_faq( $record, $targetLookups, $dependencies ) {
+		return self::plan_typed( self::TYPE_FAQ, $record, $targetLookups, $dependencies );
+	}
+
+	/** @param mixed $targetLookups @param mixed $dependencies — Faz 12 sayfa; bkz. plan_sector() docblock'u. */
+	public static function plan_page( $record, $targetLookups, $dependencies ) {
+		return self::plan_typed( self::TYPE_PAGE, $record, $targetLookups, $dependencies );
 	}
 
 	/**
@@ -277,13 +303,29 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 			}
 			$dependencyResolved = empty( $unresolvedDependencies );
 			$projection         = $dependencyResolved ? MaviBelge_Core_Import_Managed_Fields::project_news( $record, $resolvedDependencies ) : null;
+		} elseif ( self::TYPE_PAGE === $type ) {
+			$validation = MaviBelge_Core_Import_Record_Validator::validate_page( $record );
+			if ( ! $validation['valid'] ) {
+				return array( 'valid' => false, 'errors' => $validation['errors'] );
+			}
+			$dependencyResolved = true; // Sayfanın bağımlılığı yok (parent bu sürümde null).
+			$projection         = MaviBelge_Core_Import_Managed_Fields::project_page( $record, $resolvedDependencies );
 		} elseif ( self::TYPE_REFERENCE === $type ) {
 			$validation = MaviBelge_Core_Import_Record_Validator::validate_reference( $record );
 			if ( ! $validation['valid'] ) {
 				return array( 'valid' => false, 'errors' => $validation['errors'] );
 			}
-			$dependencyResolved = true; // Referansın bağımlılığı yok (logo eşlemesi bu fazda yok).
+			// Referansın çözülecek bağımlılığı yok: logo dosyası manifest yükleyicide (SHA-256/PNG/boyut) doğrulanır; attachment içe aktarımda
+			// oluşturulur ve MEVCUT durumda logo_sha256 alanı olarak geri okunur.
+			$dependencyResolved = true;
 			$projection         = MaviBelge_Core_Import_Managed_Fields::project_reference( $record, $resolvedDependencies );
+		} elseif ( self::TYPE_FAQ === $type ) {
+			$validation = MaviBelge_Core_Import_Record_Validator::validate_faq( $record );
+			if ( ! $validation['valid'] ) {
+				return array( 'valid' => false, 'errors' => $validation['errors'] );
+			}
+			$dependencyResolved = true; // SSS'in bağımlılığı yok.
+			$projection         = MaviBelge_Core_Import_Managed_Fields::project_faq( $record, $resolvedDependencies );
 		} else {
 			$validation = MaviBelge_Core_Import_Record_Validator::validate_fee( $record );
 			if ( ! $validation['valid'] ) {
@@ -446,7 +488,7 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 		return null;
 	}
 
-	private static function empty_summary( $withContent = false ) {
+	private static function empty_summary( $withContent = false, $withPages = false ) {
 		$byDecision = array();
 		foreach ( MaviBelge_Core_Import_Decision::ALL_DECISIONS as $decision ) {
 			$byDecision[ $decision ] = 0;
@@ -455,6 +497,10 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 		if ( $withContent ) {
 			$byType[ self::TYPE_NEWS ]      = 0;
 			$byType[ self::TYPE_REFERENCE ] = 0;
+			$byType[ self::TYPE_FAQ ]       = 0;
+		}
+		if ( $withPages ) {
+			$byType[ self::TYPE_PAGE ] = 0;
 		}
 		return array(
 			'total'          => 0,
@@ -503,8 +549,8 @@ class MaviBelge_Core_Import_Dry_Run_Planner {
 	 * @param array $entries
 	 * @param int   $expectedTotal giriş kayıt sayısı — özetin toplamı bununla BİREBİR eşit olmalı.
 	 */
-	private static function summarize( array $entries, $expectedTotal, $withContent = false ) {
-		$summary = self::empty_summary( $withContent );
+	private static function summarize( array $entries, $expectedTotal, $withContent = false, $withPages = false ) {
+		$summary = self::empty_summary( $withContent, $withPages );
 		$summary['total'] = count( $entries );
 		$unknownDecision = false;
 		$hasInvalid      = false;
