@@ -36,6 +36,7 @@
 | Staging WordPress | `6.9.9` | Staging sistem bilgisi | PASS |
 | Staging PHP | `7.3.33` | Staging sistem bilgisi | PASS |
 | Post SMTP | `4.0.2` | Kurulum ve gerçek teslim testi | PASS |
+| All-in-One WP Migration | Staging ve canlı aynı sürüm | Her iki ortamda `7.111` kullanıcı tarafından doğrulandı | PASS |
 | Beş form | Tekil SMTP teslimi | Kullanıcı kabulü | PASS |
 
 ## 4. Kapasite önkoşulu
@@ -75,6 +76,19 @@
 | Sürümler | PASS |
 | Staging kabulü | PASS |
 | Genel sonuç | PASS — Task 2 staging paket/sürüm doğrulamasına geçilebilir; canlı upload/import henüz yetkili değildir |
+
+## 6.1. Task 2 export kararı
+
+| Kontrol | Durum |
+|---|---|
+| Staging son kabulü | PASS |
+| Migration sürüm eşitliği | PASS — iki ortam `7.111` |
+| Export oluşumu | PASS — `86.058.411` bayt |
+| Yerel SHA-256 | PASS — `370020fa43c32460b25ee4e5d9ed4c18e14fda5de56a440ec2c6aaacb9a0cabd` |
+| Özel saklama | PASS — yerel cihaz; GitHub ve herkese açık web alanı dışında |
+| Tarayıcı import kapasitesi | FAIL — `64 MB`; bu yol kullanılmayacak |
+| Onaylı geri yükleme yolu | File Manager → `wp-content/ai1wm-backups` → All-in-One WP Migration Backups → Restore |
+| Task 2 sonucu | PASS — canlı hazırlığı için ayrı onay kapısına geçilebilir |
 
 ## 7. Ruling ve sapmalar
 
