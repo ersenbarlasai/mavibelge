@@ -187,6 +187,24 @@ Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topl
 | Post SMTP günlük politikası | PASS — kullanıcı ayrıntılı e-posta günlüğünü kapattı; geçiş test kayıtlarını desteklenen arayüzden temizledi ve günlüklemeyi yeniden kapattı |
 | Task 5 sonucu | PASS — tüm kapalı P0 kabul satırları geçti; site HTTP parola koruması altında, henüz kamuya açık değil |
 
+## 6.5. Task 6 kamuya açma ve ilk P1 turu
+
+| Kontrol | Durum |
+|---|---|
+| Ayrı kamuya açma onayı | PASS — kullanıcı zorunlu onay cümlesini verdi |
+| Anonim ana sayfa | PASS — HTTP 200; yeni site gizli pencerede ve bağımsız dış istemcide açılıyor |
+| HTTP ve `www` kanonik yönlendirmesi | PASS — HTTPS kanonik adrese tek adımlı 301 |
+| `robots.txt` üretim politikası | PASS — sitemap bildirimi var; site geneli `Disallow: /` yok |
+| `wp-sitemap.xml` | PASS — HTTP 200; WordPress sitemap indeksi erişilebilir |
+| Site-geneli `noindex` | PASS — ana sayfada yok; arama sonuçlarının `noindex` olması bilinçli politika |
+| P1 içerik rotaları | PASS — haberler, duyurular, dokümanlar, SSS, referanslar, iletişim, KVKK, gizlilik, arama ve sayfalama render edildi |
+| Responsive tur | PASS — 390/768/1280/1440 px, 16 görünüm; taşma veya menü işlev hatası yok |
+| Yönlendirme deposu | PASS — kalıcı depoda toplam 29 kayıt, 4 etkin kural; sağlık ekranında `29/4` korunuyor |
+| Etkin eski URL yönlendirmeleri | PASS — dört etkin eski URL aynı alan adındaki doğru hedefe tek adımlı 301 veriyor; hedeflerin tamamı HTTP 200 |
+| Tek kullanımlık yükleyici temizliği | PASS — yükleyici PHP dosyası, manifest ve yüklenen ZIP kaldırıldı; WordPress yönetimi erişilebilir, geçici “Yönlendirme deposu kurulumu” menüsü kayboldu |
+| Yükleyici sonrası anonim P1 regresyonu | PASS — 10 rota × 4 genişlikte 96/96 gerçek tarayıcı kontrolü geçti |
+| Task 6 sonucu | BEKLİYOR — yönlendirme bulgusu kapandı; ilk gözlem penceresinin 5xx/PHP/SMTP hata teyidi tamamlanınca kapatılacak |
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
