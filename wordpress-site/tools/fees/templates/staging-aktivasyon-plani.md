@@ -1,9 +1,13 @@
-# 2026 Ücret Tarifesi — Staging Aktivasyon Planı (kurum onayı SONRASI uygulanacak)
+# 2026 Ücret Tarifesi — Staging Aktivasyon Planı (Faz 15: onaylı toplu ücret yayını)
 
-> **Bu belge plandır; hiçbir kayıt yayımlanmadı/aktifleştirilmedi/pasifleştirilmedi/silinmedi.** Toplu aktifleştirme yapılmaz. Canlıya dokunulmaz.
-> Kurum kararı `BEKLIYOR` iken bu plan **uygulanamaz**.
+> **Bu belge plandır; hiçbir kayıt bu üretimle yayımlanmadı/aktifleştirilmedi/silinmedi.** Canlıya dokunulmaz. Etkinleştirme yalnız eklentinin
+> **Ücret yayını** bölümünden (Araçlar → İçe Aktarım Dry-Run → 6), yedekten sonra ve açık onay ifadesiyle yapılır. Üretimde ayrıca §14 üretim
+> sabitleri (`docs/admin-import-operations.md`) ve ayrı kullanıcı onayı gerekir.
+>
+> **Adım adım uygulama, tam geçici izin adları, açma/kapama koşulları ve geri dönüş:** `wordpress-site/docs/ucret-staging-uygulama-yonergesi.md`.
+> Aşağıdaki sayılar kaynak kararlardır; sunucudaki durum (hazır/yayında/oluşturulmamış/sapmış) önizlemede **gerçek kayıtlardan** hesaplanır.
 
-## 1. Görünürlük koşulları (koddan doğrulandı: `public/class-catalog-service.php`)
+## 1. Görünürlük koşulları (koddan: `public/class-catalog-service.php`)
 
 Bir ücret ziyaretçiye ancak **hepsi** doğruysa görünür:
 
@@ -11,73 +15,52 @@ Bir ücret ziyaretçiye ancak **hepsi** doğruysa görünür:
 |---|---|---|---|
 | 1 | WordPress `post_status = publish` | WP durumu | Evet |
 | 2 | `_mb_record_status = active` | Mavi Belge durumu | Evet |
-| 3 | `_mb_tariff_period` = aktif tarife dönemi seçeneği (`mb_active_tariff_period`, şu an staging'de geçici `2026`) | Dönem | Evet |
+| 3 | `_mb_tariff_period` = aktif tarife dönemi seçeneği (`mb_active_tariff_period`) | Dönem | Evet |
 | 4 | Bugün `[_mb_valid_from, _mb_valid_until]` içinde (boşsa sınırsız) | Tarih | Evet |
 | 5 | `_mb_price_options` dolu ve tüm seçenekler geçerli | Fiyat | Evet |
 | 6 | Kaydın sektörü gerçek bir `mb_sektor` terimine çözülür | Sektör | Evet |
-| 7 | Doğrulanmış kaynak (PDF ile tutarlı) | Süreç | **Hayır — süreçle sağlanır** (`onay-matrisi.csv`: `doğrulama sonucu`) |
-| 8 | Kurumsal onay | Süreç | **Hayır — süreçle sağlanır** (`kurum kararı = ONAY`) |
-| 9 | Bağlı yeterlilik gerekiyorsa gerçek bağlantı (`_mb_qualification_id > 0`) | Bağlantı | Hayır (kod 0'a izin verir); kurum kararı ile |
+| 7 | Kayıt bazlı yayın kararı `publish` (`data/content/fee-publication.manifest.json`, kayıt özetine bağlı) | Karar | Evet — yalnız toplu yayın aracında |
 
-Yayın hazırlığı denetimi (`Publish_Readiness`) `publish`/`active` kullanımda ad, seviye, sektör, dönem, fiyat türü ve geçerli fiyat seçeneklerini ister; bağlantıyı istemez.
+Ücret yayın aracı (eklenti 0.5.5) 1–2'yi birlikte yazar ve etkinleştirmeden ÖNCE 3–6'yı aynı katalog kuralıyla sınar; koşulu sağlamayan kayıt
+`ready` olmaz (`not_publicly_valid`).
 
-## 2. Mevcut sistem bunu toplu yapabiliyor mu? — **HAYIR** (koddan doğrulandı)
+## 2. Kurum kararı ve sayılar ({{DECIDED_ON}})
 
-- İçe aktarma ücret kaydını **her zaman `draft` + `planned_record_status = draft`** olarak yazar; doğrulayıcı başka değeri reddeder (`class-import-record-validator.php`). İçe aktarma ücret yayınlamaz/aktifleştirmez.
-- Sayfalar için var olan **sunucu-tarafı yayın aracı** (`Page_Publisher`) ücret kaydını kapsamaz; `mb_ucret` için toplu aktivasyon aracı **yoktur**.
-- Bu yüzden aktivasyon bugün yalnız **WordPress yönetiminden kayıt kayıt** yapılabilir (yayınla + `Kayıt Durumu = Aktif`). Bunun sonuçları:
-  - Yayınlamak `post_status`'u değiştirir: bu alan ücret için **yönetilmeyen alandır** → sonraki **run rollback'i** ilgili kayıtta `drift_detected` ile engellenir (kod sözleşmesi; bu görevde WordPress'te denenmedi).
-  - `Kayıt Durumu` yönetilen alandır → aynı `catalog`/`all` aşaması yeniden önizlenirse ilgili kayıtlar `conflict` görünür (elle değişiklik). **Aktivasyondan sonra o aşama yeniden uygulanmamalıdır.**
-- **Öneri (kod YAZILMADI):** `Page_Publisher` kalıbında "ücret aktivasyon" işlemi — yalnız onaylı `source_key` listesiyle (onay matrisinden), en çok 10 kayıt/istek, sunucu-tarafı kapılar (dönem, fiyat, kaynak/onay listesi, bağlantı kararı), audit'li, katı readback, `draft/passive`'e geri alma. Bunun için ayrı görev/uygulama önerisi gerekir; kurum onayı olmadan hiçbir şey uygulanmaz.
+- Toplam {{TOTAL}}: bağlı {{LINKED}}, bağlantısız {{UNLINKED}}. Doğrulama: `VERIFIED` {{VERIFIED}}, `DECISION_REQUIRED` {{DECISION}}, `MISMATCH` {{MISMATCH}}.
+- **KDV/basım:** tüm ücretlerde %20 KDV dahil, 1.500 TL MYK belge basım ücreti hariç (kurum kararı; tutarlara yeniden KDV eklenmez).
+- **Yayın kararı:** yayına uygun **{{PUBLISH}}** (bunların {{PUBLISH_UNLINKED}}'i bağlantısız listelenir), bekletilen **{{HOLD}}**. Bekletilenler (karar gelene kadar
+  taslak kalır; admin isterse kurum kararından sonra kaydı kendisi açabilir):
 
-## 3. Aday sayıları (kurum onayı VERİLMEDİ; yalnız kapasite)
+{{HOLD_LINES}}
 
-- Toplam {{TOTAL}}: bağlı {{LINKED}}, bağlantısız {{UNLINKED}}.
-- Doğrulama: `VERIFIED` {{VERIFIED}}, `DECISION_REQUIRED` {{DECISION}}, `MISMATCH` {{MISMATCH}}.
-- Yalnız `VERIFIED` kayıtlar onaydan sonra **aday** olabilir; `DECISION_REQUIRED` kayıtlar önce kurum kararı almalıdır (bağlantısız 19, Güzellik KDV 7, ad farkı, çift bağlantı).
-- Staging'de zaten aktif **iki kontrollü QA kaydı** vardır (`10UY0002-3/03` Makine Bakımcı Seviye 3; `11UY0036-2/01` İplik Bitim İşleri Operatörü). Bunlar yalnız QA kanıtıdır; toplu onay sayılmaz, planda **dokunulmaz**, mutabakatta ayrıca sayılır.
-- 10'arlık batch sayısı: tüm kayıtlar için {{BATCHES_ALL}}; bağlı kayıtlar için en çok {{BATCHES_LINKED}} (gerçek sayı onaylı kayıt sayısına göre belirlenir).
+- 10'arlık batch sayısı (en çok): {{BATCHES_PUBLISH}}. Staging/canlıda daha önce elle aktifleştirilmiş kayıtlar (ör. iki QA kaydı) araçta `published`
+  görünür ve yeniden yazılmaz.
 
-## 4. Ön koşullar (hepsi sağlanmadan başlanmaz)
+## 3. Ön koşullar (hepsi sağlanmadan başlanmaz)
 
-1. `onay-matrisi.csv` içinde kurum, **aktifleştirilecek her kayıt** için `kurum kararı = ONAY` yazmış (kayıt bazlı, imzalı/tarihli); `BEKLIYOR` olanlar kapsam dışı.
-2. Bağlantısız kayıtlar için ayrı yazılı karar: (a) kod verildi → manifest güncellenip yeniden dry-run (bu görevde yapılmadı), veya (b) "bağlantısız yayın" onayı.
-3. Güzellik KDV teyidi (7 kayıt) ve ad farkı kararları yazılı.
-4. Aktif tarife dönemi `2026` (staging'de geçici olarak ayarlı; canlıda ayrı karar).
-5. **Staging tam yedeği** (DB + `wp-content`), geri yükleme doğrulanmış (`admin-import-operations.md` §2). Rollback (uygulama içi) yedeğin yerine geçmez.
-6. **Anlık görüntü (önce):** toplam `mb_ucret` sayısı (`draft`/`publish`/`trash`), `Kayıt Durumu` dağılımı, aktif ücret sayısı (yönetim "Sağlık"/ücret listesi), Sınav Ücretleri sayfasındaki kayıt sayısı, iki QA kaydının durumu ve fiyatları, `mb_active_tariff_period` değeri, debug.log boyutu.
+1. Eklenti 0.5.5 + tema 0.6.10 kurulu; ücret veri paketi (`mavibelge-ucret-verisi-*.zip`: 3 katalog manifesti + `fee-publication.manifest.json`)
+   web kökü dışında açılmış ve `MAVIBELGE_IMPORT_MANIFEST_DIR` onu gösteriyor (yönerge §4.1).
+2. **Tam yedek** (DB + `wp-content`), geri yükleme doğrulanmış (`admin-import-operations.md` §2). Uygulama içi geri alma yedeğin yerine geçmez.
+3. Aktif tarife dönemi `2026` (Ücret Kaydı → Aktif Tarife Dönemi).
+4. `all` aşaması önizlemesi: ücretlerde `create 0`; elle değişmiş kayıtlar `conflict` olarak görünür ve **ezilmez**.
+5. **Anlık görüntü (önce):** Sınav Ücretleri sayfasındaki kayıt sayısı, iki QA kaydının durumu ve fiyatları, `mb_active_tariff_period`, debug.log boyutu.
 
-## 5. Batch prosedürü (her batch en çok 10 kayıt)
+## 4. Uygulama
 
-Sıra: onay matrisindeki `source_index` sırası, yalnız `ONAY` + `VERIFIED` (+ karar verilmiş) kayıtlar. **Önce tek kayıtlık pilot batch**, sonra 10'arlık.
+1. **Ücret yayın özetini göster** (salt okunur): satır başına `ready` / `published` / `held_pending_decision` / `not_unchanged` / `not_publicly_valid` /
+   `not_created` / `unexpected_status`.
+2. Onay ifadesi: `UCRET YAYINLA <özet ilk 12>` (birebir). Her istek en çok 10 kayıt; her batch tek transaction (yeniden gözlem → yayın → katı readback
+   → audit `import_fees_activated` → commit). Bayat/çift istek `stale_request`, özet değişmişse `confirmation_mismatch`.
+3. Sonrası: özet yeniden → `ready 0`; Sınav Ücretleri sayfası `önceki + etkinleştirilen` kayıt; bağlantısız kayıtlarda "Belirtilmemiştir", detay
+   bağlantısı yok; bağlı bir kaydın yeterlilik detayında ücret görünür; debug.log temiz.
 
-Her batch için:
-1. Batch listesini (10 `source_key`) yazılı kaydet; kayıtları tek tek aç: alanları onay matrisiyle karşılaştır (ad, seviye, sektör, fiyat seçenekleri, KDV, dönem `2026`, geçerlilik tarihleri boş/uygun).
-2. Her kayıtta: `Kayıt Durumu = Aktif` ve **Yayınla** (iki katman birlikte; biri eksikse kayıt görünmez).
-3. **Batch sonrası kontroller** (sırayla; biri başarısızsa DUR):
-   - Yönetim sayaçları: aktif ücret sayısı beklenen değerle eşit (önceki + batch boyutu).
-   - **Sınav Ücretleri** sayfası: kayıt sayısı artmış; batch'teki kayıtlar doğru tutar/KDV/belge basım ile görünüyor.
-   - **Yeterlilik detayı** (bağlı kayıtlar): ücret bölümü doğru; bağlantılar çalışıyor.
-   - **Tek fiyatlı** ve **çok seçenekli** en az birer örnek: tutarlar PDF ile birebir (matris).
-   - **"Yalnız güncel fiyatı bulunanlar" filtresi** (Meslekler): yalnız aktif ücreti olan yeterlilikler; bağlantısız ücretler filtreyi etkilemez.
-   - Hata/log/sağlık: Araçlar → Sağlık temiz; `debug.log` yeni satır yok.
-   - **Audit kaydı:** denetim günlüğünde bu batch'in kayıtları için `content_meta_changed` olayları (kullanıcı, kayıt, zaman) görünüyor. Olay türü kodda tanımlıdır; `Kayıt Durumu`/yayın değişiminin hangi kayıtlarda olay ürettiği bu görevde WordPress'te doğrulanmadı — pilot batch'te ilk kez doğrulanır, olay yoksa DUR ve bildir.
-4. Batch'i mutabakat tablosuna işle (bkz. §7).
+## 5. Geri dönüş
 
-## 6. Bağlantısız kayıtlar
+- **Araçla (yalnız bu aracın etkinleştirdikleri):** aynı bölümde `UCRET YAYINDAN KALDIR <özet ilk 12>` — kayıt hâlâ aracın bıraktığı haldeyse
+  (içerik değişmemiş, yayın işareti eşleşiyor) `active/publish` → `draft/draft`; elle değiştirilmiş kayıt atlanır (`not_unchanged`).
+- **Kayıt bazlı:** kayıtta `Kayıt Durumu = Taslak/Arşivlendi` ve WordPress durumu **Taslak**.
+- **Toplu:** yedeğe dönüş (§3.2); sonra sayaçlar ve anlık görüntü karşılaştırılır.
 
-Kurum "bağlantısız yayın" kararını yazılı vermeden aktifleştirilmez. Karar verilirse ayrı pilot yapılır: Sınav Ücretleri'nde görünür, "Detay →" bağlantısı çıkmaz, Meslekler filtresini etkilemez (`baglantisiz-19-kayit.md`). Kod verilirse önce manifest güncellemesi ve yeniden dry-run/apply (ayrı görev; bu görevde yapılmadı).
+## 6. Bu planın YAPMADIĞI şeyler
 
-## 7. Son toplam mutabakatı
-
-`onceki aktif sayı + onaylı ve aktifleştirilen kayıt sayısı = son aktif sayı = Sınav Ücretleri sayfasındaki toplam`. Ayrıca: `ONAY` verilmeyen her kayıt `draft`/`passive` kalmış; iki QA kaydı değişmemiş; `mb_active_tariff_period` değişmemiş; kayıt silinmemiş (toplam `mb_ucret` sayısı önceki anlık görüntüyle aynı). Sonuç yazılı rapora bağlanır.
-
-## 8. Rollback
-
-- **Kayıt bazlı (önerilen):** ilgili kayıtta `Kayıt Durumu = Pasif` (veya Taslak) ve WordPress durumu **Taslak**; Sınav Ücretleri sayacı ve önbellek yeniden kontrol edilir. (Uygulama içi run-rollback bu kayıtlarda drift nedeniyle çalışmaz — §2.)
-- **Toplu:** staging yedeğine dönüş (§4.5). Geri dönüşten sonra sayaçlar ve anlık görüntü karşılaştırılır.
-- Hata gördüğün anda batch'e devam edilmez; aktifleştirilen kayıtlar geri alınır, neden yazılır.
-
-## 9. Bu planın YAPMADIĞI şeyler
-
-Canlı (`mavibelge.com.tr`) değişikliği yok; toplu yayın yok; aktif dönem değişikliği yok; iki QA kaydına dokunulmadı; PDF yüklenmedi; kurum onayı varmış gibi davranılmadı.
+Canlı (`mavibelge.com.tr`) değişikliği yok; aktif dönem değişikliği yok; MYK kodu üretilmedi; altı kaydın ad farkı ve çift bağlantı kararları 2026-10-20 kullanıcı onayıyla, kayıt özetine bağlı olarak çözüldü. Canlı yayın onayı verilmedi.

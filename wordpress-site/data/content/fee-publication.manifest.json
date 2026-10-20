@@ -1,0 +1,1063 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "fee_publication",
+  "count": 103,
+  "decided_on": "2026-10-20",
+  "basis": "Kullanıcının 2026-10-19 tarihli talimatı (tüm ücretler için kurumsal karar): referanstaki fiyatlar son kullanıcıya gösterilen %20 KDV dahil tutarlardır, yeniden KDV eklenmez; 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir. Bağlantısız ve fiyatı doğrulanmış ücretler listede gösterilir; MYK kodu tahmin edilmez. 2026-10-20 kullanıcı onayı: altı bekletilen kayıt referanstaki adlarıyla yayımlanır; iki Mobil Vinç tarifesi grup adları ve seçenekleriyle ayrı gösterilir; Beko Loder kodsuz ve bağlantısız kalır. Onay yalnız kayıt özetleri eşleşen altı kayıt içindir.",
+  "vat_rule": {
+    "included": true,
+    "rate_percent": 20,
+    "certificate_print_fee_kurus": 150000
+  },
+  "records": [
+    {
+      "source_index": 0,
+      "source_key": "fee:guzellik-sac-bakim:4:guzellik-uzmani",
+      "record_sha256": "71b7ee55987b9fcc8d9dbfcec37c1c242fb868a4d74f9f47d477559311e3d392",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 1,
+      "source_key": "fee:guzellik-sac-bakim:4:epilasyon-uzmani",
+      "record_sha256": "d05f68a531c1f7923722c8f21bb479458dc5ffe293f9c80d00c3eafce9c39446",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 2,
+      "source_key": "fee:guzellik-sac-bakim:4:kuafor",
+      "record_sha256": "95a5e224f9a11899d8a0cb094a06503a7f5a1e7ae3721778e0a45479598532e0",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 3,
+      "source_key": "fee:guzellik-sac-bakim:3:cilt-bakim-uygulayicisi",
+      "record_sha256": "b8e851d11e5af07e099a90ce29315b6289bb1532f34a04d673740d30aa15dea4",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 4,
+      "source_key": "fee:guzellik-sac-bakim:3:makyaj-uygulayicisi",
+      "record_sha256": "f33f65f361fe77ed2d346df511a57c854102e10dd2eabd02db842779a7ea569c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 5,
+      "source_key": "fee:guzellik-sac-bakim:3:protez-tirnak-uygulayicisi",
+      "record_sha256": "a76b3f40efb317493c4de3ed63b0fb8ec5e2eea48b3eb866e60dd40d685cd2cc",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 6,
+      "source_key": "fee:guzellik-sac-bakim:3:kozmetik-urunler-tanitim-ve-uygulama-elemani",
+      "record_sha256": "114aa2a1e6770310b8be50daf90fb06fc0fc9d332111293d8c1556a0017f4740",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 7,
+      "source_key": "fee:makine:3:makine-bakimci",
+      "record_sha256": "6908908b016a45dc290c00e0c1b748125c3c4a62ca15528cc245c5c978fbd2fb",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 8,
+      "source_key": "fee:makine:4:makine-bakimci",
+      "record_sha256": "f6625386b94385e69551e048720e9c04722575f44dac4f2c6bb84b0d149833ec",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 9,
+      "source_key": "fee:makine:5:makine-bakimci",
+      "record_sha256": "c48580d7fa6d27301daa3353bd35200acd2c8265a04bfc85dd4c73eee0e47eec",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 10,
+      "source_key": "fee:makine:3:nc-cnc-tezg-h-iscisi",
+      "record_sha256": "fc07a745046ba3b9e91abbdd11b3135f09e7eee8b4c9f25b021ac38f2d4f6b88",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 11,
+      "source_key": "fee:makine:4:nc-cnc-tezg-h-iscisi",
+      "record_sha256": "b20d00a82b8ecc3ade20aa43d45b7f93d45485008e2628808f9775db4c988488",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 12,
+      "source_key": "fee:makine:4:tel-makineleri-operatoru",
+      "record_sha256": "b1b5c258cf16ccd05045b394c5f12bbe6ea152070df7ec22a06ed76bf786814c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 13,
+      "source_key": "fee:makine:3:makine-montajcisi",
+      "record_sha256": "bbd6e725b2dd38b6642c3b6cb1faa4119f45cb48cadeefc3b082621a13750dda",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 14,
+      "source_key": "fee:makine:3:tornaci",
+      "record_sha256": "7fbdc5b23b00143ce3efc941cfc4f5145ba3bf9c86861d330ff73aa3a50bbd41",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 15,
+      "source_key": "fee:makine:3:frezeci",
+      "record_sha256": "73a3a67d41875deddccc5a67ddfa22c8bd622b665a911c384781dff16454b6b8",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 16,
+      "source_key": "fee:enerji:3:sicak-su-kazani-operatoru",
+      "record_sha256": "e8c0ab1985a15c097436d580f29bc5063fe4766579da91d6e4248f449ae6db39",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 17,
+      "source_key": "fee:enerji:4:kizgin-yag-operatoru",
+      "record_sha256": "7069889b723af2fc06b8a0b49c31066bd9231e9db50bcbdebe16d56a5b995753",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 18,
+      "source_key": "fee:enerji:4:buhar-kazani-operatoru",
+      "record_sha256": "17332fed8979ad14940238e9c414dfa18080ed641e31d539a7c280ced25d983f",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 19,
+      "source_key": "fee:lojistik:3:koprulu-vinc-operatoru",
+      "record_sha256": "cb96f6cdfcd25fead079774765a5c4d205971a0b66d5dfd184f6351ff00eefc9",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 20,
+      "source_key": "fee:lojistik:3:endustriyel-tasimaci",
+      "record_sha256": "469f9e1181a3db5855f70ac05550265ee016295a17f3a8958436d5eb2da250c9",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 21,
+      "source_key": "fee:lojistik:3:servis-araci-soforu",
+      "record_sha256": "9bbc9cb701bb3f8ddabe21cbc5e3b9f6b5d38ed38959ba9754feeb188e67bd7c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 22,
+      "source_key": "fee:lojistik:2:isaretci",
+      "record_sha256": "a6633a4222ab611839b266ad494a8a69a6cae83c657a4f7203a80696683001ff",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 23,
+      "source_key": "fee:lojistik:3:liman-kuru-yuk-operasyon-elemani-puantor",
+      "record_sha256": "ef5cecd91cfc494770cd7d878faa783bbe167bee5442f3579f65abd35720533c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 24,
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-mhc-sahil-ve-gemi-vinci",
+      "record_sha256": "db03ad1fd05c6f02e1a5bbfafcbbbb15cd1a7f21cfbb36bf8bd48ad9b4a1d0c3",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 25,
+      "source_key": "fee:is-makineleri:3:liman-rtg-operatoru",
+      "record_sha256": "211b94d55189be8e4a76d90e27ed2a3151debcf63aa1a19b36e07d590623044c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 26,
+      "source_key": "fee:is-makineleri:3:liman-forklift-operatoru",
+      "record_sha256": "04c02c19d4a6b5ac3c135cebeeddf22b416a13032504aa2d1c0db6ee39a63698",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 27,
+      "source_key": "fee:lojistik:3:liman-pompa-ve-tank-saha-operatoru",
+      "record_sha256": "25c09d63753e604749fc3325efefdc3a22ddaed815564e619a2cf5104ca3f901",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 28,
+      "source_key": "fee:lojistik:4:liman-operasyon-planlamacisi",
+      "record_sha256": "71fda55a53f459d5f18e566ac62d0d8868d6ff9f5181df2b76716a60aa841d5a",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 29,
+      "source_key": "fee:is-makineleri:3:liman-saha-istif-makineleri-operatoru-crs-ve-ecs",
+      "record_sha256": "4c1c270f2f57eda794b476df1dde960ee4fe13bc99a52def6771f78ee77358ff",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 30,
+      "source_key": "fee:is-makineleri:3:liman-ssg-operatoru",
+      "record_sha256": "b8bcddfceaed794a614a40cd74411a4df761c9c3f3454e38568573b9093ad4f0",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 31,
+      "source_key": "fee:is-makineleri:3:terminal-cekici-operatoru",
+      "record_sha256": "e490e53740a9b9e0af731a49239ca89edf81726dd935a596b0d33a32e99d6b01",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 32,
+      "source_key": "fee:metalurji:3:haddeci",
+      "record_sha256": "4b2560048f28702f44319fe5536bb4f84521f365e2ae9a269256f61c1fb044ca",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 33,
+      "source_key": "fee:metalurji:4:haddeci",
+      "record_sha256": "2652aaa18468bebdad967ac4c235f96c4e1581c88fbe83b81b4f0f09c9886b9d",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 34,
+      "source_key": "fee:metalurji:4:dokumcu",
+      "record_sha256": "2d6befdb29e32b0b876ff475c8fced082b76153efd2884696e5b487798f6a059",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 35,
+      "source_key": "fee:metalurji:3:macaci",
+      "record_sha256": "201353fce2de8d69319e2c9eea856c57210a78244de5dd53a49a777693fdb0eb",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 36,
+      "source_key": "fee:metalurji:3:refrakterci",
+      "record_sha256": "618ce7d38589be5d35c89175e2ccb8b9c20772173f876b954b93e26ab17f295c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 37,
+      "source_key": "fee:metalurji:4:refrakterci",
+      "record_sha256": "09d0f13e68c8a82b033d24ee112d8123b8b68593f79593da70119ba1de03327d",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 38,
+      "source_key": "fee:metalurji:4:izabeci",
+      "record_sha256": "be64c06902172461dfeddd06c0c11d408a1356b42b23c7ee74f940a8fd06314e",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 39,
+      "source_key": "fee:maden:3:kirma-eleme-tesis-operatoru",
+      "record_sha256": "d3b77a553c4555bfb045d4f56e5f5432f8cad60ad101c7be69bc9d76be51f6c4",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 40,
+      "source_key": "fee:mermer:3:mermer-dogaltas-ocakcisi",
+      "record_sha256": "bd61fa5799deb7384cc19390da68483c4b626e210324e0a739feac45cd580396",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 41,
+      "source_key": "fee:mermer:3:mermer-dogaltas-imalat-elemani",
+      "record_sha256": "023ce736def5589bf540402127c4b176ab94cd2feb9ef750d1500bbd8cb149c2",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 42,
+      "source_key": "fee:mermer:4:mermer-dogaltas-ozel-imalat-elemani",
+      "record_sha256": "055bbe5254f5b76eee656c2881cc46f29fa9ee5cd190a3a77c1373a03dd28324",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 43,
+      "source_key": "fee:maden:3:yeralti-hazirlik-iscisi",
+      "record_sha256": "4d028f5a8874f216e4e9f277be294a2fc8bedd004098783fcf67f8a6101d86c7",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 44,
+      "source_key": "fee:maden:4:yeralti-hazirlik-iscisi",
+      "record_sha256": "d9ab708ce2f22f75cc0cf95100069169b4b64bf61bd5a01165d3d0bea5e37502",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 45,
+      "source_key": "fee:maden:4:mekanizasyon-iscisi-maden",
+      "record_sha256": "1362f6f405bea36eb29a92f2103e055c87cb80ce3df94504bdd64c2b4adcb368",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 46,
+      "source_key": "fee:mobilya:3:ahsap-mobilya-imalatcisi",
+      "record_sha256": "b2110fa6ae791ee49cfe3f7b3952e737bd1a653818314b7a17e3fee723f6b4cd",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 47,
+      "source_key": "fee:mobilya:4:ahsap-mobilya-imalatcisi",
+      "record_sha256": "0c9e3d9b90780e212a4b87d46ffb6e217fa373f1804050a555153c6cf21c054d",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 48,
+      "source_key": "fee:mobilya:3:mobilya-dosemecisi",
+      "record_sha256": "abed8f6fc2ffee041f80006c68251571779d159cb8f6971f19e8deff45d9a8ea",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 49,
+      "source_key": "fee:enerji:5:isletme-elektrik-bakimcisi",
+      "record_sha256": "41373561dfb993fdffce69293d28d1c02479855d3b6f851093a4653096d8f7f0",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 50,
+      "source_key": "fee:enerji:3:elektrik-pano-montajcisi",
+      "record_sha256": "5c1d4a525f8f88b368f2af708dc4f11a15206f0f8143b8aad0e49989832b0d4a",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 51,
+      "source_key": "fee:enerji:3:elektrik-tesisatcisi",
+      "record_sha256": "eb3f19f3f62f781e42896c84a46cb758178d9aed9c654b41be8aa1244b6aa6b6",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 52,
+      "source_key": "fee:enerji:4:elektrik-tesisatcisi",
+      "record_sha256": "75396edbc0bdc504ffc43b3e372f3f106eaccf409b993ae9ed14a03fa8d50896",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 53,
+      "source_key": "fee:enerji:3:elektro-mekanik-montaj-iscisi",
+      "record_sha256": "f89c3518dfd373e64078617a295a29032b12b94379f4fd8bcbb44fbcb0b27ba4",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 54,
+      "source_key": "fee:plastik:3:plastik-enjeksiyon-uretim-elemani",
+      "record_sha256": "6ba74ca05b9eaaaf4b04a2eb26c08702283cd4c246766bbd3841116082649ed9",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 55,
+      "source_key": "fee:plastik:3:plastik-sisirme-film-uretim-operatoru-ekstruzyon",
+      "record_sha256": "76e453c80672c9df608444eeaebe172d919ff004bb094a40d82439d1801c9b3a",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 56,
+      "source_key": "fee:plastik:3:plastik-profil-uretim-operatoru-ekstruzyon",
+      "record_sha256": "c1375e99f4322acd228c63480b837c5a456616c784a0fe64defa4e516a5bc1e5",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 57,
+      "source_key": "fee:cam:4:endustriyel-cam-isil-islem-elemani",
+      "record_sha256": "73e38e858bc52e9a2207a766c5912a25c2bf30240dbee0f4ac0371a030e2bc34",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 58,
+      "source_key": "fee:cam:4:endustriyel-cam-isleme-elemani",
+      "record_sha256": "79a100e9c9967c6c42d8912efadba02f72516b31d590ac489506bd23b0545cb5",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 59,
+      "source_key": "fee:cam:4:endustriyel-cam-kesim-elemani",
+      "record_sha256": "b3498277018adc4117efcd49c4d7250382e7be1ae9e278ff773fa5fdced352ed",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 60,
+      "source_key": "fee:metal:3:celik-kaynakcisi",
+      "record_sha256": "e5738279a6556dce8dcf7b799d6060bf9977451cb1053decea4cc523d22c2116",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 61,
+      "source_key": "fee:metal:3:aluminyum-kaynakcisi",
+      "record_sha256": "797c8d61afc7ea6cac45e01f4c6c195e7c8d8aaedee7977d4b88d4df986c36e9",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 62,
+      "source_key": "fee:metal:4:direnc-kaynak-ayarcisi",
+      "record_sha256": "b5be2092f60eba0f7c7c0ddded6d89883fca21091717b916dd480bfcd476f49f",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 63,
+      "source_key": "fee:metal:4:kaynak-operatoru",
+      "record_sha256": "1a247381a5815749b8c72490f4d4c0b4d61fd4bba802ef5d1a94dadc707c5e7a",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 64,
+      "source_key": "fee:metal:3:endustriyel-boru-montajcisi",
+      "record_sha256": "12130643cd5271cc6cc727d687af128aea18068af084ff4fb6886478feecc59b",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 65,
+      "source_key": "fee:makine:3:metal-kesimci",
+      "record_sha256": "86ca863b936d50dfaae461bddc57d02a254cee85372982e17e5868dbefd0c443",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 66,
+      "source_key": "fee:makine:4:metal-kesim-operatoru",
+      "record_sha256": "a3a4c066c1e593d896b41c827031d7355f27bb0323c36cb31a161d236f7b400c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 67,
+      "source_key": "fee:makine:3:metal-levha-isleme-tezg-h-iscisi",
+      "record_sha256": "9ff25ebd0643fa08e4c3bd50bf55b770bd78f8b40b313ba863bd35e8283fab80",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 68,
+      "source_key": "fee:makine:4:metal-levha-isleme-tezg-h-operatoru",
+      "record_sha256": "018ca611eb5190af6e562285c68afbca47ab296526a0733fe0ae1286cfa5039f",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 69,
+      "source_key": "fee:metal:3:metal-kumlama-iscisi",
+      "record_sha256": "6cae86dffc511f0ff7a7002fb950bc73ef203b0c7c3d3aeda3fbd5270b1af29c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 70,
+      "source_key": "fee:metal:4:metal-yuzey-kaplamaci",
+      "record_sha256": "a92c3ab9beab582b1d7693bfbbdedbc89be0aeef090d6a759e0b94b77b0f4ee1",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 71,
+      "source_key": "fee:insaat:3:ahsap-kalipci",
+      "record_sha256": "5aa3f361d1f21c9132c3115aec39abd2fcd880189816e2e5c54caac867456d20",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 72,
+      "source_key": "fee:insaat:3:alci-levha-uygulayicisi",
+      "record_sha256": "bdd975fa725bd0fa4bea30ae3e1df9279a8aebc36f988c26f2a07c79080d0f7b",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 73,
+      "source_key": "fee:insaat:3:alci-siva-uygulayicisi",
+      "record_sha256": "5fad5b3cab2fe64c203e2b60bd26d546ea037704231536401d3555abf290dfa6",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 74,
+      "source_key": "fee:insaat:3:betonarme-demircisi",
+      "record_sha256": "ff584a973655058ae3b8d79cfdb1789984a7fd08f96574cdfd6ce3ff9a5c5b91",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 75,
+      "source_key": "fee:insaat:3:duvarci",
+      "record_sha256": "65bce495f7c181d8b66adf765934d859c6a9818f173efca715d2581c1c98705c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 76,
+      "source_key": "fee:insaat:3:insaat-boyacisi",
+      "record_sha256": "e135c8d1f81806cfde6dcc3ff64a63ed63ef8c698648a08d384d60b4048d03f0",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 77,
+      "source_key": "fee:insaat:2:insaat-iscisi",
+      "record_sha256": "016a3565d0da22f13755a636b19e625fd1114268ddd754123652acc05b9f8839",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 78,
+      "source_key": "fee:insaat:3:isi-yalitimcisi",
+      "record_sha256": "c62f6f281f27a1c1bc669bea43e2a590c45288acc3a266fd39cbb73ec8ae5ca4",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 79,
+      "source_key": "fee:insaat:3:iskele-kurulum-elemani",
+      "record_sha256": "65f202efe9aedaf399f9a74c8a64eab4e3e07d0722667e3c34521c97cf959f29",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 80,
+      "source_key": "fee:insaat:3:pvc-dograma-montajcisi",
+      "record_sha256": "308559ca8dc8f16f0adb3d1b5a87534a909a03bf3c313f7300ffffbe58a39de8",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 81,
+      "source_key": "fee:insaat:3:seramik-karo-kaplamacisi",
+      "record_sha256": "72ce6a85a1664fdf72e42a3d6a3d049166277a70d5f67ac8cd947d22e7a17bab",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 82,
+      "source_key": "fee:insaat:3:sivaci",
+      "record_sha256": "dea05dea8d5eaf2045f6ef3bba6a1b24e850b7f701177081b984be0105ffba48",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 83,
+      "source_key": "fee:is-makineleri:3:kule-vinc-operatoru",
+      "record_sha256": "ccfac6064041c998eb198d7052f4b572dfa3ee602db8d9c2987208137eb8ab58",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 84,
+      "source_key": "fee:is-makineleri:3:ekskavator-operatoru",
+      "record_sha256": "5a1df9e1ee2238790e049759a2b0da2668749047df77370e8cb602150e9ae211",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 85,
+      "source_key": "fee:is-makineleri:3:mobil-vinc-operatoru-is-makineleri-grubu",
+      "record_sha256": "ac8ff7f8af3d16b497c6c3c5ac706d6d457d8ae364d976a485f4fca691813f25",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 86,
+      "source_key": "fee:is-makineleri:3:kazici-yukleyici-beko-loder-operatoru",
+      "record_sha256": "62f39320ffdbc46a03565de40afe79b2e053056ae8bde0d1d9c6c8357e4015d6",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 87,
+      "source_key": "fee:is-makineleri:3:beton-santral-operatoru",
+      "record_sha256": "b01874bbc432aba393579e5d160930aa98b0641c5139b23b45e7edf62c314df7",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 88,
+      "source_key": "fee:is-makineleri:3:beton-transmikser-operatoru",
+      "record_sha256": "097bd3efd4b4e49dea38b67dad866a00ac679d46fe1223923c0d1787d63c680f",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 89,
+      "source_key": "fee:is-makineleri:3:beton-pompa-operatoru",
+      "record_sha256": "eb1172b755f2f86f94ddfde49cc2808939218329a0a98c8d90d36f350e8ca330",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 90,
+      "source_key": "fee:tekstil:3:on-terbiye-operatoru",
+      "record_sha256": "e72d9843ac9029092521197aec66352bad5eb2f00891643c79ab550d6eb726ac",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 91,
+      "source_key": "fee:tekstil:3:boyama-operatoru",
+      "record_sha256": "0b9a78ed098d49da42dc402faa59d016495f3d74e4a18c2a5ee9a6e9966ee4dc",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 92,
+      "source_key": "fee:tekstil:3:bitim-islemleri-operatoru",
+      "record_sha256": "193f622bff257b4e00f3417a25094df319c804d8dc58164b23f73ebf784fe140",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 93,
+      "source_key": "fee:tekstil:3:on-iplik-operatoru",
+      "record_sha256": "412ea6bbfa128ca6f1a3b972d9ce2fb8fa1600fc9cc26eba784cd2a25f903998",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 94,
+      "source_key": "fee:tekstil:2:iplik-egirme-operatoru",
+      "record_sha256": "78685b1619e056d561838c4e2aa9003f987fbcefb07f5495b8ccb7a72a43c4bf",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 95,
+      "source_key": "fee:tekstil:2:iplik-bitim-isleri-operatoru",
+      "record_sha256": "bacf947598dc51229442a49bae79c94bef32ea650c5061205c9bdc3dc1f421df",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision"
+      ]
+    },
+    {
+      "source_index": 96,
+      "source_key": "fee:tekstil:3:dokuma-operatoru",
+      "record_sha256": "96485603271c9c7522188ea1335e0f26d09bedca52c1e20816fa1304922a7fe7",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 97,
+      "source_key": "fee:tekstil:4:dokuma-operatoru",
+      "record_sha256": "42f13ba348d626d26685130a96adb00f702b320136e3a0798a78d781bc528436",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 98,
+      "source_key": "fee:tekstil:3:tahar-operatoru",
+      "record_sha256": "3eb0a7319649dad573f85d83ded69fb812d5dfa17a464147ca69759111d17813",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 99,
+      "source_key": "fee:tekstil:3:cozgu-operatoru",
+      "record_sha256": "51347aaef2ac3864324ca7c1f1dd439562f9ac713bed543f670936d8671aa20c",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 100,
+      "source_key": "fee:tekstil:4:orme-operatoru",
+      "record_sha256": "f49c23f77ebbeacac68a12539bbe850249b30b01fdbb6322b376c58e33f37f90",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 101,
+      "source_key": "fee:tekstil:3:cozgulu-orme-operatoru",
+      "record_sha256": "8719f71bdd4ecb1950c55a94fa6401e958c0ff9b1d8130569d6a4ed5a100f2a4",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    },
+    {
+      "source_index": 102,
+      "source_key": "fee:tekstil:3:atkili-orme-operatoru",
+      "record_sha256": "06fa59f1277811d6c4b98f321d17344b5f1a317d9c558d5edce371b055c3a3b5",
+      "decision": "publish",
+      "hold_reasons": [],
+      "notes": [
+        "vat_rule_institution_decision",
+        "unlinked_listed_without_qualification"
+      ]
+    }
+  ]
+}

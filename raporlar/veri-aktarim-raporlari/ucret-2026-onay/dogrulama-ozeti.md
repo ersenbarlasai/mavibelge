@@ -1,18 +1,20 @@
 # 2026 Ücret Tarifesi — Doğrulama Özeti ve Mutabakat
 
-> Bu rapor **kurumsal onay değildir**. Canlı/staging'de hiçbir işlem yapılmamıştır; manifestler ve kaynak dosyalar değiştirilmemiştir.
+> Bu rapor kayıtları yayına almaz. Canlı/staging'de hiçbir işlem yapılmamıştır; ücret/yeterlilik/sektör manifestleri ve kaynak dosyalar değiştirilmemiştir. Tek kurum kararı KDV/basım kuralı ve bağlantısız listelemedir (2026-10-20).
 > İlgili dosyalar (bu dizin): `onay-matrisi.md/.csv`, `baglantisiz-19-kayit.md/.csv`, `pdf-medya-esleme-plani.md`, `staging-aktivasyon-plani.md`.
 
 ## 1. 103 kaydın doğrulama özeti
 
-- **VERIFIED**: 72
+- **VERIFIED**: 79
 - **MISMATCH**: 0
 - **UNREADABLE**: 0
-- **DECISION_REQUIRED**: 31
+- **DECISION_REQUIRED**: 24
 
 - `UNREADABLE`: okunamayan sayfa/kayıt yok (6 PDF sayfasının tamamı okundu).
 - `MISMATCH`: PDF ile manifest arasında **fiyat, birim, sayfa, seviye, belge basım ücreti veya bağlantı** farkı bulunmadı.
-- `DECISION_REQUIRED` gerekçeleri (bir kayıt birden çok gerekçe taşıyabilir): bağlantısız 19 kayıt; PDF'de KDV ifadesi olmayan 7 Güzellik kaydı; PDF adı ile manifest adı farklı 5 kayıt; aynı yeterliliğe iki ücret kaydı bağlı 2 kayıt (#25 ve #86, kod `12UY0061-3/04`).
+- `DECISION_REQUIRED` gerekçeleri (bir kayıt birden çok gerekçe taşıyabilir): bağlantısız 19 kayıt (MYK kodu kararı); PDF adı ile manifest adı farklı 5 kayıt; aynı yeterliliğe iki ücret kaydı bağlı 2 kayıt (#25 ve #86, kod `12UY0061-3/04`).
+- **KDV/basım (2026-10-20 kurum kararı):** tüm ücretlerde %20 KDV dahil, 1.500 TL MYK belge basım ücreti hariç. PDF'de KDV ifadesi olmayan 7 Güzellik kaydının bekleme durumu bu kararla çözüldü (artık `[INFO]`).
+- **Yayın kararı** (`data/content/fee-publication.manifest.json`): yayına uygun 103, bekletilen 0 (ad farkı / aynı yeterliliğe iki ücret; bkz. `staging-aktivasyon-plani.md`).
 - Yalnız bilgi notu (`[INFO]`) taşıyan kayıtlar (karar değişmedi): PDF grubu ≠ manifest sektörü 10 kayıt (ör. Liman/İş makinesi kayıtları PDF'de "Ulaştırma&Lojistik" grubunda, manifestte `is-makineleri`; Metal Kesim/Levha kayıtları PDF'de "Metal" grubunda, manifestte `makine`).
 
 ## 2. Mutabakat (TÜM MUTABAKATLAR EŞİT)
@@ -59,13 +61,13 @@
 
 ## 5. Kayıt bazlı fark ve açıklama listesi
 
-- **#1 fee:guzellik-sac-bakim:4:guzellik-uzmani** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#2 fee:guzellik-sac-bakim:4:epilasyon-uzmani** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#3 fee:guzellik-sac-bakim:4:kuafor** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#4 fee:guzellik-sac-bakim:3:cilt-bakim-uygulayicisi** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#5 fee:guzellik-sac-bakim:3:makyaj-uygulayicisi** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#6 fee:guzellik-sac-bakim:3:protez-tirnak-uygulayicisi** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
-- **#7 fee:guzellik-sac-bakim:3:kozmetik-urunler-tanitim-ve-uygulama-elemani** — DECISION_REQUIRED: [DECISION] KDV: manifest vat_included=true ama "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir
+- **#1 fee:guzellik-sac-bakim:4:guzellik-uzmani** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#2 fee:guzellik-sac-bakim:4:epilasyon-uzmani** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#3 fee:guzellik-sac-bakim:4:kuafor** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#4 fee:guzellik-sac-bakim:3:cilt-bakim-uygulayicisi** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#5 fee:guzellik-sac-bakim:3:makyaj-uygulayicisi** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#6 fee:guzellik-sac-bakim:3:protez-tirnak-uygulayicisi** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
+- **#7 fee:guzellik-sac-bakim:3:kozmetik-urunler-tanitim-ve-uygulama-elemani** — VERIFIED: [INFO] KDV: "2026 GÜZELLİK FİYAT LİSTESİ (1) (1).pdf" sayfalarında KDV ifadesi yok; 2026-10-20 kurum kararıyla çözüldü (%20 KDV dahil, 1.500,00 TL belge basım ücreti hariç)
 - **#17 fee:enerji:3:sicak-su-kazani-operatoru** — DECISION_REQUIRED: [DECISION] MYK kodu yok: PDF'lerde MYK kodu sütunu yok, manifest bilinçli olarak bağlantısız (qualification_source_key=null)
 - **#18 fee:enerji:4:kizgin-yag-operatoru** — DECISION_REQUIRED: [DECISION] MYK kodu yok: PDF'lerde MYK kodu sütunu yok, manifest bilinçli olarak bağlantısız (qualification_source_key=null)
 - **#19 fee:enerji:4:buhar-kazani-operatoru** — DECISION_REQUIRED: [DECISION] MYK kodu yok: PDF'lerde MYK kodu sütunu yok, manifest bilinçli olarak bağlantısız (qualification_source_key=null)
@@ -100,9 +102,9 @@
 
 ## 6. Açık noktalar (kurum kararı gerekir)
 
-1. **Güzellik PDF'inde KDV ifadesi yok** — `vat_included=true` yalnız `fees.js` yorumuna dayanır (yorum "her iki kaynakta da" der; Güzellik PDF'inde bu ifade görülmedi). Yazılı teyit veya PDF revizyonu gerekir.
-2. **Bağlantısız 19 kayıt** — bkz. `baglantisiz-19-kayit.md`.
+1. ~~Güzellik PDF'inde KDV ifadesi yok~~ — **ÇÖZÜLDÜ (2026-10-20):** kullanıcının tüm ücretler için kurumsal kararı — fiyatlar %20 KDV dahil, 1.500 TL MYK belge basım ücreti hariç; tutarlara yeniden KDV eklenmez.
+2. **Bağlantısız 19 kayıt** — listelenir (bağlantısız gösterim, sahte kod/bağlantı yok); **MYK kodu/yeterlilik ilişkisi kararı açık** — bkz. `baglantisiz-19-kayit.md`.
 3. **PDF adı ≠ manifest adı** kayıtları (ör. "Metal Levha Tezgâh İşçisi" ↔ "Metal Levha İşleme Tezgâh İşçisi", "Isı Yalıtımcı" ↔ "Isı Yalıtımcısı", "OPERAÖTÜRÜ" yazım hatası): kamuya hangi adın yazılacağı kararı.
 4. **Aynı yeterliliğe iki ücret** (`12UY0061-3/04`: MHC/Sahil/Gemi Vinci ve İş Makineleri grubu Mobil Vinç): yeterlilik detayında ikisi de görünür; kurum hangisinin/nasıl gösterileceğini seçmeli.
 5. **Tarife dönemi 2026** yalnız dosya adından çıkarılır; PDF sayfalarında yıl yoktur — kurum "2026 dönemi" teyidi vermeli.
-6. **Belge basım ücreti (1.500 TL)**: fiyatlara dahil değildir (Yeni Meslekler PDF'i açık); Güzellik PDF'inde "belge ücreti" ifadesi başarı koşuluyla geçer — iki PDF'in aynı ücreti anlattığı kurumca teyit edilmeli.
+6. ~~Belge basım ücreti (1.500 TL)~~ — **ÇÖZÜLDÜ (2026-10-20):** bütün ücretlerde 1.500 TL MYK belge basım ücreti sınav fiyatının dışındadır (aynı kurum kararı).
