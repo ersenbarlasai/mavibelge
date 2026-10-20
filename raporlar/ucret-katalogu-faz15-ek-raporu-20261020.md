@@ -1,5 +1,11 @@
 # Faz 15 Ek Rapor — Bekletilen 6 Ücret, Nihai Kalite Kapısı, Dağıtım Bağımlılığı ve Staging Yönergesi
 
+> **Güncel durum notu (20 Ekim 2026, konsolidasyon):** Bu rapor yazıldığı anın kaydıdır. Sonrasında: altı kayıt kullanıcı onayıyla
+> yayına uygun oldu (karar dosyası 103 publish / 0 hold, veri paketi `mavibelge-ucret-verisi-20261020-7b720433.zip`;
+> [`ucret-alti-kayit-onayi-20261020.md`](ucret-alti-kayit-onayi-20261020.md)); kullanıcı ücretleri yönetim panelinden elle yayınladı
+> (ekran görüntüsü özeti: yayında 103, araçla geri alınabilir 0); kod Git'te commit edildi ve `main`'e alındı. "Commit yok",
+> "canlı/staging değişmedi" ve "97/6" ifadeleri yalnız yazıldıkları an için geçerlidir. Güncel durum: [`proje-durumu.md`](proje-durumu.md).
+
 > Tarih: 2026-10-20. Çalışma alanı: `E:\PROJELER\MaviBelge-kvkk`. Ana rapor: `raporlar/ucret-katalogu-faz15-raporu-20261020.md`.
 > Staging/canlı kurulumu **yapılmadı**. Commit, push, sunucu bağlantısı, staging/canlı yazma veya deploy **yok**. Gerçek karar dosyası
 > (`fee-publication.manifest.json`) **değiştirilmedi**: 97 yayın / 6 bekletme aynen duruyor. Mevcut KVKK (Faz 14) değişikliklerine dokunulmadı.

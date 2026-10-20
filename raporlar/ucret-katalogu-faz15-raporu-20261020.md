@@ -1,5 +1,11 @@
 # Faz 15 — Sınav Ücretleri: Tam Aktarım, KDV/Basım Kuralı ve Ücret Yönetimi (eklenti 0.5.5, tema 0.6.10)
 
+> **Güncel durum notu (20 Ekim 2026, konsolidasyon):** Bu rapor yazıldığı anın kaydıdır. Sonrasında: altı kayıt kullanıcı onayıyla
+> yayına uygun oldu (karar dosyası 103 publish / 0 hold, veri paketi `mavibelge-ucret-verisi-20261020-7b720433.zip`;
+> [`ucret-alti-kayit-onayi-20261020.md`](ucret-alti-kayit-onayi-20261020.md)); kullanıcı ücretleri yönetim panelinden elle yayınladı
+> (ekran görüntüsü özeti: yayında 103, araçla geri alınabilir 0); kod Git'te commit edildi ve `main`'e alındı. "Commit yok",
+> "canlı/staging değişmedi" ve "97/6" ifadeleri yalnız yazıldıkları an için geçerlidir. Güncel durum: [`proje-durumu.md`](proje-durumu.md).
+
 > Tarih: 2026-10-20. Çalışma alanı: `E:\PROJELER\MaviBelge-kvkk` (dal `claude/kvkk-consent-link`, taban `af3ca05`) — canlıdaki 0.6.9/0.5.4
 > kaynağını içeren TEK çalışma alanı. Commit, push, deploy, canlı/staging bağlantısı **yok**. Canlı ücretler etkinleştirilmedi.
 > Değişikliklerin KVKK (Faz 14) değişikliklerinden ayrılması için taban: `E:\PROJELER\MaviBelge-koruma-20261019-195132\kvkk\patches\unstaged.patch`

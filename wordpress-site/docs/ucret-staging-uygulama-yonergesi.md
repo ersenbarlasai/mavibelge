@@ -7,6 +7,25 @@
 > Ayrıntılı kapı/hata kodu açıklamaları: [`admin-import-operations.md`](admin-import-operations.md). Günlük ücret yönetimi:
 > [`ucret-yonetimi-kullanim.md`](ucret-yonetimi-kullanim.md).
 
+## Güncel durum (20 Ekim 2026)
+
+- **Karar dosyası:** `fee-publication.manifest.json` → 103 ücret, 145 seçenek; **103 `publish` / 0 `hold`**. Altı kaydın (iki Mobil Vinç tarifesi,
+  Metal Levha ×2, Isı Yalıtımcısı, Kazıcı Yükleyici/Beko Loder) kullanıcı onayı kayıt SHA-256 özetlerine bağlıdır
+  ([`raporlar/ucret-alti-kayit-onayi-20261020.md`](../../raporlar/ucret-alti-kayit-onayi-20261020.md)). İki Mobil Vinç tarifesi ayrı kalır;
+  Beko Loder kodsuz ve bağlantısızdır.
+- **Geçerli veri paketi:** `mavibelge-ucret-verisi-20261020-7b720433.zip`, SHA-256
+  `a7a4173bf00aef24e20608b11bf990587efb405a03d5948ee049b4073753fcae`. Önceki `mavibelge-ucret-verisi-20261019-c29b3e89.zip` (97/6 kararı)
+  **kullanılmaz**; yalnız tarihsel olarak korunur.
+- **Kullanıcının bildirdiği yayın sonucu:** kullanıcı yeni veri paketini yükledi ve ücretleri **yönetim panelinden elle** aktif yaptı. Kullanıcının
+  ekran görüntüsündeki yayın özeti: 103 ücret, 145 fiyat seçeneği; hazır 0, yayında 103, araçla geri alınabilir 0; bekletilen 0, sapmış 0,
+  görünmez 0, oluşturulmamış 0, beklenmeyen 0; bağlantısız ücret 19, hepsi yayında. Kaynak yalnız bu ekran görüntüsüdür. Ortamdaki eklenti/tema
+  sürümü ve sayılar bu depodan sunucuya erişilerek **doğrulanmadı**.
+- **Elle etkinleştirmede "araçla geri alınabilir 0" beklenen değerdir.** Bu sayı yalnız §7.2 aracının yayın işareti (`_mb_fee_publication_marker`)
+  yazdığı kayıtları sayar. Elle etkinleştirilen kayıtlar §9.1 ile geri alınamaz; geri dönüş §9.2 (kayıt bazlı) veya §9.3 (yedekten) ile yapılır.
+- **Kullanıcının düzenlediği ücretler yeniden aktarımla ezilmez.** Bu yayından sonra `all` aşaması **uygulanmaz** (§7.1). Önizleme panelden
+  değişmiş kaydı `conflict` olarak gösterir; araç onu yazmaz. `conflict` görülürse §5.3'teki gibi durulur.
+- Aşağıdaki §5.3 yerel değerleri karşılaştırma içindir; gerçek ortamın sayıları her seferinde önizlemede **yeniden hesaplanır**.
+
 ## 0. Temel kurallar
 
 - Sayılar **sabit kabul edilmez**. Yerel testte ölçülen değerler (§5.3) yalnız karşılaştırma içindir; staging'in gerçek kayıtları önizlemede yeniden sayılır.
@@ -21,14 +40,14 @@ Hepsi `wordpress-site/dist-packages/` altındadır. Yüklemeden **önce** yereld
 ```bash
 cd wordpress-site/dist-packages
 sha256sum -c checksums.sha256                                   # tema + eklenti
-sha256sum -c mavibelge-ucret-verisi-20261019-c29b3e89.zip.sha256  # ücret veri paketi
+sha256sum -c mavibelge-ucret-verisi-20261020-7b720433.zip.sha256  # ücret veri paketi
 ```
 
 | Dosya | Nereye | Yöntem |
 |---|---|---|
 | `mavibelge-core-0.5.5.zip` | WordPress eklentisi | Eklentiler → Yeni Ekle → Eklenti Yükle → "Geçerli olanı yüklenenle değiştir" |
 | `mavibelge-theme-0.6.10.zip` | WordPress teması | Görünüm → Temalar → Yeni Ekle → Tema Yükle → "Geçerli olanı yüklenenle değiştir" |
-| `mavibelge-ucret-verisi-20261019-c29b3e89.zip` | **Web kökü dışında** bir dizin (ör. `/home/<hesap>/`) | DirectAdmin Dosya Yöneticisi → yükle → "Extract" |
+| `mavibelge-ucret-verisi-20261020-7b720433.zip` | **Web kökü dışında** bir dizin (ör. `/home/<hesap>/`) | DirectAdmin Dosya Yöneticisi → yükle → "Extract" |
 
 Ücret veri paketinin içeriği **yalnız** şudur (kaynak, rapor, şema, PDF, eşleme dosyası yoktur):
 
@@ -42,7 +61,7 @@ mavibelge-data/content/fees.manifest.json             # çalışma anında okunu
 mavibelge-data/content/fee-publication.manifest.json  # çalışma anında okunur (kayıt bazlı yayın kararı)
 ```
 
-Dosya başına özetler `mavibelge-ucret-verisi-20261019-c29b3e89-icerik.sha256` ve `...-manifest.json` dosyalarındadır. SSH yoksa sunucuda
+Dosya başına özetler `mavibelge-ucret-verisi-20261020-7b720433-icerik.sha256` ve `...-manifest.json` dosyalarındadır. SSH yoksa sunucuda
 `sha256sum` çalıştırılamaz; bunun yerine §5'teki önizleme bütünlüğü doğrular: karar dosyasının her satırı ücret kaydının kanonik özetine bağlıdır,
 tek bir bayt farkı satırı "bayat" (bekletilir) veya belgeyi geçersiz yapar.
 
@@ -73,7 +92,7 @@ bulunursa önce kapatılır ve nedeni araştırılır.
 
 ### 4.1. Veri paketi (SY)
 
-1. `mavibelge-ucret-verisi-20261019-c29b3e89.zip` dosyasını **web kökü dışında** bir dizine açın; sonuç: `/home/<hesap>/mavibelge-data/content/...`.
+1. `mavibelge-ucret-verisi-20261020-7b720433.zip` dosyasını **web kökü dışında** bir dizine açın; sonuç: `/home/<hesap>/mavibelge-data/content/...`.
 2. `wp-config.php`'de, "That's all, stop editing!" satırından **önce**:
 
    ```php
@@ -104,7 +123,7 @@ Araçlar → İçe Aktarım Dry-Run → **3) Aşama önizleme** → `all` → **
 **6) Ücret yayını** → **Ücret yayın özetini göster**. Ekranda, gerçek kayıtlardan hesaplanan şu satırlar çıkar; hepsini kaydedin:
 
 - Toplam / hazır / yayında (araçla geri alınabilir) / bekletilen / sapmış / görünmez / oluşturulmamış / beklenmeyen.
-- "Yayına uygun 97 kayıttan hazır/yayında olan: X; Y kayıt şu nedenle değil: …" (fark dökümü).
+- "Yayına uygun N kayıttan hazır/yayında olan: X; Y kayıt şu nedenle değil: …" (fark dökümü; geçerli karar dosyasıyla N = 103).
 - "Sapmış kayıtların aktarım kararı: update … / conflict … / blocked …" (varsa).
 - "UYARI: bekletilen N kayıt şu an yayında/aktif" (varsa).
 - "Sitedeki ücret kaydı: T (ziyaretçiye görünen V); manifest dışı O (görünen OV)" ve manifest dışı kayıtların tablosu.
@@ -120,8 +139,13 @@ Dosya eksik veya bozuksa özet yerine hata çıkar ve **hiçbir kayıt değişti
 
 ### 5.3. Sonucu yorumlama
 
-**Yerel karşılaştırma değeri (beklenti DEĞİL):** canlıya benzer başlangıçla (103 taslak, 2 QA kaydı elle aktif) yerel testte ölçülen değerler:
-toplam 103, hazır 95, yayında 2, bekletilen 6, sapmış/görünmez/oluşturulmamış/beklenmeyen 0, sitede 103 kayıt, manifest dışı 0.
+**Yerel karşılaştırma değeri (beklenti DEĞİL):** canlıya benzer başlangıçla (103 taslak, 2 QA kaydı elle aktif) yerel fixture testinde ölçülen değerler.
+103 publish / 0 hold kararıyla (Faz 15 ek rapor §1.2 varsayım testi): toplam 103, hazır 101, yayında 2, bekletilen 0; etkinleştirme sonrası
+103/103 satır ve 145/145 seçenek. Tarihsel 97/6 kararıyla ölçülen değer: hazır 95, yayında 2, bekletilen 6. Gerçek ortamın sayıları önizlemede
+yeniden hesaplanır; bu değerler oraya taşınmaz.
+
+**Elle etkinleştirilmiş ortam (kullanıcı ekran görüntüsü, 20 Ekim 2026):** hazır 0, yayında 103, araçla geri alınabilir 0, bekletilen/sapmış/
+görünmez/oluşturulmamış/beklenmeyen 0. Bu durum beklenendir: kayıtlar §7.2 aracıyla değil panelden yayınlandığı için yayın işareti yoktur.
 
 Staging'in sonucu farklıysa nedeni ekrandaki satırdan okunur:
 
@@ -136,6 +160,7 @@ Staging'in sonucu farklıysa nedeni ekrandaki satırdan okunur:
 | "bekletilen … şu an yayında" | Bekletilen kayıt daha önce elle yayınlanmış | Araç dokunmaz; kurum kararıyla elle ele alın |
 | manifest dışı görünen > 0 | Listede kaynakta olmayan ek ücret satırı var (referansla eşitliği bozar) | Kurum kararı: kaydı elle taslağa almak veya bırakmak |
 | yayında > 2 veya < 2 | Daha önce farklı sayıda kayıt elle aktifleştirilmiş | Satır tablosundan hangileri olduğunu kaydedin; araç bunları yeniden yazmaz |
+| yayında 103, araçla geri alınabilir 0 | Ücretler panelden elle yayınlanmış | Beklenen. §7 uygulanmaz; geri dönüş yalnız §9.2/§9.3 |
 
 ### 5.4. Durma koşulları
 
@@ -214,7 +239,7 @@ Sonra §6.3'e göre sabitleri **kapatın**.
 
 | Kontrol | Beklenen |
 |---|---|
-| Ücret yayın özeti | `hazır 0`; `yayında` = önceki yayında + etkinleştirilen; "araçla geri alınabilir" = etkinleştirilen; bekletilen sayısı değişmedi |
+| Ücret yayın özeti | `hazır 0`; `yayında` = önceki yayında + etkinleştirilen; "araçla geri alınabilir" = araçla etkinleştirilen (elle yayınlananlarda 0); bekletilen sayısı değişmedi |
 | Sınav Ücretleri sayfası | "Toplam N ücret kaydından": N = özetteki ziyaretçiye görünen sayı |
 | Örnek satırlar | Güzellik Uzmanı: "Sınav ücreti (A1, A2, A3, A4)" 17.000,00 TL; çok seçenekli bir kayıtta her seçenek etiketi + tutarı; her satırda "Fiyatlara %20 KDV dahildir. 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir." |
 | Bağlantısız kayıt | MYK kodu "Belirtilmemiştir", detay bağlantısı yok |
@@ -232,7 +257,7 @@ Sonra §6.3'e göre sabitleri **kapatın**.
 Sabitler §6'daki **aynı koşullarla** yeniden açılır. **6) Ücret yayını** → özeti göster → "Geri alma onay ifadesi" kutusuna
 `UCRET YAYINDAN KALDIR <özet ilk 12>` birebir → **Bu aracın yayınladıklarını taslağa al**. Yalnız işareti bu aracın yazdığı değerle eşleşen ve
 içeriği değişmemiş kayıtlar `draft/draft` olur (audit `import_fees_deactivated`). Önceden elle aktifleştirilmiş (QA) ve panelden değiştirilmiş
-kayıtlara dokunulmaz. Sonra sabitler kapatılır (§6.3) ve §8 kontrolleri tersinden yapılır (görünen sayı önceki değere döner).
+kayıtlara dokunulmaz (elle yayınlanan kayıtlarda bu araç 0 kayıt geri alır). Sonra sabitler kapatılır (§6.3) ve §8 kontrolleri tersinden yapılır (görünen sayı önceki değere döner).
 
 ### 9.2. Kayıt bazlı
 
@@ -247,7 +272,10 @@ kayıtlara dokunulmaz. Sonra sabitler kapatılır (§6.3) ve §8 kontrolleri ter
    doğrulandıktan sonra silinebilir.
 4. §2'deki kayıtla karşılaştırın: ücret sayıları, Sınav Ücretleri toplamı, sürümler, Sistem kapıları KAPALI.
 
-## 10. Bekletilen 6 kayıt için kurum kararı gelirse
+## 10. Bekletilen 6 kayıt — karar verildi (20 Ekim 2026)
+
+Karar verildi: karar dosyası 103 publish / 0 hold, yeni paket `mavibelge-ucret-verisi-20261020-7b720433.zip` (bkz. Güncel durum).
+Aşağıdaki paragraf, ileride bir kaydın kararı değişirse izlenecek yoldur:
 
 Karar yalnız `tools/fees/build-approval-matrix.js` içindeki kurum kararı kaydıyla verilir; dosya yeniden üretilir ve **yeni adlı** bir veri paketi
 çıkar (`node tools/package/build-fee-data-package.js --write`; içerik değişince ad da değişir, eski paket ezilmez). Yeni paket §4.1'e göre ayrı

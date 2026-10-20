@@ -99,3 +99,15 @@ Testler: gerçek WordPress `theme-urls-test.php` (iki yapı, fragment, CPT arşi
 Ek doğrulama (20 Ekim 2026, konsolidasyon görevi): Git'e alınan Faz 14 ağacının LF blob'ları `mavibelge-theme-0.6.9.zip` (98 dosya) ve `mavibelge-core-0.5.4.zip` (91 dosya) paket manifestiyle **189/189 eşit**. Faz 14'ün güncel kodda yeniden koşulan testleri Faz 15 bölümündeki tam kapı koşusunun içindedir.
 **Yayın:** tema 0.6.9 29 Eylül 2026'da staging kabulü atlanarak doğrudan canlıya kuruldu (iki ayırt edici statik dosyada SHA-256 eşitliği; yüksek güven). Eklenti 0.5.4 kullanıcı tarafından canlı yönetim ekranında doğrulandı. Staging bu kayıt anında 0.6.8'deydi.
 **Açık kurum kararları (çözülmüş SAYILMAZ):** form kapısı `/kvkk/` sayfasının varlığına bağlı değildir (sayfa yoksa yalnız yönetim uyarısı); `consent_version` sayfa içeriğine bağlı değildir.
+
+## Faz 15 — sınav ücretleri tam aktarım, KDV/basım açıklaması, toplu yayın ve ücret yönetimi (tema 0.6.10, eklenti 0.5.5; TARİHSEL KAYIT)
+**Kapsam:** `raporlar/ucret-katalogu-faz15-raporu-20261020.md`, `raporlar/ucret-katalogu-faz15-ek-raporu-20261020.md`; karar: `raporlar/ucret-alti-kayit-onayi-20261020.md`.
+**Kayıtlı sonuçlar (20 Ekim 2026, MaviBelge-kvkk çalışma alanı; bu bölümde yeniden koşulmadı):**
+
+| Test | Kayıtlı çıktı | Not |
+|---|---|---|
+| `run-all-gates.sh --runtime` (07:19–07:53) | 59 PASS / 0 FAIL, `TÜM KAPILAR GEÇTİ (yerel).` | Çıkış kodu **doğrudan yakalanmadı** (sarmalayıcı kabuk durduruldu); son satırdan türetildi. Karar dosyası o an 97/6 idi |
+| Önceki koşu (06:50) | 57 PASS / 1 FAIL | Log dosya adı 255 bayt sınırı; geçersiz sayıldı |
+| Altı kayıt onayı sonrası (08:13) | ücret matrisi 53/53, veri paketi 13/13 | Tam runtime bu turda tekrarlanmadı |
+
+Bu görevde (konsolidasyon) son birleşik kod üzerinde koşulan testler aşağıdaki "Konsolidasyon doğrulaması" bölümündedir.

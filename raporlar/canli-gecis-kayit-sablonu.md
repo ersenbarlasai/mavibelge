@@ -229,6 +229,17 @@ Bu not sunucuya erişilmeden yazıldı; yeni bir sunucu doğrulaması içermez.
 | Staging | Kurulum anında 0.6.8; staging kabulü **atlandı** (`wordpress-ana-uygulama-plani.md` kabul sırasından sapma) |
 | Kurulum kaydı | Kurulumu yapan oturumda yazılı kayıt yok; bu satırlar sonradan kanıttan türetildi |
 
+## 6.7. Ücret verisi yayını (Faz 15) — kullanıcı bildirimi
+
+| Kontrol | Durum |
+|---|---|
+| Veri paketi | `mavibelge-ucret-verisi-20261020-7b720433.zip`, SHA-256 `a7a4173bf00aef24e20608b11bf990587efb405a03d5948ee049b4073753fcae`; karar dosyası 103 publish / 0 hold |
+| Yayın yöntemi | Kullanıcı paketi yükledi ve ücretleri yönetim panelinden **elle** aktif yaptı (toplu yayın aracı kullanılmadı) |
+| Yayın özeti (kullanıcı ekran görüntüsü) | 103 ücret, 145 seçenek; hazır 0, yayında 103, araçla geri alınabilir 0; bekletilen 0, sapmış 0, görünmez 0, oluşturulmamış 0, beklenmeyen 0; bağlantısız 19, hepsi yayında |
+| "Araçla geri alınabilir 0" | Beklenen: araç yalnız kendi yayın işaretini taşıyan kayıtları geri alır; geri dönüş kayıt bazlı veya yedekten |
+| Kurulu tema/eklenti sürümü | **Doğrulanmadı** — ekran görüntüsünden türetilmez; kullanıcı teyidi bekleniyor |
+| Bağımsız doğrulama | Yok — bu kayıt sunucuya erişilmeden yazıldı |
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
