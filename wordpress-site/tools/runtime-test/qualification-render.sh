@@ -78,6 +78,10 @@ fx --user=mbadmin eval-file /opt/mb-runtime/application-fixtures.php close > /de
 # Form ayarları YALNIZ bu klonda sentetik açılır, test sonunda kapatılır; yükleme geçici dizini yoksa temizlikte kaldırılır.
 node contact-page-test.js "$(cygpath -m "$OUT")/qual-fixtures.json" "$(cygpath -m "$OUT")/screens-contact" | tee "$OUT/contact-page.txt" | grep -E "^FAIL|beş form testi geçti"
 echo "contact-page exit=${PIPESTATUS[0]}"
+# Faz 14: beş formda kısa bağlantılı KVKK onayı (sentetik /kvkk/ sayfası + uzun sentetik consent_text YALNIZ bu klonda);
+# iki kalıcı bağlantı yapısı, sunucu doğrulaması, erişilebilir ad, klavye/fare, 5 genişlik, JS kapalı; gerçek Chrome.
+node kvkk-consent-test.js "$(cygpath -m "$OUT")/screens-kvkk" | tee "$OUT/kvkk-consent.txt" | grep -E "^FAIL|KVKK onay bağlantısı testi"
+echo "kvkk-consent exit=${PIPESTATUS[0]}"
 if [ "$MODE" = "up" ]; then
 	echo "AYAKTA: tarayıcı doğrulaması için hazır; bitince: $0 $OUT down"
 	exit 0

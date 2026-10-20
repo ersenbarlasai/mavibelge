@@ -3,8 +3,9 @@
  * Gerçek form (yalnız kapı AÇIKKEN çağrılır). JavaScript GEREKTİRMEZ: sunucu tarafı doğrulama, `required`/`type`
  * öznitelikleri tarayıcı yardımıdır. Hatalarda aynı yanıtta yeniden çizim: hata özeti (role="alert") sayfa
  * başında, alan hataları alanın altında (`aria-invalid` + `aria-describedby`). Hassas alanlar (T.C. kimlik no)
- * ASLA geri doldurulmaz. Bal küpü alanı görünmez ve klavyeyle odaklanamaz. Onay kutusunun metni yapılandırmadaki
- * kurumca ONAYLI metindir (kodda uydurma metin yok).
+ * ASLA geri doldurulmaz. Bal küpü alanı görünmez ve klavyeyle odaklanamaz. Onay kutusu (Faz 14) kısa bağlantılı KVKK
+ * etiketidir: "KVKK Metni’ni okudum ve kabul ediyorum." — "KVKK Metni" /kvkk/ sayfasına gider; yapılandırmadaki kurumca
+ * onaylı tam metin forma basılmaz (kayıt/kapı kanıtı olarak eklentide kalır). İşaretleme field.php'dedir.
  *
  * Faz 12f: isteğe bağlı `steps` ile alanlar adımlara (fieldset + legend/H2) gruplanır. JS YOKKEN bütün adımlar görünür,
  * adım göstergesi ve ileri/geri düğmeleri gizlidir (`hidden`), gönder düğmesi her zaman erişilebilirdir; JS

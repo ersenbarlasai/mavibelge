@@ -219,6 +219,16 @@ Yukarıdaki tablo 28 Eylül 2026 kaydıdır ve değiştirilmedi. Yayının gerç
 
 Bu not sunucuya erişilmeden yazıldı; yeni bir sunucu doğrulaması içermez.
 
+## 6.6. Geçiş sonrası sürüm değişikliği — KVKK (Faz 14)
+
+| Kontrol | Durum |
+|---|---|
+| Canlı tema | 0.6.9 — 29 Eylül 2026 20:46 TRT; `mavibelge-theme-0.6.9.zip` (SHA-256 `ff3e2e8dc1f3899fed50126754cad94edf4f7f937ae30102d3a2d2efb1d84ce4`). Kanıt: canlı `assets/dist/style.css` ve tema `style.css` paket manifestiyle byte-eşit (19 Ekim anonim GET; `raporlar/canli-surum-kvkk-ek-degerlendirmesi-20261019-200911.md` §1.2). Yüksek güven; PHP şablonları HTTP ile hash'lenemez |
+| Canlı eklenti | 0.5.4 — kullanıcı canlı yönetim ekranında doğruladı; `mavibelge-core-0.5.4.zip` (SHA-256 `2df4d97b22a1df0e523cd35afc6796dce1f2b375d4f3ca3dd56e764e44aaf5a1`) |
+| Kaynak | `codex/kvkk-consent-faz14` dalındaki Faz 14 commit'i; LF blob'lar iki paket manifestiyle 189/189 eşit |
+| Staging | Kurulum anında 0.6.8; staging kabulü **atlandı** (`wordpress-ana-uygulama-plani.md` kabul sırasından sapma) |
+| Kurulum kaydı | Kurulumu yapan oturumda yazılı kayıt yok; bu satırlar sonradan kanıttan türetildi |
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
