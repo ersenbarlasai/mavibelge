@@ -205,6 +205,20 @@ Bu envanter salt geri dönüş içindir. Import sonrasında eski eklentiler topl
 | Yükleyici sonrası anonim P1 regresyonu | PASS — 10 rota × 4 genişlikte 96/96 gerçek tarayıcı kontrolü geçti |
 | Task 6 sonucu | BEKLİYOR — yönlendirme bulgusu kapandı; ilk gözlem penceresinin 5xx/PHP/SMTP hata teyidi tamamlanınca kapatılacak |
 
+### 6.5.1. Task 6 durum ayrımı (orkestratör notu, 20 Ekim 2026)
+
+Yukarıdaki tablo 28 Eylül 2026 kaydıdır ve değiştirilmedi. Yayının gerçekleşmesi ile kabulün tamamlanması ayrı tutulur:
+
+| Konu | Durum | Kanıt |
+|---|---|---|
+| Kamuya açma gerçekleşti | **Gerçekleşti** (28 Eylül 2026) | Yukarıdaki anonim ana sayfa, 301, `robots.txt`, sitemap ve P1 satırları |
+| Yönlendirme deposu 29/4 | **Gerçekleşti** | Yukarıdaki yönlendirme ve yükleyici temizliği satırları |
+| İlk gözlem penceresi 5xx/PHP hata teyidi | **AÇIK** — kayıtta sonuç yok | Bu depoda kanıt yok |
+| İlk gözlem penceresi SMTP hata teyidi | **AÇIK** — kayıtta sonuç yok | Bu depoda kanıt yok |
+| Task 6 kabulü | **AÇIK** (BEKLİYOR) | Yukarıdaki iki açık satır kapanmadan kapatılmaz |
+
+Bu not sunucuya erişilmeden yazıldı; yeni bir sunucu doğrulaması içermez.
+
 ## 7. Ruling ve sapmalar
 
 - Operasyonel geçişte RED/GREEN kanıtı her kapının gerçek FAIL/PASS ölçümüdür; üretim kodu değişikliği yoktur.
