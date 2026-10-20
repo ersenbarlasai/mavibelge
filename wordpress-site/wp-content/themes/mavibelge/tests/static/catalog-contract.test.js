@@ -198,8 +198,9 @@ check(
 	! /return\s+\$sector_slug\s*;/.test( catalogServiceSrc )
 );
 check(
-	'get_all_valid_active_fees() fails a fee closed (continue) when resolve_sector_name_or_null() returns null',
-	/resolve_sector_name_or_null[\s\S]{0,200}continue;/.test( catalogServiceSrc )
+	'get_all_valid_active_fees() fails a fee closed when resolve_sector_name_or_null() returns null (Faz 15: shared rule evaluator returns sector_unresolved, the list loop skips any blocker)',
+	/resolve_sector_name_or_null\( \$sector_slug \);\s*if \( null === \$sector_name \) \{\s*\$result\['blocker'\] = 'sector_unresolved';\s*return \$result;/.test( catalogServiceSrc )
+		&& /\$check = self::evaluate_fee_content_rules\( \$post->ID, \$active_period, \$today \);\s*if \( null !== \$check\['blocker'\] \) \{\s*continue;/.test( catalogServiceSrc )
 );
 check(
 	'class-catalog-service.php caches the sector slug->name map once per request (sector_slug_to_name_map)',

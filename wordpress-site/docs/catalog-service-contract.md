@@ -61,6 +61,12 @@ Sorgu yapmaz — yalnız formatlama. `single_amount_display` (tek seçenek varsa
 
 **Faz 5 Düzeltme ve Kabul §2.5:** `qualification_permalink` artık yalnız `MaviBelge_Core_Visibility_Guard::is_public_qualification()` `true` döndürüyorsa üretilir (`publish` **ve** `_mb_record_status = active`) — eskiden yalnız `post_status === 'publish'` kontrol ediliyordu, bu yüzden pasif ama yayınlanmış bir yeterliliğe bağlı bir ücret, gerçekte 404 dönecek bir bağlantı üretebiliyordu.
 
+**Faz 15:** DTO `vat_rate_percent` taşır (`Meta_Schema::fee_vat_rate_percent()`: kayıtta yoksa 20, geçersizse null). `present_fee()` ek olarak `vat_statement`, `certificate_statement` ve ikisinin birleşimi `pricing_note` döndürür (`Catalog_Query::fee_pricing_statements()`, kaydın değerlerinden; oran/tutar koda gömülü değildir). Tema yalnız `pricing_note`'u basar; tek seçenekli ücrette de etiket ve birimler gösterilir. Bağlantısız ücret (`qualification_id = 0`) listede görünür; MYK kodu yerine "Belirtilmemiştir", detay ve mesleğe özel başvuru bağlantısı üretilmez; hiçbir yeterlilik detayında görünmez.
+
+### `fee_publication_blocker( $post_id )` (Faz 15)
+
+Toplu ücret yayınının ön kontrolü: kayıt etkinleştirilse ziyaretçiye görünür müydü? Yayın durumu (kural 1–2) HARİÇ §3 kural 3–6'yı, ziyaretçi listesinin kullandığı AYNI özel fonksiyonla (`evaluate_fee_content_rules()`) sınar; ikinci bir kural kopyası yoktur. Dönüş `null` veya sabit kod: `no_active_period`, `period_mismatch`, `outside_validity_window`, `price_options_invalid`, `sector_unresolved`, `not_a_fee`.
+
 ## 3. Aktif ücret görünürlük kuralları (brief §5, birebir uygulanan)
 
 Bir `mb_ucret` kaydı yalnız **tümü** doğruysa `get_all_valid_active_fees()`'ten geçer:

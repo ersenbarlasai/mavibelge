@@ -1,0 +1,177 @@
+/* Faz 15 — mb_ucret düzenleme ekranı: okunur fiyat seçeneği sütunları, tam görünen tutarlar, dar ekranda taşmasız yığılma. */
+
+/* Dış alan tablosu sabit düzen: uzun <select> seçenek metni (en uzun yeterlilik adı) hücreyi genişletip kutuyu taşırmasın. */
+.form-table.mavibelge-core-meta-table {
+	table-layout: fixed;
+}
+
+/* Bölünmez uzun sistem değerleri (64 haneli özetler, içe aktarım anahtarı) hücre içinde kırılır. */
+.form-table.mavibelge-core-meta-table td {
+	overflow-wrap: anywhere;
+}
+
+/* WordPress .regular-text (25em) dar sütunda hücreden taşmasın. */
+.form-table.mavibelge-core-meta-table input.regular-text {
+	box-sizing: border-box;
+	max-width: 100%;
+}
+
+.mavibelge-core-price-options-field > td {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.mavibelge-core-field-heading {
+	margin: 0 0 8px;
+}
+
+.mavibelge-core-price-options {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.mavibelge-core-price-options-table {
+	table-layout: auto;
+	width: 100%;
+}
+
+/* WordPress .form-table th/td kuralları (200px sabit başlık genişliği, büyük dolgu) iç tabloya uygulanmasın. */
+.form-table .mavibelge-core-price-options-table th,
+.form-table .mavibelge-core-price-options-table td {
+	width: auto;
+	padding: 6px 8px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.form-table .mavibelge-core-price-options-table .mb-col-order {
+	width: 8rem;
+	white-space: nowrap;
+}
+
+.form-table .mavibelge-core-price-options-table .mb-col-amount {
+	width: 10rem;
+}
+
+.mavibelge-core-price-options-table input.mb-amount-input {
+	min-width: 8.5rem;
+}
+
+.mavibelge-core-price-options-table .mb-amount-preview-wrap {
+	display: block;
+	margin-top: 2px;
+	font-size: 12px;
+	color: #50575e;
+}
+
+.form-table .mavibelge-core-price-options-table .mb-col-actions {
+	width: 4rem;
+}
+
+.mavibelge-core-price-options-table input.mb-label-input {
+	min-width: 10rem;
+}
+
+.mavibelge-core-price-options-table input.mb-units-input {
+	min-width: 7rem;
+}
+
+.mavibelge-core-price-options-table input.mb-label-input,
+.mavibelge-core-price-options-table input.mb-units-input,
+.mavibelge-core-price-options-table input.mb-amount-input {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+}
+
+.mavibelge-core-price-options-table input.mb-sort-input {
+	width: 4rem;
+}
+
+.mavibelge-core-price-options-table input.mb-amount-input,
+.mavibelge-core-price-options-table .mb-amount-preview {
+	font-variant-numeric: tabular-nums;
+}
+
+.mavibelge-core-price-options-table input.mb-amount-input {
+	text-align: right;
+}
+
+.mavibelge-core-price-options-table .mb-amount-preview {
+	display: inline-block;
+	overflow-wrap: anywhere;
+}
+
+.mavibelge-core-price-options-table .mb-amount-invalid {
+	color: #b32d2e;
+	font-weight: 600;
+}
+
+.mavibelge-core-price-options-table .mavibelge-core-move-up,
+.mavibelge-core-price-options-table .mavibelge-core-move-down {
+	min-width: 1.75rem;
+	text-decoration: none;
+}
+
+.mavibelge-core-qualification-select,
+.mavibelge-core-select-filter {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 40rem;
+}
+
+.mavibelge-core-select-filter {
+	display: block;
+	margin-bottom: 6px;
+}
+
+.mavibelge-core-fee-statement {
+	margin: 12px 0 4px;
+	padding: 8px 12px;
+	border-left: 4px solid #2271b1;
+	background: #f0f6fc;
+}
+
+/* Dar düzenleme sütunu (yan panelli küçük masaüstü, tablet, telefon): her seçenek bir kart. */
+@media screen and (max-width: 1100px) {
+	.mavibelge-core-price-options-table,
+	.mavibelge-core-price-options-table tbody,
+	.mavibelge-core-price-options-table tr {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.form-table .mavibelge-core-price-options-table td,
+	.form-table .mavibelge-core-price-options-table .mb-col-order,
+	.form-table .mavibelge-core-price-options-table .mb-col-amount,
+	.form-table .mavibelge-core-price-options-table .mb-col-actions {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.mavibelge-core-price-options-table thead {
+		display: none;
+	}
+
+	.mavibelge-core-price-options-table input.mb-label-input,
+	.mavibelge-core-price-options-table input.mb-units-input,
+	.mavibelge-core-price-options-table input.mb-amount-input {
+		min-width: 0;
+	}
+
+	.mavibelge-core-price-options-table tr.mavibelge-core-price-row {
+		margin-bottom: 12px;
+		border: 1px solid #c3c4c7;
+		border-radius: 4px;
+		padding: 6px 0;
+	}
+
+	.mavibelge-core-price-options-table td[data-label]::before {
+		content: attr(data-label);
+		display: block;
+		font-weight: 600;
+		margin-bottom: 2px;
+	}
+}

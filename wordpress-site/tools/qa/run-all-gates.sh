@@ -15,7 +15,7 @@ WP=mbruntime6b2-wp-1
 FAILS=0
 gate() { # gate <etiket> <komut...>
 	local label="$1"; shift
-	local log="$OUT/$(echo "$label" | tr -c 'A-Za-z0-9' '_').log"
+	local log="$OUT/$(echo "$label" | tr -c 'A-Za-z0-9' '_' | cut -c1-150).log"
 	if "$@" > "$log" 2>&1 && ! grep -q "^FAIL" "$log"; then echo "PASS  $label :: $(tail -1 "$log" | cut -c1-150)"; else echo "FAIL  $label :: $(tail -1 "$log" | cut -c1-150)"; FAILS=$((FAILS + 1)); fi
 }
 cd "$WS"
@@ -53,6 +53,7 @@ gate "tanitim-site/** değişmedi (git)" bash -c "cd '$REPO' && test -z \"\$(git
 gate "korunan kullanıcı dosyaları değişmedi (git)" bash -c "cd '$REPO' && test -z \"\$(git diff --name-only -- 'CLAUDE_*.md' 'STITCH_*.md' tanitim-site .gitignore)\""
 gate "git diff --check (takip edilen dosyalar)" bash -c "cd '$REPO' && git diff --check"
 gate "paketler: üretim + testler" bash -c "node tools/package/build-packages.js --write >/dev/null && node tools/package/test-package.js"
+gate "ücret veri dağıtım paketi (çalışma anı 4 JSON; içerik adlı, ezmez): üretim + testler" bash -c "node tools/package/build-fee-data-package.js --write >/dev/null && node tools/package/test-fee-data-package.js"
 if [ "$RUNTIME" = "1" ]; then
 	echo "== PHP 7.3 / WordPress 6.9.9 runtime kapıları (Docker)"
 	gate "PHP lint (tüm eklenti+tema dosyaları)" docker exec "$WP" sh -c "cd /var/www/html/wp-content && n=0; for f in \$(find plugins/mavibelge-core themes/mavibelge -name '*.php'); do n=\$((n+1)); php -l \$f | grep -v 'No syntax errors'; done; echo \"lint tamam: \$n dosya\"; test -z \"\$(for f in \$(find plugins/mavibelge-core themes/mavibelge -name '*.php'); do php -l \$f | grep -v 'No syntax errors'; done)\""
@@ -64,6 +65,7 @@ if [ "$RUNTIME" = "1" ]; then
 	gate "Faz 7/8/9 HTTP render + form + SEO + yönlendirme + (Faz 10) testleri" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/content-http.sh" "$OUT/content-http"
 	gate "Faz 12 gerçek içe aktarılmış sayfalar: 41/41 rota (güzel /slug/ bağlantı) + yayın kapsamı + form kapalılığı + robots.txt/wp-sitemap.xml (üretim/staging)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/pages-render.sh" "$OUT/pages-render"
 	gate "Faz 12e yeterlilik liste/detay: gerçek katalog (83/14/103), /index.php/ yapısı, filtre/sayfalama/ücret/sektör görseli" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qualification-render.sh" "$OUT/qualification-render"
+	gate "Faz 15 ücret kataloğu: 2 QA başlangıç -> toplu yayın 103 satır/145 seçenek birebir, admin/yetki/mobil, conflict, geri alma, eski hash, eksik dosya yazmasız ret, veri paketi, envanter" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/fee-catalog.sh" "$OUT/fee-catalog"
 	gate "Faz 11 render QA (41 sayfa + boş durum + eklenti pasif)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qa-render.sh" "$OUT/qa-render"
 fi
 echo

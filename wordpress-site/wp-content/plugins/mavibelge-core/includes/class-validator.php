@@ -429,6 +429,22 @@ class MaviBelge_Core_Validator {
 	}
 
 	/**
+	 * Faz 15 — açıklama metni için kısa TL biçimi: tam liralık tutarda kuruş yazılmaz (150000 -> "1.500"), aksi hâlde
+	 * iki haneli kuruşla (150050 -> "1.500,50"). Yalnız tam sayı aritmetiği (float yok); negatif/geçersiz girdi -> null.
+	 *
+	 * @param mixed $kurus
+	 * @return string|null
+	 */
+	public static function kurus_to_lira_compact_display( $kurus ) {
+		if ( ! is_int( $kurus ) || $kurus < 0 ) {
+			return null;
+		}
+		$lira = number_format( intdiv( $kurus, 100 ), 0, ',', '.' );
+		$rest = $kurus % 100;
+		return 0 === $rest ? $lira : $lira . ',' . str_pad( (string) $rest, 2, '0', STR_PAD_LEFT );
+	}
+
+	/**
 	 * Normalizes and validates a raw price-options array (each row
 	 * already carrying an integer amount_kurus — TL-string conversion
 	 * happens one layer up via try_lira_to_kurus(), see
@@ -718,6 +734,11 @@ class MaviBelge_Core_Validator {
 			}
 
 			if ( '' === $label && '' === $amount_try ) {
+				// Faz 15: yalnız birim yazılmış (etiket ve tutar boş) satır sessizce düşürülmez — kullanıcının girdiği veri
+				// kaybolurdu; atomik ret (önceki liste korunur). Sıra alanı her satırda önceden dolu olduğu için boşluk ölçütü değildir.
+				if ( '' !== trim( $units_raw ) ) {
+					$errors[] = 'Birim girilmiş bir satırda etiket ve TL tutarı boş; satırı tamamlayın veya birimleri silin.';
+				}
 				continue; // Blank progressive-enhancement filler row — not an error.
 			}
 

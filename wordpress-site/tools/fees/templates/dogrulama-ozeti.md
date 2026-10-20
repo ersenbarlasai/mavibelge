@@ -1,6 +1,6 @@
 # 2026 Ücret Tarifesi — Doğrulama Özeti ve Mutabakat
 
-> Bu rapor **kurumsal onay değildir**. Canlı/staging'de hiçbir işlem yapılmamıştır; manifestler ve kaynak dosyalar değiştirilmemiştir.
+> Bu rapor kayıtları yayına almaz. Canlı/staging'de hiçbir işlem yapılmamıştır; ücret/yeterlilik/sektör manifestleri ve kaynak dosyalar değiştirilmemiştir. Tek kurum kararı KDV/basım kuralı ve bağlantısız listelemedir ({{DECIDED_ON}}).
 > İlgili dosyalar (bu dizin): `onay-matrisi.md/.csv`, `baglantisiz-19-kayit.md/.csv`, `pdf-medya-esleme-plani.md`, `staging-aktivasyon-plani.md`.
 
 ## 1. {{TOTAL}} kaydın doğrulama özeti
@@ -9,7 +9,9 @@
 
 {{UNREADABLE_LINE}}
 {{MISMATCH_LINE}}
-- `DECISION_REQUIRED` gerekçeleri (bir kayıt birden çok gerekçe taşıyabilir): bağlantısız {{UNLINKED}} kayıt; PDF'de KDV ifadesi olmayan {{VAT_UNVERIFIED}} Güzellik kaydı; PDF adı ile manifest adı farklı {{NAME_DIFF}} kayıt; aynı yeterliliğe iki ücret kaydı bağlı 2 kayıt (#25 ve #86, kod `12UY0061-3/04`).
+- `DECISION_REQUIRED` gerekçeleri (bir kayıt birden çok gerekçe taşıyabilir): bağlantısız {{UNLINKED}} kayıt (MYK kodu kararı); PDF adı ile manifest adı farklı {{NAME_DIFF}} kayıt; aynı yeterliliğe iki ücret kaydı bağlı 2 kayıt (#25 ve #86, kod `12UY0061-3/04`).
+- **KDV/basım ({{DECIDED_ON}} kurum kararı):** tüm ücretlerde %20 KDV dahil, 1.500 TL MYK belge basım ücreti hariç. PDF'de KDV ifadesi olmayan {{VAT_INSTITUTION}} Güzellik kaydının bekleme durumu bu kararla çözüldü (artık `[INFO]`).
+- **Yayın kararı** (`data/content/fee-publication.manifest.json`): yayına uygun {{PUBLISH}}, bekletilen {{HOLD}} (ad farkı / aynı yeterliliğe iki ücret; bkz. `staging-aktivasyon-plani.md`).
 - Yalnız bilgi notu (`[INFO]`) taşıyan kayıtlar (karar değişmedi): PDF grubu ≠ manifest sektörü {{SECTOR_DIFF}} kayıt (ör. Liman/İş makinesi kayıtları PDF'de "Ulaştırma&Lojistik" grubunda, manifestte `is-makineleri`; Metal Kesim/Levha kayıtları PDF'de "Metal" grubunda, manifestte `makine`).
 
 ## 2. Mutabakat ({{RECONCILE_OK}})
@@ -42,9 +44,9 @@
 
 ## 6. Açık noktalar (kurum kararı gerekir)
 
-1. **Güzellik PDF'inde KDV ifadesi yok** — `vat_included=true` yalnız `fees.js` yorumuna dayanır (yorum "her iki kaynakta da" der; Güzellik PDF'inde bu ifade görülmedi). Yazılı teyit veya PDF revizyonu gerekir.
-2. **Bağlantısız {{UNLINKED}} kayıt** — bkz. `baglantisiz-19-kayit.md`.
+1. ~~Güzellik PDF'inde KDV ifadesi yok~~ — **ÇÖZÜLDÜ ({{DECIDED_ON}}):** kullanıcının tüm ücretler için kurumsal kararı — fiyatlar %20 KDV dahil, 1.500 TL MYK belge basım ücreti hariç; tutarlara yeniden KDV eklenmez.
+2. **Bağlantısız {{UNLINKED}} kayıt** — listelenir (bağlantısız gösterim, sahte kod/bağlantı yok); **MYK kodu/yeterlilik ilişkisi kararı açık** — bkz. `baglantisiz-19-kayit.md`.
 3. **PDF adı ≠ manifest adı** kayıtları (ör. "Metal Levha Tezgâh İşçisi" ↔ "Metal Levha İşleme Tezgâh İşçisi", "Isı Yalıtımcı" ↔ "Isı Yalıtımcısı", "OPERAÖTÜRÜ" yazım hatası): kamuya hangi adın yazılacağı kararı.
 4. **Aynı yeterliliğe iki ücret** (`12UY0061-3/04`: MHC/Sahil/Gemi Vinci ve İş Makineleri grubu Mobil Vinç): yeterlilik detayında ikisi de görünür; kurum hangisinin/nasıl gösterileceğini seçmeli.
 5. **Tarife dönemi 2026** yalnız dosya adından çıkarılır; PDF sayfalarında yıl yoktur — kurum "2026 dönemi" teyidi vermeli.
-6. **Belge basım ücreti (1.500 TL)**: fiyatlara dahil değildir (Yeni Meslekler PDF'i açık); Güzellik PDF'inde "belge ücreti" ifadesi başarı koşuluyla geçer — iki PDF'in aynı ücreti anlattığı kurumca teyit edilmeli.
+6. ~~Belge basım ücreti (1.500 TL)~~ — **ÇÖZÜLDÜ ({{DECIDED_ON}}):** bütün ücretlerde 1.500 TL MYK belge basım ücreti sınav fiyatının dışındadır (aynı kurum kararı).

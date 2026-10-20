@@ -285,14 +285,45 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		return $errors;
 	}
 
+	/** Faz 15 — ücret yayın kararı dosyası (tools/fees/build-approval-matrix.js üretir; doğrulama Fee_Publisher'dadır). */
+	const FEE_PUBLICATION_FILE = 'fee-publication.manifest.json';
+
+	/**
+	 * Faz 15 — ücret yayın kararı dosyasını load_one() ile AYNI güvenli okuma kurallarıyla (sabit ad, realpath sınırı, boyut,
+	 * UTF-8, JSON) okur; zarf/kayıt doğrulaması bilerek burada YAPILMAZ (kapalı sözlük MaviBelge_Core_Import_Fee_Publisher'dadır).
+	 *
+	 * @param string|null $baseDirOverride Bkz. load_all().
+	 * @return array{ok: bool, document: array|null, errors: string[]}
+	 */
+	public static function load_fee_publication( $baseDirOverride = null ) {
+		$read = self::read_json_file( self::FEE_PUBLICATION_FILE, $baseDirOverride );
+		if ( ! $read['ok'] ) {
+			return array( 'ok' => false, 'document' => null, 'errors' => $read['errors'] );
+		}
+		return array( 'ok' => true, 'document' => $read['decoded'], 'errors' => array() );
+	}
+
 	private static function load_one( $type, $filename, $baseDirOverride = null ) {
+		$read = self::read_json_file( $filename, $baseDirOverride );
+		if ( ! $read['ok'] ) {
+			return array( 'ok' => false, 'errors' => $read['errors'] );
+		}
+		return self::validate_envelope( $type, $filename, $read['decoded'] );
+	}
+
+	/**
+	 * Sabit adlı bir JSON dosyasını güvenle okur (Faz 15'te load_one()'dan ayrıldı; davranış aynı).
+	 *
+	 * @return array{ok: bool, decoded: array|null, errors: string[]}
+	 */
+	private static function read_json_file( $filename, $baseDirOverride = null ) {
 		$baseDir  = null !== $baseDirOverride ? $baseDirOverride : self::base_dir();
 		$baseReal = realpath( $baseDir );
 		if ( false === $baseReal || ! is_dir( $baseReal ) ) {
 			// Düzeltme ve Kabul §2.5 madde 1 — hata metnine mutlak `$baseDir`
 			// KONMAZ; admin/CLI çıktısına yalnız sabit hata kodu + izinli
 			// dosya adı çıkabilir.
-			return array( 'ok' => false, 'errors' => array( "{$filename}: manifest dizini bulunamadı veya erişilemiyor." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename}: manifest dizini bulunamadı veya erişilemiyor." ) );
 		}
 
 		// Yalnız sabit dosya adı ile birleştirilir — istemciden gelen hiçbir
@@ -300,7 +331,7 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		$candidate = rtrim( $baseReal, '/\\' ) . DIRECTORY_SEPARATOR . $filename;
 		$real      = realpath( $candidate );
 		if ( false === $real ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} bulunamadı." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} bulunamadı." ) );
 		}
 
 		// realpath() SONRASI: çözülmüş gerçek yolun izin verilen temel
@@ -309,39 +340,39 @@ class MaviBelge_Core_Import_Manifest_Loader {
 		// vermez, ama temel dizinin kendisi bir symlink olabilir).
 		$baseWithSep = rtrim( $baseReal, '/\\' ) . DIRECTORY_SEPARATOR;
 		if ( 0 !== strpos( $real, $baseWithSep ) ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} izin verilen dizinin dışında çözümlendi." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} izin verilen dizinin dışında çözümlendi." ) );
 		}
 
 		if ( ! is_file( $real ) || ! is_readable( $real ) ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} okunabilir bir dosya değil." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} okunabilir bir dosya değil." ) );
 		}
 
 		$size = filesize( $real );
 		if ( false === $size || 0 === $size ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} boş." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} boş." ) );
 		}
 		if ( $size > self::MAX_FILE_BYTES ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} izin verilen boyutu aşıyor." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} izin verilen boyutu aşıyor." ) );
 		}
 
 		// PHP hata/uyarı üretmeden okumak için @ ile bastırılır — sonuç zaten
 		// açıkça kontrol edilir, sessiz fatal/uyarı riski yoktur.
 		$raw = @file_get_contents( $real );
 		if ( false === $raw ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} okunamadı." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} okunamadı." ) );
 		}
 		if ( ! self::is_valid_utf8( $raw ) ) {
-			return array( 'ok' => false, 'errors' => array( "{$filename} geçerli UTF-8 değil." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} geçerli UTF-8 değil." ) );
 		}
 
 		$decoded = json_decode( $raw, true );
 		if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $decoded ) ) {
 			// Hata mesajına dosya İÇERİĞİ veya mutlak sunucu yolu KONMAZ —
 			// yalnız dosya adı.
-			return array( 'ok' => false, 'errors' => array( "{$filename} geçerli JSON değil." ) );
+			return array( 'ok' => false, 'decoded' => null, 'errors' => array( "{$filename} geçerli JSON değil." ) );
 		}
 
-		return self::validate_envelope( $type, $filename, $decoded );
+		return array( 'ok' => true, 'decoded' => $decoded, 'errors' => array() );
 	}
 
 	private static function validate_envelope( $type, $filename, array $decoded ) {

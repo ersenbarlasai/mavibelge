@@ -91,17 +91,19 @@ Meta anahtarları `_mb_` önekiyle özeldir (WordPress "protected meta" kuralı 
 
 | Anahtar | Tür | Saklama biçimi |
 |---|---|---|
-| `_mb_qualification_id` | id (→ `mb_yeterlilik`) | integer, eşleşme yoksa `0` |
-| `_mb_qualification_code` | text | string, boş olabilir — uydurulmaz |
+| `_mb_qualification_id` | id (→ `mb_yeterlilik`) | integer, eşleşme yoksa `0` — Faz 15: yönetimde aranabilir seçim ("Meslek — MYK kodu — Seviye N", "Bağlantısız") |
+| `_mb_qualification_code` | text | string, boş olabilir — uydurulmaz; ilişki seçimi bu alanı DEĞİŞTİRMEZ |
 | `_mb_profession_name` | text | string |
 | `_mb_level` | select | string `"1"`–`"8"` |
-| `_mb_sector_slug` | text | normalize slug (`a-z0-9-`) |
+| `_mb_sector_slug` | text | normalize slug (`a-z0-9-`) — Faz 15: yönetimde gerçek `mb_sektor` terimlerinden seçim; terime çözülmeyen değer kaydedilmez |
 | `_mb_tariff_period` | text | kısa string, örn. `2026` |
 | `_mb_valid_from`, `_mb_valid_until` | date | `Y-m-d` veya boş |
 | `_mb_record_status` | select | `draft` \| `active` \| `archived` |
 | `_mb_pricing_type` | select | `single` \| `unit` \| `package` \| **`multiple`** |
-| `_mb_vat_included` | checkbox | boolean |
-| `_mb_certificate_print_fee_kurus` | money_try | depoda kuruş; yönetim ekranında **TL** girilir/gösterilir (ör. `1.500,00`) |
+| `_mb_vat_included` | checkbox | boolean (Faz 15: yeni kayıt formu işaretli açılır) |
+| `_mb_vat_rate_percent` | integer 0–100 | **Faz 15.** KDV oranı (tam sayı yüzde). Kayıtta yoksa okuma varsayılanı `20` (`Meta_Schema::fee_vat_rate_percent()`); geçersiz saklı değer `null` → açıklamada oran yazılmaz. Tutar hesabına GİRMEZ (tutarlar KDV dahil girilir). Import yönetmez |
+| `_mb_certificate_print_fee_kurus` | money_kurus | depoda kuruş; yönetim ekranında **TL** girilir/gösterilir (ör. `1.500,00`); Faz 15: yeni kayıt formu `1.500,00` ile açılır; fiyat seçeneklerine EKLENMEZ |
+| `_mb_fee_publication_marker` | text (sha256), **sistem** | **Faz 15.** Toplu ücret yayını bu kaydı etkinleştirdiyse işareti; yalnız işareti eşleşen ve içeriği değişmemiş kayıt araçla geri alınır |
 | `_mb_source_name` | text | string |
 | `_mb_source_page` | integer | `>= 0` |
 | `_mb_source_attachment_id` | id (→ `attachment`) | integer, yoksa `0` |
@@ -147,6 +149,12 @@ Depoda gösterim için `MaviBelge_Core_Validator::kurus_to_lira_display()` aynı
 **Kayıt Durumu yetkilendirmesi:** `_mb_record_status`'ü `active` veya `archived` yapmak yalnız `publish_mb_ucretler` yetkisine sahip kullanıcılara (administrator, `mb_site_manager`, `mb_reviewer`) açıktır; `mb_price_editor` bunu **yapamaz**. Yönetim ekranında bu iki seçenek, yetkisi olmayan kullanıcı için `<option disabled>` ile görsel olarak da kapatılır (yanıltıcı, çalışmayan bir kontrol gösterilmez) — ancak gerçek zorunlu kural sunucu tarafındadır: `class-meta-boxes.php::guard_ucret_record_status()`, genel alan döngüsünün yazdığı değeri, yetkisiz bir geçiş tespit ederse eski değere geri döndürür (doğrudan POST manipülasyonuna karşı da geçerlidir).
 
 **Aktif tarife dönemi:** Ziyaretçiye gösterilecek dönem, çok sayıda `mb_ucret` kaydından **bağımsız**, tek bir `mb_active_tariff_period` option'ı ile temsil edilir (`admin/class-settings.php`, "Ücret Kaydı → Aktif Tarife Dönemi" ekranı). Yalnız `mb_manage_tariff_period` yetkisi olan kullanıcı (administrator, `mb_site_manager`) değiştirebilir; `mb_price_editor` değiştiremez. Bu fazda ekran ve option mekanizması kuruldu; gerçek bir dönem ataması veya ücret importu **yapılmadı**.
+
+**Faz 15 — KDV/basım açıklaması, yayın durumu ve yönetim ekranı (eklenti 0.5.5):**
+
+- **Standart ziyaretçi açıklaması** kaydın KENDİ değerlerinden üretilir (`MaviBelge_Core_Catalog_Query::fee_pricing_statements()`): `Fiyatlara %<oran> KDV dahildir.` (+ basım ücreti > 0 ise) `<tutar> TL MYK belge basım ücreti fiyatlara dahil değildir.` Kurum kararıyla (2026-10-19) tüm kayıtlarda: "Fiyatlara %20 KDV dahildir. 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir." Tema oran/tutar yazmaz; liste, mobil kart ve yeterlilik detayı aynı alanı (`present_fee()['pricing_note']`) basar. Tutarlara KDV EKLENMEZ, basım ücreti seçeneklere EKLENMEZ.
+- **Yayın durumu import'un yönettiği alan değildir:** `_mb_record_status` ücret yönetilen alan listesinden (`Import_Managed_Fields::FEE_FIELDS`) çıkarıldı. Import yalnız create'te `draft` yazar (`Write_Payload::INITIAL_POST_META`), update dokunmaz. Etkinleştirilen ücret sonraki aktarım önizlemesinde sahte `conflict` üretmez; içerik alanlarındaki elle değişiklik yine `conflict`'tir. 0.5.4 ve öncesinin `record_status=draft` dahil hesaplanmış `_mb_last_applied_hash` değerleri, içerik değişmemişse okumada yeni biçime çevrilir (`Target_Repository::effective_fee_last_applied_hash()`); içerik değişmişse saklı değer aynen kalır (conflict). Eski run'ların uygulama içi geri alınması bu nedenle `drift_detected` ile reddedilir (kapalı yönde).
+- **Yönetim ekranı:** fiyat seçenekleri tam genişlikte; satır ekle (şablon klonu, benzersiz indeks), yukarı/aşağı taşı (sıra yeniden numaralanır), kaldır; tutar kutusunun altında "Kaydedilecek" önizlemesi (görüntü amaçlı; sunucu kuralı tek otorite). Yalnız birim yazılmış (etiket ve tutar boş) satır artık sessizce düşmez: atomik ret. Form `_mb_price_options` hiç göndermezse kayıtlı liste korunur. Sektör ve KDV oranı/basım ücreti değişiklikleri denetim günlüğüne girer.
 
 ### Haber (`mb_haber`)
 

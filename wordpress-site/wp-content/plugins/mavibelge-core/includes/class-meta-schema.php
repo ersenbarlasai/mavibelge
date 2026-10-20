@@ -35,6 +35,33 @@ class MaviBelge_Core_Meta_Schema {
 	const REFERENCE_STATUS             = array( 'real', 'representative' );
 
 	/**
+	 * Faz 15 — yeni ücret kaydı varsayılanları (kurum kararı 2026-10-19: fiyatlar %20 KDV dahil, 1.500 TL MYK belge basım ücreti
+	 * fiyata dahil değil). Ziyaretçi açıklaması bu sabitlerden DEĞİL, kaydın kendi değerlerinden üretilir; sabitler yalnız yeni
+	 * kaydın formunu doldurur ve `_mb_vat_rate_percent` hiç kaydedilmemiş eski kayıtların okuma varsayılanıdır.
+	 */
+	const DEFAULT_VAT_RATE_PERCENT            = 20;
+	const DEFAULT_CERTIFICATE_PRINT_FEE_KURUS = 150000;
+	const MAX_VAT_RATE_PERCENT                = 100;
+
+	/**
+	 * Faz 15 — bir ücret kaydının KDV oranı (tam sayı yüzde). Kayıtta değer yoksa (import edilmiş/eski kayıt) şema varsayılanı;
+	 * geçersiz saklı değer de varsayılana düşmez — null döner ve çağıran açıklamayı üretmez (kapalı yönde).
+	 *
+	 * @param mixed $raw get_post_meta( $id, '_mb_vat_rate_percent', true ) sonucu.
+	 * @return int|null
+	 */
+	public static function fee_vat_rate_percent( $raw ) {
+		if ( '' === $raw || null === $raw || false === $raw ) {
+			return self::DEFAULT_VAT_RATE_PERCENT;
+		}
+		if ( is_int( $raw ) || ( is_string( $raw ) && 1 === preg_match( '/^(0|[1-9][0-9]{0,2})\z/', $raw ) ) ) {
+			$value = (int) $raw;
+			return $value <= self::MAX_VAT_RATE_PERCENT ? $value : null;
+		}
+		return null;
+	}
+
+	/**
 	 * @return array<string, array<string, array>> post_type => field_key => field config
 	 */
 	public static function get_schema() {
@@ -144,18 +171,21 @@ class MaviBelge_Core_Meta_Schema {
 
 	private static function ucret_fields() {
 		return array(
+			// Faz 15: yönetim ekranında meslek adı + MYK kodu + seviye gösteren aranabilir seçim ('admin_widget'); saklanan değer
+			// aynı kalır (yeterlilik post ID'si, eşleşme yoksa 0 = "Bağlantısız").
 			'_mb_qualification_id'   => array(
-				'label'       => 'Bağlı Yeterlilik (ID)',
-				'type'        => 'id',
+				'label'         => 'Bağlı Yeterlilik',
+				'type'          => 'id',
 				'ref_post_type' => 'mb_yeterlilik',
-				'description' => 'Eşleşme yoksa 0 bırakılabilir.',
-				'default'     => 0,
+				'admin_widget'  => 'qualification_select',
+				'description'   => 'Meslek adı, MYK kodu veya seviye yazarak arayın. Gerçek bir eşleşme yoksa "Bağlantısız" bırakın (detay bağlantısı üretilmez). Bu seçim Kaynak MYK Kodu alanını değiştirmez.',
+				'default'       => 0,
 			),
 			'_mb_qualification_code' => array(
 				'label'       => 'Kaynak MYK Kodu (denetim kopyası)',
 				'type'        => 'text',
 				'format'      => 'myk_code',
-				'description' => 'Boş olabilir; uydurulmaz.',
+				'description' => 'Kaynak tarifedeki kod; boş olabilir, uydurulmaz. Bağlı yeterlilik seçimi bu alanı otomatik değiştirmez.',
 			),
 			'_mb_profession_name'    => array(
 				'label' => 'Meslek Adı',
@@ -166,11 +196,14 @@ class MaviBelge_Core_Meta_Schema {
 				'type'    => 'select',
 				'options' => array( '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8' ),
 			),
+			// Faz 15: yönetim ekranında mevcut `mb_sektor` terimlerinden seçim ('admin_widget'); dahili depolama ve import
+			// sözleşmesi DEĞİŞMEDİ (normalize slug metni). Kaydederken slug gerçek bir terime çözülmezse yazılmaz.
 			'_mb_sector_slug'        => array(
-				'label'       => 'Sektör Slug (import eşlemesi)',
-				'type'        => 'text',
-				'format'      => 'slug',
-				'description' => 'Küçük harf, tire ile ayrılmış normalize slug.',
+				'label'        => 'Sektör',
+				'type'         => 'text',
+				'format'       => 'slug',
+				'admin_widget' => 'sector_select',
+				'description'  => 'Mevcut sektörlerden seçin (dahili olarak sektör slug\'ı saklanır).',
 			),
 			'_mb_tariff_period'      => array(
 				'label'       => 'Tarife Dönemi',
@@ -216,9 +249,23 @@ class MaviBelge_Core_Meta_Schema {
 				),
 			),
 			'_mb_vat_included'       => array(
-				'label'   => 'KDV Dahil',
-				'type'    => 'checkbox',
-				'default' => true,
+				'label'             => 'KDV Dahil',
+				'type'              => 'checkbox',
+				'default'           => true,
+				// Faz 15: YALNIZ yeni (auto-draft) kaydın formu işaretli açılır; mevcut kayıtların değeri değişmez.
+				'admin_default_new' => true,
+				'description'       => 'İşaretliyse girilen tutarlar son kullanıcıya gösterilen KDV DAHİL tutarlardır; tutarlara ayrıca KDV eklenmez.',
+			),
+			// Faz 15 — KDV oranı (tam sayı yüzde). Ziyaretçi açıklaması ("Fiyatlara %20 KDV dahildir.") bu değerden üretilir; tutar
+			// hesabına GİRMEZ. Değer hiç kaydedilmemişse okuma varsayılanı DEFAULT_VAT_RATE_PERCENT (fee_vat_rate_percent()).
+			'_mb_vat_rate_percent'   => array(
+				'label'         => 'KDV Oranı (%)',
+				'type'          => 'integer',
+				'min'           => 0,
+				'max'           => self::MAX_VAT_RATE_PERCENT,
+				'default'       => self::DEFAULT_VAT_RATE_PERCENT,
+				'admin_default' => self::DEFAULT_VAT_RATE_PERCENT,
+				'description'   => 'Tam sayı yüzde (örn. 20). Yalnız ziyaretçi açıklamasında kullanılır; fiyatlara eklenmez.',
 			),
 			// Faz 6B3 Önkoşul — kök neden: bu alan eskiden 'money_try' idi;
 			// kayıtlı sanitize callback'i HER update_post_meta çağrısında
@@ -229,9 +276,12 @@ class MaviBelge_Core_Meta_Schema {
 			// TL girişi YALNIZ admin form katmanında ('admin_input' => 'try')
 			// kuruşa çevrilir. Kayıtlı sanitize kanonik değerde idempotenttir.
 			'_mb_certificate_print_fee_kurus' => array(
-				'label'       => 'Belge Basım Ücreti (TL)',
-				'type'        => 'money_kurus',
-				'admin_input' => 'try',
+				'label'             => 'MYK Belge Basım Ücreti (TL)',
+				'type'              => 'money_kurus',
+				'admin_input'       => 'try',
+				// Faz 15: yeni kayıt formu 1.500,00 TL ile açılır; mevcut kayıtların değeri değişmez.
+				'admin_default_new' => self::DEFAULT_CERTIFICATE_PRINT_FEE_KURUS,
+				'description'       => 'Sınav fiyatına DAHİL DEĞİLDİR ve fiyat seçeneklerine eklenmez; ziyaretçiye ayrı bilgi olarak gösterilir. Boş = gösterilmez.',
 			),
 			'_mb_source_name'        => array(
 				'label' => 'Kaynak Tarife Adı',
@@ -282,6 +332,15 @@ class MaviBelge_Core_Meta_Schema {
 			),
 			'_mb_last_applied_hash'  => array(
 				'label'          => 'Son Uygulanan Veri Özeti (sistem)',
+				'type'           => 'text',
+				'format'         => 'sha256_hash',
+				'readonly'       => true,
+				'system_managed' => true,
+			),
+			// Faz 15 — ücret toplu yayın işlemi (MaviBelge_Core_Import_Fee_Publisher) bu kaydı etkinleştirdiyse onun işareti;
+			// "Yayından kaldır" yalnız işaret eşleşen ve içeriği değişmemiş kayıtları geri alır. Elle düzenlenemez.
+			'_mb_fee_publication_marker' => array(
+				'label'          => 'Toplu Ücret Yayını İşareti (sistem)',
 				'type'           => 'text',
 				'format'         => 'sha256_hash',
 				'readonly'       => true,

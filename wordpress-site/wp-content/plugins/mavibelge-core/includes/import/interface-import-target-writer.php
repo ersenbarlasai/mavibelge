@@ -107,6 +107,26 @@ interface MaviBelge_Core_Import_Target_Writer {
 	public function content_post_status( $type, $postId );
 
 	/**
+	 * Faz 15 — bir ücret kaydının yayın durumu (SALT OKUNUR): WordPress durumu, `_mb_record_status` ve toplu yayın işareti.
+	 *
+	 * @param int $postId
+	 * @return array{post_status: string, record_status: string, marker: string}|null Kayıt yoksa/türü mb_ucret değilse null.
+	 */
+	public function fee_publication_state( $postId );
+
+	/**
+	 * Faz 15 — ücret yayın geçişi. `$activate` true: YALNIZ `draft` + `_mb_record_status = draft` -> `active` + işaret + `publish`.
+	 * false: YALNIZ `publish` + `active` + işaret === `$marker` -> `draft` + işaret silinir + `draft`. Başka hiçbir alan değişmez;
+	 * katı readback yapılır.
+	 *
+	 * @param int    $postId
+	 * @param bool   $activate
+	 * @param string $marker 64 haneli küçük harf hex.
+	 * @return array{ok: bool, id: int|null, error: string|null}
+	 */
+	public function set_fee_publication( $postId, $activate, $marker );
+
+	/**
 	 * Faz 12c — dosya sistemi yan etkisi kapsamı (DB transaction'ı dosyaları geri almaz). Batch başında açılır; YALNIZ bu batch'te
 	 * YENİ oluşturulan dosyalar/attachment'lar kaydedilir (yeniden kullanılan mevcut attachment/dosya ASLA kaydedilmez).
 	 *

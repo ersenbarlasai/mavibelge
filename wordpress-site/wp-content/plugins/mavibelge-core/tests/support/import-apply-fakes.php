@@ -220,13 +220,15 @@ class MB_Fake_World_Repository implements MaviBelge_Core_Import_Target_Repositor
 					'pricing_type' => '_mb_pricing_type', 'price_options' => '_mb_price_options', 'vat_included' => '_mb_vat_included',
 					'certificate_print_fee_kurus' => '_mb_certificate_print_fee_kurus', 'source_name' => '_mb_source_name',
 					'source_page' => '_mb_source_page', 'source_attachment_id' => '_mb_source_attachment_id',
-					'tariff_period' => '_mb_tariff_period', 'record_status' => '_mb_record_status',
+					'tariff_period' => '_mb_tariff_period',
 					'valid_from' => '_mb_valid_from', 'valid_until' => '_mb_valid_until',
 				);
 				foreach ( $map as $field => $key ) {
 					$raw[ $field ] = $this->meta( $p, $key );
 				}
 				$fields = $R::fee_fields_from_raw( $raw );
+				// Faz 15: gerçek repository ile AYNI eski hash geçiş kuralı.
+				$hash['value'] = $R::effective_fee_last_applied_hash( $hash['value'], $fields );
 			}
 		}
 		return array(
@@ -428,6 +430,11 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 	public function create_post( array $payload ) {
 		$id                   = $this->w->nextId++;
 		$this->w->posts[ $id ] = array( 'post_type' => $payload['post']['post_type'], 'title' => '', 'status' => 'draft', 'content' => '', 'name' => '', 'excerpt' => '', 'date' => '', 'parent' => 0, 'menu_order' => 0, 'extra' => array(), 'meta' => array(), 'terms' => array() );
+		// Faz 15: gerçek yazıcı gibi YALNIZ create'te başlangıç meta'sı (ücret: _mb_record_status = draft).
+		$type = isset( $payload['type'] ) ? $payload['type'] : '';
+		foreach ( isset( MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $type ] ) ? MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $type ] : array() as $k => $v ) {
+			$this->w->posts[ $id ]['meta'][ $k ] = MB_Fake_World::stored( $v );
+		}
 		return $this->write_post( $id, $payload, 'create_post' );
 	}
 
@@ -473,7 +480,12 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 			$p['meta']['_mb_logo_attachment_id'] = MB_Fake_World::stored( $attId );
 		}
 		if ( $this->w->fault( 'corrupt_meta', $this->key( $payload ) ) ) {
-			$p['meta']['_mb_record_status'] = 'bozulmus';
+			// Faz 15: ücrette `_mb_record_status` yönetilen alan değildir; bozulma YÖNETİLEN bir alana uygulanır.
+			if ( 'mb_ucret' === $p['post_type'] ) {
+				$p['meta']['_mb_profession_name'] = 'bozulmus';
+			} else {
+				$p['meta']['_mb_record_status'] = 'bozulmus';
+			}
 		}
 		if ( $this->w->fault( 'touch_unmanaged', $this->key( $payload ) ) ) {
 			$p['content'] = 'yönetilmeyen alana dokunuldu';
@@ -535,6 +547,52 @@ class MB_Fake_Writer implements MaviBelge_Core_Import_Target_Writer {
 		$this->w->posts[ $postId ]['status'] = 'publish';
 		if ( $this->w->fault( 'publish_corrupt', (string) $postId ) ) {
 			$this->w->posts[ $postId ]['content'] = 'yayın sırasında bozuldu';
+		}
+		return self::res( true, $postId );
+	}
+
+	public function fee_publication_state( $postId ) {
+		if ( ! isset( $this->w->posts[ $postId ] ) || 'mb_ucret' !== $this->w->posts[ $postId ]['post_type'] ) {
+			return null;
+		}
+		$p = $this->w->posts[ $postId ];
+		return array(
+			'post_status'   => $p['status'],
+			'record_status' => isset( $p['meta']['_mb_record_status'] ) && is_string( $p['meta']['_mb_record_status'] ) ? $p['meta']['_mb_record_status'] : '',
+			'marker'        => isset( $p['meta']['_mb_fee_publication_marker'] ) && is_string( $p['meta']['_mb_fee_publication_marker'] ) ? $p['meta']['_mb_fee_publication_marker'] : '',
+		);
+	}
+
+	public function set_fee_publication( $postId, $activate, $marker ) {
+		$state = $this->fee_publication_state( $postId );
+		if ( ! is_bool( $activate ) || ! is_string( $marker ) || 1 !== preg_match( '/^[0-9a-f]{64}\z/', $marker ) ) {
+			return self::res( false, null, 'payload_shape' );
+		}
+		if ( null === $state ) {
+			return self::res( false, null, 'fee_missing' );
+		}
+		$this->w->writeLog[] = ( $activate ? 'activate_fee:' : 'deactivate_fee:' ) . $postId;
+		if ( $this->w->fault( $activate ? 'activate_fee' : 'deactivate_fee', (string) $postId ) ) {
+			return self::res( false, null, 'injected_failure' );
+		}
+		$p = &$this->w->posts[ $postId ];
+		if ( $activate ) {
+			if ( 'draft' !== $state['post_status'] || 'draft' !== $state['record_status'] || '' !== $state['marker'] ) {
+				return self::res( false, null, 'fee_not_draft' );
+			}
+			$p['meta']['_mb_record_status']          = 'active';
+			$p['meta']['_mb_fee_publication_marker'] = $marker;
+			$p['status']                             = 'publish';
+		} else {
+			if ( 'publish' !== $state['post_status'] || 'active' !== $state['record_status'] || $marker !== $state['marker'] ) {
+				return self::res( false, null, 'fee_not_activated_by_publisher' );
+			}
+			$p['status']                    = 'draft';
+			$p['meta']['_mb_record_status'] = 'draft';
+			unset( $p['meta']['_mb_fee_publication_marker'] );
+		}
+		if ( $this->w->fault( 'fee_corrupt', (string) $postId ) ) {
+			$p['meta']['_mb_profession_name'] = 'yayın sırasında bozuldu';
 		}
 		return self::res( true, $postId );
 	}

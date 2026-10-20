@@ -99,3 +99,37 @@ Testler: gerçek WordPress `theme-urls-test.php` (iki yapı, fragment, CPT arşi
 Ek doğrulama (20 Ekim 2026, konsolidasyon görevi): Git'e alınan Faz 14 ağacının LF blob'ları `mavibelge-theme-0.6.9.zip` (98 dosya) ve `mavibelge-core-0.5.4.zip` (91 dosya) paket manifestiyle **189/189 eşit**. Faz 14'ün güncel kodda yeniden koşulan testleri Faz 15 bölümündeki tam kapı koşusunun içindedir.
 **Yayın:** tema 0.6.9 29 Eylül 2026'da staging kabulü atlanarak doğrudan canlıya kuruldu (iki ayırt edici statik dosyada SHA-256 eşitliği; yüksek güven). Eklenti 0.5.4 kullanıcı tarafından canlı yönetim ekranında doğrulandı. Staging bu kayıt anında 0.6.8'deydi.
 **Açık kurum kararları (çözülmüş SAYILMAZ):** form kapısı `/kvkk/` sayfasının varlığına bağlı değildir (sayfa yoksa yalnız yönetim uyarısı); `consent_version` sayfa içeriğine bağlı değildir.
+
+## Faz 15 — sınav ücretleri tam aktarım, KDV/basım açıklaması, toplu yayın ve ücret yönetimi (tema 0.6.10, eklenti 0.5.5; TARİHSEL KAYIT)
+**Kapsam:** `raporlar/ucret-katalogu-faz15-raporu-20261020.md`, `raporlar/ucret-katalogu-faz15-ek-raporu-20261020.md`; karar: `raporlar/ucret-alti-kayit-onayi-20261020.md`.
+**Kayıtlı sonuçlar (20 Ekim 2026, MaviBelge-kvkk çalışma alanı; bu bölümde yeniden koşulmadı):**
+
+| Test | Kayıtlı çıktı | Not |
+|---|---|---|
+| `run-all-gates.sh --runtime` (07:19–07:53) | 59 PASS / 0 FAIL, `TÜM KAPILAR GEÇTİ (yerel).` | Çıkış kodu **doğrudan yakalanmadı** (sarmalayıcı kabuk durduruldu); son satırdan türetildi. Karar dosyası o an 97/6 idi |
+| Önceki koşu (06:50) | 57 PASS / 1 FAIL | Log dosya adı 255 bayt sınırı; geçersiz sayıldı |
+| Altı kayıt onayı sonrası (08:13) | ücret matrisi 53/53, veri paketi 13/13 | Tam runtime bu turda tekrarlanmadı |
+
+Bu görevde (konsolidasyon) son birleşik kod üzerinde koşulan testler aşağıdaki "Konsolidasyon doğrulaması" bölümündedir.
+
+## Konsolidasyon doğrulaması (20 Ekim 2026) — BU GÖREVDE ÇALIŞTIRILDI
+**Test edilen commit:** `1dc2decca558a4264aacf30fd2f800cf96f6dffe` (`codex/fee-catalog-faz15`; canlı geçiş + Faz 14 + Faz 15 birleşik ağacı). Bu bölümün eklendiği commit yalnız bu belgeyi değiştirir.
+**Ortam:** depo dışı klon `E:\PROJELER\MaviBelge-qa-20261020-kesin` (LF checkout; 55 dosya — `tanitim-site` HTML/`news.js`/haber SVG'leri, iki ücret CSV'si, `page.schema.json`, dört araç dosyası — Windows çalışma kopyasındaki gibi CRLF; bu 55 dosya `MaviBelge-kvkk` çalışma alanıyla byte-eşit). PHP 7.3.33 + WordPress 6.9.9 + MariaDB 10.11 Docker (`mbruntime6b2-wp-1` bu klonu salt okunur bağlar), headless Chrome.
+**Komut:** `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <log>/gates`; çıkış kodu doğrudan dosyaya yazıldı.
+
+| | |
+|---|---|
+| Zaman | 19:06:01 → 19:37:40 (+03:00) |
+| Sonuç | **59 PASS / 0 FAIL**, `TÜM KAPILAR GEÇTİ (yerel).` |
+| Çıkış kodu | **0** (doğrudan yakalandı) |
+| Kod parmak izi | 812 izlenen dosyanın SHA-256 listesi koşu öncesi ve sonrası **aynı** |
+| Seçili sayaçlar | lint 197 dosya; `tests/run.php` 1628/1628 ×2 byte-eşit; KVKK runtime 156/156; Faz 15 ücret runtime 71/71 + 9/9; ücret matrisi 53/53; veri paketi 13/13; paket testi 27/27; içerik manifesti 12/12; her runtime kapısında ana DB/dosya/uploads farkı 0, debug.log 0 |
+| Paket determinizmi | Kapının sıfırdan ürettiği `mavibelge-theme-0.6.10.zip` (`17dfe7a9…6fc44`), `mavibelge-core-0.5.5.zip` (`2cc3c168…cc37`) ve `mavibelge-ucret-verisi-20261020-7b720433.zip` (`a7a4173b…3fcae`) yayımlanan dosyalarla byte-eşit |
+
+Ücret regresyonu (aynı koşu, Faz 15 kapısı): 103 ücret / 145 seçenek, karar 103 publish / 0 hold, her satırda "Fiyatlara %20 KDV dahildir. 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir."; bağlantısız 19 satır kodsuz ve bağlantısız, bağlı 84; Kazıcı Yükleyici (Beko Loder) kodsuz/bağlantısız; iki Mobil Vinç tarifesi ayrı satır ve `12UY0061-3/04` detayında adlarıyla ayrı. KVKK: beş formda kısa bağlantılı onay (`kvkk-consent-test.js`).
+
+**Bu görevde bulunan ve düzeltilen hata:** altı kayıt onayından sonra (karar 103/0) PHP birim testi 97/6 bekliyordu (1627/1628) ve runtime ücret testi 97 satır / 136 seçenek bekliyordu; bu testler onaydan sonra koşulmamıştı. Testler `1dc2dec` ile 103/0'a göre güncellendi; ürün kodu ve paketler değişmedi.
+**İlk tanı koşusu (aynı gün, düzeltmeden önce, tam LF klon):** 51 PASS / 8 FAIL, çıkış 8 — 2 eski 97/6 testi + 6 satır sonu kaynaklı (kaynak SHA-256 değerleri yukarıdaki 55 dosyanın CRLF baytlarına göre üretilmiştir). Log: `E:\PROJELER\MaviBelge-qa-20261020-loglar`.
+**Ayrıca çalıştırıldı:** `tools/ops/redirect-bootstrap` — `test-package.js` 11/11 ve PHP 7.3 `tests/run.php` 57/57 (CRLF çalışma kopyasında; onaylı manifest hash'i CRLF baytlarına aittir, LF kopyada tasarım gereği reddeder). `redirect-bootstrap/tests/runtime.sh` çalıştırılmadı.
+**Çalıştırılmayan / bu görevin kapsamı dışında:** staging/canlı doğrulaması (sunucuya erişilmedi), gerçek e-posta, aXe/Lighthouse.
+**Log:** `E:\PROJELER\MaviBelge-qa-20261020-kesin-loglar\` (Git dışında).

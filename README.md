@@ -97,8 +97,21 @@ Mimari **WordPress + özel `mavibelge` teması (0.6.0) + özel `mavibelge-core` 
 Yerel kod fazları tamamlandı: 6B3 düzeltmeleri (create-rollback drift koruması, rollback→yeniden apply, atomik durum+audit), Faz 7 (içerik servisleri, yönetim, haber/referans import),
 Faz 8 (varsayılan **kapalı** güvenli form altyapısı), Faz 9 (SEO/schema/sitemap/yönlendirme), Faz 10 (performans/güvenlik/bakım), Faz 11 (render QA), yerel paketleme.
 Kanıt ve açık kapılar: `wordpress-site/docs/qa-report.md`; kurum kararları: `wordpress-site/docs/institution-decisions.md`; paket/staging/geri dönüş: `wordpress-site/docs/release-runbook.md`.
-Tüm kapılar: `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <dizin>`. **Canlı/staging/DNS/mail değişmedi; gerçek katalog apply edilmedi; commit/push/deploy yapılmadı.**
+Tüm kapılar: `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <dizin>`. **Tarihsel (26 Eylül 2026 itibarıyla):** canlı/staging/DNS/mail değişmemişti; gerçek katalog apply edilmemişti; commit/push/deploy yapılmamıştı. Bu cümle artık güncel durumu anlatmaz — aşağıdaki "Güncel durum" bölümüne bakın.
 
 **Faz 6B4 (26 Eylül 2026 — yerel kod):** SSH/WP-CLI olmayan hosting için admin panelinden güvenli, kesintiye dayanıklı katalog aktarımı — sektör görsel eşleme (10 sektör / 9 benzersiz görsel, elle, doğrulanmış), aşama önizleme,
 çok istekli apply/rollback (istek başına en çok 10 kayıt, kalıcı checkpoint, çift tıklama/eski istek/paralel istek koruması), staging/üretim için ayrı ve varsayılan **kapalı** wp-config sabitleri; WP-CLI yolu aynı çalışma-zamanı grafiğini kullanır.
-Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. Gerçek staging/canlı apply **çalıştırılmadı**; commit/push/deploy yapılmadı.
+Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. (Tarihsel, 26 Eylül 2026: gerçek staging/canlı apply çalıştırılmamıştı; commit/push/deploy yapılmamıştı.)
+
+## Güncel durum (20 Ekim 2026)
+
+- **Canlı geçiş yapıldı.** `mavibelge.com.tr` 28 Eylül 2026'da yeni WordPress sitesine geçti ve kamuya açıldı (tema 0.6.8 / eklenti 0.5.3 ile).
+  Kayıt: [`raporlar/canli-gecis-kayit-sablonu.md`](raporlar/canli-gecis-kayit-sablonu.md). Task 6 kabulü **açık**: gözlem penceresinin 5xx/PHP/SMTP
+  teyidi kayıtlı değil (§6.5.1).
+- **KVKK (Faz 14):** tema 0.6.9 29 Eylül 2026'da staging kabulü atlanarak canlıya kuruldu (statik dosya hash'leriyle yüksek güvenle eşleşti);
+  eklenti 0.5.4 kullanıcı tarafından canlı yönetim ekranında doğrulandı. Kaynak artık Git'te (189/189 paket dosyası eşit).
+- **Sınav ücretleri (Faz 15):** yerel geliştirme paketleri tema 0.6.10 / eklenti 0.5.5. Karar dosyası 103 ücret / 145 seçenek, 103 publish / 0 hold
+  (%20 KDV dahil, 1.500 TL belge basım ücreti hariç). Veri paketi `mavibelge-ucret-verisi-20261020-7b720433.zip`. Kullanıcı paketi yükleyip ücretleri
+  yönetim panelinden elle aktif yaptı; ekran görüntüsündeki özet: hazır 0, yayında 103, araçla geri alınabilir 0, bağlantısız 19 (hepsi yayında).
+  Ortamın kurulu tema/eklenti sürümleri bu depodan doğrulanmadı. Yönerge: [`wordpress-site/docs/ucret-staging-uygulama-yonergesi.md`](wordpress-site/docs/ucret-staging-uygulama-yonergesi.md).
+- Staging (`cms-yeni`) son bilinen kayıtta 0.6.8'deydi; canlı staging'in önünde. Ayrıntılı ve doğrulanmış durum: [`raporlar/proje-durumu.md`](raporlar/proje-durumu.md).

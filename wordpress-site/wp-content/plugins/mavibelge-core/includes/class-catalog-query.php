@@ -277,6 +277,31 @@ class MaviBelge_Core_Catalog_Query {
 		return $args;
 	}
 
+	/**
+	 * Faz 15 — SAF: bir ücretin standart ziyaretçi açıklaması, YALNIZ kaydın kendi değerlerinden. Kurum kararı (2026-10-19) ile
+	 * tüm kayıtlarda bu, "Fiyatlara %20 KDV dahildir. 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir." olur; oran
+	 * veya tutar koda gömülmez. Oran geçersizse (null) oran yazılmaz; basım ücreti 0 ise basım cümlesi üretilmez (asla "0 TL").
+	 * Basım ücreti fiyat seçeneklerine EKLENMEZ — burada yalnız metin üretilir.
+	 *
+	 * @param bool     $vat_included
+	 * @param int|null $vat_rate_percent
+	 * @param int      $certificate_kurus
+	 * @return array{vat_statement: string, certificate_statement: string, pricing_note: string}
+	 */
+	public static function fee_pricing_statements( $vat_included, $vat_rate_percent, $certificate_kurus ) {
+		$rate = is_int( $vat_rate_percent ) && $vat_rate_percent >= 0 ? '%' . $vat_rate_percent . ' ' : '';
+		$vat  = $vat_included ? 'Fiyatlara ' . $rate . 'KDV dahildir.' : 'Fiyatlara ' . $rate . 'KDV dahil değildir.';
+		$cert = '';
+		if ( is_int( $certificate_kurus ) && $certificate_kurus > 0 ) {
+			$cert = MaviBelge_Core_Validator::kurus_to_lira_compact_display( $certificate_kurus ) . ' TL MYK belge basım ücreti fiyatlara dahil değildir.';
+		}
+		return array(
+			'vat_statement'         => $vat,
+			'certificate_statement' => $cert,
+			'pricing_note'          => '' === $cert ? $vat : $vat . ' ' . $cert,
+		);
+	}
+
 	private static function str_length( $value ) {
 		return function_exists( 'mb_strlen' ) ? mb_strlen( $value ) : strlen( $value );
 	}

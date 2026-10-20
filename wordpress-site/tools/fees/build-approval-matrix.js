@@ -10,8 +10,18 @@
  * data/content/sectors.manifest.json, tools/fees/pdf-observations.json (PDF sayfa görüntülerinden elle çıkarılmış transkripsiyon),
  * tanitim-site/ucret/*.pdf (yalnız SHA-256 doğrulaması için okunur).
  *
- * Kurum kararı sütunları ÖNCEDEN DOLDURULMAZ (BEKLIYOR). Hiçbir MYK kodu üretilmez/tahmin edilmez.
+ * Hiçbir MYK kodu üretilmez/tahmin edilmez.
  * Doğrulama sonucu (kayıt başına TEK karar): VERIFIED | MISMATCH | UNREADABLE | DECISION_REQUIRED.
+ *
+ * Faz 15 — KURUM KARARLARI (yalnız INSTITUTION_DECISIONS'ta; kayıt kayıt elle doldurulmaz):
+ *  - KDV/basım (2026-10-19, kullanıcının tüm ücretler için kurumsal kararı): fiyatlar son kullanıcıya gösterilen %20 KDV DAHİL
+ *    tutarlardır (yeniden KDV eklenmez); 1.500 TL MYK belge basım ücreti fiyatlara DAHİL DEĞİLDİR. PDF'de KDV ifadesi olmayan
+ *    kayıtlar artık bu kararla çözülür; manifest bu kurala uymuyorsa MISMATCH (sessiz düzeltme yok).
+ *  - Bağlantısız listeleme (2026-10-19): fiyatı PDF ile doğrulanmış bağlantısız ücret listede gösterilir; MYK kodu/yeterlilik
+ *    ilişkisi kararı AÇIK kalır (kod tahmin edilmez, sahte bağlantı üretilmez).
+ *  - 2026-10-20 onayı: altı kaydın ad/çift bağlantı kararı yalnız sabit kayıt özetleriyle çözülür.
+ * Çıktılar: raporlar/... altındaki matris/özet dosyaları + data/content/fee-publication.manifest.json (eklentinin ücret yayınlayıcısının
+ * okuduğu kayıt başına yayın kararı; her satır ücret manifest kaydının kanonik SHA-256'sına bağlıdır).
  */
 const fs = require('fs');
 const path = require('path');
@@ -20,8 +30,50 @@ const crypto = require('crypto');
 const WS = path.join(__dirname, '..', '..');
 const REPO = path.join(WS, '..');
 const OUT_DIR = path.join(REPO, 'raporlar', 'veri-aktarim-raporlari', 'ucret-2026-onay');
+const DATA_DIR = path.join(WS, 'data', 'content');
+const PUBLICATION_FILE = 'fee-publication.manifest.json';
 const TEMPLATES = path.join(__dirname, 'templates');
 const PDF_DIR = path.join(REPO, 'tanitim-site', 'ucret');
+
+/** Kurum kararları (tek kaynak). */
+const INSTITUTION_DECISIONS = {
+	decided_on: '2026-10-20',
+	vat_decided_on: '2026-10-19',
+	vat: { included: true, rate_percent: 20, certificate_print_fee_kurus: 150000, excluded_from_price: true },
+	basis: 'Kullanıcının 2026-10-19 tarihli talimatı (tüm ücretler için kurumsal karar): referanstaki fiyatlar son kullanıcıya gösterilen %20 KDV dahil tutarlardır, yeniden KDV eklenmez; 1.500 TL MYK belge basım ücreti fiyatlara dahil değildir. Bağlantısız ve fiyatı doğrulanmış ücretler listede gösterilir; MYK kodu tahmin edilmez. 2026-10-20 kullanıcı onayı: altı bekletilen kayıt referanstaki adlarıyla yayımlanır; iki Mobil Vinç tarifesi grup adları ve seçenekleriyle ayrı gösterilir; Beko Loder kodsuz ve bağlantısız kalır. Onay yalnız kayıt özetleri eşleşen altı kayıt içindir.',
+};
+
+/** Yayın kararı kodları (eklentideki MaviBelge_Core_Import_Fee_Publisher sözlüğüyle AYNI; statik test eşitliği doğrular). */
+const APPROVED_PUBLICATION_RECORDS = {
+  "fee:is-makineleri:3:mobil-vinc-operatoru-mhc-sahil-ve-gemi-vinci": "db03ad1fd05c6f02e1a5bbfafcbbbb15cd1a7f21cfbb36bf8bd48ad9b4a1d0c3",
+  "fee:makine:3:metal-levha-isleme-tezg-h-iscisi": "9ff25ebd0643fa08e4c3bd50bf55b770bd78f8b40b313ba863bd35e8283fab80",
+  "fee:makine:4:metal-levha-isleme-tezg-h-operatoru": "018ca611eb5190af6e562285c68afbca47ab296526a0733fe0ae1286cfa5039f",
+  "fee:insaat:3:isi-yalitimcisi": "c62f6f281f27a1c1bc669bea43e2a590c45288acc3a266fd39cbb73ec8ae5ca4",
+  "fee:is-makineleri:3:mobil-vinc-operatoru-is-makineleri-grubu": "ac8ff7f8af3d16b497c6c3c5ac706d6d457d8ae364d976a485f4fca691813f25",
+  "fee:is-makineleri:3:kazici-yukleyici-beko-loder-operatoru": "62f39320ffdbc46a03565de40afe79b2e053056ae8bde0d1d9c6c8357e4015d6"
+};
+
+const HOLD_REASONS = ['pdf_mismatch', 'pdf_unreadable', 'name_differs_from_pdf', 'duplicate_qualification_link'];
+const PUBLICATION_NOTES = ['vat_rule_institution_decision', 'unlinked_listed_without_qualification'];
+
+/** PHP MaviBelge_Core_Import_Hash ile AYNI kanonik JSON: anahtarlar özyinelemeli sıralı, liste sırası korunur, float yok. */
+function canonicalJson(value) {
+	const canon = (v) => {
+		if (v === null || typeof v === 'boolean' || typeof v === 'string') return v;
+		if (typeof v === 'number') {
+			if (!Number.isInteger(v)) throw new Error('kanonik hash: float kabul edilmez');
+			return v;
+		}
+		if (Array.isArray(v)) return v.map(canon);
+		if (typeof v === 'object') {
+			const out = {};
+			for (const k of Object.keys(v).sort()) out[k] = canon(v[k]);
+			return out;
+		}
+		throw new Error('kanonik hash: desteklenmeyen tip');
+	};
+	return JSON.stringify(canon(value));
+}
 
 /** PDF grup başlığı -> bu gruba düşmesi beklenen manifest sektör slug'ları (tarife düzeni; MYK sektörü DEĞİL). */
 const GROUP_SECTORS = {
@@ -196,9 +248,14 @@ function verifyRecord(rec, obs, ctx) {
 	if (!unreadable) checks.codes = sortedEq(mCodes, pCodes) ? 'OK' : 'FARKLI';
 	if (checks.codes === 'FARKLI') diffs.push({ kind: 'MISMATCH', text: 'birim kodları: manifest [' + mCodes.join(',') + '] ≠ PDF [' + pCodes.join(',') + ']' });
 	// 5) KDV + belge basım
-	if (pdf.vat_statement.included === null) {
-		checks.vat = 'KANIT_YOK';
-		diffs.push({ kind: 'DECISION', text: 'KDV: manifest vat_included=' + rec.vat_included + ' ama "' + pdf.file + '" hiçbir sayfasında KDV ifadesi yok (kaynak: yalnız fees.js başlık yorumu); kurumdan yazılı teyit gerekir' });
+	const inst = INSTITUTION_DECISIONS.vat;
+	if (rec.vat_included !== inst.included || rec.certificate_print_fee_kurus !== inst.certificate_print_fee_kurus) {
+		// Kurum kararına (tüm ücretler: %20 KDV dahil, 1.500 TL hariç) aykırı manifest değeri sessizce düzeltilmez.
+		checks.vat = 'KURUM_KARARINA_AYKIRI';
+		diffs.push({ kind: 'MISMATCH', text: 'KDV/basım: manifest (vat_included=' + rec.vat_included + ', basım ' + fmtKurus(rec.certificate_print_fee_kurus) + ') ' + INSTITUTION_DECISIONS.decided_on + ' kurum kararına (%' + inst.rate_percent + ' KDV dahil, ' + fmtKurus(inst.certificate_print_fee_kurus) + ' hariç) aykırı' });
+	} else if (pdf.vat_statement.included === null) {
+		checks.vat = 'KURUM_KARARI';
+		diffs.push({ kind: 'INFO', text: 'KDV: "' + pdf.file + '" sayfalarında KDV ifadesi yok; ' + INSTITUTION_DECISIONS.decided_on + ' kurum kararıyla çözüldü (%' + inst.rate_percent + ' KDV dahil, ' + fmtKurus(inst.certificate_print_fee_kurus) + ' belge basım ücreti hariç)' });
 	} else if (rec.vat_included === pdf.vat_statement.included) {
 		checks.vat = 'OK';
 	} else {
@@ -249,6 +306,34 @@ function verifyRecord(rec, obs, ctx) {
 	return { verdict, checks, diffs, qual };
 }
 
+const HOLD_LABELS = {
+	pdf_mismatch: 'PDF ile manifest arasında fark',
+	pdf_unreadable: 'PDF okunamadı',
+	name_differs_from_pdf: 'PDF adı ile manifest adı farklı — kamuya yazılacak ad kararı bekliyor',
+	duplicate_qualification_link: 'aynı yeterliliğe birden çok ücret bağlı — yeterlilik detayında gösterim kararı bekliyor',
+};
+
+/**
+ * Kayıt başına yayın kararı (publish|hold). Yalnız INSTITUTION_DECISIONS'taki kararlar çözülmüş sayılır; ad farkı ve çift
+ * bağlantı bekletilir. Bağlantısız ama fiyatı tutarlı kayıt listelenir (MYK kodu kararı açık kalır, kod tahmin edilmez).
+ */
+function publicationDecision(rec, v, linked, ctx) {
+	const hold = [];
+	if (v.verdict === 'MISMATCH') hold.push('pdf_mismatch');
+	if (v.verdict === 'UNREADABLE') hold.push('pdf_unreadable');
+	const approved = APPROVED_PUBLICATION_RECORDS[rec.source_key] === recordDigest(rec);
+	if (!approved && v.checks.name === 'AD_FARKI') hold.push('name_differs_from_pdf');
+	if (!approved && linked && (ctx.qLinkCount.get(rec.qualification_source_key) || 0) > 1) hold.push('duplicate_qualification_link');
+	const notes = ['vat_rule_institution_decision'];
+	if (!linked) notes.push('unlinked_listed_without_qualification');
+	return { decision: hold.length ? 'hold' : 'publish', hold_reasons: hold, notes };
+}
+
+/** Ücret manifest kaydının kanonik SHA-256'sı (PHP: MaviBelge_Core_Import_Hash::hash($record)). */
+function recordDigest(rec) {
+	return sha256(canonicalJson(rec));
+}
+
 function build(opts) {
 	const ctx = loadInputs(opts);
 	const { feesDoc, qualsDoc, obsDoc, sectorNames } = ctx;
@@ -257,16 +342,11 @@ function build(opts) {
 		const obs = obsByIdx.get(i);
 		const v = verifyRecord(rec, obs, ctx);
 		const linked = !!rec.qualification_source_key;
-		const blockers = [];
-		if (v.verdict === 'MISMATCH') blockers.push('PDF ile manifest arasında fark');
-		if (v.verdict === 'UNREADABLE') blockers.push('PDF okunamadı');
-		if (!linked) blockers.push('MYK kodu/bağlantı kararı bekliyor');
-		if (v.checks.vat === 'KANIT_YOK') blockers.push('KDV kanıtı yok');
-		if (v.checks.name === 'AD_FARKI') blockers.push('ad farkı kararı bekliyor');
+		const pub = publicationDecision(rec, v, linked, ctx);
 		let eligibility;
-		if (blockers.length) eligibility = 'ENGEL: ' + blockers.join('; ');
-		else eligibility = 'UYGUN ADAY — yalnız kurum onayı sonrası (varsayılan: yayına ALINMAZ)';
-		return { i, rec, obs, v, linked, eligibility, evidence: linked ? null : unlinkedEvidence(rec, qualsDoc) };
+		if ('hold' === pub.decision) eligibility = 'BEKLETİLİR: ' + pub.hold_reasons.map((c) => HOLD_LABELS[c]).join('; ');
+		else eligibility = linked ? 'YAYINA UYGUN — etkinleştirme ayrı, onaylı işlemdir' : 'YAYINA UYGUN (bağlantısız listelenir; MYK kodu kararı açık) — etkinleştirme ayrı, onaylı işlemdir';
+		return { i, rec, obs, v, linked, pub, eligibility, evidence: linked ? null : unlinkedEvidence(rec, qualsDoc) };
 	});
 	const count = (fn) => rows.filter(fn).length;
 	const bySource = {};
@@ -290,7 +370,10 @@ function build(opts) {
 		multiOption: count((r) => r.rec.price_options.length > 1),
 		multiOptionsTotal: rows.filter((r) => r.rec.price_options.length > 1).reduce((a, r) => a + r.rec.price_options.length, 0),
 		byType: rows.reduce((a, r) => { a[r.rec.pricing_type] = (a[r.rec.pricing_type] || 0) + 1; return a; }, {}),
-		vatUnverified: count((r) => r.v.checks.vat === 'KANIT_YOK'),
+		vatInstitution: count((r) => r.v.checks.vat === 'KURUM_KARARI'),
+		publish: count((r) => r.pub.decision === 'publish'),
+		hold: count((r) => r.pub.decision === 'hold'),
+		publishUnlinked: count((r) => r.pub.decision === 'publish' && !r.linked),
 		nameDiff: count((r) => r.v.checks.name === 'AD_FARKI'),
 		sectorGroupDiff: count((r) => r.v.checks.sector === 'GRUP_FARKLI'),
 		distinctQualifications: new Set(rows.filter((r) => r.linked).map((r) => r.rec.qualification_source_key)).size,
@@ -326,6 +409,12 @@ function pdfFile(obsDoc, r) {
 
 const MATRIX_HEADERS = ['source_key', 'meslek', 'seviye', 'sektör', 'MYK kodu', 'bağlı yeterlilik', 'fiyatlandırma türü', 'fiyat seçenekleri', 'KDV', 'belge basım ücreti', 'kaynak PDF', 'kaynak sayfa', 'PDF grubu', 'doğrulama sonucu', 'fark/açıklama', 'kurum kararı', 'yayına uygunluk'];
 
+/** `kurum kararı` sütunu: KDV/basım kuralı tüm kayıtlarda kurum kararıdır; yayın kararı kayıt bazlıdır (bekletme nedenleriyle). */
+function institutionColumn(r) {
+	const vat = 'KDV/basım: ONAY (' + INSTITUTION_DECISIONS.vat_decided_on + ')';
+	return 'hold' === r.pub.decision ? vat + '; yayın: BEKLIYOR' : vat + '; yayın: UYGUN';
+}
+
 function matrixRow(r, ctx) {
 	const rec = r.rec;
 	return [
@@ -337,14 +426,14 @@ function matrixRow(r, ctx) {
 		r.v.qual ? r.v.qual.name + ' [' + r.v.qual.code + ']' : '— (bağlantısız)',
 		rec.pricing_type,
 		optionsText(rec),
-		r.v.checks.vat === 'KANIT_YOK' ? 'KDV dahil (manifest) — PDF\'de KDV ifadesi YOK' : rec.vat_included ? 'KDV dahil (PDF: %20)' : 'KDV hariç',
+		r.v.checks.vat === 'KURUM_KARARI' ? 'KDV dahil (%20; PDF\'de ifade yok — kurum kararı ' + INSTITUTION_DECISIONS.decided_on + ')' : rec.vat_included ? 'KDV dahil (PDF: %20)' : 'KDV hariç',
 		fmtKurus(rec.certificate_print_fee_kurus) + ' (fiyatlara dahil değil)',
 		pdfFile(ctx.obsDoc, r),
 		rec.source_page,
 		r.obs.group,
 		r.v.verdict,
 		verdictNote(r),
-		'BEKLIYOR',
+		institutionColumn(r),
 		r.eligibility,
 	];
 }
@@ -374,7 +463,7 @@ function renderOutputs(opts) {
 	const mdHeaders = ['#', 'source_key', 'meslek', 'sv', 'sektör', 'MYK kodu', 'bağlı yeterlilik', 'tür', 'fiyat seçenekleri', 'KDV / basım', 'kaynak', 'sonuç', 'fark/açıklama', 'kurum kararı', 'yayına uygunluk'];
 	const mdRows = rows.map((r, idx) => {
 		const m = matrix[idx];
-		return [idx + 1, m[0], m[1], m[2], r.rec.sector_slug, m[4] || '—', m[5], m[6], m[7], (r.v.checks.vat === 'KANIT_YOK' ? 'KDV KANITI YOK' : 'KDV dahil') + ' / 1.500,00 TL hariç', (r.obs.pdf === 'yeni' ? 'Yeni Meslekler' : 'Güzellik') + ' s.' + m[11], m[13], m[14], m[15], m[16]];
+		return [idx + 1, m[0], m[1], m[2], r.rec.sector_slug, m[4] || '—', m[5], m[6], m[7], '%20 KDV dahil / 1.500,00 TL hariç', (r.obs.pdf === 'yeni' ? 'Yeni Meslekler' : 'Güzellik') + ' s.' + m[11], m[13], m[14], m[15], m[16]];
 	});
 	const verdictLines = Object.keys(S.verdict).map((k) => '- **' + k + '**: ' + S.verdict[k]).join('\n');
 	outputs['onay-matrisi.md'] = template('onay-matrisi.md', {
@@ -389,7 +478,7 @@ function renderOutputs(opts) {
 		const exact = ev.exact.length ? ev.exact.map((q) => q.code + ' ' + q.name).join('; ') : 'YOK';
 		const other = ev.sameNameOtherLevel.length ? ev.sameNameOtherLevel.map((q) => q.code + ' (seviye ' + q.level + ')').join('; ') : 'YOK';
 		const reason = ev.exact.length ? 'Manifestte birebir ad+seviye adayı var ancak fees.js bu kayda kod atamamış; otomatik bağlanmadı' : 'PDF\'de MYK kodu yok; qualifications manifestinde birebir ad+seviye eşleşmesi yok';
-		return [idx + 1, r.rec.source_key, r.rec.profession_name, r.rec.level, r.rec.sector_slug, optionsText(r.rec), pdfFile(obsDoc, r), r.rec.source_page, 'YOK (PDF\'lerde MYK kodu sütunu yok)', exact, other, reason, 'Kurum: bu meslek için geçerli MYK yeterlilik kodunu yazılı bildirmeli VEYA ücretin bağlantısız yayınlanmasını açıkça onaylamalı', ev.exact.length ? 'BAĞLANTISIZ KALMALI — KURUM KARARI BEKLİYOR (birebir aday: kurum teyit etsin)' : 'BAĞLANTISIZ KALMALI — KURUM KARARI BEKLİYOR'];
+		return [idx + 1, r.rec.source_key, r.rec.profession_name, r.rec.level, r.rec.sector_slug, optionsText(r.rec), pdfFile(obsDoc, r), r.rec.source_page, 'YOK (PDF\'lerde MYK kodu sütunu yok)', exact, other, reason, 'Kurum: bu meslek için geçerli MYK yeterlilik kodunu yazılı bildirmeli (bağlantısız listeleme ' + INSTITUTION_DECISIONS.decided_on + ' kararıyla açık; kod kararı bekliyor)', (ev.exact.length ? 'BAĞLANTISIZ LİSTELENİR — MYK KODU KARARI BEKLİYOR (birebir aday: kurum teyit etsin)' : 'BAĞLANTISIZ LİSTELENİR — MYK KODU KARARI BEKLİYOR') + ('hold' === r.pub.decision ? '; YAYIN BEKLETİLİR: ' + r.pub.hold_reasons.map((c) => HOLD_LABELS[c]).join('; ') : '')];
 	});
 	outputs['baglantisiz-19-kayit.csv'] = renderCsv(unHeaders, unRows);
 	outputs['baglantisiz-19-kayit.md'] = template('baglantisiz-19-kayit.md', { COUNT: un.length, TABLE: renderMdTable(unHeaders, unRows) });
@@ -408,7 +497,7 @@ function renderOutputs(opts) {
 		OPTIONS: S.options, SINGLE_OPT: S.singleOption, MULTI_OPT: S.multiOption, MULTI_OPT_TOTAL: S.multiOptionsTotal,
 		TYPES: Object.keys(S.byType).sort().map((k) => k + '=' + S.byType[k]).join(', '),
 		DISTINCT_QUAL: S.distinctQualifications, LINKED: S.linked, UNLINKED: S.unlinked,
-		VAT_UNVERIFIED: S.vatUnverified, NAME_DIFF: S.nameDiff, SECTOR_DIFF: S.sectorGroupDiff, INFO_ONLY: infoOnly,
+		VAT_INSTITUTION: S.vatInstitution, PUBLISH: S.publish, HOLD: S.hold, DECIDED_ON: INSTITUTION_DECISIONS.decided_on, NAME_DIFF: S.nameDiff, SECTOR_DIFF: S.sectorGroupDiff, INFO_ONLY: infoOnly,
 		UNREADABLE_LINE: S.verdict.UNREADABLE === 0 ? '- `UNREADABLE`: okunamayan sayfa/kayıt yok (6 PDF sayfasının tamamı okundu).' : '- `UNREADABLE`: ' + S.verdict.UNREADABLE + ' kayıt okunamadı (ad/seviye/fiyat/birim doğrulanamadı; bu kayıtlar yayına aday OLAMAZ) — bkz. §5.',
 		MISMATCH_LINE: S.verdict.MISMATCH === 0 ? '- `MISMATCH`: PDF ile manifest arasında **fiyat, birim, sayfa, seviye, belge basım ücreti veya bağlantı** farkı bulunmadı.' : '- `MISMATCH`: ' + S.verdict.MISMATCH + ' kayıtta PDF ile manifest arasında fark var — bkz. §5 (fail-closed).',
 		DIFF_LINES: diffLines, YENI_SHA: obsDoc.pdfs.yeni.sha256, GUZ_SHA: obsDoc.pdfs.guz.sha256,
@@ -428,14 +517,39 @@ function renderOutputs(opts) {
 		YENI_FILE: obsDoc.pdfs.yeni.file, GUZ_FILE: obsDoc.pdfs.guz.file,
 		YENI_KEYS: perPdf.yeni.keys.map((k) => '`' + k + '`').join(', '), GUZ_KEYS: perPdf.guz.keys.map((k) => '`' + k + '`').join(', '),
 	});
+	const holdRows = rows.filter((r) => 'hold' === r.pub.decision);
 	outputs['staging-aktivasyon-plani.md'] = template('staging-aktivasyon-plani.md', {
 		TOTAL: S.total, LINKED: S.linked, UNLINKED: S.unlinked, VERIFIED: S.verdict.VERIFIED, DECISION: S.verdict.DECISION_REQUIRED, MISMATCH: S.verdict.MISMATCH,
-		BATCHES_ALL: Math.ceil(S.total / 10), BATCHES_LINKED: Math.ceil(S.linked / 10),
+		PUBLISH: S.publish, HOLD: S.hold, PUBLISH_UNLINKED: S.publishUnlinked, DECIDED_ON: INSTITUTION_DECISIONS.decided_on,
+		BATCHES_PUBLISH: Math.ceil(S.publish / 10),
+		HOLD_LINES: holdRows.map((r) => '- #' + (r.i + 1) + ' `' + r.rec.source_key + '` — ' + r.rec.profession_name + ' (seviye ' + r.rec.level + '): ' + r.pub.hold_reasons.map((c) => HOLD_LABELS[c]).join('; ')).join('\n'),
 	});
-	return { outputs, S, rows };
+	const dataOutputs = {};
+	dataOutputs[PUBLICATION_FILE] = JSON.stringify(publicationManifest(rows), null, 2) + '\n';
+	return { outputs, dataOutputs, S, rows };
 }
 
-module.exports = { build, renderOutputs, verifyRecord, loadInputs, normName, extractCodes, fmtKurus, GROUP_SECTORS, OUT_DIR, MATRIX_HEADERS };
+/** data/content/fee-publication.manifest.json — kayıt başına yayın kararı (eklenti salt okur; sözleşme: Fee_Publisher). */
+function publicationManifest(rows) {
+	return {
+		schema_version: '1.0.0',
+		record_type: 'fee_publication',
+		count: rows.length,
+		decided_on: INSTITUTION_DECISIONS.decided_on,
+		basis: INSTITUTION_DECISIONS.basis,
+		vat_rule: { included: INSTITUTION_DECISIONS.vat.included, rate_percent: INSTITUTION_DECISIONS.vat.rate_percent, certificate_print_fee_kurus: INSTITUTION_DECISIONS.vat.certificate_print_fee_kurus },
+		records: rows.map((r) => ({
+			source_index: r.i,
+			source_key: r.rec.source_key,
+			record_sha256: recordDigest(r.rec),
+			decision: r.pub.decision,
+			hold_reasons: r.pub.hold_reasons,
+			notes: r.pub.notes,
+		})),
+	};
+}
+
+module.exports = { build, renderOutputs, verifyRecord, loadInputs, normName, extractCodes, fmtKurus, canonicalJson, recordDigest, publicationDecision, GROUP_SECTORS, OUT_DIR, DATA_DIR, PUBLICATION_FILE, HOLD_REASONS, PUBLICATION_NOTES, INSTITUTION_DECISIONS, MATRIX_HEADERS };
 
 if (require.main === module) {
 	const mode = process.argv[2];
@@ -446,17 +560,18 @@ if (require.main === module) {
 		console.error(e.message);
 		process.exit(1);
 	}
+	const targets = Object.entries(res.outputs).map(([name, text]) => [OUT_DIR, name, text]).concat(Object.entries(res.dataOutputs).map(([name, text]) => [DATA_DIR, name, text]));
 	if (mode === '--write') {
 		fs.mkdirSync(OUT_DIR, { recursive: true });
-		for (const [name, text] of Object.entries(res.outputs)) {
-			fs.writeFileSync(path.join(OUT_DIR, name), text);
-			console.log('yazıldı  ' + path.relative(REPO, path.join(OUT_DIR, name)).replace(/\\/g, '/') + ' (' + Buffer.byteLength(text) + ' bayt)');
+		for (const [dir, name, text] of targets) {
+			fs.writeFileSync(path.join(dir, name), text);
+			console.log('yazıldı  ' + path.relative(REPO, path.join(dir, name)).replace(/\\/g, '/') + ' (' + Buffer.byteLength(text) + ' bayt)');
 		}
-		console.log('\nkayıt: ' + res.S.total + ' | ' + Object.keys(res.S.verdict).map((k) => k + '=' + res.S.verdict[k]).join(' ') + ' | mutabakat: ' + (res.S.reconcileOk ? 'EŞİT' : 'HATA'));
+		console.log('\nkayıt: ' + res.S.total + ' | ' + Object.keys(res.S.verdict).map((k) => k + '=' + res.S.verdict[k]).join(' ') + ' | yayın: publish=' + res.S.publish + ' hold=' + res.S.hold + ' | mutabakat: ' + (res.S.reconcileOk ? 'EŞİT' : 'HATA'));
 	} else if (mode === '--check') {
 		let bad = 0;
-		for (const [name, text] of Object.entries(res.outputs)) {
-			const p = path.join(OUT_DIR, name);
+		for (const [dir, name, text] of targets) {
+			const p = path.join(dir, name);
 			const same = fs.existsSync(p) && fs.readFileSync(p, 'utf8') === text;
 			console.log((same ? 'EŞİT   ' : 'FARKLI ') + name);
 			if (!same) bad++;

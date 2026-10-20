@@ -853,6 +853,7 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .fee-options-list { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
 .fee-options-list li { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-2) var(--space-3); background: var(--color-gray-50); border-radius: var(--radius-sm); }
 .fee-option-units { color: var(--color-gray-500); font-size: var(--fs-xs); }
+.fee-single-label { font-size: var(--fs-sm); color: var(--color-gray-700); overflow-wrap: anywhere; }
 .fee-meta, .fee-source { font-size: var(--fs-xs); color: var(--color-gray-500); margin: 0; }
 .fee-source a { color: var(--color-blue-600); }
 

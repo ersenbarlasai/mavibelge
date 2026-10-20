@@ -106,7 +106,7 @@ function ajax(user, action, fields, o) {
 	check('sayfa sızdırmaz: mutlak sunucu yolu, /tmp, SQL yok', !/\/var\/www|\/tmp\/|wp-content\/plugins\/mavibelge-core\/includes|SELECT /.test(page.text.replace(/<script[\s\S]*?<\/script>/g, '')));
 	const m = page.text.match(/var mbImportApply = (\{[\s\S]*?\});/);
 	const cfg = m ? JSON.parse(m[1]) : null;
-	check('yerelleştirilmiş yapılandırma: dokuz action, dokuz action-özel nonce, aşama listesi sıralı (pages ilk)', cfg && Object.keys(cfg.actions).length === 9 && Object.keys(cfg.nonces).length === 9 && new Set(Object.values(cfg.nonces)).size >= 2 && cfg.stages.join(',') === 'pages,sectors,qualifications,all,content' && /^mb_import_nonce$/.test(cfg.nonceField));
+	check('yerelleştirilmiş yapılandırma: on iki action (Faz 15: +ücret yayını önizle/etkinleştir/geri al), on iki action-özel nonce, aşama listesi sıralı (pages ilk)', cfg && Object.keys(cfg.actions).length === 12 && Object.keys(cfg.nonces).length === 12 && ['preview_fee_publish', 'activate_fees', 'deactivate_fees'].every((a) => cfg.actions[a] === 'mavibelge_import_' + a) && new Set(Object.values(cfg.nonces)).size >= 2 && cfg.stages.join(',') === 'pages,sectors,qualifications,all,content' && /^mb_import_nonce$/.test(cfg.nonceField));
 	if (!cfg) {
 		console.log('\n0 testi yapılamadı: yerelleştirilmiş yapılandırma bulunamadı');
 		process.exit(1);

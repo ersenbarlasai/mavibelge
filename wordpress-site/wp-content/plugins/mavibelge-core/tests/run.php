@@ -4134,7 +4134,9 @@ $m6_payload_keys = function ( $type, $fields, $sk ) {
 	return $k;
 };
 $m6_expect = function ( $type ) {
-	$k = MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META[ $type ];
+	// Faz 15: create'te ayrıca yazılan başlangıç meta'sı (ücret: _mb_record_status) yükte YOKTUR ama parmak izinin dışladığı listededir.
+	$initial = isset( MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $type ] ) ? array_keys( MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $type ] ) : array();
+	$k       = array_values( array_diff( MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META[ $type ], $initial ) );
 	sort( $k );
 	return $k;
 };

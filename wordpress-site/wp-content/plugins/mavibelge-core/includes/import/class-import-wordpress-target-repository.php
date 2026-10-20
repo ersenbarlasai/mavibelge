@@ -354,15 +354,45 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 			return self::invalid_meta_result();
 		}
 
+		$currentFields = call_user_func( $fieldsResolver, $postId );
+		$lastApplied   = $hashConv['value'];
+		if ( 'mb_ucret' === $postType ) {
+			$lastApplied = self::effective_fee_last_applied_hash( $lastApplied, $currentFields );
+		}
+
 		return array(
 			'target_found'           => true,
 			'target_id'              => $postId,
 			'duplicate_targets'      => false,
 			'target_type_matches'    => true, // get_post_type() ile yukarıda ayrıca teyit edildi.
 			'has_source_key_marker'  => true, // Yukarıda gerçek string + source_key eşitliğiyle doğrulandı.
-			'last_applied_hash'      => $hashConv['value'],
-			'current_managed_fields' => call_user_func( $fieldsResolver, $postId ),
+			'last_applied_hash'      => $lastApplied,
+			'current_managed_fields' => $currentFields,
 		);
+	}
+
+	/**
+	 * Faz 15 — SAF hash geçiş kuralı (ücret). 0.5.4 ve öncesi `_mb_last_applied_hash`'i `record_status = draft` DAHİL
+	 * hesaplıyordu; 0.5.5'te `record_status` yönetilen alan değildir. Saklanan hash, MEVCUT içerik alanlarının eski biçimli
+	 * hash'ine (legacy_fee_hash_input) BİREBİR eşitse içerik import'un son yazdığıyla aynıdır: değer, aynı içeriğin yeni biçimli
+	 * hash'ine çevrilir (kayıt `unchanged` görünür; yayın durumu ne olursa olsun). Eşit değilse saklanan değer AYNEN döner —
+	 * içerikte elle bir değişiklik varsa kayıt yine `conflict` olur (sessiz ezme yok). Hash hesaplanamazsa değer değişmez.
+	 *
+	 * @param mixed $stored        Normalize edilmiş saklı hash (string|null).
+	 * @param mixed $currentFields FEE_FIELDS anahtarlı mevcut alanlar (veya geçersizse null).
+	 * @return mixed
+	 */
+	public static function effective_fee_last_applied_hash( $stored, $currentFields ) {
+		if ( ! is_string( $stored ) || ! is_array( $currentFields ) ) {
+			return $stored;
+		}
+		try {
+			$current = MaviBelge_Core_Import_Hash::hash( $currentFields );
+			$legacy  = MaviBelge_Core_Import_Hash::hash( MaviBelge_Core_Import_Managed_Fields::legacy_fee_hash_input( $currentFields ) );
+		} catch ( InvalidArgumentException $e ) {
+			return $stored;
+		}
+		return $legacy === $stored ? $current : $stored;
 	}
 
 	/** Son Kapanış §3.2 — yalnız HAM değerleri toplar; doğrulama saf kurucudadır. */
@@ -620,7 +650,6 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 				'source_page'                 => get_post_meta( $postId, '_mb_source_page', true ),
 				'source_attachment_id'        => get_post_meta( $postId, '_mb_source_attachment_id', true ),
 				'tariff_period'               => get_post_meta( $postId, '_mb_tariff_period', true ),
-				'record_status'               => get_post_meta( $postId, '_mb_record_status', true ),
 				'valid_from'                  => get_post_meta( $postId, '_mb_valid_from', true ),
 				'valid_until'                 => get_post_meta( $postId, '_mb_valid_until', true ),
 			)
@@ -713,7 +742,7 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 			$raw,
 			array(
 				'title', 'profession_name', 'sector_slug', 'qualification_code', 'pricing_type',
-				'source_name', 'tariff_period', 'record_status', 'valid_from', 'valid_until',
+				'source_name', 'tariff_period', 'valid_from', 'valid_until',
 			)
 		);
 		if ( null === $strings ) {
@@ -764,7 +793,6 @@ class MaviBelge_Core_Import_WordPress_Target_Repository implements MaviBelge_Cor
 			'source_page'                 => $sourcePageConv['value'],
 			'source_attachment_id'        => $sourceAttConv['value'],
 			'tariff_period'               => $strings['tariff_period'],
-			'record_status'               => $strings['record_status'],
 			'valid_from'                  => $strings['valid_from'],
 			'valid_until'                 => $strings['valid_until'],
 		);

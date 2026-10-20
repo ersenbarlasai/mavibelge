@@ -388,61 +388,148 @@ class MaviBelge_Core_Catalog_Service {
 
 		if ( $query->have_posts() ) {
 			foreach ( $query->posts as $post ) {
-				// Faz 5 Düzeltme ve Kabul §3.1 (catalog-service-contract.md
-				// tutarlılığı): the meta_query above already narrows to
-				// _mb_tariff_period = $active_period at the DB level, but
-				// that is a separate mechanism from the documented pure
-				// decision function — re-confirm the SAME rule through
-				// MaviBelge_Core_Catalog_Query::is_period_match() here so
-				// the documented contract and the actual runtime path are
-				// never two different implementations of "dönem eşleşmesi".
-				$tariff_period = get_post_meta( $post->ID, '_mb_tariff_period', true );
-				if ( ! MaviBelge_Core_Catalog_Query::is_period_match( $tariff_period, $active_period ) ) {
+				$check = self::evaluate_fee_content_rules( $post->ID, $active_period, $today );
+				if ( null !== $check['blocker'] ) {
 					continue;
 				}
-
-				$valid_from    = get_post_meta( $post->ID, '_mb_valid_from', true );
-				$valid_until   = get_post_meta( $post->ID, '_mb_valid_until', true );
-				$price_options = get_post_meta( $post->ID, '_mb_price_options', true );
-
-				if ( ! MaviBelge_Core_Catalog_Query::is_within_validity_window( $valid_from, $valid_until, $today ) ) {
-					continue;
-				}
-
-				// Faz 5 Düzeltme ve Kabul §2.1: canonicalize ONCE here —
-				// has_priced_options() and canonicalize_price_options() now
-				// share the exact same underlying validator, so this single
-				// call both decides visibility (empty = invalid = hidden)
-				// and produces the canonically-sorted list present_fee()
-				// will render, with no second/weaker check anywhere else.
-				$canonical_options = MaviBelge_Core_Catalog_Query::canonicalize_price_options( $price_options );
-				if ( empty( $canonical_options ) ) {
-					continue;
-				}
-
-				/*
-				 * Faz 5 Son Kapanış Düzeltmesi §3 — RECORD sector integrity
-				 * (distinct from resolve_sector_filter(), which validates a
-				 * requested FILTER value, not a record's own field — see
-				 * docs/catalog-service-contract.md §3.2 for that
-				 * separation). A ücret record's own _mb_sector_slug must be
-				 * format-valid AND resolve to a real, currently-existing
-				 * mb_sektor term, or the record fails closed here — it
-				 * never reaches the public with an empty/unresolvable
-				 * sector, and its sector_name is never the raw meta string.
-				 */
-				$sector_slug = (string) get_post_meta( $post->ID, '_mb_sector_slug', true );
-				$sector_name = self::resolve_sector_name_or_null( $sector_slug );
-				if ( null === $sector_name ) {
-					continue;
-				}
-
-				$fees[] = self::build_fee_dto( $post, $canonical_options, $sector_slug, $sector_name );
+				$fees[] = self::build_fee_dto( $post, $check['options'], $check['sector_slug'], $check['sector_name'] );
 			}
 		}
 		wp_reset_postdata();
 
 		return $fees;
+	}
+
+	/**
+	 * Faz 15 — §3 kural 3–6 (dönem, geçerlilik penceresi, kanonik fiyat listesi, gerçek sektör terimi) TEK yerde; yayın
+	 * durumu (kural 1–2) çağıranın sorgusundadır. Hem ziyaretçi listesi hem toplu ücret yayını ön kontrolü
+	 * (fee_publication_blocker()) bunu kullanır — ikinci bir kural kopyası yoktur.
+	 *
+	 * @return array{blocker: string|null, options: array, sector_slug: string, sector_name: string|null}
+	 */
+	private static function evaluate_fee_content_rules( $post_id, $active_period, $today ) {
+		$result = array( 'blocker' => null, 'options' => array(), 'sector_slug' => '', 'sector_name' => null );
+
+		// Faz 5 Düzeltme ve Kabul §3.1 (catalog-service-contract.md
+		// tutarlılığı): the meta_query above already narrows to
+		// _mb_tariff_period = $active_period at the DB level, but
+		// that is a separate mechanism from the documented pure
+		// decision function — re-confirm the SAME rule through
+		// MaviBelge_Core_Catalog_Query::is_period_match() here so
+		// the documented contract and the actual runtime path are
+		// never two different implementations of "dönem eşleşmesi".
+		$tariff_period = get_post_meta( $post_id, '_mb_tariff_period', true );
+		if ( ! MaviBelge_Core_Catalog_Query::is_period_match( $tariff_period, $active_period ) ) {
+			$result['blocker'] = 'period_mismatch';
+			return $result;
+		}
+
+		$valid_from    = get_post_meta( $post_id, '_mb_valid_from', true );
+		$valid_until   = get_post_meta( $post_id, '_mb_valid_until', true );
+		$price_options = get_post_meta( $post_id, '_mb_price_options', true );
+
+		if ( ! MaviBelge_Core_Catalog_Query::is_within_validity_window( $valid_from, $valid_until, $today ) ) {
+			$result['blocker'] = 'outside_validity_window';
+			return $result;
+		}
+
+		// Faz 5 Düzeltme ve Kabul §2.1: canonicalize ONCE here —
+		// has_priced_options() and canonicalize_price_options() now
+		// share the exact same underlying validator, so this single
+		// call both decides visibility (empty = invalid = hidden)
+		// and produces the canonically-sorted list present_fee()
+		// will render, with no second/weaker check anywhere else.
+		$canonical_options = MaviBelge_Core_Catalog_Query::canonicalize_price_options( $price_options );
+		if ( empty( $canonical_options ) ) {
+			$result['blocker'] = 'price_options_invalid';
+			return $result;
+		}
+
+		/*
+		 * Faz 5 Son Kapanış Düzeltmesi §3 — RECORD sector integrity
+		 * (distinct from resolve_sector_filter(), which validates a
+		 * requested FILTER value, not a record's own field — see
+		 * docs/catalog-service-contract.md §3.2 for that
+		 * separation). A ücret record's own _mb_sector_slug must be
+		 * format-valid AND resolve to a real, currently-existing
+		 * mb_sektor term, or the record fails closed here — it
+		 * never reaches the public with an empty/unresolvable
+		 * sector, and its sector_name is never the raw meta string.
+		 */
+		$sector_slug = (string) get_post_meta( $post_id, '_mb_sector_slug', true );
+		$sector_name = self::resolve_sector_name_or_null( $sector_slug );
+		if ( null === $sector_name ) {
+			$result['blocker'] = 'sector_unresolved';
+			return $result;
+		}
+
+		$result['options']     = $canonical_options;
+		$result['sector_slug'] = $sector_slug;
+		$result['sector_name'] = $sector_name;
+		return $result;
+	}
+
+	/**
+	 * Faz 15 — toplu ücret yayını ön kontrolü: kayıt etkinleştirilse ziyaretçiye görünür müydü? Yayın durumu (publish/active)
+	 * HARİÇ bütün §3 kuralları; aktif dönem boşsa hiçbir kayıt görünemez. null = engel yok; aksi hâlde sabit engel kodu.
+	 *
+	 * @param int $post_id
+	 * @return string|null
+	 */
+	public static function fee_publication_blocker( $post_id ) {
+		$post_id = (int) $post_id;
+		if ( $post_id <= 0 || 'mb_ucret' !== get_post_type( $post_id ) ) {
+			return 'not_a_fee';
+		}
+		$active_period = self::get_active_tariff_period();
+		if ( '' === $active_period ) {
+			return 'no_active_period';
+		}
+		$check = self::evaluate_fee_content_rules( $post_id, $active_period, current_time( 'Y-m-d' ) );
+		return $check['blocker'];
+	}
+
+	/**
+	 * Faz 15 — SALT OKUNUR ücret envanteri (toplu ücret yayını önizlemesi için): çöp/otomatik taslak dışındaki BÜTÜN `mb_ucret`
+	 * kayıtları, import kaynak anahtarı ve şu an ziyaretçiye görünüp görünmediği (aynı görünürlük kuralı: get_all_valid_active_fees()).
+	 * Önizleme bununla manifest dışı (elle eklenmiş/eski) kayıtları sayar; bu kayıtlara hiçbir araç dokunmaz.
+	 *
+	 * @return array{total: int, truncated: bool, records: array<int, array{id: int, title: string, post_status: string, record_status: string, source_key: string, visible: bool}>}
+	 */
+	public static function fee_inventory() {
+		if ( ! post_type_exists( 'mb_ucret' ) ) {
+			return array( 'total' => 0, 'truncated' => false, 'records' => array() );
+		}
+		$ids = get_posts(
+			array(
+				'post_type'        => 'mb_ucret',
+				'post_status'      => array( 'publish', 'draft', 'pending', 'private', 'future' ),
+				'numberposts'      => self::CANDIDATE_CAP + 1,
+				'orderby'          => 'ID',
+				'order'            => 'ASC',
+				'fields'           => 'ids',
+				'suppress_filters' => true,
+				'no_found_rows'    => true,
+			)
+		);
+		$truncated = count( $ids ) > self::CANDIDATE_CAP;
+		$ids       = array_slice( array_map( 'intval', $ids ), 0, self::CANDIDATE_CAP );
+		$visible   = array();
+		foreach ( self::get_all_valid_active_fees() as $fee ) {
+			$visible[ (int) $fee['id'] ] = true;
+		}
+		$records = array();
+		foreach ( $ids as $id ) {
+			$records[] = array(
+				'id'            => $id,
+				'title'         => (string) get_the_title( $id ),
+				'post_status'   => (string) get_post_status( $id ),
+				'record_status' => (string) get_post_meta( $id, '_mb_record_status', true ),
+				'source_key'    => (string) get_post_meta( $id, '_mb_import_source_key', true ),
+				'visible'       => isset( $visible[ $id ] ),
+			);
+		}
+		return array( 'total' => count( $records ), 'truncated' => $truncated, 'records' => $records );
 	}
 
 	private static function build_fee_dto( $post, array $canonical_price_options, $sector_slug, $sector_name ) {
@@ -465,6 +552,8 @@ class MaviBelge_Core_Catalog_Service {
 			'tariff_period'             => (string) get_post_meta( $post->ID, '_mb_tariff_period', true ),
 			'pricing_type'              => (string) get_post_meta( $post->ID, '_mb_pricing_type', true ),
 			'vat_included'              => (bool) get_post_meta( $post->ID, '_mb_vat_included', true ),
+			// Faz 15: kaydın KDV oranı (yoksa şema varsayılanı; saklı değer geçersizse null -> açıklama üretilmez).
+			'vat_rate_percent'          => MaviBelge_Core_Meta_Schema::fee_vat_rate_percent( get_post_meta( $post->ID, '_mb_vat_rate_percent', true ) ),
 			'certificate_print_fee_kurus' => (int) get_post_meta( $post->ID, '_mb_certificate_print_fee_kurus', true ),
 			'source_name'               => (string) get_post_meta( $post->ID, '_mb_source_name', true ),
 			'source_page'               => (int) get_post_meta( $post->ID, '_mb_source_page', true ),
@@ -592,10 +681,18 @@ class MaviBelge_Core_Catalog_Service {
 			$qualification_permalink = (string) get_permalink( $fee['qualification_id'] );
 		}
 
+		// Faz 15: standart açıklama kaydın KENDİ değerlerinden üretilir (oran ve basım tutarı koda gömülmez). Eski önbellekten
+		// gelen, oranı taşımayan bir DTO şema varsayılanına düşer.
+		$vat_rate   = array_key_exists( 'vat_rate_percent', $fee ) ? $fee['vat_rate_percent'] : MaviBelge_Core_Meta_Schema::DEFAULT_VAT_RATE_PERCENT;
+		$statements = MaviBelge_Core_Catalog_Query::fee_pricing_statements( (bool) $fee['vat_included'], $vat_rate, (int) $fee['certificate_print_fee_kurus'] );
+
 		return array(
 			'single_amount_display'         => $single_amount_display,
 			'options'                       => $options,
 			'vat_label'                     => $fee['vat_included'] ? __( 'KDV Dahil', 'mavibelge-core' ) : __( 'KDV Hariç', 'mavibelge-core' ),
+			'vat_statement'                 => $statements['vat_statement'],
+			'certificate_statement'         => $statements['certificate_statement'],
+			'pricing_note'                  => $statements['pricing_note'],
 			'certificate_print_fee_display' => $certificate_fee_display,
 			'source_url'                    => $source_url,
 			'qualification_permalink'       => $qualification_permalink,

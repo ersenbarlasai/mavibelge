@@ -124,6 +124,7 @@ require_once dirname( __DIR__ ) . '/includes/import/class-import-wpdb-run-store.
 require_once dirname( __DIR__ ) . '/includes/import/class-import-wp-audit-sink.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-wp-image-map-store.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-page-publisher.php';
+require_once dirname( __DIR__ ) . '/includes/import/class-import-fee-publisher.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-runtime-factory.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-admin-gates.php';
 require_once dirname( __DIR__ ) . '/includes/import/class-import-admin-run-service.php';
