@@ -49,7 +49,9 @@ class MaviBelge_Core_Forms_Schema {
 
 	/** @return array<string, array> */
 	public static function all() {
-		$consent = array( 'name' => 'consent', 'type' => 'consent', 'label' => 'KVKK Aydınlatma Metni\'ni okudum, kabul ediyorum.', 'required' => true );
+		// Faz 14: kısa etiket (hata özetinde bağlantı metni). Formdaki görünür cümle ve /kvkk/ bağlantısı temadadır; kurumca
+		// onaylı tam metin (consent_text) ziyaretçiye basılmaz, yalnız kayıt/kapı kanıtıdır (Forms_Config).
+		$consent = array( 'name' => 'consent', 'type' => 'consent', 'label' => 'KVKK Metni', 'required' => true );
 		return array(
 			'contact'         => array(
 				'label'       => 'İletişim',
@@ -144,6 +146,43 @@ class MaviBelge_Core_Forms_Schema {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Şablon (tema) için alan DTO'ları (SAF; WordPress gerektirmez). Etiketler yalnız şemadandır: onay alanı kısa şema etiketini
+	 * ("KVKK Metni") taşır, yapılandırmadaki uzun `consent_text` DTO'ya GİRMEZ (Faz 14).
+	 *
+	 * @param array $def     get() çıktısı
+	 * @param array $options options_source => seçenek listesi (dinamik seçenekler)
+	 * @return array[]
+	 */
+	public static function present_fields( array $def, array $options ) {
+		$fields = array();
+		foreach ( $def['fields'] as $field ) {
+			$out = array(
+				'name'      => $field['name'],
+				'type'      => $field['type'],
+				'label'     => $field['label'],
+				'required'  => ! empty( $field['required'] ),
+				'max'       => isset( $field['max'] ) ? (int) $field['max'] : 0,
+				'sensitive' => ! empty( $field['sensitive'] ),
+				'multiple'  => ! empty( $field['multiple'] ),
+				'options'   => array(),
+			);
+			if ( isset( $field['options'] ) ) {
+				$out['options'] = $field['options'];
+			} elseif ( isset( $field['options_source'] ) && isset( $options[ $field['options_source'] ] ) ) {
+				$out['options'] = $options[ $field['options_source'] ];
+			}
+			if ( 'file' === $field['type'] ) {
+				$allow         = isset( $field['allow'] ) ? $field['allow'] : array_keys( self::UPLOAD_TYPES );
+				$out['accept'] = implode( ',', array_map( function ( $e ) {
+					return '.' . $e;
+				}, $allow ) );
+			}
+			$fields[] = $out;
+		}
+		return $fields;
 	}
 
 	/** @return string[] Bu formun İZİNLİ alan adları (kapalı allowlist; consent ve dosya alanları dahil). */

@@ -1,4 +1,4 @@
-# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.3, tema 0.6.8)
+# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.4, tema 0.6.9)
 
 > **Bu belge staging (ve ancak ayrıca onaylanırsa üretim) için bir kontrol listesidir; kendi başına apply yetkisi DEĞİLDİR.**
 > Bu depo sunucuya, FTP/SSH/DirectAdmin'e, DNS'e, SSL'e veya mail sistemine bağlanmaz. Aşağıdaki adımları sistem yöneticisi ve kurum
@@ -18,8 +18,8 @@
 
 | Koşul | Kontrol |
 |---|---|
-| Eklenti `mavibelge-core` **0.5.3** (`mavibelge-core-0.5.3.zip`, `sha256sum -c` ile doğrulanmış) | Eklentiler ekranında sürüm |
-| Tema `mavibelge` **0.6.8** (`mavibelge-theme-0.6.8.zip`; SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni + 14 rota referans sayfa aileleri) | Görünüm → Temalar |
+| Eklenti `mavibelge-core` **0.5.4** (`mavibelge-core-0.5.4.zip`; Faz 14: formlarda uzun KVKK metni yerine kısa şema etiketi, `sha256sum -c` ile doğrulanmış) | Eklentiler ekranında sürüm |
+| Tema `mavibelge` **0.6.9** (`mavibelge-theme-0.6.9.zip`; Faz 14 beş formda kısa bağlantılı KVKK onayı + SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni + 14 rota referans sayfa aileleri) | Görünüm → Temalar |
 | **`data/` dizini bir bütün olarak** sunucuya konmuş (`data/content/*.manifest.json` + `data/sources/reference-logos/ref-NN.png`; `MAVIBELGE_IMPORT_MANIFEST_DIR` = `.../data/content`). Logo dosyaları yoksa `content` aşaması yüklemede reddedilir | Sistem kapıları / dry-run |
 | Yönetici hesabı: `manage_options` **ve** `mb_manage_tariff_period` | Kullanıcılar → yetki |
 | Yönetim paneline **HTTPS** ile erişim (kapı WordPress `is_ssl()` sonucunu kullanır; TLS'i bir vekil/CDN sonlandırıyorsa `wp-config.php`'de standart `$_SERVER['HTTPS'] = 'on'` ayarı gerekir, aksi hâlde kapı `not_https` ile kapalı kalır) | Adres çubuğu; Sistem kapıları bölümü |
@@ -36,9 +36,9 @@
    Dosya yedeğinin arşivini açıp `wp-content/plugins/mavibelge-core` klasörünü kontrol edin. Doğrulanmamış yedekle **başlanmaz**.
 5. Rollback (uygulama içi geri alma) **yedeğin yerine geçmez**.
 
-## 3. Eklentiyi güncelleme (0.4.0 / 0.5.0 / 0.5.1 / 0.5.2 → 0.5.3)
+## 3. Eklentiyi güncelleme (0.4.0 / 0.5.0 / 0.5.1 / 0.5.2 / 0.5.3 → 0.5.4)
 
-1. Eklentiler → Yeni Ekle → Eklenti Yükle → `mavibelge-core-0.5.3.zip` → **Şimdi Kur** → "Geçerli olanı yüklenenle değiştir".
+1. Eklentiler → Yeni Ekle → Eklenti Yükle → `mavibelge-core-0.5.4.zip` → **Şimdi Kur** → "Geçerli olanı yüklenenle değiştir".
 2. Eklenti etkin kalır; **yeniden etkinleştirmeniz gerekmez**. Etkin değilse etkinleştirin (önce eklenti, tema zaten etkin).
 3. Araçlar → **Sağlık** ekranı: hata yok. (Run tabloları 0.5.x sürümüne **ilk apply'da** otomatik yükseltilir; önizleme tablo oluşturmaz.)
 4. Araçlar → **İçe Aktarım Dry-Run**: sayfa açılır, altta "Katalog Aktarımı (Admin Apply)" bölümü görünür; "Apply/rollback şu an: **KAPALI**".

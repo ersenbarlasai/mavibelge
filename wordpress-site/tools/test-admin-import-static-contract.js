@@ -149,7 +149,7 @@ test('Rollback servisi: eski toplu rollback() korunur; resumable start/advance a
 test('Bootstrap: yeni sınıflar mavibelge-core.php\'de yüklenir; admin controller yalnız admin bağlamında (class-plugin.php)',
 	['class-import-plan-snapshot.php', 'class-import-sector-image-map.php', 'class-import-runtime-factory.php', 'class-import-admin-gates.php', 'class-import-admin-run-service.php'].every((f) => SRC.bootstrap.includes("'includes/import/" + f + "'"))
 	&& /require_once \$path \. 'admin\/class-import-apply-page\.php';/.test(read(PLUGIN, 'includes', 'class-plugin.php')) && /MaviBelge_Core_Import_Apply_Page::init\(\);/.test(SRC.plugin));
-test('Bootstrap: eklenti sürümü başlıkta ve sabitte 0.5.3', /\*\s+Version:\s+0\.5\.3/.test(SRC.bootstrap) && /define\(\s*'MAVIBELGE_CORE_VERSION',\s*'0\.5\.3'\s*\)/.test(SRC.bootstrap));
+test('Bootstrap: eklenti sürümü başlıkta ve sabitte 0.5.4', /\*\s+Version:\s+0\.5\.4/.test(SRC.bootstrap) && /define\(\s*'MAVIBELGE_CORE_VERSION',\s*'0\.5\.4'\s*\)/.test(SRC.bootstrap));
 
 /* ---- JavaScript: yalnız orkestrasyon ---- */
 test('JS: innerHTML/outerHTML/insertAdjacentHTML/document.write/eval/Function( YOK — sunucu yanıtı yalnız textContent ile gösterilir', !/innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\(|new Function|setTimeout\(\s*['"]/.test(js));

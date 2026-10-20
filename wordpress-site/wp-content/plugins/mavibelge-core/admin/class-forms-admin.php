@@ -35,6 +35,10 @@ class MaviBelge_Core_Forms_Admin {
 			$saved = true;
 		}
 		$overview = MaviBelge_Core_Forms_Service::admin_overview();
+		// Faz 14: formlardaki "KVKK Metni" bağlantısının hedefi (/kvkk/). Yalnız bilgi amaçlı; kapıları değiştirmez.
+		$kvkk      = get_page_by_path( 'kvkk' );
+		$kvkk      = ( $kvkk instanceof WP_Post && 'publish' === $kvkk->post_status ) ? $kvkk : null;
+		$kvkk_edit = null !== $kvkk ? get_edit_post_link( $kvkk->ID, 'raw' ) : '';
 		?>
 		<div class="wrap">
 			<h1>Mavi Belge Formları</h1>
@@ -42,6 +46,16 @@ class MaviBelge_Core_Forms_Admin {
 				<div class="notice notice-success"><p>Yapılandırma kaydedildi. Bir form yalnız aşağıdaki TÜM koşullar sağlandığında ziyaretçiye açılır.</p></div>
 			<?php endif; ?>
 			<p>Bütün formlar varsayılan olarak <strong>kapalıdır</strong>. Kişisel veri toplayan formlar, kurum kararları (KVKK açık rıza metni, alıcı adresi, hassas alan/dosya yükleme onayı) girilene kadar yayına alınamaz. Gönderimler yalnız e-posta ile iletilir; kalıcı kişisel veri saklanmaz.</p>
+			<?php if ( null !== $kvkk ) : ?>
+				<p>Formlarda onay kutusunun yanında yalnız kısa cümle görünür: "KVKK Metni’ni okudum ve kabul ediyorum." — "KVKK Metni" bağlantısı şu sayfayı yeni sekmede açar:
+					<a href="<?php echo esc_url( get_permalink( $kvkk ) ); ?>" target="_blank" rel="noopener noreferrer">KVKK sayfasını görüntüle</a>
+					<?php if ( '' !== (string) $kvkk_edit ) : ?>
+						· <a href="<?php echo esc_url( $kvkk_edit ); ?>">KVKK sayfasını düzenle</a>
+					<?php endif; ?>
+				</p>
+			<?php else : ?>
+				<div class="notice notice-error inline"><p><strong>KVKK sayfası bulunamadı:</strong> /kvkk/ kısa adlı yayında bir sayfa yok. Formlardaki "KVKK Metni" bağlantısı bu adrese gider; sayfayı oluşturup yayımlayın. Form kapıları bu nedenle değiştirilmez.</p></div>
+			<?php endif; ?>
 			<form method="post">
 				<?php wp_nonce_field( self::NONCE_ACTION, self::NONCE_NAME ); ?>
 				<?php foreach ( $overview as $id => $row ) : ?>
@@ -65,7 +79,7 @@ class MaviBelge_Core_Forms_Admin {
 						<tr><th scope="row">KVKK açık rıza</th><td>
 							<label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[consent_approved]" value="1" <?php checked( $s['consent_approved'] ); ?>> Metin kurumca ONAYLANDI</label><br>
 							<label for="<?php echo esc_attr( $id ); ?>-cv">Sürüm</label> <input type="text" id="<?php echo esc_attr( $id ); ?>-cv" class="small-text" name="<?php echo esc_attr( $n ); ?>[consent_version]" value="<?php echo esc_attr( $s['consent_version'] ); ?>" maxlength="40"><br>
-							<label for="<?php echo esc_attr( $id ); ?>-ct">Onay metni (formda onay kutusunun yanında görünür)</label><br>
+							<label for="<?php echo esc_attr( $id ); ?>-ct">Onaylı metin kaydı. Formda metnin tamamı gösterilmez; ziyaretçi /kvkk/ sayfasındaki KVKK Metni’ne yönlendirilir.</label><br>
 							<textarea id="<?php echo esc_attr( $id ); ?>-ct" name="<?php echo esc_attr( $n ); ?>[consent_text]" rows="3" cols="70" maxlength="1500"><?php echo esc_textarea( $s['consent_text'] ); ?></textarea>
 						</td></tr>
 						<?php if ( $row['sensitive'] ) : ?>

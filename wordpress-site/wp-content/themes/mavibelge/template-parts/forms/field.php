@@ -4,6 +4,12 @@
  * işaretleme DEĞİŞMEDİ). Hassas alanlar (T.C. kimlik no) ASLA geri doldurulmaz. Değer önceliği: POST ile gelen doğrulama
  * yankısı (values) > `?meslek` ön seçimi (preselect, yalnız eklentinin allowlist'inden gelen seçenek anahtarı) > boş.
  *
+ * Faz 14 — onay (consent) alanı: beş formun TEK ortak çizicisi burasıdır. Görünen metin "KVKK Metni’ni okudum ve kabul
+ * ediyorum." ve yalnız "KVKK Metni" bağlantıdır (mavibelge_url( 'kvkk' ); yeni sekme, girilen form verisi kaybolmaz).
+ * Yapılandırmadaki uzun kurum metni (consent_text) ve alan etiketi burada BASILMAZ. Bağlantı <label> içindedir: etkileşimli
+ * içerik olduğundan tıklaması onay kutusunu değiştirmez. Onay kutusunun erişilebilir adı gizli tam cümledir
+ * (aria-labelledby); bağlantının adı "KVKK Metni (yeni sekmede açılır)".
+ *
  * $args:
  * - field (array, zorunlu) describe() DTO'sundaki bir alan
  * - form  (array, zorunlu) describe() DTO'su
@@ -34,12 +40,11 @@ $describe = $has_err ? ' aria-describedby="' . esc_attr( $err_id ) . '" aria-inv
 $req_attr = $required ? ' required aria-required="true"' : '';
 $req_mark = $required ? ' <span aria-hidden="true">*</span>' : '';
 ?>
-<div class="form-field<?php echo $has_err ? ' has-error' : ''; ?>">
+<div class="form-field<?php echo 'consent' === $field['type'] ? ' form-consent' : ''; ?><?php echo $has_err ? ' has-error' : ''; ?>">
 	<?php if ( 'consent' === $field['type'] ) : ?>
-		<label for="<?php echo esc_attr( $id ); ?>">
-			<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="1" required aria-required="true"<?php echo $describe; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- yukarıda esc_attr ile üretildi. ?> style="width:auto;min-height:auto;display:inline-block;margin-right:8px">
-			<?php echo esc_html( $field['label'] ); ?> <span aria-hidden="true">*</span>
-		</label>
+		<input type="checkbox" class="form-consent-control" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="1" required aria-required="true" aria-labelledby="<?php echo esc_attr( $id . '-name' ); ?>"<?php echo $describe; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- yukarıda esc_attr ile üretildi. ?>>
+		<label for="<?php echo esc_attr( $id ); ?>" class="form-consent-copy"><a class="form-consent-link" href="<?php echo esc_url( mavibelge_url( 'kvkk' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'KVKK Metni', 'mavibelge' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(yeni sekmede açılır)', 'mavibelge' ); ?></span></a><?php esc_html_e( '’ni okudum ve kabul ediyorum.', 'mavibelge' ); ?> <span class="form-consent-required" aria-hidden="true">*</span></label>
+		<span id="<?php echo esc_attr( $id . '-name' ); ?>" hidden><?php esc_html_e( 'KVKK Metni’ni okudum ve kabul ediyorum.', 'mavibelge' ); ?></span>
 	<?php elseif ( 'radio' === $field['type'] ) : ?>
 		<fieldset class="radio-group">
 			<legend><?php echo esc_html( $field['label'] ); ?><?php echo $req_mark; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- sabit işaret. ?></legend>

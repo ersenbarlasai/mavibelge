@@ -86,36 +86,10 @@ class MaviBelge_Core_Forms_Service {
 		}
 		$config   = self::config();
 		$gate     = MaviBelge_Core_Forms_Config::gate( $formId, $config );
-		$settings = $config['forms'][ $formId ];
 		$options  = self::dynamic_options( $def );
-		$fields   = array();
-		foreach ( $def['fields'] as $field ) {
-			$out = array(
-				'name'      => $field['name'],
-				'type'      => $field['type'],
-				'label'     => $field['label'],
-				'required'  => ! empty( $field['required'] ),
-				'max'       => isset( $field['max'] ) ? (int) $field['max'] : 0,
-				'sensitive' => ! empty( $field['sensitive'] ),
-				'multiple'  => ! empty( $field['multiple'] ),
-				'options'   => array(),
-			);
-			if ( isset( $field['options'] ) ) {
-				$out['options'] = $field['options'];
-			} elseif ( isset( $field['options_source'] ) && isset( $options[ $field['options_source'] ] ) ) {
-				$out['options'] = $options[ $field['options_source'] ];
-			}
-			if ( 'file' === $field['type'] ) {
-				$allow          = isset( $field['allow'] ) ? $field['allow'] : array_keys( MaviBelge_Core_Forms_Schema::UPLOAD_TYPES );
-				$out['accept']  = implode( ',', array_map( function ( $e ) {
-					return '.' . $e;
-				}, $allow ) );
-			}
-			if ( 'consent' === $field['type'] ) {
-				$out['label'] = '' !== $settings['consent_text'] ? $settings['consent_text'] : $field['label'];
-			}
-			$fields[] = $out;
-		}
+		// Faz 14: alan DTO'ları saf şema kurucusundan; onay etiketi yapılandırmadaki uzun metinle İKAME EDİLMEZ (tam metin
+		// yalnız kapı/kayıt kanıtıdır; formda kısa bağlantılı KVKK etiketi temada çizilir).
+		$fields   = MaviBelge_Core_Forms_Schema::present_fields( $def, $options );
 		$result  = ( null !== self::$last && self::$last['form'] === $formId ) ? self::$last : null;
 		$status  = null !== $result ? $result['status'] : ( self::success_from_query( $formId ) ? 'success' : '' );
 		// Faz 12f: `?meslek=<MYK kodu>` yalnız online başvuruda ve yalnız POST sonucu YOKKEN ön seçim olur (doğrulama hatasıyla

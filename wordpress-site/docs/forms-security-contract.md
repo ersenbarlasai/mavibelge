@@ -16,6 +16,21 @@ sürümü + onay işareti, geçerli alıcı e-posta, hassas alanlı formlarda `s
 **nedenleri yalnız `manage_options` yetkisine** (sayfada ve *Ayarlar → Mavi Belge Formları* ekranında) gösterilir. Karar
 gelince yalnız yapılandırmayla etkinleşir; kod değişikliği gerekmez.
 
+## KVKK onay alanı (Faz 14 — eklenti 0.5.4, tema 0.6.9)
+Beş formun onay kutusu TEK ortak çiziciden gelir (`template-parts/forms/field.php`). Ziyaretçi yalnız şu kısa cümleyi görür:
+"**KVKK Metni’ni okudum ve kabul ediyorum.** \*" — yalnız "KVKK Metni" bağlantıdır ve `mavibelge_url( 'kvkk' )` ile etkin
+kalıcı bağlantı yapısına göre (`/kvkk/` veya `/index.php/kvkk/`) üretilir; `target="_blank" rel="noopener noreferrer"`, ekran
+okuyucu için "(yeni sekmede açılır)". Bağlantı `<label>` içindedir (etkileşimli içerik: tıklaması kutuyu değiştirmez, formu
+göndermez); kutunun erişilebilir adı `aria-labelledby` ile gizli tam cümledir. `required`, `aria-required`, hata durumunda
+`aria-invalid` + `aria-describedby` ve görünür yıldız (`aria-hidden`) korunur.
+
+Yönetimde saklanan `consent_text` + `consent_version` **silinmez**: kurumca onaylı metnin kayıt ve kapı kanıtıdır (ikisi de
+dolu + "onaylandı" işareti olmadan form açılmaz; e-postada "KVKK onayı: verildi (sürüm …)"). Ancak `consent_text` artık
+ziyaretçiye BASILMAZ: `describe()` alanları saf `MaviBelge_Core_Forms_Schema::present_fields()` ile kurar ve onay etiketi kısa
+şema etiketidir ("KVKK Metni"; hata özetindeki bağlantı metni). Tam belge WordPress'teki /kvkk/ sayfasından okunur. Yönetim
+ekranı KVKK sayfasını `get_page_by_path()` + `get_permalink()` + `get_edit_post_link()` ile gösterir; sayfa yoksa açık uyarı
+verir (kapılar DEĞİŞMEZ — sayfa varlığı kapı koşulu değildir; bkz. açık karar notu `qa-report.md` Faz 14).
+
 ## Gönderim akışı (`MaviBelge_Core_Forms_Service::process`)
 1. POST + geçerli form kimliği + formun **kendi sayfası** + kapı açık.
 2. WordPress nonce (`_mb_nonce`, eylem `mb_form_<id>`).

@@ -377,6 +377,14 @@ table.data-table tbody tr:hover { background: var(--color-blue-50); }
 .form-field.is-invalid input, .form-field.is-invalid select, .form-field.is-invalid textarea { border-color: var(--color-danger); }
 .field-error { color: var(--color-danger); font-size: var(--fs-xs); margin-top: 4px; display: none; }
 .form-field.is-invalid .field-error { display: block; }
+/* Faz 14 — kısa bağlantılı KVKK onayı (template-parts/forms/field.php): kutu + tek satır/sarılan metin; hata iletisi alt satırda. */
+.form-consent { display: flex; flex-wrap: wrap; align-items: flex-start; column-gap: var(--space-2); }
+.form-consent-control { flex: 0 0 auto; width: 20px; height: 20px; min-height: 0; margin: 1px 0 0; accent-color: var(--color-blue-600); cursor: pointer; }
+.form-field .form-consent-copy { flex: 1 1 0; min-width: 0; margin-bottom: 0; overflow-wrap: anywhere; cursor: pointer; }
+.form-consent .field-error { flex-basis: 100%; }
+.form-consent-link { color: var(--color-blue-600); text-decoration: underline; text-underline-offset: 2px; }
+.form-consent-link:hover { color: var(--color-navy-900); }
+.form-consent-link:focus-visible { outline: 3px solid var(--color-blue-500); outline-offset: 2px; border-radius: 2px; }
 
 /* Error summary shell (form-level, not per-field) — presentation only. */
 .form-error-summary {
