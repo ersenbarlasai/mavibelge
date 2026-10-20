@@ -105,8 +105,8 @@ foreach ( $f15_real_val['rows'] as $r ) {
 }
 mb_test( 'Faz 15 gerçek karar belgesi: güvenli yükleyiciyle okunur; 103 satır gerçek ücret manifestiyle sıra/source_key birebir; PHP kanonik kayıt özeti Node üreticisiyle 103/103 EŞİT (bayat satır yok)',
 	true === $f15_real_doc['ok'] && true === $f15_real_val['ok'] && 103 === count( $f15_real_val['rows'] ) && 0 === $f15_stale );
-mb_test( 'Faz 15 gerçek karar belgesi: yayına uygun 97, bekletilen 6; KDV kuralı %20 dahil / 1.500 TL hariç',
-	97 === $f15_count( $f15_real_val['rows'], 'publish' ) && 6 === $f15_count( $f15_real_val['rows'], 'hold' )
+mb_test( 'Faz 15 gerçek karar belgesi: yayına uygun 103, bekletilen 0 (2026-10-20 onayı); KDV kuralı %20 dahil / 1.500 TL hariç',
+	103 === $f15_count( $f15_real_val['rows'], 'publish' ) && 0 === $f15_count( $f15_real_val['rows'], 'hold' )
 	&& array( 'included' => true, 'rate_percent' => 20, 'certificate_print_fee_kurus' => 150000 ) === $f15_real_val['vat_rule'] );
 mb_test( 'Faz 15 gerçek ücret manifesti: tüm 103 kayıtta vat_included=true ve belge basım 150000 kuruş (kurum kuralı; ilk aktarım bununla yazar)',
 	103 === count( array_filter( $f15_real_fees['records'], function ( $f ) {

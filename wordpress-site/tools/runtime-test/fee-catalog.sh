@@ -2,7 +2,7 @@
 # Faz 15 — ücret kataloğu: GERÇEK katalog (14/83/103) silinebilir mbfx_ fixture DB'de, canlı ile AYNI başlangıçla (yalnız 2 QA ücreti
 # elle aktif) kurulur; toplu ücret yayını (gerçek Fee_Publisher, transaction, audit) -> Sınav Ücretleri'nin tam taranıp kaynakla
 # karşılaştırılması -> gerçek Chrome'da yönetim ekranı düzenleme/yetki/mobil testleri -> ikinci aktarım önizlemesi (conflict),
-# araçla geri alma ve eski hash geçişi. Parola OKUMAZ (oturum çerezleri klonda üretilir, ekrana basılmaz). Konteyner/volume SİLMEZ.
+# araçla geri alma ve eski hash geçişi. Karar dosyası 103 yayın / 0 bekletme (2026-10-20). Parola OKUMAZ (oturum çerezleri klonda üretilir, ekrana basılmaz). Konteyner/volume SİLMEZ.
 # Kullanım: fee-catalog.sh <çıktı-dizini>
 set -uo pipefail
 OUT="$1"
@@ -65,19 +65,6 @@ fx --user=mbadmin eval-file /opt/mb-runtime/fee-catalog-fixtures.php after > "$O
 echo "after fixture exit=$? hata=$(wc -l < "$OUT/fee-after.err")"
 node fee-catalog-test.js after "$(cygpath -m "$OUT")/fee-after.json" "$(cygpath -m "$OUT")/fee-publish.json" "$(cygpath -m "$OUT")/screens/edited.json" | tee "$OUT/fee-catalog-after.txt" | grep -E "^FAIL|runtime testi"
 echo "fee-catalog after exit=${PIPESTATUS[0]}"
-# 5) VARSAYIM: TAZE klonda, bekletilen 6 kayıt da "yayınla" kararı alsa (karar dosyasının /tmp kopyası; gerçek dosya DEĞİŞMEZ) 103/145 birebir mi?
-#    (HTTP fixture işaretçisi klonlama + fixture sırasında kapalı: açıkken WP-CLI de mbfx_ önekine yönlenir ve fixture-db.php reddeder)
-docker exec "$WP" rm -f /tmp/mbfx-http-on
-wpx eval-file /opt/mb-runtime/fixture-db.php drop >/dev/null 2>&1
-wpx eval-file /opt/mb-runtime/fixture-db.php clone | tail -1
-fx option update permalink_structure "/index.php/%postname%/" >/dev/null
-fx --user=mbadmin eval-file /opt/mb-runtime/qualification-render-fixtures.php > "$OUT/whatif-qual-fixtures.json" 2> "$OUT/whatif-qual-fixtures.err"
-echo "varsayım katalog fixture exit=$? hata=$(wc -l < "$OUT/whatif-qual-fixtures.err")"
-fx --user=mbadmin eval-file /opt/mb-runtime/fee-catalog-fixtures.php whatif > "$OUT/fee-whatif.json" 2> "$OUT/fee-whatif.err"
-echo "varsayım fixture exit=$? hata=$(wc -l < "$OUT/fee-whatif.err")"
-docker exec "$WP" sh -c 'touch /tmp/mbfx-http-on; chmod 644 /tmp/mbfx-http-on'
-node fee-catalog-test.js whatif "$(cygpath -m "$OUT")/fee-whatif.json" | tee "$OUT/fee-catalog-whatif.txt" | grep -E "^FAIL|runtime testi"
-echo "fee-catalog whatif exit=${PIPESTATUS[0]}"
 trap - EXIT
 cleanup
 snapshot snapZ

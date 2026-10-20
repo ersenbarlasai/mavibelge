@@ -11,7 +11,6 @@
  * Kullanım:
  *   node fee-catalog-test.js publish <fee-fixtures.json> <durum-dizini(çerezler)> <ekran-dizini>
  *   node fee-catalog-test.js after <after.json> <publish.json>
- *   node fee-catalog-test.js whatif <whatif.json>   (varsayım: bekletilen 6 kayıt da yayınlansa 103/145 birebir mi)
  */
 const fs = require('fs');
 const path = require('path');
@@ -119,9 +118,9 @@ async function publishMode() {
 
 	/* ---- 1) yayın aracı (gerçek WordPress, fixture JSON) ---- */
 	check('başlangıç (canlı ile aynı): 103 ücret kaydı, ziyaretçiye görünen 2 (QA)', fx.fees === 103 && fx.before.active_visible === 2, JSON.stringify(fx.before));
-	check('yayın önizlemesi: 103 satır, hazır 95, yayında 2 (QA), bekletilen 6, sapmış 0, görünmez 0, oluşturulmamış 0',
-		S.total === 103 && S.ready === 95 && S.published === 2 && S.held_pending_decision === 6 && S.not_unchanged === 0 && S.not_publicly_valid === 0 && S.not_created === 0 && S.unexpected_status === 0, JSON.stringify(S));
-	check('yayın önizlemesi: karar 97 yayın / 6 bekletme; 145 seçenek; bağlantısız 19 (18\'i yayınlanabilir)', S.decision_publish === 97 && S.decision_hold === 6 && S.options_total === 145 && S.unlinked === 19 && S.unlinked_publishable === 18, JSON.stringify(S));
+	check('yayın önizlemesi: 103 satır, hazır 101, yayında 2 (QA), bekletilen 0, sapmış 0, görünmez 0, oluşturulmamış 0',
+		S.total === 103 && S.ready === 101 && S.published === 2 && S.held_pending_decision === 0 && S.not_unchanged === 0 && S.not_publicly_valid === 0 && S.not_created === 0 && S.unexpected_status === 0, JSON.stringify(S));
+	check('yayın önizlemesi: karar 103 yayın / 0 bekletme; 145 seçenek; bağlantısız 19 (19\'u yayınlanabilir)', S.decision_publish === 103 && S.decision_hold === 0 && S.options_total === 145 && S.unlinked === 19 && S.unlinked_publishable === 19, JSON.stringify(S));
 	const M = fx.missing;
 	const REQ = ['sectors.manifest.json', 'qualifications.manifest.json', 'fees.manifest.json', 'fee-publication.manifest.json'];
 	const errHas = (c, f) => c.load_errors.some((e) => e.indexOf(f) === 0);
@@ -143,13 +142,13 @@ async function publishMode() {
 	check('yanlış onay ifadesi -> confirmation_phrase_mismatch; bayat kalan sayısı -> stale_request; görünen ücret hâlâ 2',
 		fx.wrong_phrase.error_code === 'confirmation_phrase_mismatch' && fx.stale.error_code === 'stale_request' && fx.after_rejects_visible === 2, JSON.stringify([fx.wrong_phrase, fx.stale]));
 	const req = fx.requests;
-	check('etkinleştirme: 10 istek (9×10 + 5), hepsi ok, son durum completed', req.length === 10 && req.every((r) => r.ok) && req.slice(0, 9).every((r) => r.processed === 10 && r.status === 'paused') && req[9].processed === 5 && req[9].status === 'completed' && req[9].remaining === 0, JSON.stringify(req));
+	check('etkinleştirme: 11 istek (10×10 + 1), hepsi ok, son durum completed', req.length === 11 && req.every((r) => r.ok) && req.slice(0, 10).every((r) => r.processed === 10 && r.status === 'paused') && req[10].processed === 1 && req[10].status === 'completed' && req[10].remaining === 0, JSON.stringify(req));
 	const A = fx.preview_after.summary;
-	check('etkinleştirme sonrası önizleme: hazır 0, yayında 97, geri alınabilir 95, özet DEĞİŞMEDİ', A.ready === 0 && A.published === 97 && A.deactivatable === 95 && fx.preview_after.digest === fx.preview.digest, JSON.stringify(A));
-	check('audit: 10 adet import_fees_activated olayı', fx.audit_activated === 10, fx.audit_activated);
-	check('envanter etkinleştirme sonrası: 103 kayıt, ziyaretçiye görünen 97', fx.preview_after.inventory.site_total === 103 && fx.preview_after.inventory.site_visible === 97, JSON.stringify(fx.preview_after.inventory));
-	check('katalog servisi: ziyaretçiye görünen aktif ücret 97', fx.active_visible === 97, fx.active_visible);
-	check('bekletilen 6 kayıt taslak kaldı (draft/draft, işaret yok)', holdKeys.length === 6 && holdKeys.every((k) => fx.states[k].post_status === 'draft' && fx.states[k].record_status === 'draft' && !fx.states[k].marker), JSON.stringify(holdKeys.map((k) => fx.states[k])));
+	check('etkinleştirme sonrası önizleme: hazır 0, yayında 103, geri alınabilir 101 (2 QA elle yayında, araçla geri alınamaz), özet DEĞİŞMEDİ', A.ready === 0 && A.published === 103 && A.deactivatable === 101 && fx.preview_after.digest === fx.preview.digest, JSON.stringify(A));
+	check('audit: 11 adet import_fees_activated olayı', fx.audit_activated === 11, fx.audit_activated);
+	check('envanter etkinleştirme sonrası: 103 kayıt, ziyaretçiye görünen 103', fx.preview_after.inventory.site_total === 103 && fx.preview_after.inventory.site_visible === 103, JSON.stringify(fx.preview_after.inventory));
+	check('katalog servisi: ziyaretçiye görünen aktif ücret 103', fx.active_visible === 103, fx.active_visible);
+	check('karar dosyası: 103 yayın / 0 bekletme (2026-10-20 kullanıcı onayı), karar anahtarları ücret manifestiyle birebir', publishKeys.size === 103 && holdKeys.length === 0 && fees.every((f) => publishKeys.has(f.source_key)), publishKeys.size + ' / ' + holdKeys.length);
 	check('ikinci aktarım önizlemesi (önce ve sonra): 103 ücret unchanged, create 0, conflict 0 — mükerrer kayıt yok, sahte conflict yok',
 		[fx.all_pre, fx.all_post].every((a) => a.fee.unchanged === 103 && a.fee.create === 0 && a.fee.conflict === 0), JSON.stringify([fx.all_pre.fee, fx.all_post.fee]));
 
@@ -157,12 +156,12 @@ async function publishMode() {
 	const page = fx.fee_page;
 	check('Sınav Ücretleri sayfası yayında ve kalıcı bağlantısı var', fx.fee_page_status === 'publish' && /^http:\/\/127\.0\.0\.1:18673\//.test(page), page);
 	const all = await crawl(page, {});
-	check('sayfa 1: HTTP 200, PHP uyarısı yok, "Toplam 97 ücret kaydından 1–12"', all.first.status === 200 && !/(Warning|Notice|Deprecated|Fatal error):/.test(all.first.body) && /Toplam 97 ücret kaydından 1–12 arası gösteriliyor\./.test(dec(all.first.body)), text(/<p class="results-meta">[\s\S]*?<\/p>/.exec(all.first.body) || ''));
-	check('sayfalama: 9 sayfa × en çok 12 satır = 97 satır', all.pages === 9 && all.rows.length === 97, all.pages + ' / ' + all.rows.length);
+	check('sayfa 1: HTTP 200, PHP uyarısı yok, "Toplam 103 ücret kaydından 1–12"', all.first.status === 200 && !/(Warning|Notice|Deprecated|Fatal error):/.test(all.first.body) && /Toplam 103 ücret kaydından 1–12 arası gösteriliyor\./.test(dec(all.first.body)), text(/<p class="results-meta">[\s\S]*?<\/p>/.exec(all.first.body) || ''));
+	check('sayfalama: 9 sayfa × en çok 12 satır = 103 satır', all.pages === 9 && all.rows.length === 103, all.pages + ' / ' + all.rows.length);
 	const expected = fees.filter((f) => publishKeys.has(f.source_key)).map(expectedRow);
 	const keyOf = (r) => r.name + '|' + r.level + '|' + r.code;
 	const expMap = new Map(expected.map((e) => [keyOf(e), e]));
-	check('beklenen kümede anahtar (ad|seviye|kod) benzersiz', expMap.size === 97);
+	check('beklenen kümede anahtar (ad|seviye|kod) benzersiz', expMap.size === 103);
 	let rowsOk = 0;
 	let optionsOk = 0;
 	let optionsSeen = 0;
@@ -187,24 +186,26 @@ async function publishMode() {
 		if (ok) rowsOk++;
 		expMap.delete(keyOf(row));
 	}
-	check('97/97 satır kaynakla birebir (ad, seviye, MYK kodu, sektör adı, seçenek sayısı, standart açıklama)', rowsOk === 97 && expMap.size === 0, bad.slice(0, 5).join(' || ') + ' eksik=' + [...expMap.keys()].slice(0, 5).join(','));
+	check('103/103 satır kaynakla birebir (ad, seviye, MYK kodu, sektör adı, seçenek sayısı, standart açıklama)', rowsOk === 103 && expMap.size === 0, bad.slice(0, 5).join(' || ') + ' eksik=' + [...expMap.keys()].slice(0, 5).join(','));
 	const pubOptions = fees.filter((f) => publishKeys.has(f.source_key)).reduce((a, f) => a + f.price_options.length, 0);
-	check('yayınlanan ' + pubOptions + ' fiyat seçeneğinin tamamı etiket + birim + tutar olarak kaynakla birebir (KDV yeniden EKLENMEDİ: tutar = kaynak tutarı)', optionsSeen === pubOptions && optionsOk === pubOptions, optionsOk + '/' + optionsSeen);
+	check('yayınlanan ' + pubOptions + ' fiyat seçeneğinin (145) tamamı etiket + birim + tutar olarak kaynakla birebir (KDV yeniden EKLENMEDİ: tutar = kaynak tutarı)', pubOptions === 145 && optionsSeen === pubOptions && optionsOk === pubOptions, optionsOk + '/' + optionsSeen);
 	check('her satırda standart açıklama: "' + STATEMENT + '"', all.rows.every((r) => r.meta === STATEMENT), all.rows.find((r) => r.meta !== STATEMENT));
 	const unlinked = all.rows.filter((r) => r.code === 'Belirtilmemiştir');
-	check('bağlantısız 18 satır listede: MYK kodu "Belirtilmemiştir", detay bağlantısı YOK, satırda hiçbir <a> yok', unlinked.length === 18 && unlinked.every((r) => r.link === null && r.detailText === '—' && !/<a\s/.test(r.raw)), unlinked.length);
+	check('bağlantısız 19 satır listede: MYK kodu "Belirtilmemiştir", detay bağlantısı YOK, satırda hiçbir <a> yok', unlinked.length === 19 && unlinked.every((r) => r.link === null && r.detailText === '—' && !/<a\s/.test(r.raw)), unlinked.length);
 	const linked = all.rows.filter((r) => r.code !== 'Belirtilmemiştir');
 	const qualUrls = new Set(Object.values(fx.qual_of_fee).map((q) => q.url));
-	check('bağlı 79 satırın detay bağlantısı gerçek yeterlilik kalıcı bağlantısı', linked.length === 79 && linked.every((r) => r.link && qualUrls.has(r.link)), linked.filter((r) => !r.link || !qualUrls.has(r.link)).map((r) => r.name + ' ' + r.link).slice(0, 3));
+	check('bağlı 84 satırın detay bağlantısı gerçek yeterlilik kalıcı bağlantısı', linked.length === 84 && linked.every((r) => r.link && qualUrls.has(r.link)), linked.filter((r) => !r.link || !qualUrls.has(r.link)).map((r) => r.name + ' ' + r.link).slice(0, 3));
 	check('ücret listesinde mesleğe özel başvuru bağlantısı (meslek=) üretilmiyor', !/meslek=/.test(all.rows.map((r) => r.raw).join('')) && !/meslek=/.test(all.first.body.slice(all.first.body.indexOf('<ul class="fee-cards">'), all.first.body.indexOf('</ul>', all.first.body.indexOf('<ul class="fee-cards">')))));
-	const holdNames = fees.filter((f) => holdKeys.includes(f.source_key)).map((f) => f.profession_name + '|' + f.level);
-	check('bekletilen 6 kayıt listede YOK', all.rows.every((r) => !holdNames.includes(r.name + '|' + r.level)));
+	const beko = all.rows.filter((r) => r.name === 'Kazıcı Yükleyici (Beko Loder) Operatörü');
+	check('Kazıcı Yükleyici (Beko Loder) Operatörü: tek satır, kodsuz ("Belirtilmemiştir") ve bağlantısız; 23.000,00 TL', beko.length === 1 && beko[0].code === 'Belirtilmemiştir' && beko[0].link === null && beko[0].options.length === 1 && beko[0].options[0].amount === '23.000,00 TL', JSON.stringify(beko.map((r) => [r.code, r.link, r.options])));
+	const mobil = all.rows.filter((r) => r.code === '12UY0061-3/04');
+	check('iki Mobil Vinç tarifesi listede ayrı satır, aynı kod (12UY0061-3/04), ayrı adlar ve seçenek sayıları (4 + 1)', mobil.length === 2 && mobil.some((r) => r.name === 'Mobil Vinç Operatörü (MHC, Sahil ve Gemi Vinci)' && r.options.length === 4) && mobil.some((r) => r.name === 'Mobil Vinç Operatörü (İş Makineleri Grubu)' && r.options.length === 1 && r.options[0].amount === '9.500,00 TL'), JSON.stringify(mobil.map((r) => [r.name, r.options.length])));
 	const cardsCount = (all.first.body.match(/<li class="fee-card">/g) || []).length;
 	check('mobil kart listesi aynı veriyi taşır (sayfa 1: 12 kart, 12 satır)', cardsCount === 12, cardsCount);
 
 	// sayfalama sınırı, arama, filtreler
 	const last = await get(pageUrl(page, { mb_page: '99' }));
-	check('mb_page=99 son sayfaya (9) kenetlenir; 1 satır', /Toplam 97 ücret kaydından 97–97 arası gösteriliyor\./.test(dec(last.body)) && parseTable(last.body).length === 1, text(/<p class="results-meta">[\s\S]*?<\/p>/.exec(last.body) || ''));
+	check('mb_page=99 son sayfaya (9) kenetlenir; 7 satır', /Toplam 103 ücret kaydından 97–103 arası gösteriliyor\./.test(dec(last.body)) && parseTable(last.body).length === 7, text(/<p class="results-meta">[\s\S]*?<\/p>/.exec(last.body) || ''));
 	const qName = await crawl(page, { mb_q: 'Kuaför' });
 	check('arama (ad): "Kuaför" -> yalnız Kuaför satırı', qName.rows.length === 1 && qName.rows[0].name === 'Kuaför', qName.rows.map((r) => r.name));
 	const qCode = await crawl(page, { mb_q: '16UY0244' });
@@ -225,7 +226,10 @@ async function publishMode() {
 	check('yeterlilik detayı (Güzellik Uzmanı): ücret 17.000,00 TL + etiket/birimler + standart açıklama', guPage.status === 200 && /17\.000,00 TL/.test(guPage.body) && text(guPage.body).indexOf(STATEMENT) !== -1 && /Sınav ücreti\s*<span class="fee-option-units">\(A1, A2, A3, A4\)<\/span>/.test(guPage.body));
 	const dupQual = fx.qual_of_fee['fee:is-makineleri:3:mobil-vinc-operatoru-mhc-sahil-ve-gemi-vinci'];
 	const dupPage = await get(dupQual.url);
-	check('yeterlilik detayı (aynı yeterliliğe iki ücret, ikisi bekletiliyor): ücret gösterilmez', dupPage.status === 200 && !/class="fee-options"/.test(dupPage.body));
+	const dupNames = (dupPage.body.match(/<p class="qual-cta-fee-name">([^<]*)<\/p>/g) || []).map((s) => dec(s.replace(/<[^>]+>/g, '')));
+	check('yeterlilik detayı (12UY0061-3/04, iki ücret yayında): iki Mobil Vinç tarifesi ADLARIYLA ayrı ayrı (14.800,00 / 10.200,00 / 9.500,00 TL)',
+		dupPage.status === 200 && dupNames.length === 2 && dupNames.includes('Mobil Vinç Operatörü (MHC, Sahil ve Gemi Vinci)') && dupNames.includes('Mobil Vinç Operatörü (İş Makineleri Grubu)')
+		&& /14\.800,00 TL/.test(dupPage.body) && /10\.200,00 TL/.test(dupPage.body) && /9\.500,00 TL/.test(dupPage.body), JSON.stringify(dupNames));
 
 	/* ---- 3) gerçek Chrome: yönetim ekranı ve mobil ---- */
 	const jar = (u) => JSON.parse(fs.readFileSync(path.join(stateDir, 'cookies-' + u + '.json'), 'utf8'));
@@ -427,9 +431,9 @@ async function afterMode() {
 		&& IV.outside_rows.length === 1 && IV.outside_rows[0].has_source_key === false && IV.site_total === 104, JSON.stringify([fx.preview.summary.publish_gap, IV]));
 	const d = fx.deactivate;
 	const processed = d.reduce((a, r) => a + r.processed, 0);
-	check('geri alma: yalnız aracın etkinleştirdiği ve değişmemiş 93 ücret taslağa alındı (10 istek), audit 10 olay', processed === 93 && d.every((r) => r.ok) && d[d.length - 1].status === 'completed' && fx.audit_deactivated === 10, JSON.stringify(d));
+	check('geri alma: yalnız aracın etkinleştirdiği ve değişmemiş 99 ücret taslağa alındı (10 istek), audit 10 olay', processed === 99 && d.length === 10 && d.every((r) => r.ok) && d[d.length - 1].status === 'completed' && fx.audit_deactivated === 10, JSON.stringify(d));
 	const S = fx.preview_after_deactivate.summary;
-	check('geri alma sonrası: hazır 93 (yeniden yayınlanabilir), yayında 2 QA, sapmış 2, bekletilen 6', S.ready === 93 && S.published === 2 && S.not_unchanged === 2 && S.held_pending_decision === 6 && S.deactivatable === 0, JSON.stringify(S));
+	check('geri alma sonrası: hazır 99 (yeniden yayınlanabilir), yayında 2 QA, sapmış 2, bekletilen 0', S.ready === 99 && S.published === 2 && S.not_unchanged === 2 && S.held_pending_decision === 0 && S.deactivatable === 0, JSON.stringify(S));
 	check('geri alma sonrası: QA kayıtları ve elle değiştirilenler yayında; diğerleri draft/draft, işaret yok',
 		QA.every((k) => fx.states[k].post_status === 'publish') && edited.every((k) => fx.states[k].post_status === 'publish')
 		&& Object.keys(fx.states).filter((k) => !QA.includes(k) && !edited.includes(k)).every((k) => fx.states[k].post_status === 'draft' && fx.states[k].record_status === 'draft' && !fx.states[k].marker));
@@ -439,57 +443,11 @@ async function afterMode() {
 	check('eski (0.5.4) hash biçimli, içeriği değişmemiş kayıt aktarım önizlemesinde unchanged (canlıdaki 101 taslak kayıt bu durumda)', fx.legacy_decision === 'unchanged', fx.legacy_decision);
 }
 
-/** VARSAYIM TESTİ: bekletilen 6 kayıt da yayınlansa (yalnız fixture'daki karar kopyası) 103 satır / 145 seçenek kaynakla birebir mi? */
-async function whatifMode() {
-	const fx = readJson(process.argv[3]);
-	const S = fx.preview.summary;
-	check('VARSAYIM (gerçek karar dosyası DEĞİŞMEDİ, fixture kopyası): 6 bekletme "yayınla" olursa önizleme hazır 101, yayında 2 (QA), bekletilen 0, karar 103 yayın',
-		fx.flipped.length === 6 && fx.flipped.every((k) => holdKeys.includes(k)) && fx.preview.ok === true && S.ready === 101 && S.published === 2 && S.held_pending_decision === 0 && S.decision_publish === 103, JSON.stringify(S));
-	const req = fx.requests;
-	check('VARSAYIM: etkinleştirme 11 istek (10×10 + 1), hepsi ok, completed; ziyaretçiye görünen 103', req.length === 11 && req.every((r) => r.ok) && req[10].status === 'completed' && req[10].processed === 1 && fx.active_visible === 103, JSON.stringify(req));
-	const all = await crawl(fx.fee_page, {});
-	check('VARSAYIM: Sınav Ücretleri "Toplam 103 ücret kaydından", 9 sayfa, 103 satır', /Toplam 103 ücret kaydından 1–12 arası gösteriliyor\./.test(dec(all.first.body)) && all.pages === 9 && all.rows.length === 103, all.pages + ' / ' + all.rows.length);
-	const keyOf = (r) => r.name + '|' + r.level + '|' + r.code;
-	const expMap = new Map(fees.map(expectedRow).map((e) => [keyOf(e), e]));
-	let rowsOk = 0;
-	let optionsOk = 0;
-	const bad = [];
-	for (const row of all.rows) {
-		const e = expMap.get(keyOf(row));
-		if (!e) {
-			bad.push('beklenmeyen satır: ' + keyOf(row));
-			continue;
-		}
-		let ok = row.sector === e.sector && row.meta === STATEMENT && row.options.length === e.options.length;
-		e.options.forEach((o, i) => {
-			const g = row.options[i] || {};
-			if (g.amount === o.amount && g.text === o.text) optionsOk++;
-			else {
-				ok = false;
-				bad.push(keyOf(row) + ' seçenek ' + i + ': ' + JSON.stringify(g) + ' != ' + JSON.stringify(o));
-			}
-		});
-		if (ok) rowsOk++;
-		expMap.delete(keyOf(row));
-	}
-	check('VARSAYIM: 103/103 satır ve 145/145 seçenek (etiket + birim + tutar) kaynakla birebir; standart açıklama her satırda', rowsOk === 103 && optionsOk === 145 && expMap.size === 0, bad.slice(0, 5).join(' || ') + ' eksik=' + [...expMap.keys()].slice(0, 5).join(','));
-	const holdRecs = fees.filter((f) => holdKeys.includes(f.source_key));
-	check('VARSAYIM: bekletilen 6 kaydın satırları (ad, kod, seçenekler) referansla aynı biçimde listede', holdRecs.every((f) => all.rows.some((r) => keyOf(r) === keyOf(expectedRow(f)))));
-	const unlinked = all.rows.filter((r) => r.code === 'Belirtilmemiştir');
-	check('VARSAYIM: bağlantısız 19 satır ("Belirtilmemiştir", bağlantı yok), bağlı 84 satır', unlinked.length === 19 && unlinked.every((r) => r.link === null) && all.rows.length - unlinked.length === 84, unlinked.length);
-	const dup = await get(fx.dup_qual_url);
-	const names = (dup.body.match(/<p class="qual-cta-fee-name">([^<]*)<\/p>/g) || []).map((s) => dec(s.replace(/<[^>]+>/g, '')));
-	check('VARSAYIM: aynı yeterliliğe (12UY0061-3/04) bağlı iki ücret yeterlilik detayında ADLARIYLA ayrı ayrı (14.800,00 / 10.200,00 / 9.500,00 TL)',
-		dup.status === 200 && names.length === 2 && names.includes('Mobil Vinç Operatörü (MHC, Sahil ve Gemi Vinci)') && names.includes('Mobil Vinç Operatörü (İş Makineleri Grubu)')
-		&& /14\.800,00 TL/.test(dup.body) && /10\.200,00 TL/.test(dup.body) && /9\.500,00 TL/.test(dup.body), JSON.stringify(names));
-}
-
 (async () => {
 	if (mode === 'publish') await publishMode();
 	else if (mode === 'after') await afterMode();
-	else if (mode === 'whatif') await whatifMode();
 	else {
-		console.log('Kullanım: publish <fixtures.json> <durum> <ekranlar> | after <after.json> <publish.json> <edited.json> | whatif <whatif.json>');
+		console.log('Kullanım: publish <fixtures.json> <durum> <ekranlar> | after <after.json> <publish.json> <edited.json>');
 		process.exit(2);
 	}
 	console.log('\n' + pass + '/' + (pass + fail) + ' Faz 15 ücret kataloğu runtime testi ' + (fail ? 'BAŞARISIZ' : 'geçti') + '.');
