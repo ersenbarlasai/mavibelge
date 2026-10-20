@@ -156,8 +156,10 @@ class MaviBelge_Core_Field_Repository {
 				if ( '' === $raw || null === $raw ) {
 					return array( isset( $config['default'] ) ? $config['default'] : $min, null );
 				}
-				if ( ! MaviBelge_Core_Validator::is_valid_integer_range( $raw, $min ) ) {
-					return array( null, 'geçerli bir tam sayı değil.' );
+				// Faz 15: isteğe bağlı üst sınır (ör. KDV oranı 0–100); sınır dışı değer yazılmaz, önceki değer korunur.
+				$max = isset( $config['max'] ) ? $config['max'] : null;
+				if ( ! MaviBelge_Core_Validator::is_valid_integer_range( $raw, $min, $max ) ) {
+					return array( null, null === $max ? 'geçerli bir tam sayı değil.' : sprintf( '%d ile %d arasında bir tam sayı olmalı.', $min, $max ) );
 				}
 				return array( (int) $raw, null );
 

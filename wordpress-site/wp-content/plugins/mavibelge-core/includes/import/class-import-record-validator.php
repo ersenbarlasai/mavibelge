@@ -1698,9 +1698,7 @@ class MaviBelge_Core_Import_Record_Validator {
 		if ( ! is_string( $f['tariff_period'] ) || '' === trim( $f['tariff_period'] ) ) {
 			return false;
 		}
-		if ( ! is_string( $f['record_status'] ) || ! in_array( $f['record_status'], array( 'draft', 'active', 'archived' ), true ) ) {
-			return false;
-		}
+		// Faz 15: record_status ücret için yönetilen alan değildir (bkz. Managed_Fields::FEE_FIELDS); burada doğrulanmaz.
 		if ( ! is_string( $f['valid_from'] ) || ! MaviBelge_Core_Validator::is_valid_ymd_date( $f['valid_from'] ) ) {
 			return false;
 		}

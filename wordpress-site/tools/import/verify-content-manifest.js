@@ -23,6 +23,8 @@ const KNOWN_OTHER_MANIFESTS = [
 	'sectors.manifest.json', 'qualifications.manifest.json', 'fees.manifest.json',
 	// Faz 12: sayfa manifesti ayrı hatta (verify-page-manifest.js).
 	'pages.manifest.json',
+	// Faz 15: ücret yayın kararı manifesti ayrı hatta (tools/fees/build-approval-matrix.js).
+	'fee-publication.manifest.json',
 ];
 
 /** content/ altında beklenmeyen *.manifest.json dosyaları (bilinen 3 katalog + 2 içerik dışında). */

@@ -430,9 +430,10 @@ test(
 	bodies.sector_fields_from_raw !== null && /strict_string_fields\([\s\S]*'icon_key'/.test(bodies.sector_fields_from_raw)
 );
 test(
-	'Son Kapanış: fee_fields_from_raw() source_name dahil 10 string alanı strict_string_fields() ile doğruluyor',
-	bodies.fee_fields_from_raw !== null && ['title', 'profession_name', 'sector_slug', 'qualification_code', 'pricing_type', 'source_name', 'tariff_period', 'record_status', 'valid_from', 'valid_until']
+	'Son Kapanış: fee_fields_from_raw() source_name dahil 9 string alanı strict_string_fields() ile doğruluyor (Faz 15: record_status ücrette yönetilen alan DEĞİL)',
+	bodies.fee_fields_from_raw !== null && ['title', 'profession_name', 'sector_slug', 'qualification_code', 'pricing_type', 'source_name', 'tariff_period', 'valid_from', 'valid_until']
 		.every((k) => new RegExp("strict_string_fields\\([\\s\\S]*'" + k + "'[\\s\\S]*\\);").test(bodies.fee_fields_from_raw))
+		&& bodies.fee_fields_from_raw.indexOf("'record_status'") === -1
 );
 test(
 	'Son Kapanış: qualification_fields_from_raw() myk_code/revision/record_status/title\'ı strict_string_fields() ile doğruluyor',
@@ -827,12 +828,12 @@ const ifMethods = (code) => (code.match(/public function (\w+)\(/g) || []).map((
 test('Faz 6B3 arayüz: MaviBelge_Core_Import_Target_Repository hâlâ yalnız 5 okuma metodu taşır (Faz 7 çözümleyici arayüzü AYRI)',
 	repoIfSplit.length === 2 && ifMethods(repoIfSplit[0]) === 'find_target_by_source_key,get_diagnostics,resolve_qualification_post_id,resolve_sector_image_attachment_id,resolve_sector_term_id');
 test('Faz 7 arayüz: ayrı Content_Dependency_Resolver arayüzü TEK metot taşır (resolve_news_type_term_id)', repoIfSplit.length === 2 && ifMethods(repoIfSplit[1]) === 'resolve_news_type_term_id');
-test('Faz 6B3 arayüz: yazma adapterı arayüzü dar (create/update sektör+post, rollback_created_post, delete_sector_term, parmak izi, terim referansları, Faz 12: page_status/publish_page)',
-	(c6.writerIf.match(/public function (\w+)\(/g) || []).map((m) => m.replace(/public function |\(/g, '')).sort().join(',') === 'begin_side_effect_scope,commit_side_effect_scope,compensate_side_effect_scope,content_post_status,create_post,create_sector,delete_sector_term,page_status,publish_page,rollback_created_post,sector_term_references,unmanaged_fingerprint,update_post,update_sector');
+test('Faz 6B3 arayüz: yazma adapterı arayüzü dar (create/update sektör+post, rollback_created_post, delete_sector_term, parmak izi, terim referansları, Faz 12: page_status/publish_page, Faz 15: fee_publication_state/set_fee_publication)',
+	(c6.writerIf.match(/public function (\w+)\(/g) || []).map((m) => m.replace(/public function |\(/g, '')).sort().join(',') === 'begin_side_effect_scope,commit_side_effect_scope,compensate_side_effect_scope,content_post_status,create_post,create_sector,delete_sector_term,fee_publication_state,page_status,publish_page,rollback_created_post,sector_term_references,set_fee_publication,unmanaged_fingerprint,update_post,update_sector');
 
 // 8) Yönetilmeyen alan / readback / çöp kutusu kuralları (yazma adapterı).
-test('Faz 6B3 adapter: her meta yazımı katı readback ile doğrulanır; yalnız yönetilen meta listesi yazılabilir',
-	(c6.writer.match(/self::stored_equals\(/g) || []).length === 3 && /array\(\) !== array_diff\( array_keys\( \$payload\['post_meta'\] \), MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META/.test(c6.writer)
+test('Faz 6B3 adapter: her meta yazımı katı readback ile doğrulanır; yalnız yönetilen meta listesi yazılabilir (Faz 15: create başlangıç meta\'sı INITIAL_POST_META da readback\'li)',
+	(c6.writer.match(/self::stored_equals\(/g) || []).length === 4 && /Write_Payload::INITIAL_POST_META\[ \$payload\['type'\] \]/.test(c6.writer) && /array\(\) !== array_diff\( array_keys\( \$payload\['post_meta'\] \), MaviBelge_Core_Import_Write_Payload::MANAGED_POST_META/.test(c6.writer)
 		&& /array\(\) === array_diff\( array_keys\( \$payload\['term_meta'\] \), array_keys\( MaviBelge_Core_Taxonomies::sector_term_meta_contract\(\) \) \)/.test(c6.writer));
 test('Faz 6B3 adapter: değerler wp_slash ile verilir (WordPress unslash eder); post create draft; EMPTY_TRASH_DAYS=0 iken çöp yerine kalıcı silme YAPILMAZ',
 	(c6.writer.match(/wp_slash\(/g) || []).length >= 6 && /'post_status'\s*=>\s*'draft'/.test(c6.writer) && /defined\( 'EMPTY_TRASH_DAYS' \) && ! EMPTY_TRASH_DAYS/.test(c6.writer));
@@ -919,9 +920,10 @@ test('Faz 12b sabitler: haber onayı YALNIZ in_review, referans YALNIZ real/acti
 	/'in_review' !== \$f\['approval_status'\]/.test(code7.payload) && /'real' !== \$f\['reference_status'\]/.test(code7.payload) && /'active' !== \$f\['record_status'\]/.test(code7.payload)
 		&& code7.managed.indexOf("'approval_status'   => 'in_review'") !== -1 && /'reference_status' => 'real'/.test(code7.managed)
 		&& ['payload', 'managed', 'applySvc'].every((k) => !/'publish'|"publish"/.test(code7[k]))
-		&& /'publish'/.test(phpFunctionBody(code7.writer, 'publish_page') || '') && !/'publish'|"publish"/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '')));
+		&& /'publish'/.test(phpFunctionBody(code7.writer, 'publish_page') || '') && /'publish'/.test(phpFunctionBody(code7.writer, 'set_fee_publication') || '')
+		&& !/'publish'|"publish"/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '').replace(phpFunctionBody(code7.writer, 'set_fee_publication') || '<none>', '')));
 test('Faz 7 yazıcı: post HER ZAMAN draft açılır; update post_status yazmaz; edit_date açık; kalıcı silme (wp_delete_post/wp_delete_term dışında sektör) yok; yönetilen çekirdek alan ve taksonomi listeleri tanımlı',
-	/'post_status'\s*=>\s*'draft'/.test(code7.writer) && !/'post_status'\s*=>\s*'(?!draft')/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '').replace(phpFunctionBody(code7.writer, 'ensure_logo_attachment') || '<none>', '').replace(phpFunctionBody(code7.writer, 'compensate_entry') || '<none>', '')) && /\$args\['edit_date'\] = true/.test(code7.writer) && !/wp_delete_post\s*\(/.test(code7.writer)
+	/'post_status'\s*=>\s*'draft'/.test(code7.writer) && !/'post_status'\s*=>\s*'(?!draft')/.test(code7.writer.replace(phpFunctionBody(code7.writer, 'publish_page') || '<none>', '').replace(phpFunctionBody(code7.writer, 'set_fee_publication') || '<none>', '').replace(phpFunctionBody(code7.writer, 'ensure_logo_attachment') || '<none>', '').replace(phpFunctionBody(code7.writer, 'compensate_entry') || '<none>', '')) && /\$args\['edit_date'\] = true/.test(code7.writer) && !/wp_delete_post\s*\(/.test(code7.writer)
 		&& /const MANAGED_CORE_FIELDS = array\(\s*'news'\s*=> array\( 'post_name', 'post_content', 'post_excerpt', 'post_date' \),\s*'reference' => array\( 'post_name' \)/.test(code7.writer)
 		&& /const MANAGED_TAXONOMIES = array\(\s*'qualification' => array\( 'mb_sektor' \),\s*'news'\s*=> array\( 'mb_haber_turu' \)/.test(code7.writer));
 test('Faz 7 yazıcı: unmanaged_fingerprint yönetilen çekirdek alanları ve yönetilen taksonomiyi dışlar; rollback post_name\'i boşaltıp çöpe alır ve serbest kaldığını readback ile doğrular',

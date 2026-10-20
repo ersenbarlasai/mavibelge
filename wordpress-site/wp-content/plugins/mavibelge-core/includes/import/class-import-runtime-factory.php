@@ -13,7 +13,7 @@
  *
  * Kurucu `$overrides` (YALNIZ testler ve izole runtime içindir; WP-CLI/admin bunu geçmez, istemciden hiçbir değer
  * taşınmaz): manifest_dir, image_map_raw, attachment_inspector, repository_factory (callable(array $map)),
- * writer, tx, store, audit.
+ * writer, tx, store, audit, fee_visibility_blocker (callable(int)), fee_decisions_loader (callable()), fee_inventory (callable()|null).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -169,6 +169,30 @@ class MaviBelge_Core_Import_Runtime_Factory {
 			'page_publisher',
 			function () {
 				return new MaviBelge_Core_Import_Page_Publisher( $this->dry_run_service(), $this->writer(), $this->transaction(), $this->run_store(), $this->audit_sink() );
+			}
+		);
+	}
+
+	/**
+	 * @return MaviBelge_Core_Import_Fee_Publisher Faz 15: taslak ücretleri AYRI, onaylı işlemle etkinleştirir / geri alır. Görünürlük
+	 *   ön kontrolü katalog servisinin AYNI kuralıdır; yayın kararı manifest dizinindeki karar dosyasından okunur.
+	 */
+	public function fee_publisher() {
+		return $this->memoize(
+			'fee_publisher',
+			function () {
+				$blocker = isset( $this->overrides['fee_visibility_blocker'] ) ? $this->overrides['fee_visibility_blocker'] : array( 'MaviBelge_Core_Catalog_Service', 'fee_publication_blocker' );
+				$dir     = $this->manifest_dir();
+				$loader  = isset( $this->overrides['fee_decisions_loader'] ) ? $this->overrides['fee_decisions_loader'] : function () use ( $dir ) {
+					return MaviBelge_Core_Import_Manifest_Loader::load_fee_publication( $dir );
+				};
+				// Manifest dışı ücret sayımı için salt okunur envanter (WordPress yoksa — saf testler — envanter yok: null).
+				if ( array_key_exists( 'fee_inventory', $this->overrides ) ) {
+					$inventory = $this->overrides['fee_inventory'];
+				} else {
+					$inventory = function_exists( 'get_posts' ) ? array( 'MaviBelge_Core_Catalog_Service', 'fee_inventory' ) : null;
+				}
+				return new MaviBelge_Core_Import_Fee_Publisher( $this->dry_run_service(), $this->writer(), $this->transaction(), $this->run_store(), $this->audit_sink(), $blocker, $loader, $inventory );
 			}
 		);
 	}

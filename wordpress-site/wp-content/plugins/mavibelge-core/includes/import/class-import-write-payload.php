@@ -42,6 +42,8 @@ class MaviBelge_Core_Import_Write_Payload {
 	 */
 	const MANAGED_POST_META = array(
 		'qualification' => array( '_mb_myk_code', '_mb_level', '_mb_revision', '_mb_record_status', '_mb_import_source_key', '_mb_last_applied_hash' ),
+		// Faz 15: ücret yükü `_mb_record_status` YAZMAZ (yayın durumu yönetilen alan değildir); anahtar bu listede kalır çünkü
+		// create onu başlangıç değeriyle yazar (INITIAL_POST_META) ve yönetilmeyen-alan parmak izi eski run'larla aynı kalmalıdır.
 		'fee'           => array(
 			'_mb_profession_name', '_mb_level', '_mb_sector_slug', '_mb_qualification_id', '_mb_qualification_code', '_mb_pricing_type',
 			'_mb_price_options', '_mb_min_amount_kurus', '_mb_max_amount_kurus', '_mb_vat_included', '_mb_certificate_print_fee_kurus',
@@ -55,6 +57,14 @@ class MaviBelge_Core_Import_Write_Payload {
 		'faq'           => array( '_mb_sort_order', '_mb_record_status', '_mb_import_source_key', '_mb_last_applied_hash' ),
 		// Faz 12: çekirdek `page` yalnız marker + hash meta'sı taşır (içerik alanları çekirdek post alanlarıdır).
 		'page'          => array( '_mb_import_source_key', '_mb_last_applied_hash' ),
+	);
+
+	/**
+	 * Faz 15 — YALNIZ create'te yazılan başlangıç meta değerleri (yükte yoktur; update onları DEĞİŞTİRMEZ). Ücret: yayın durumu
+	 * taslak başlar; etkinleştirme ayrı, onaylı işlemdir (MaviBelge_Core_Import_Fee_Publisher).
+	 */
+	const INITIAL_POST_META = array(
+		'fee' => array( '_mb_record_status' => MaviBelge_Core_Import_Managed_Fields::FEE_INITIAL_RECORD_STATUS ),
 	);
 
 	/** Tür => yazma yükünün post türü (sektör bir terimdir; post türü yok). */
@@ -299,7 +309,6 @@ class MaviBelge_Core_Import_Write_Payload {
 				'_mb_source_page'                 => $f['source_page'],
 				'_mb_source_attachment_id'        => $f['source_attachment_id'],
 				'_mb_tariff_period'               => $f['tariff_period'],
-				'_mb_record_status'               => $f['record_status'],
 				'_mb_valid_from'                  => $f['valid_from'],
 				'_mb_valid_until'                 => $f['valid_until'],
 			),

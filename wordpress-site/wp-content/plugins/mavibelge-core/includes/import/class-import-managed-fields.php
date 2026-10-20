@@ -62,13 +62,36 @@ class MaviBelge_Core_Import_Managed_Fields {
 	 * normalize_price_options()); iki kez, birbirinden bağımsız olarak
 	 * hem hesaplanıp hem hash'e ayrı ayrı girmesi gereksiz drift riski
 	 * yaratırdı.
+	 *
+	 * Faz 15 — `record_status` (`_mb_record_status`) BU LİSTEDE YOK: ücretin yayın durumu, sayfalardaki `post_status` gibi
+	 * editörün/yayın işleminin alanıdır (MaviBelge_Core_Import_Fee_Publisher). Import yalnız create'te başlangıç değerini
+	 * (FEE_INITIAL_RECORD_STATUS) yazar; update onu DEĞİŞTİRMEZ. Böylece etkinleştirilen bir ücret sonraki önizlemede sahte
+	 * `conflict` üretmez, ama içerik alanlarındaki her elle değişiklik yine `conflict` olarak görünür. Bu sürümden önce
+	 * yazılmış `_mb_last_applied_hash` değerleri `record_status` dahil hesaplanmıştı; tek geçiş kuralı için bkz.
+	 * legacy_fee_hash_input() ve MaviBelge_Core_Import_WordPress_Target_Repository::effective_fee_last_applied_hash().
 	 */
 	const FEE_FIELDS = array(
 		'title', 'profession_name', 'level', 'sector_slug', 'qualification_post_id', 'qualification_code',
 		'pricing_type', 'price_options', 'vat_included', 'certificate_print_fee_kurus',
-		'source_name', 'source_page', 'source_attachment_id', 'tariff_period', 'record_status',
+		'source_name', 'source_page', 'source_attachment_id', 'tariff_period',
 		'valid_from', 'valid_until',
 	);
+
+	/** Faz 15 — ücretin create'te yazılan başlangıç yayın durumu (manifest `planned_record_status` ile aynı sabit). */
+	const FEE_INITIAL_RECORD_STATUS = 'draft';
+
+	/**
+	 * Faz 15 — eski (0.5.4 ve öncesi) ücret hash girdisi: yönetilen alanlar + import'un o sürümlerde HER ZAMAN yazdığı
+	 * `record_status = draft`. Yalnız saklanmış eski bir `_mb_last_applied_hash`'in hangi içeriği özetlediğini tanımak için
+	 * kullanılır; yeni hiçbir hash bununla YAZILMAZ.
+	 *
+	 * @param array $feeFields FEE_FIELDS anahtarlı alanlar.
+	 * @return array
+	 */
+	public static function legacy_fee_hash_input( array $feeFields ) {
+		$feeFields['record_status'] = self::FEE_INITIAL_RECORD_STATUS;
+		return $feeFields;
+	}
 
 	/**
 	 * Faz 7 içerik aktarımı — mb_haber (post) için yönetilen alanlar.
@@ -311,7 +334,6 @@ class MaviBelge_Core_Import_Managed_Fields {
 				'source_page'                 => null === $feeRecord['source_page'] ? 0 : $feeRecord['source_page'],
 				'source_attachment_id'        => $feeRecord['source_attachment_id'],
 				'tariff_period'               => $feeRecord['planned_tariff_period'],
-				'record_status'               => $feeRecord['planned_record_status'],
 				'valid_from'                  => $feeRecord['planned_valid_from'],
 				'valid_until'                 => $feeRecord['planned_valid_until'],
 			),

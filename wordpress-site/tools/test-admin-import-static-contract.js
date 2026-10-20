@@ -64,11 +64,12 @@ function test(name, ok) {
 	}
 }
 
-const ACTIONS = ['save_sector_image_map', 'preview_stage', 'start_apply', 'advance_apply', 'preview_rollback', 'start_rollback', 'advance_rollback', 'preview_publish', 'publish_pages'];
+const ACTIONS = ['save_sector_image_map', 'preview_stage', 'start_apply', 'advance_apply', 'preview_rollback', 'start_rollback', 'advance_rollback', 'preview_publish', 'publish_pages', 'preview_fee_publish', 'activate_fees', 'deactivate_fees'];
 
 /* ---- HTTP yüzeyi ---- */
 test('Admin yüzeyi: yalnız wp_ajax_ ile kayıtlı (yedi action ACTIONS sabitinden döngüyle); wp_ajax_nopriv_ HİÇ YOK', /add_action\(\s*'wp_ajax_'\s*\.\s*MaviBelge_Core_Import_Admin_Gates::ACTION_PREFIX\s*\.\s*\$action/.test(SRC.page) && !/nopriv/i.test(SRC.page));
-test('Admin yüzeyi: ACTIONS sabiti tam olarak dokuz action tanımlar (kayıt, düğüm, nonce, seviye ayrı ayrı)', ACTIONS.every((a) => new RegExp("'" + a + "'\\s*=>\\s*array\\(\\s*'level'").test(SRC.gates)) && (SRC.gates.match(/'level'\s*=>/g) || []).length === 9);
+test('Admin yüzeyi: ACTIONS sabiti tam olarak on iki action tanımlar (Faz 15: +ücret yayını önizleme/etkinleştir/geri al)', ACTIONS.every((a) => new RegExp("'" + a + "'\\s*=>\\s*array\\(\\s*'level'").test(SRC.gates)) && (SRC.gates.match(/'level'\s*=>/g) || []).length === 12);
+test('Faz 15: ücret etkinleştirme/geri alma apply ile AYNI kapı seviyesinde (run); önizleme salt okunur (read)', /'preview_fee_publish'\s*=>\s*array\(\s*'level'\s*=>\s*'read'/.test(SRC.gates) && /'activate_fees'\s*=>\s*array\(\s*'level'\s*=>\s*'run'/.test(SRC.gates) && /'deactivate_fees'\s*=>\s*array\(\s*'level'\s*=>\s*'run'/.test(SRC.gates));
 test('Admin yüzeyi: her action için controller giriş noktası (handle_<action>) var', ACTIONS.every((a) => new RegExp('public static function handle_' + a + '\\(').test(SRC.page)));
 test('Admin yüzeyi: REST route, admin-post.php action\'ı, doğrudan erişilebilir runner, cron veya shutdown yazımı YOK',
 	!/register_rest_route|rest_api_init|admin_post_|admin-post\.php|wp_schedule_|register_shutdown_function|file_put_contents|fopen\(|exec\(|shell_exec|system\(|passthru|eval\(/.test(SRC.page + SRC.adminSvc + SRC.gates + SRC.factory));
@@ -89,7 +90,7 @@ test('Admin yüzeyi: toplu Apply_Service::apply() ve Rollback_Service::rollback(
 	!/->apply\(\s*\$/.test(SRC.page + SRC.adminSvc) && !/->rollback\(\s*\$/.test(SRC.page + SRC.adminSvc) && /start_resumable\(/.test(SRC.adminSvc) && /advance_resumable\(/.test(SRC.adminSvc));
 test('Admin yüzeyi: istemciye exception mesajı, SQL, yol veya alan değeri sızdıran çağrı YOK (getMessage/getTraceAsString/last_error/print_r/var_dump/__FILE__ yok)',
 	!/getMessage|getTraceAsString|last_error|print_r|var_dump|var_export|__FILE__|ABSPATH\s*\./.test(SRC.page + SRC.adminSvc + SRC.gates));
-test('Admin yüzeyi: ignore_user_abort yalnız advance action\'larında', /in_array\(\s*\$action,\s*array\(\s*'advance_apply',\s*'advance_rollback',\s*'publish_pages'\s*\)/.test(SRC.page) && /ignore_user_abort\(\s*true\s*\)/.test(SRC.page));
+test('Admin yüzeyi: ignore_user_abort yalnız advance action\'larında', /in_array\(\s*\$action,\s*array\(\s*'advance_apply',\s*'advance_rollback',\s*'publish_pages',\s*'activate_fees',\s*'deactivate_fees'\s*\)/.test(SRC.page) && /ignore_user_abort\(\s*true\s*\)/.test(SRC.page));
 test('Admin yüzeyi: dry-run sayfası yalnız bölümleri render eder; kendi dry-run kodu yazma çağrısı taşımaz', /MaviBelge_Core_Import_Apply_Page::render_sections\(\)/.test(SRC.dryRunPage) && !/->(apply|rollback|start_resumable|advance_resumable)\(/.test(SRC.dryRunPage));
 test('Admin yüzeyi: bir istek bir batch — advance servis çağrısı döngüsüz (controller ve Admin_Run_Service\'te while/for/foreach ile advance çağrısı YOK)',
 	!/(while|for|foreach)\s*\([^)]*\)\s*\{[^}]*advance_(apply|rollback|resumable)/.test(SRC.page + SRC.adminSvc));
@@ -149,7 +150,7 @@ test('Rollback servisi: eski toplu rollback() korunur; resumable start/advance a
 test('Bootstrap: yeni sınıflar mavibelge-core.php\'de yüklenir; admin controller yalnız admin bağlamında (class-plugin.php)',
 	['class-import-plan-snapshot.php', 'class-import-sector-image-map.php', 'class-import-runtime-factory.php', 'class-import-admin-gates.php', 'class-import-admin-run-service.php'].every((f) => SRC.bootstrap.includes("'includes/import/" + f + "'"))
 	&& /require_once \$path \. 'admin\/class-import-apply-page\.php';/.test(read(PLUGIN, 'includes', 'class-plugin.php')) && /MaviBelge_Core_Import_Apply_Page::init\(\);/.test(SRC.plugin));
-test('Bootstrap: eklenti sürümü başlıkta ve sabitte 0.5.4', /\*\s+Version:\s+0\.5\.4/.test(SRC.bootstrap) && /define\(\s*'MAVIBELGE_CORE_VERSION',\s*'0\.5\.4'\s*\)/.test(SRC.bootstrap));
+test('Bootstrap: eklenti sürümü başlıkta ve sabitte 0.5.5', /\*\s+Version:\s+0\.5\.5/.test(SRC.bootstrap) && /define\(\s*'MAVIBELGE_CORE_VERSION',\s*'0\.5\.5'\s*\)/.test(SRC.bootstrap));
 
 /* ---- JavaScript: yalnız orkestrasyon ---- */
 test('JS: innerHTML/outerHTML/insertAdjacentHTML/document.write/eval/Function( YOK — sunucu yanıtı yalnız textContent ile gösterilir', !/innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\(|new Function|setTimeout\(\s*['"]/.test(js));

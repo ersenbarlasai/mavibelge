@@ -156,6 +156,92 @@ class MaviBelge_Core_Import_Admin_Run_Service {
 		return self::publish_result( $this->factory->page_publisher()->publish( $planDigest, $expectedRemaining, (int) $userId ) );
 	}
 
+	/**
+	 * Faz 15 — SALT OKUNUR ücret yayın önizlemesi: her ücretin adı, seviyesi, sektörü, kaynak MYK kodu, seçenek sayısı, yayın kararı
+	 * (bekletme nedenleriyle), durumu ve nedeni; iki onay ifadesi. Yalnız güvenli alanlar (tutar/hash/SQL/yol YOK).
+	 */
+	public function preview_fee_publish() {
+		$pv   = $this->factory->fee_publisher()->preview();
+		$rows = array();
+		foreach ( $pv['rows'] as $row ) {
+			$holds = array();
+			foreach ( $row['hold_reasons'] as $code ) {
+				$holds[] = array( 'code' => $code, 'label' => isset( MaviBelge_Core_Import_Fee_Publisher::HOLD_REASONS[ $code ] ) ? MaviBelge_Core_Import_Fee_Publisher::HOLD_REASONS[ $code ] : 'Karar satırı ücret kaydının güncel içeriğine uymuyor (yeniden üretilmeli)' );
+			}
+			$rows[] = array(
+				'source_key'         => $row['source_key'],
+				'profession_name'    => $row['profession_name'],
+				'level'              => $row['level'],
+				'sector_slug'        => $row['sector_slug'],
+				'qualification_code' => $row['qualification_code'],
+				'linked'             => $row['linked'],
+				'option_count'       => $row['option_count'],
+				'decision'           => $row['decision'],
+				'holds'              => $holds,
+				'post_status'        => $row['post_status'],
+				'record_status'      => $row['record_status'],
+				'reason'             => $row['reason'],
+				'import_decision'    => $row['import_decision'],
+				'blocker'            => null === $row['blocker'] ? null : ( isset( MaviBelge_Core_Import_Fee_Publisher::BLOCKER_LABELS[ $row['blocker'] ] ) ? MaviBelge_Core_Import_Fee_Publisher::BLOCKER_LABELS[ $row['blocker'] ] : $row['blocker'] ),
+				'by_publisher'       => $row['by_publisher'],
+			);
+		}
+		return array(
+			'ok'                => $pv['ok'],
+			'error_code'        => $pv['error_code'],
+			// Eksik/bozuk dosyada hangi sabit dosyanın okunamadığı (yükleyici metni; mutlak yol İÇERMEZ). Bu durumda hiçbir yazma yapılmaz.
+			'load_errors'       => isset( $pv['load_errors'] ) ? $pv['load_errors'] : array(),
+			'required_files'    => MaviBelge_Core_Import_Fee_Publisher::REQUIRED_FILES,
+			'plan_digest'       => $pv['plan_digest'],
+			'summary'           => $pv['summary'],
+			// Gerçek ortam envanteri: sitedeki bütün ücret kayıtları, manifest dışı olanlar (araç dokunmaz) — WordPress yoksa null.
+			'inventory'         => isset( $pv['inventory'] ) ? $pv['inventory'] : null,
+			'rows'              => $rows,
+			'activate_phrase'   => null === $pv['plan_digest'] ? null : MaviBelge_Core_Import_Admin_Gates::fee_publish_phrase( MaviBelge_Core_Import_Fee_Publisher::MODE_ACTIVATE, $pv['plan_digest'] ),
+			'deactivate_phrase' => null === $pv['plan_digest'] ? null : MaviBelge_Core_Import_Admin_Gates::fee_publish_phrase( MaviBelge_Core_Import_Fee_Publisher::MODE_DEACTIVATE, $pv['plan_digest'] ),
+		);
+	}
+
+	/**
+	 * Faz 15 — hazır ücretleri etkinleştirir (istek başına en çok 10). Onay ifadesi `UCRET YAYINLA <özet ilk 12>` BİREBİR olmalı.
+	 *
+	 * @param mixed $planDigest
+	 * @param mixed $confirmPhrase
+	 * @param mixed $expectedRemaining
+	 */
+	public function activate_fees( $planDigest, $confirmPhrase, $expectedRemaining ) {
+		return $this->fee_publish( MaviBelge_Core_Import_Fee_Publisher::MODE_ACTIVATE, $planDigest, $confirmPhrase, $expectedRemaining );
+	}
+
+	/** Faz 15 — yalnız bu aracın etkinleştirdiği ücretleri geri alır. İfade: `UCRET YAYINDAN KALDIR <özet ilk 12>`. */
+	public function deactivate_fees( $planDigest, $confirmPhrase, $expectedRemaining ) {
+		return $this->fee_publish( MaviBelge_Core_Import_Fee_Publisher::MODE_DEACTIVATE, $planDigest, $confirmPhrase, $expectedRemaining );
+	}
+
+	private function fee_publish( $mode, $planDigest, $confirmPhrase, $expectedRemaining ) {
+		if ( ! MaviBelge_Core_Import_Apply_Plan::is_digest( $planDigest ) ) {
+			return self::fee_publish_result( array( 'ok' => false, 'status' => 'rejected', 'error_code' => 'invalid_confirmation' ) );
+		}
+		if ( ! MaviBelge_Core_Import_Admin_Gates::phrase_matches( $confirmPhrase, MaviBelge_Core_Import_Admin_Gates::fee_publish_phrase( $mode, $planDigest ) ) ) {
+			return self::fee_publish_result( array( 'ok' => false, 'status' => 'rejected', 'error_code' => 'confirmation_phrase_mismatch' ) );
+		}
+		$publisher = $this->factory->fee_publisher();
+		$result    = MaviBelge_Core_Import_Fee_Publisher::MODE_ACTIVATE === $mode ? $publisher->activate( $planDigest, $expectedRemaining ) : $publisher->deactivate( $planDigest, $expectedRemaining );
+		return self::fee_publish_result( $result );
+	}
+
+	/** Ücret yayın sonucunu KAPALI, güvenli şekle indirger. */
+	private static function fee_publish_result( array $r ) {
+		return array(
+			'ok'          => isset( $r['ok'] ) ? (bool) $r['ok'] : false,
+			'status'      => isset( $r['status'] ) && is_string( $r['status'] ) ? $r['status'] : null,
+			'error_code'  => isset( $r['error_code'] ) && is_string( $r['error_code'] ) ? $r['error_code'] : null,
+			'processed'   => isset( $r['processed'] ) ? (int) $r['processed'] : 0,
+			'remaining'   => isset( $r['remaining'] ) ? (int) $r['remaining'] : 0,
+			'plan_digest' => isset( $r['plan_digest'] ) && is_string( $r['plan_digest'] ) ? $r['plan_digest'] : null,
+		);
+	}
+
 	/** Yayın sonucunu KAPALI, güvenli şekle indirger. */
 	private static function publish_result( array $r ) {
 		return array(

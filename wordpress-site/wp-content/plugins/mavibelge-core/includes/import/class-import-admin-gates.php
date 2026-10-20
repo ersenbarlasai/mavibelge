@@ -47,6 +47,11 @@ class MaviBelge_Core_Import_Admin_Gates {
 		// Faz 12: taslak sayfaların AYRI, açık onaylı yayınlanması (staging'e özel; sayfa oluşturma ile birleştirilmez).
 		'preview_publish'       => array( 'level' => 'read', 'keys' => array() ),
 		'publish_pages'         => array( 'level' => 'publish', 'keys' => array( 'plan_digest', 'confirm_phrase', 'expected_remaining' ) ),
+		// Faz 15: taslak ücretlerin AYRI, açık onaylı etkinleştirilmesi / geri alınması. Kapılar apply ile AYNI ('run'): staging,
+		// veya üretimde ayrıca üretim sabitleri + birebir host (ücret yayını üretimde de gerekir; sayfa yayınından farklı olarak).
+		'preview_fee_publish'   => array( 'level' => 'read', 'keys' => array() ),
+		'activate_fees'         => array( 'level' => 'run', 'keys' => array( 'plan_digest', 'confirm_phrase', 'expected_remaining' ) ),
+		'deactivate_fees'       => array( 'level' => 'run', 'keys' => array( 'plan_digest', 'confirm_phrase', 'expected_remaining' ) ),
 	);
 
 	const MAX_PHRASE_LENGTH = 200;
@@ -122,6 +127,11 @@ class MaviBelge_Core_Import_Admin_Gates {
 	/** "YAYINLA <plan digest ilk 12>" — sayfa yayınlama onayı (apply/rollback ifadelerinden AYRI). */
 	public static function publish_phrase( $planDigest ) {
 		return MaviBelge_Core_Import_Page_Publisher::confirm_phrase( $planDigest );
+	}
+
+	/** Faz 15 — "UCRET YAYINLA <özet ilk 12>" / "UCRET YAYINDAN KALDIR <özet ilk 12>" (mod başına ayrı ifade). */
+	public static function fee_publish_phrase( $mode, $planDigest ) {
+		return MaviBelge_Core_Import_Fee_Publisher::confirm_phrase( $mode, $planDigest );
 	}
 
 	/** "GERI AL <run uid ilk 8> <rollback digest ilk 12>". */

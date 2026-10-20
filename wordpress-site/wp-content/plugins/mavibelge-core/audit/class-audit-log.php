@@ -50,6 +50,9 @@ class MaviBelge_Core_Audit_Log {
 	const EVENT_IMPORT_ROLLBACK_FAILED    = 'import_rollback_failed';
 	// Faz 12: taslak sayfaların ayrı, onaylı yayınlanması (run'a bağlı değildir).
 	const EVENT_IMPORT_PAGES_PUBLISHED    = 'import_pages_published';
+	// Faz 15: ücret kayıtlarının ayrı, onaylı toplu yayını / geri alınması (run'a bağlı değildir; context yalnız source_key/tür/hedef/özet).
+	const EVENT_IMPORT_FEES_ACTIVATED     = 'import_fees_activated';
+	const EVENT_IMPORT_FEES_DEACTIVATED   = 'import_fees_deactivated';
 
 	/** Faz 6B4 — sektör görsel eşlemesi değişti (context: eski/yeni map digest'i + değişen slug adları; dosya yolu YOK). */
 	const EVENT_IMPORT_IMAGE_MAP_CHANGED  = 'import_image_map_changed';

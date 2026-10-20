@@ -97,5 +97,12 @@ class MaviBelge_Core_Plugin {
 			MAVIBELGE_CORE_VERSION,
 			true
 		);
+		// Faz 15: ücret ekranı sütun genişlikleri ve dar ekranda yığılma.
+		wp_enqueue_style(
+			'mavibelge-core-meta-boxes',
+			MAVIBELGE_CORE_URL . 'admin/assets/meta-boxes.css',
+			array(),
+			MAVIBELGE_CORE_VERSION
+		);
 	}
 }

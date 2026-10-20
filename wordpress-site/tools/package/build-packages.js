@@ -143,7 +143,7 @@ function buildAll() {
 	return outputs;
 }
 
-module.exports = { buildAll, selectFiles, TARGETS };
+module.exports = { buildAll, selectFiles, TARGETS, buildZip };
 
 if (require.main === module) {
 	const mode = process.argv[2];

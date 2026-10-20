@@ -29,18 +29,32 @@ function test(label, condition) {
 }
 
 const src = fs.readFileSync(FILE, 'utf8');
+const code = src.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').filter((l) => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+const QUERY = fs.readFileSync(path.resolve(__dirname, '..', 'wp-content', 'plugins', 'mavibelge-core', 'includes', 'class-catalog-query.php'), 'utf8')
+	.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').filter((l) => !/^\s*(\/\/|\*)/.test(l)).join('\n');
+const SERVICE = fs.readFileSync(path.resolve(__dirname, '..', 'wp-content', 'plugins', 'mavibelge-core', 'public', 'class-catalog-service.php'), 'utf8');
 
 test(
-	'fee-options.php: yeni "sınav ücretine dahil değildir" metni gerçekten var',
-	src.indexOf("Belge basım ücreti sınav ücretine dahil değildir: %s") !== -1
+	'Faz 15 fee-options.php: ziyaretçi açıklaması eklentinin pricing_note alanından basılır (esc_html)',
+	/esc_html\(\s*\$presented\['pricing_note'\]\s*\)/.test(code)
+);
+test(
+	'Faz 15 fee-options.php: tema KDV oranı / belge basım tutarı / KDV cümlesi YAZMAZ (koda gömülü "%20", "1.500", "KDV" yok)',
+	!/%20|1\.500|1500|KDV/.test(code)
 );
 test(
 	'fee-options.php: eski, yanıltıcı "Belge basım ücreti: %s" metni ARTIK YOK',
 	src.indexOf("'Belge basım ücreti: %s'") === -1
 );
 test(
-	'fee-options.php: metin hâlâ mevcut certificate_print_fee_display alanını kullanıyor (yeni boolean alan eklenmedi)',
-	/certificate_print_fee_display/.test(src)
+	'Faz 15 eklenti: standart cümleler kaydın değerlerinden üretilir — oran %<oran>, tutar kurus_to_lira_compact_display(), "fiyatlara dahil değildir"',
+	/public static function fee_pricing_statements\(/.test(QUERY) && /'Fiyatlara ' \. \$rate \. 'KDV dahildir\.'/.test(QUERY)
+		&& /kurus_to_lira_compact_display\( \$certificate_kurus \) \. ' TL MYK belge basım ücreti fiyatlara dahil değildir\.'/.test(QUERY)
+		&& !/'%20|20 KDV|1\.500 TL MYK/.test(QUERY)
+);
+test(
+	'Faz 15 eklenti: present_fee() pricing_note/vat_statement/certificate_statement döndürür ve oranı DTO\'dan (vat_rate_percent) alır',
+	/'pricing_note'\s*=> \$statements\['pricing_note'\]/.test(SERVICE) && /'vat_rate_percent'\s*=> MaviBelge_Core_Meta_Schema::fee_vat_rate_percent\(/.test(SERVICE)
 );
 
 if (failures > 0) {

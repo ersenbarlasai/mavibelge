@@ -34,3 +34,13 @@ Bu arama yalnız `edit.php?post_type=mb_yeterlilik` ve `edit.php?post_type=mb_uc
 ## 5. Bu fazda yapılmayanlar
 
 CSV import/export, toplu fiyat güncellemesi, gerçek 2026 verisi yazımı, sektör/yeterlilik/ücret seed etme, otomatik aktifleştirme/arşivleme, tahminle fiyat eşleştirme — hepsi Faz 6'nın kapsamındadır ve bu görevde **yapılmamıştır**.
+
+## 6. Faz 15 — ücret düzenleme ekranı ve toplu ücret yayını (eklenti 0.5.5)
+
+- **Bağlı Yeterlilik:** ID kutusu yerine "Meslek — MYK kodu — Seviye N" gösteren seçim; üstte arama kutusu (ad, kod veya seviye; JS ile görünür, JS kapalıyken düz liste). "Bağlantısız (yeterlilik ilişkisi yok)" seçeneği korunur. Seçim **Kaynak MYK Kodu** alanını değiştirmez; kodlar farklıysa yalnız bilgi notu gösterilir.
+- **Sektör:** serbest slug yerine gerçek `mb_sektor` terimleri (değer yine slug). Terime çözülmeyen değer kaydedilmez, önceki değer korunur.
+- **KDV Dahil / KDV Oranı (%) / MYK Belge Basım Ücreti:** yeni kayıtta %20 dahil ve 1.500,00 TL önerilir; mevcut kayıtlar değişmez (oran kaydedilmemişse 20 okunur). Ziyaretçi açıklaması ekranın altında kayıtlı değerlerle önizlenir.
+- **Fiyat seçenekleri:** tam genişlikte tablo (1100px altında kart düzeni); Sıra / Etiket / Birimler / Tutar (TL, KDV dahil) + "Kaydedilecek" önizlemesi; Seçenek Ekle, ↑/↓ taşı (sıra yeniden numaralanır), Kaldır. Geçersiz tutar veya yalnız birim yazılmış satır → hiçbir değişiklik kaydedilmez, hata bildirimi, önceki liste korunur. Min./Maks. tutar seçeneklerden hesaplanır.
+- **Toplu ücret yayını:** Araçlar → İçe Aktarım Dry-Run → **6) Ücret yayını** (bkz. `admin-import-operations.md` §8.3).
+- **Yetki:** fiyat editörü (`mb_price_editor`) yalnız kendi taslaklarını düzenler; Kayıt Durumunu Aktif/Arşiv yapamaz, aktif dönemi değiştiremez (sunucuda zorunlu). Yayındaki/içe aktarılmış ücretleri yönetici, site yöneticisi veya kontrol eden rolü düzenler. Ücret yayını yalnız `manage_options` + `mb_manage_tariff_period` + apply sabitleriyle çalışır.
+- Panelde kaydedilen değişiklik `save_post`/meta kancalarıyla katalog önbelleğini geçersiz kılar; Sınav Ücretleri listesi ve bağlı yeterlilik detayı bir sonraki istekte günceldir (runtime testinde doğrulandı).

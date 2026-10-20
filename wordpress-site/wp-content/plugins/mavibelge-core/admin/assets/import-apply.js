@@ -61,7 +61,11 @@
 		side_effect_cleanup_failed: 'Batch geri alındı ancak yeni oluşturulan logo dosyaları temizlenemedi. Sistem yöneticisi uploads dizinini incelemeli.',
 		side_effect_attachment_still_present: 'Batch geri alındı ancak dosya temizliği doğrulanamadı (attachment hâlâ görünüyor); dosya silinmedi.',
 		side_effect_file_referenced: 'Batch geri alındı ancak dosya başka bir kayıtça kullanıldığı için silinmedi.',
-		side_effect_path_rejected: 'Batch geri alındı ancak dosya yolu güvenlik sınırı dışında olduğu için silinmedi.'
+		side_effect_path_rejected: 'Batch geri alındı ancak dosya yolu güvenlik sınırı dışında olduğu için silinmedi.',
+		catalog_manifests_unavailable: 'Katalog manifestleri (sectors/qualifications/fees.manifest.json) okunamadı veya doğrulanamadı; hiçbir kayıt değiştirilmedi.',
+		decisions_unavailable: 'Ücret yayın kararı dosyası (fee-publication.manifest.json) okunamadı; hiçbir kayıt değiştirilmedi.',
+		decisions_invalid: 'Ücret yayın kararı dosyası doğrulanamadı (ücret manifestiyle uyuşmuyor); hiçbir kayıt değiştirilmedi.',
+		not_publicly_valid: 'Kayıt yayın anında ziyaretçiye görünür durumda değil; batch yazılmadı.'
 	};
 
 	var busy = false;
@@ -403,6 +407,159 @@
 			}
 			lock( true );
 			finish( publishLoop( lastPublish.plan_digest, lastPublish.summary.ready ) );
+		} );
+	}
+
+	/* ---------------- ücret yayını (Faz 15; ayrı, açık onaylı; apply kapıları) ---------------- */
+	var lastFeePublish = null;
+	var FEE_REASON_TEXT = {
+		ready: 'yayına hazır (taslak)',
+		published: 'yayında',
+		held_pending_decision: 'BEKLETİLİYOR — kurum kararı bekliyor',
+		not_created: 'henüz oluşturulmadı (önce all aşaması)',
+		not_unchanged: 'panelden değiştirilmiş veya manifestten sapmış — atlanır',
+		not_publicly_valid: 'ziyaretçiye görünmez durumda — atlanır',
+		unexpected_status: 'beklenmeyen durum'
+	};
+
+	function feeLoop( action, phraseId, digest, expected ) {
+		return post( action, { plan_digest: digest, confirm_phrase: el( phraseId ).value, expected_remaining: expected } ).then( function ( data ) {
+			if ( ! data || ! data.ok ) {
+				show( message( data && data.error_code ), 'error' );
+				return data;
+			}
+			show( 'İşlenen (bu istek): ' + data.processed + ', kalan: ' + data.remaining + '.', data.status === 'completed' ? 'success' : 'info' );
+			if ( data.status === 'paused' ) {
+				return feeLoop( action, phraseId, digest, data.remaining );
+			}
+			return data;
+		} );
+	}
+
+	var previewFeeBtn = el( 'mb-preview-fee-publish' );
+	if ( previewFeeBtn ) {
+		previewFeeBtn.addEventListener( 'click', function () {
+			if ( busy ) {
+				return;
+			}
+			lock( true );
+			post( 'preview_fee_publish', {} ).then( function ( data ) {
+				lock( false );
+				var box = el( 'mb-fee-publish-result' );
+				clear( box );
+				box.style.display = 'block';
+				el( 'mb-fee-publish-confirm' ).style.display = 'none';
+				lastFeePublish = null;
+				if ( ! data || data.ok !== true ) {
+					show( message( data && data.error_code ), 'error' );
+					if ( data && data.load_errors && data.load_errors.length ) {
+						line( box, 'Okunamayan/doğrulanamayan dosyalar (hiçbir kayıt değiştirilmedi):' );
+						data.load_errors.forEach( function ( e ) {
+							line( box, '• ' + e, 'div' );
+						} );
+					}
+					if ( data && data.required_files ) {
+						line( box, 'Ücret yayınının manifest dizininde gerektirdiği dosyalar: ' + data.required_files.join( ', ' ) + '.' );
+					}
+					return;
+				}
+				var s = data.summary;
+				line( box, 'Toplam ' + s.total + ' ücret (' + s.options_total + ' fiyat seçeneği): hazır ' + s.ready + ', yayında ' + s.published + ' (bu araçla geri alınabilir ' + s.deactivatable + '), bekletilen ' + s.held_pending_decision + ', sapmış ' + s.not_unchanged + ', görünmez ' + s.not_publicly_valid + ', oluşturulmamış ' + s.not_created + ', beklenmeyen ' + s.unexpected_status + '.' );
+				line( box, 'Yayın kararı: yayına uygun ' + s.decision_publish + ' (' + s.options_publish + ' seçenek), bekletilen ' + s.decision_hold + '. Bağlantısız ücret: ' + s.unlinked + ' (yayınlanabilir/yayında ' + s.unlinked_publishable + ').' );
+				var g = s.publish_gap;
+				var gapTotal = g.not_created + g.not_unchanged + g.not_publicly_valid + g.unexpected_status;
+				line( box, 'Gerçek kayıtlardan hesaplandı. Yayına uygun ' + s.decision_publish + ' kayıttan hazır/yayında olan: ' + ( s.decision_publish - gapTotal ) +( gapTotal ? '; ' + gapTotal + ' kayıt şu nedenle değil: oluşturulmamış ' + g.not_created + ', sapmış ' + g.not_unchanged + ', görünmez ' + g.not_publicly_valid + ', beklenmeyen durum ' + g.unexpected_status + '.' : '.' ) );
+				var nu = Object.keys( s.not_unchanged_by_import_decision || {} );
+				if ( nu.length ) {
+					line( box, 'Sapmış kayıtların aktarım kararı: ' + nu.map( function ( k ) {
+						return k + ' ' + s.not_unchanged_by_import_decision[ k ];
+					} ).join( ', ' ) + ' (update: sunucudaki kayıt eski manifestten; conflict: panelden değişmiş; blocked/invalid: bağımlılık eksik).' );
+				}
+				if ( s.held_but_published ) {
+					line( box, 'UYARI: bekletilen ' + s.held_but_published + ' kayıt şu an yayında/aktif (araç dokunmaz; kurum kararıyla elle ele alın).' );
+				}
+				if ( data.inventory ) {
+					var inv = data.inventory;
+					line( box, 'Sitedeki ücret kaydı: ' + inv.site_total + ' (ziyaretçiye görünen ' + inv.site_visible + '); manifest dışı ' + inv.outside_manifest + ' (görünen ' + inv.outside_manifest_visible + ') — bu araç manifest dışı kayıtlara dokunmaz.' + ( inv.truncated ? ' (Liste üst sınırda kesildi.)' : '' ) );
+					if ( inv.outside_rows.length ) {
+						var ot = document.createElement( 'table' );
+						ot.className = 'widefat striped';
+						var oh = document.createElement( 'tr' );
+						[ 'Manifest dışı kayıt (ID)', 'Başlık', 'Durum', 'Kaynak anahtarı', 'Ziyaretçiye görünür' ].forEach( function ( h ) {
+							line( oh, h, 'th' );
+						} );
+						ot.appendChild( oh );
+						inv.outside_rows.forEach( function ( r ) {
+							var tr = document.createElement( 'tr' );
+							line( tr, String( r.id ), 'td' );
+							line( tr, r.title, 'td' );
+							line( tr, ( r.post_status || '—' ) + ' / ' + ( r.record_status || '—' ), 'td' );
+							line( tr, r.has_source_key ? 'manifestte olmayan anahtar' : 'yok', 'td' );
+							line( tr, r.visible ? 'evet' : 'hayır', 'td' );
+							ot.appendChild( tr );
+						} );
+						box.appendChild( ot );
+					}
+				}
+				line( box, 'Ücret yayın planı özeti: ' + data.plan_digest );
+				var table = document.createElement( 'table' );
+				table.className = 'widefat striped';
+				var head = document.createElement( 'tr' );
+				[ 'Meslek', 'Seviye', 'Sektör', 'MYK kodu', 'Seçenek', 'Durum', 'Yayın', 'Not' ].forEach( function ( h ) {
+					line( head, h, 'th' );
+				} );
+				table.appendChild( head );
+				data.rows.forEach( function ( row ) {
+					var tr = document.createElement( 'tr' );
+					line( tr, row.profession_name, 'td' );
+					line( tr, String( row.level ), 'td' );
+					line( tr, row.sector_slug, 'td' );
+					line( tr, row.linked ? row.qualification_code : 'Bağlantısız', 'td' );
+					line( tr, String( row.option_count ), 'td' );
+					line( tr, ( row.post_status || '—' ) + ' / ' + ( row.record_status || '—' ), 'td' );
+					line( tr, ( FEE_REASON_TEXT[ row.reason ] || row.reason ) + ( row.reason === 'not_unchanged' && row.import_decision ? ' (aktarım kararı: ' + row.import_decision + ')' : '' ), 'td' );
+					var cell = document.createElement( 'td' );
+					row.holds.forEach( function ( h ) {
+						line( cell, h.label, 'div' );
+					} );
+					if ( row.blocker ) {
+						line( cell, row.blocker, 'div' );
+					}
+					tr.appendChild( cell );
+					table.appendChild( tr );
+				} );
+				box.appendChild( table );
+				if ( s.ready > 0 || s.deactivatable > 0 ) {
+					lastFeePublish = data;
+					el( 'mb-fee-activate-phrase-hint' ).textContent = data.activate_phrase;
+					el( 'mb-fee-deactivate-phrase-hint' ).textContent = data.deactivate_phrase;
+					el( 'mb-fee-activate-phrase' ).value = '';
+					el( 'mb-fee-deactivate-phrase' ).value = '';
+					el( 'mb-fee-publish-confirm' ).style.display = 'block';
+				}
+			} );
+		} );
+	}
+
+	var startFeeActivate = el( 'mb-start-fee-activate' );
+	if ( startFeeActivate ) {
+		startFeeActivate.addEventListener( 'click', function () {
+			if ( busy || ! lastFeePublish ) {
+				return;
+			}
+			lock( true );
+			finish( feeLoop( 'activate_fees', 'mb-fee-activate-phrase', lastFeePublish.plan_digest, lastFeePublish.summary.ready ) );
+		} );
+	}
+
+	var startFeeDeactivate = el( 'mb-start-fee-deactivate' );
+	if ( startFeeDeactivate ) {
+		startFeeDeactivate.addEventListener( 'click', function () {
+			if ( busy || ! lastFeePublish ) {
+				return;
+			}
+			lock( true );
+			finish( feeLoop( 'deactivate_fees', 'mb-fee-deactivate-phrase', lastFeePublish.plan_digest, lastFeePublish.summary.deactivatable ) );
 		} );
 	}
 

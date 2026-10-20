@@ -58,14 +58,58 @@ class MaviBelge_Core_Meta_Boxes {
 			self::render_field( $post, $key, $config );
 		}
 		echo '</tbody></table>';
+
+		if ( 'mb_ucret' === $post->post_type ) {
+			self::render_fee_statement_preview( $post );
+		}
+	}
+
+	/**
+	 * Faz 15 — ziyaretçiye gösterilecek standart açıklamanın KAYDEDİLMİŞ değerlerden önizlemesi (sitedeki metinle aynı
+	 * fonksiyon: MaviBelge_Core_Catalog_Query::fee_pricing_statements()).
+	 */
+	private static function render_fee_statement_preview( $post ) {
+		$statements = MaviBelge_Core_Catalog_Query::fee_pricing_statements(
+			(bool) get_post_meta( $post->ID, '_mb_vat_included', true ),
+			MaviBelge_Core_Meta_Schema::fee_vat_rate_percent( get_post_meta( $post->ID, '_mb_vat_rate_percent', true ) ),
+			(int) get_post_meta( $post->ID, '_mb_certificate_print_fee_kurus', true )
+		);
+		echo '<p class="mavibelge-core-fee-statement"><strong>Ziyaretçi açıklaması (kaydedilmiş değerlerle):</strong> ' . esc_html( $statements['pricing_note'] ) . '</p>';
+		echo '<p class="description">Belge basım ücreti fiyat seçeneklerine eklenmez; tutarlar girildiği gibi (KDV dahil) gösterilir. Değişiklikler kaydedildikten sonra Sınav Ücretleri sayfasına ve bağlı yeterlilik detayına yansır.</p>';
+	}
+
+	/**
+	 * Faz 15 — alanın formda gösterilecek değeri. Kayıtta değer yoksa: 'admin_default' her zaman (okuma varsayılanıyla aynı),
+	 * 'admin_default_new' YALNIZ yeni (auto-draft) kayıtta önerilir; mevcut kayıtların saklı değerleri asla değiştirilmez.
+	 */
+	private static function display_value( $post, $key, array $config ) {
+		$value = get_post_meta( $post->ID, $key, true );
+		if ( metadata_exists( 'post', $post->ID, $key ) ) {
+			return $value;
+		}
+		if ( array_key_exists( 'admin_default', $config ) ) {
+			return $config['admin_default'];
+		}
+		if ( array_key_exists( 'admin_default_new', $config ) && 'auto-draft' === $post->post_status ) {
+			return $config['admin_default_new'];
+		}
+		return $value;
 	}
 
 	private static function render_field( $post, $key, $config ) {
-		$value    = get_post_meta( $post->ID, $key, true );
+		$value    = self::display_value( $post, $key, $config );
 		$type     = $config['type'];
 		$label    = esc_html( $config['label'] );
 		$id       = esc_attr( $key );
 		$readonly = ! empty( $config['readonly'] );
+
+		if ( 'price_options' === $type ) {
+			// Faz 15: fiyat seçenekleri tablosu meta kutusunun TAM genişliğini kullanır (dar ikinci sütuna sıkışıp taşmasın).
+			echo '<tr class="mavibelge-core-price-options-field"><td colspan="2"><p class="mavibelge-core-field-heading"><strong>' . $label . '</strong></p>';
+			self::render_price_options( $post, $value );
+			echo '</td></tr>';
+			return;
+		}
 
 		echo '<tr><th scope="row"><label for="' . $id . '">' . $label . '</label></th><td>';
 
@@ -82,7 +126,20 @@ class MaviBelge_Core_Meta_Boxes {
 			return;
 		}
 
+		// Faz 15: ücret ekranı seçim bileşenleri (saklanan değer ve doğrulama değişmez; yalnız giriş biçimi).
+		$widget = isset( $config['admin_widget'] ) ? $config['admin_widget'] : '';
+		if ( 'qualification_select' === $widget ) {
+			self::render_qualification_select( $id, (int) $value );
+			$type = '__rendered__';
+		} elseif ( 'sector_select' === $widget ) {
+			self::render_sector_select( $id, (string) $value );
+			$type = '__rendered__';
+		}
+
 		switch ( $type ) {
+			case '__rendered__':
+				break;
+
 			case 'textarea':
 				printf(
 					'<textarea id="%1$s" name="%1$s" rows="3" class="large-text"%3$s>%2$s</textarea>',
@@ -135,11 +192,12 @@ class MaviBelge_Core_Meta_Boxes {
 			case 'id':
 			case 'user_id':
 				printf(
-					'<input type="number" step="1" min="%4$s" id="%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>',
+					'<input type="number" step="1" min="%4$s"%5$s id="%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>',
 					$id,
 					esc_attr( (string) $value ),
 					$readonly ? ' readonly' : '',
-					isset( $config['min'] ) ? esc_attr( $config['min'] ) : '0'
+					isset( $config['min'] ) ? esc_attr( $config['min'] ) : '0',
+					isset( $config['max'] ) ? ' max="' . esc_attr( $config['max'] ) . '"' : ''
 				);
 				break;
 
@@ -224,7 +282,7 @@ class MaviBelge_Core_Meta_Boxes {
 
 		echo '<div class="mavibelge-core-price-options" data-field="_mb_price_options">';
 		echo '<table class="widefat mavibelge-core-price-options-table"><thead><tr>';
-		echo '<th>Etiket</th><th>Birimler (virgülle ayrılmış)</th><th>Tutar (TL)</th><th>Sıra</th><th></th>';
+		echo '<th class="mb-col-order" scope="col">Sıra</th><th class="mb-col-label" scope="col">Etiket</th><th class="mb-col-units" scope="col">Birimler (virgülle ayrılmış)</th><th class="mb-col-amount" scope="col">Tutar (TL, KDV dahil) → kaydedilecek</th><th class="mb-col-actions" scope="col"><span class="screen-reader-text">İşlemler</span></th>';
 		echo '</tr></thead><tbody>';
 
 		$index = 0;
@@ -238,33 +296,105 @@ class MaviBelge_Core_Meta_Boxes {
 		}
 
 		echo '</tbody></table>';
-		echo '<p class="description">Tutarı TL olarak girin (örn. 17.000 veya 17.000,00). Boş satırlar yok sayılır. Herhangi bir dolu satır geçersizse hiçbiri kaydedilmez ve önceki liste korunur. JavaScript kapalıysa yeni seçenek eklemek için boş bir satırı doldurun.</p>';
+		// JavaScript'in yeni satır için KLONLADIĞI şablon (innerHTML yok); __INDEX__ yalnız ad/kimlik özniteliklerinde DOM ile değiştirilir.
+		echo '<template class="mavibelge-core-price-row-template">';
+		self::render_price_option_row( '__INDEX__', array() );
+		echo '</template>';
+		echo '<p class="description">Tutarı son kullanıcının ödeyeceği <strong>KDV dahil</strong> TL olarak girin (örn. <code>17.000</code> veya <code>17.000,00</code>; nokta binlik, virgül kuruş ayracıdır). Kayıtta kuruş olarak saklanır; tutar kutusunun altındaki "Kaydedilecek" satırı girdinin nasıl okunacağını gösterir. Belge basım ücreti seçeneklere eklenmez. Etiketi ve tutarı boş satırlar yok sayılır; yalnız birim yazılmış veya geçersiz bir satır varsa <strong>hiçbir değişiklik kaydedilmez</strong> ve önceki liste korunur. Min./Maks. tutar seçeneklerden otomatik hesaplanır. JavaScript kapalıysa yeni seçenek için boş bir satırı doldurun ve sırayı "Sıra" alanından verin.</p>';
 		echo '<button type="button" class="button mavibelge-core-add-price-row" style="display:none;">+ Seçenek Ekle</button>';
 		echo '</div>';
 	}
 
+	/** @param int|string $index Satır sırası; şablon satırı için '__INDEX__'. */
 	private static function render_price_option_row( $index, $row ) {
 		$label      = isset( $row['label'] ) ? $row['label'] : '';
 		$units      = isset( $row['units'] ) && is_array( $row['units'] ) ? implode( ', ', $row['units'] ) : '';
 		$amount_try = isset( $row['amount_kurus'] ) && '' !== $row['amount_kurus']
 			? MaviBelge_Core_Validator::kurus_to_lira_display( $row['amount_kurus'] )
 			: '';
-		$sort_order = isset( $row['sort_order'] ) ? $row['sort_order'] : $index;
+		$sort_order = isset( $row['sort_order'] ) ? $row['sort_order'] : ( is_int( $index ) ? $index : '' );
+		$name       = '_mb_price_options[' . $index . ']';
+		$preview    = '' !== $amount_try ? $amount_try . ' TL' : '—';
 
 		printf(
 			'<tr class="mavibelge-core-price-row">
-				<td><input type="text" name="_mb_price_options[%1$d][label]" value="%2$s" class="regular-text"></td>
-				<td><input type="text" name="_mb_price_options[%1$d][units]" value="%3$s" class="regular-text"></td>
-				<td><input type="text" inputmode="decimal" placeholder="17.000,00" name="_mb_price_options[%1$d][amount_try]" value="%4$s" class="small-text"></td>
-				<td><input type="number" step="1" min="0" name="_mb_price_options[%1$d][sort_order]" value="%5$s" class="small-text"></td>
-				<td><button type="button" class="button-link mavibelge-core-remove-price-row" style="display:none;">Kaldır</button></td>
+				<td class="mb-col-order" data-label="Sıra"><input type="number" step="1" min="0" name="%1$s[sort_order]" value="%5$s" class="mb-sort-input" aria-label="Sıra"> <button type="button" class="button-link mavibelge-core-move-up" style="display:none;" aria-label="Yukarı taşı">&#8593;</button> <button type="button" class="button-link mavibelge-core-move-down" style="display:none;" aria-label="Aşağı taşı">&#8595;</button></td>
+				<td class="mb-col-label" data-label="Etiket"><input type="text" name="%1$s[label]" value="%2$s" class="mb-label-input" aria-label="Etiket"></td>
+				<td class="mb-col-units" data-label="Birimler"><input type="text" name="%1$s[units]" value="%3$s" class="mb-units-input" aria-label="Birimler (virgülle ayrılmış)"></td>
+				<td class="mb-col-amount" data-label="Tutar (TL, KDV dahil)"><input type="text" inputmode="decimal" placeholder="örn. 17.000" name="%1$s[amount_try]" value="%4$s" class="mb-amount-input" aria-label="Tutar (TL, KDV dahil)"><span class="mb-amount-preview-wrap">Kaydedilecek: <output class="mb-amount-preview" aria-live="polite">%6$s</output></span></td>
+				<td class="mb-col-actions"><button type="button" class="button-link mavibelge-core-remove-price-row" style="display:none;">Kaldır</button></td>
 			</tr>',
-			$index,
+			esc_attr( $name ),
 			esc_attr( $label ),
 			esc_attr( $units ),
 			esc_attr( $amount_try ),
-			esc_attr( (string) $sort_order )
+			esc_attr( (string) $sort_order ),
+			esc_html( $preview )
 		);
+	}
+
+	/**
+	 * Faz 15 — aranabilir yeterlilik seçimi: "Meslek adı — MYK kodu — Seviye N". Değer yeterlilik post ID'si; 0 = Bağlantısız.
+	 * JavaScript yoksa düz <select> çalışır; arama kutusu yalnız JS ile görünür. Kayıtta olmayan mevcut değer görünür ve korunur.
+	 */
+	private static function render_qualification_select( $id, $current ) {
+		$posts = get_posts(
+			array(
+				'post_type'      => 'mb_yeterlilik',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private', 'future' ),
+				'numberposts'    => 500,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'no_found_rows'  => true,
+				'suppress_filters' => true,
+			)
+		);
+		$found = 0 === $current;
+		echo '<input type="search" class="mavibelge-core-select-filter regular-text" data-filter-target="' . $id . '" placeholder="Ara: meslek adı, MYK kodu veya seviye" aria-label="Yeterlilik ara" style="display:none;">';
+		echo '<select id="' . $id . '" name="' . $id . '" class="mavibelge-core-qualification-select">';
+		echo '<option value="0" data-myk-code=""' . selected( 0, $current, false ) . '>Bağlantısız (yeterlilik ilişkisi yok)</option>';
+		foreach ( $posts as $q ) {
+			$code   = (string) get_post_meta( $q->ID, '_mb_myk_code', true );
+			$level  = (string) get_post_meta( $q->ID, '_mb_level', true );
+			$public = 'publish' === $q->post_status && 'active' === get_post_meta( $q->ID, '_mb_record_status', true );
+			$text   = get_the_title( $q ) . ' — ' . ( '' !== $code ? $code : 'MYK kodu yok' ) . ' — Seviye ' . ( '' !== $level ? $level : '?' ) . ( $public ? '' : ' (yayında değil)' );
+			if ( (int) $q->ID === $current ) {
+				$found = true;
+			}
+			printf(
+				'<option value="%1$d" data-myk-code="%2$s"%3$s>%4$s</option>',
+				(int) $q->ID,
+				esc_attr( $code ),
+				selected( (int) $q->ID, $current, false ),
+				esc_html( $text )
+			);
+		}
+		if ( ! $found ) {
+			printf( '<option value="%1$d" data-myk-code="" selected>(Kayıtlı ID %1$d — yeterlilik bulunamadı; kaydederken reddedilir)</option>', (int) $current );
+		}
+		echo '</select>';
+		echo '<p class="mavibelge-core-myk-hint description" aria-live="polite"></p>';
+	}
+
+	/**
+	 * Faz 15 — sektör seçimi (mevcut `mb_sektor` terimleri; değer = slug). Gerçek terime çözülmeyen mevcut değer görünür
+	 * kalır ama kaydedilmez (guard_ucret_sector()).
+	 */
+	private static function render_sector_select( $id, $current ) {
+		$terms = class_exists( 'MaviBelge_Core_Catalog_Service' ) ? MaviBelge_Core_Catalog_Service::get_sector_terms() : array();
+		$found = '' === $current;
+		echo '<select id="' . $id . '" name="' . $id . '">';
+		echo '<option value=""' . selected( '', $current, false ) . '>— Sektör seçin —</option>';
+		foreach ( $terms as $term ) {
+			if ( $term->slug === $current ) {
+				$found = true;
+			}
+			printf( '<option value="%1$s"%2$s>%3$s</option>', esc_attr( $term->slug ), selected( $term->slug, $current, false ), esc_html( $term->name . ' (' . $term->slug . ')' ) );
+		}
+		if ( ! $found ) {
+			printf( '<option value="%1$s" selected>%2$s</option>', esc_attr( $current ), esc_html( '(Geçersiz/silinmiş sektör: ' . $current . ')' ) );
+		}
+		echo '</select>';
 	}
 
 	private static function format_system_managed_value( $key, $value ) {
@@ -314,6 +444,7 @@ class MaviBelge_Core_Meta_Boxes {
 
 		$old_status   = get_post_meta( $post_id, '_mb_record_status', true );
 		$old_approval = get_post_meta( $post_id, '_mb_approval_status', true );
+		$old_sector   = get_post_meta( $post_id, '_mb_sector_slug', true );
 
 		$critical_fields = self::critical_fields_for( $post->post_type );
 		$old_critical     = array();
@@ -352,7 +483,9 @@ class MaviBelge_Core_Meta_Boxes {
 			update_post_meta( $post_id, $key, $clean );
 		}
 
-		if ( isset( $fields['_mb_price_options'] ) ) {
+		// Faz 15: fiyat listesi alanı bu istekte HİÇ gönderilmediyse (meta kutusu render edilmemiş/eksik form) kayıtlı liste
+		// korunur — diğer alanlardaki "gönderilmeyen alana dokunma" kuralıyla aynı; boş gönderim listeyi silmez.
+		if ( isset( $fields['_mb_price_options'] ) && array_key_exists( '_mb_price_options', $_POST ) ) {
 			self::save_price_options( $post_id );
 		}
 
@@ -362,6 +495,7 @@ class MaviBelge_Core_Meta_Boxes {
 
 		if ( 'mb_ucret' === $post->post_type ) {
 			self::guard_ucret_record_status( $post_id, $old_status );
+			self::guard_ucret_sector( $post_id, $old_sector );
 		}
 
 		if ( 'mb_haber' === $post->post_type ) {
@@ -389,6 +523,10 @@ class MaviBelge_Core_Meta_Boxes {
 					'_mb_tariff_period'    => '',
 					'_mb_pricing_type'     => '',
 					'_mb_source_name'      => '',
+					// Faz 15: ziyaretçi açıklamasını ve kataloğu doğrudan etkileyen alanlar da denetim günlüğüne girer.
+					'_mb_sector_slug'                 => '',
+					'_mb_vat_rate_percent'            => '',
+					'_mb_certificate_print_fee_kurus' => '',
 				);
 			case 'mb_referans':
 				return array( '_mb_reference_status' => '' );
@@ -450,6 +588,27 @@ class MaviBelge_Core_Meta_Boxes {
 			'Kayıt Durumu: ücret kaydını aktif veya arşivlenmiş yapma yetkiniz yok. Önceki değer korundu.',
 			'error'
 		);
+	}
+
+	/**
+	 * Faz 15 — ücretin sektörü yönetim ekranından yalnız GERÇEK bir `mb_sektor` terimine ayarlanabilir (seçim listesi bunu
+	 * sunar; doğrudan POST manipülasyonuna karşı da sunucu kontrolü). Biçimi geçerli ama terimi olmayan değer yazılmaz,
+	 * önceki değer korunur (ziyaretçi tarafında böyle bir kayıt zaten gizlenirdi — sessiz kaybolma yerine açık hata).
+	 */
+	private static function guard_ucret_sector( $post_id, $old_sector ) {
+		if ( ! isset( $_POST['_mb_sector_slug'] ) ) {
+			return;
+		}
+		$saved = (string) get_post_meta( $post_id, '_mb_sector_slug', true );
+		if ( '' === $saved || $saved === (string) $old_sector ) {
+			return;
+		}
+		$term = taxonomy_exists( 'mb_sektor' ) ? get_term_by( 'slug', $saved, 'mb_sektor' ) : false;
+		if ( $term instanceof WP_Term ) {
+			return;
+		}
+		update_post_meta( $post_id, '_mb_sector_slug', $old_sector );
+		MaviBelge_Core_Admin_Notices::queue( 'Sektör: seçilen değer mevcut bir sektöre karşılık gelmiyor. Önceki değer korundu.', 'warning' );
 	}
 
 	/**

@@ -114,7 +114,7 @@ function cards(b) {
 		check('detay ' + k + ': sektör adı gerçek sektör arşivine bağlanır', !!sectorLink && h.indexOf('href="' + sectorLink.url + '"') !== -1);
 	}
 	b = (await get(Q.iplik.url)).body;
-	check('detay iplik: tek fiyat 6.500,00 TL SAYFADA TAM BİR KEZ, aside içinde; KDV + basım + kaynak + sayfa', count(b, /6\.500,00 TL/g) === 1 && b.indexOf('6.500,00 TL') > b.indexOf('<aside class="sticky-cta"') && /KDV Dahil/.test(b) && /1\.500,00 TL/.test(b) && /2026 Yeni Meslekler Ücret Tarifesi/.test(b) && /Sayfa 4/.test(b));
+	check('detay iplik: tek fiyat 6.500,00 TL SAYFADA TAM BİR KEZ, aside içinde; KDV + basım + kaynak + sayfa', count(b, /6\.500,00 TL/g) === 1 && b.indexOf('6.500,00 TL') > b.indexOf('<aside class="sticky-cta"') && /Fiyatlara %20 KDV dahildir\. 1\.500 TL MYK belge basım ücreti fiyatlara dahil değildir\./.test(b) && /2026 Yeni Meslekler Ücret Tarifesi/.test(b) && /Sayfa 4/.test(b));
 	check('detay iplik: revizyon gerçek değer (01), Seviye 2, eski qual-fee-section yok', /<strong>Revizyon<\/strong><span>01<\/span>/.test(b) && /Seviye 2/.test(b) && !/qual-fee-section/.test(b));
 	b = (await get(Q.multi.url)).body;
 	check('detay çok seçenekli: iki seçenek açık listede (10.500,00 TL + 20.250,00 TL) her biri bir kez', /<details class="fee-options-detail" open>/.test(b) && count(b, /10\.500,00 TL/g) === 1 && count(b, /20\.250,00 TL/g) === 1 && /Fiyat Seçenekleri \(2\)/.test(b));

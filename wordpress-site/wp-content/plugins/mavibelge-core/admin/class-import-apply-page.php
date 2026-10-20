@@ -95,6 +95,18 @@ class MaviBelge_Core_Import_Apply_Page {
 		self::dispatch( 'publish_pages' );
 	}
 
+	public static function handle_preview_fee_publish() {
+		self::dispatch( 'preview_fee_publish' );
+	}
+
+	public static function handle_activate_fees() {
+		self::dispatch( 'activate_fees' );
+	}
+
+	public static function handle_deactivate_fees() {
+		self::dispatch( 'deactivate_fees' );
+	}
+
 	/**
 	 * Tek dağıtıcı. Sıra: kapı seviyesi -> kapalı request şekli -> action'a özel nonce -> servis.
 	 * Kapılar başarısızsa servis HİÇ oluşturulmaz.
@@ -121,7 +133,7 @@ class MaviBelge_Core_Import_Apply_Page {
 		if ( ! wp_verify_nonce( $request['nonce'], MaviBelge_Core_Import_Admin_Gates::nonce_action( $action ) ) ) {
 			self::respond( array( 'ok' => false, 'error_code' => 'invalid_nonce' ), 403 );
 		}
-		if ( in_array( $action, array( 'advance_apply', 'advance_rollback', 'publish_pages' ), true ) ) {
+		if ( in_array( $action, array( 'advance_apply', 'advance_rollback', 'publish_pages', 'activate_fees', 'deactivate_fees' ), true ) ) {
 			// Tarayıcı kapansa bile o batch commit edilir; run `paused` kalır.
 			ignore_user_abort( true );
 			if ( function_exists( 'set_time_limit' ) ) {
@@ -156,6 +168,15 @@ class MaviBelge_Core_Import_Apply_Page {
 				break;
 			case 'publish_pages':
 				$result = $service->publish_pages( $data['plan_digest'], $data['confirm_phrase'], $data['expected_remaining'], $userId );
+				break;
+			case 'preview_fee_publish':
+				$result = $service->preview_fee_publish();
+				break;
+			case 'activate_fees':
+				$result = $service->activate_fees( $data['plan_digest'], $data['confirm_phrase'], $data['expected_remaining'] );
+				break;
+			case 'deactivate_fees':
+				$result = $service->deactivate_fees( $data['plan_digest'], $data['confirm_phrase'], $data['expected_remaining'] );
 				break;
 			default: // advance_rollback
 				$result = $service->advance_rollback( $data['run_uid'], $data['expected_checkpoint'] );
@@ -210,6 +231,7 @@ class MaviBelge_Core_Import_Apply_Page {
 		self::render_stage_preview();
 		self::render_runs( $service->list_runs() );
 		self::render_publish();
+		self::render_fee_publish();
 		echo '<div id="mb-import-status" class="notice inline" role="status" aria-live="polite" style="display:none"><p></p></div>';
 	}
 
@@ -286,6 +308,22 @@ class MaviBelge_Core_Import_Apply_Page {
 		echo '<div id="mb-publish-confirm" style="display:none;max-width:820px"><p><label for="mb-publish-phrase"><strong>Yayın onay ifadesi</strong> — aynen yazın: <code id="mb-publish-phrase-hint"></code></label><br />';
 		echo '<input type="text" id="mb-publish-phrase" class="regular-text" autocomplete="off" spellcheck="false" /> ';
 		echo '<button type="button" class="button button-primary" id="mb-start-publish">Hazır sayfaları yayınla (batch\'ler halinde)</button></p></div>';
+	}
+
+	/** Faz 15 — taslak ücretlerin AYRI etkinleştirilmesi / bu aracın etkinleştirdiklerinin geri alınması (apply kapılarıyla). */
+	private static function render_fee_publish() {
+		echo '<h3>6) Ücret yayını (etkinleştirme)</h3>';
+		echo '<p>Ücretler <strong>taslak</strong> olarak içe aktarılır (aşama <code>all</code>). Bu bölüm, kayıt bazlı yayın kararı <em>publish</em> olan, içeriği içe aktarıldığı gibi duran ve ziyaretçiye görünecek durumdaki taslak ücretleri AYRI ve açık onayla etkinleştirir (WordPress <em>yayında</em> + Kayıt Durumu <em>Aktif</em>); istek başına en çok ' . esc_html( (string) MaviBelge_Core_Import_Fee_Publisher::BATCH_LIMIT ) . ' kayıt. Kurum kararı bekleyen ve panelden değiştirilmiş kayıtlar <strong>atlanır</strong>. Geri alma yalnız bu aracın etkinleştirdiği ve o zamandan beri değişmemiş kayıtları taslağa döndürür. Kapılar apply ile aynıdır (sabitler + ortam).</p>';
+		echo '<p><button type="button" class="button" id="mb-preview-fee-publish">Ücret yayın özetini göster (salt okunur)</button></p>';
+		echo '<div id="mb-fee-publish-result" style="display:none;max-width:1100px"></div>';
+		echo '<div id="mb-fee-publish-confirm" style="display:none;max-width:820px">';
+		echo '<p><label for="mb-fee-activate-phrase"><strong>Yayın onay ifadesi</strong> — aynen yazın: <code id="mb-fee-activate-phrase-hint"></code></label><br />';
+		echo '<input type="text" id="mb-fee-activate-phrase" class="regular-text" autocomplete="off" spellcheck="false" /> ';
+		echo '<button type="button" class="button button-primary" id="mb-start-fee-activate">Hazır ücretleri yayınla (batch\'ler halinde)</button></p>';
+		echo '<p><label for="mb-fee-deactivate-phrase"><strong>Geri alma onay ifadesi</strong> — aynen yazın: <code id="mb-fee-deactivate-phrase-hint"></code></label><br />';
+		echo '<input type="text" id="mb-fee-deactivate-phrase" class="regular-text" autocomplete="off" spellcheck="false" /> ';
+		echo '<button type="button" class="button" id="mb-start-fee-deactivate">Bu aracın yayınladıklarını taslağa al</button></p>';
+		echo '</div>';
 	}
 
 	private static function render_runs( array $runs ) {

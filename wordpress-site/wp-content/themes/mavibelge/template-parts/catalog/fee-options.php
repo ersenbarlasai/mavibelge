@@ -27,6 +27,15 @@ $options   = $presented['options'];
 <div class="fee-options">
 	<?php if ( 1 === count( $options ) ) : ?>
 		<strong class="fee-amount"><?php echo esc_html( $options[0]['amount_display'] ); ?></strong>
+		<?php if ( '' !== $options[0]['label'] ) : ?>
+			<?php // Faz 15: tek seçenekte de açıklayıcı etiket ve birimler gösterilir (kayıpsız gösterim). ?>
+			<span class="fee-option-label fee-single-label">
+				<?php echo esc_html( $options[0]['label'] ); ?>
+				<?php if ( ! empty( $options[0]['units'] ) ) : ?>
+					<span class="fee-option-units">(<?php echo esc_html( implode( ', ', $options[0]['units'] ) ); ?>)</span>
+				<?php endif; ?>
+			</span>
+		<?php endif; ?>
 	<?php elseif ( count( $options ) > 1 ) : ?>
 		<details class="fee-options-detail"<?php echo $expanded ? ' open' : ''; ?>>
 			<summary>
@@ -56,12 +65,13 @@ $options   = $presented['options'];
 		<span class="fee-amount-unknown">—</span>
 	<?php endif; ?>
 
-	<p class="fee-meta">
-		<?php echo esc_html( $presented['vat_label'] ); ?>
-		<?php if ( '' !== $presented['certificate_print_fee_display'] ) : ?>
-			· <?php printf( esc_html__( 'Belge basım ücreti sınav ücretine dahil değildir: %s', 'mavibelge' ), esc_html( $presented['certificate_print_fee_display'] ) ); ?>
-		<?php endif; ?>
-	</p>
+	<?php
+	// Faz 15: standart KDV/belge basım açıklaması eklentide (MaviBelge_Core_Catalog_Query::fee_pricing_statements()) kaydın
+	// KENDİ KDV oranı/dahil bilgisi ve belge basım tutarından üretilir; tema oran veya tutar yazmaz.
+	?>
+	<?php if ( isset( $presented['pricing_note'] ) && '' !== $presented['pricing_note'] ) : ?>
+		<p class="fee-meta"><?php echo esc_html( $presented['pricing_note'] ); ?></p>
+	<?php endif; ?>
 
 	<?php if ( '' !== $presented['source_url'] || '' !== $fee['source_name'] ) : ?>
 		<p class="fee-source">

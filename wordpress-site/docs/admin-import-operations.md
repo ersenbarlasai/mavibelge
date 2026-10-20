@@ -1,4 +1,4 @@
-# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.4, tema 0.6.9)
+# Admin Katalog Aktarımı — Staging İşletim Runbook'u (Faz 6B4; güncel: eklenti 0.5.5, tema 0.6.10)
 
 > **Bu belge staging (ve ancak ayrıca onaylanırsa üretim) için bir kontrol listesidir; kendi başına apply yetkisi DEĞİLDİR.**
 > Bu depo sunucuya, FTP/SSH/DirectAdmin'e, DNS'e, SSL'e veya mail sistemine bağlanmaz. Aşağıdaki adımları sistem yöneticisi ve kurum
@@ -18,9 +18,9 @@
 
 | Koşul | Kontrol |
 |---|---|
-| Eklenti `mavibelge-core` **0.5.4** (`mavibelge-core-0.5.4.zip`; Faz 14: formlarda uzun KVKK metni yerine kısa şema etiketi, `sha256sum -c` ile doğrulanmış) | Eklentiler ekranında sürüm |
-| Tema `mavibelge` **0.6.9** (`mavibelge-theme-0.6.9.zip`; Faz 14 beş formda kısa bağlantılı KVKK onayı + SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni + 14 rota referans sayfa aileleri) | Görünüm → Temalar |
-| **`data/` dizini bir bütün olarak** sunucuya konmuş (`data/content/*.manifest.json` + `data/sources/reference-logos/ref-NN.png`; `MAVIBELGE_IMPORT_MANIFEST_DIR` = `.../data/content`). Logo dosyaları yoksa `content` aşaması yüklemede reddedilir | Sistem kapıları / dry-run |
+| Eklenti `mavibelge-core` **0.5.5** (`mavibelge-core-0.5.5.zip`; Faz 15: ücret yayını, KDV oranı alanı, ücret yönetim ekranı, ücret yayın durumu import hash'inden çıkarıldı; Faz 14: formlarda kısa KVKK etiketi; `sha256sum -c` ile doğrulanmış) | Eklentiler ekranında sürüm |
+| Tema `mavibelge` **0.6.10** (`mavibelge-theme-0.6.10.zip`; Faz 15: kayıttan üretilen standart KDV/basım açıklaması + tek seçenekte etiket/birim; Faz 14 beş formda kısa bağlantılı KVKK onayı + SSS ikon 24x24 + dahili bağlantılar etkin permalink yapısına göre + yeterlilik liste/detay referans tasarımı + tablet başlık: ≤1279px hamburger + online başvuru ekranı ve `?meslek=` ön seçimi + iletişim sayfası referans düzeni + 14 rota referans sayfa aileleri) | Görünüm → Temalar |
+| **`data/` dizini bir bütün olarak** sunucuya konmuş (`data/content/*.manifest.json` + `data/sources/reference-logos/ref-NN.png`; `MAVIBELGE_IMPORT_MANIFEST_DIR` = `.../data/content`). Logo dosyaları yoksa `content` aşaması yüklemede reddedilir. **Yalnız ücret yayını** için gereken 4 dosya (`sectors`/`qualifications`/`fees.manifest.json` + `fee-publication.manifest.json`) ayrı, doğrulanabilir `mavibelge-ucret-verisi-*.zip` paketindedir; kurulum: [`ucret-staging-uygulama-yonergesi.md`](ucret-staging-uygulama-yonergesi.md) §4.1 | Sistem kapıları / dry-run |
 | Yönetici hesabı: `manage_options` **ve** `mb_manage_tariff_period` | Kullanıcılar → yetki |
 | Yönetim paneline **HTTPS** ile erişim (kapı WordPress `is_ssl()` sonucunu kullanır; TLS'i bir vekil/CDN sonlandırıyorsa `wp-config.php`'de standart `$_SERVER['HTTPS'] = 'on'` ayarı gerekir, aksi hâlde kapı `not_https` ile kapalı kalır) | Adres çubuğu; Sistem kapıları bölümü |
 | `WP_ENVIRONMENT_TYPE` = `staging` (wp-config.php) | Sistem kapıları bölümü "Ortam türü" satırı |
@@ -36,9 +36,9 @@
    Dosya yedeğinin arşivini açıp `wp-content/plugins/mavibelge-core` klasörünü kontrol edin. Doğrulanmamış yedekle **başlanmaz**.
 5. Rollback (uygulama içi geri alma) **yedeğin yerine geçmez**.
 
-## 3. Eklentiyi güncelleme (0.4.0 / 0.5.0 / 0.5.1 / 0.5.2 / 0.5.3 → 0.5.4)
+## 3. Eklentiyi güncelleme (0.4.0 … 0.5.4 → 0.5.5)
 
-1. Eklentiler → Yeni Ekle → Eklenti Yükle → `mavibelge-core-0.5.4.zip` → **Şimdi Kur** → "Geçerli olanı yüklenenle değiştir".
+1. Eklentiler → Yeni Ekle → Eklenti Yükle → `mavibelge-core-0.5.5.zip` → **Şimdi Kur** → "Geçerli olanı yüklenenle değiştir".
 2. Eklenti etkin kalır; **yeniden etkinleştirmeniz gerekmez**. Etkin değilse etkinleştirin (önce eklenti, tema zaten etkin).
 3. Araçlar → **Sağlık** ekranı: hata yok. (Run tabloları 0.5.x sürümüne **ilk apply'da** otomatik yükseltilir; önizleme tablo oluşturmaz.)
 4. Araçlar → **İçe Aktarım Dry-Run**: sayfa açılır, altta "Katalog Aktarımı (Admin Apply)" bölümü görünür; "Apply/rollback şu an: **KAPALI**".
@@ -129,6 +129,17 @@ Bölüm **5) Sayfa yayınlama**. Sayfa oluşturma ile birleştirilmez; apply/rol
 4. Her istek en çok **10** sayfa yayınlar (transaction + katı readback + audit `import_pages_published`); tarayıcı kalan sayıyla sürdürür. Tekrar onay idempotenttir (`completed`, 0 yayın).
 
 Rollback sonrası yeniden apply: oluşturulan sayfalar çöpe alınır (kalıcı silme yok), aynı manifest yeniden 32 taslak olarak uygulanır. Yayın sonrası import rollback'i reddedilir (drift); yayını geri almak için sayfa el ile taslağa alınır.
+
+### 8.3. Ücret yayını (Faz 15; AYRI işlem — eklenti 0.5.5)
+
+`all` aşaması 103 ücreti **taslak** (`draft` + Kayıt Durumu `draft`) oluşturur ve ücretleri hiçbir zaman yayınlamaz. Ziyaretçiye görünmeleri için bölüm **6) Ücret yayını** kullanılır. Kapılar apply ile aynıdır (`run`: sabitler + `staging`; üretimde ayrıca §14 üretim sabitleri ve birebir host). Kayıt bazlı yayın kararı `data/content/fee-publication.manifest.json` dosyasındadır (`tools/fees/build-approval-matrix.js` üretir; her satır ücret kaydının kanonik özetine bağlıdır, kayıt değişirse satır bayatlar ve bekletilir) — `data/` ile birlikte sunucuya konmalıdır. Adım adım staging uygulaması, tam izin adları ve geri dönüş: [`ucret-staging-uygulama-yonergesi.md`](ucret-staging-uygulama-yonergesi.md). Gerekli dosyalardan biri eksik/bozuksa önizleme `catalog_manifests_unavailable` / `decisions_unavailable` / `decisions_invalid` ile (okunamayan dosya adıyla) reddedilir ve **hiçbir kayıt yazılmaz**.
+
+1. **Ücret yayın özetini göster** (salt okunur): 103 satır; neden `ready` (taslak, içerik değişmemiş, karar `publish`, etkinleştirilse görünür) / `published` / `held_pending_decision` (ad farkı, aynı yeterliliğe iki ücret, bayat karar) / `not_unchanged` (panelden değiştirilmiş — araç dokunmaz) / `not_publicly_valid` (aktif dönem, geçerlilik tarihi, fiyat listesi veya sektör engeli) / `not_created` / `unexpected_status`. Sayılar sunucunun **gerçek kayıtlarından** hesaplanır ve sabit kabul edilmez. Yerel karşılaştırma değeri (canlıya benzer başlangıç: 103 taslak, 2 QA kaydı elle aktif): hazır 95, yayında 2, bekletilen 6; farklı sonuçta ekran fark dökümünü (oluşturulmamış / sapmış + aktarım kararı / görünmez / beklenmeyen), yayındaki bekletilen kayıtları ve manifest dışı ücret kayıtlarını ayrıca gösterir (yorum tablosu: yönerge §5.3).
+2. Onay ifadesi: `UCRET YAYINLA <özet ilk 12>` (birebir). Her istek en çok **10** ücret; her batch tek transaction (yeniden gözlem → `publish` + `active` + işaret → katı readback → audit `import_fees_activated` → commit). Bayat/çift istek `stale_request`, özet değişmişse `confirmation_mismatch`.
+3. Sonra: `ready 0`; Sınav Ücretleri "Toplam 97 ücret kaydından"; `all` önizlemesi ücretlerde `unchanged` (etkinleştirme sahte conflict üretmez).
+4. Geri alma: aynı bölümde `UCRET YAYINDAN KALDIR <özet ilk 12>` — YALNIZ bu aracın etkinleştirdiği ve içeriği değişmemiş kayıtlar `draft/draft` olur (audit `import_fees_deactivated`); elle aktifleştirilmiş (QA) veya panelden değiştirilmiş kayıtlara dokunulmaz.
+
+Eklenti 0.5.4 ve öncesinin yazdığı ücret hash'leri (`record_status=draft` dahil) okunurken içerik aynıysa yeni biçime çevrilir: mevcut taslaklar `unchanged` görünür. Eski import run'larının uygulama içi geri alınması `drift_detected` ile reddedilir; geri dönüş yedekle yapılır.
 
 ## 9. Kesinti ve çift tıklama davranışı
 

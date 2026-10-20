@@ -150,6 +150,14 @@ class MaviBelge_Core_Import_WordPress_Target_Writer implements MaviBelge_Core_Im
 		if ( is_wp_error( $postId ) || ! is_int( $postId ) || $postId <= 0 ) {
 			return self::fail( 'post_insert_failed' );
 		}
+		// Faz 15: türün YALNIZ create'te yazılan başlangıç meta'sı (ücret: `_mb_record_status = draft`); update bunu değiştirmez.
+		$initial = isset( MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $payload['type'] ] ) ? MaviBelge_Core_Import_Write_Payload::INITIAL_POST_META[ $payload['type'] ] : array();
+		foreach ( $initial as $key => $value ) {
+			update_post_meta( $postId, $key, wp_slash( $value ) );
+			if ( ! self::stored_equals( $value, get_post_meta( $postId, $key, true ) ) ) {
+				return self::fail( 'meta_readback_mismatch' );
+			}
+		}
 		return $this->finish_post( $postId, $postType, $payload );
 	}
 
@@ -570,6 +578,56 @@ class MaviBelge_Core_Import_WordPress_Target_Writer implements MaviBelge_Core_Im
 		$after = get_post( $postId );
 		if ( ! ( $after instanceof WP_Post ) || 'publish' !== $after->post_status || 'page' !== $after->post_type ) {
 			return self::fail( 'publish_readback_mismatch' );
+		}
+		return self::ok( $postId );
+	}
+
+	public function fee_publication_state( $postId ) {
+		$post = is_int( $postId ) && $postId > 0 ? get_post( $postId ) : null;
+		if ( ! ( $post instanceof WP_Post ) || 'mb_ucret' !== $post->post_type ) {
+			return null;
+		}
+		$status = get_post_meta( $postId, '_mb_record_status', true );
+		$marker = get_post_meta( $postId, '_mb_fee_publication_marker', true );
+		return array(
+			'post_status'   => (string) $post->post_status,
+			'record_status' => is_string( $status ) ? $status : '',
+			'marker'        => is_string( $marker ) ? $marker : '',
+		);
+	}
+
+	public function set_fee_publication( $postId, $activate, $marker ) {
+		if ( ! is_bool( $activate ) || ! self::is_fingerprint( $marker ) ) {
+			return self::fail( 'payload_shape' );
+		}
+		$state = $this->fee_publication_state( $postId );
+		if ( null === $state ) {
+			return self::fail( 'fee_missing' );
+		}
+		if ( $activate ) {
+			if ( 'draft' !== $state['post_status'] || 'draft' !== $state['record_status'] || '' !== $state['marker'] ) {
+				return self::fail( 'fee_not_draft' );
+			}
+			// Önce Mavi Belge durumu + işaret, sonra WordPress yayını (aynı transaction; biri başarısızsa çağıran geri alır).
+			update_post_meta( $postId, '_mb_record_status', 'active' );
+			update_post_meta( $postId, '_mb_fee_publication_marker', $marker );
+			$result = wp_update_post( wp_slash( array( 'ID' => $postId, 'post_status' => 'publish' ) ), true );
+			$want   = array( 'post_status' => 'publish', 'record_status' => 'active', 'marker' => $marker );
+		} else {
+			if ( 'publish' !== $state['post_status'] || 'active' !== $state['record_status'] || ! hash_equals( $marker, $state['marker'] ) ) {
+				return self::fail( 'fee_not_activated_by_publisher' );
+			}
+			$result = wp_update_post( wp_slash( array( 'ID' => $postId, 'post_status' => 'draft' ) ), true );
+			update_post_meta( $postId, '_mb_record_status', 'draft' );
+			delete_post_meta( $postId, '_mb_fee_publication_marker' );
+			$want = array( 'post_status' => 'draft', 'record_status' => 'draft', 'marker' => '' );
+		}
+		if ( is_wp_error( $result ) || $result !== $postId ) {
+			return self::fail( 'fee_status_write_failed' );
+		}
+		clean_post_cache( $postId );
+		if ( $this->fee_publication_state( $postId ) !== $want ) {
+			return self::fail( 'fee_status_readback_mismatch' );
 		}
 		return self::ok( $postId );
 	}

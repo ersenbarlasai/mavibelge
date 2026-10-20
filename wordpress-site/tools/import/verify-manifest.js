@@ -326,6 +326,8 @@ function findUnexpectedManifestFiles(dataDir) {
 		'content/news.manifest.json', 'content/references.manifest.json', 'content/faqs.manifest.json',
 		// Faz 12 — SAYFA manifesti: AYRI üretim/doğrulama hattı (build-page-manifest.js / verify-page-manifest.js).
 		'content/pages.manifest.json',
+		// Faz 15 — ücret YAYIN KARARI manifesti: AYRI hat (tools/fees/build-approval-matrix.js --write/--check).
+		'content/fee-publication.manifest.json',
 	];
 	const unexpected = [];
 	['content', 'mapping'].forEach(function (sub) {

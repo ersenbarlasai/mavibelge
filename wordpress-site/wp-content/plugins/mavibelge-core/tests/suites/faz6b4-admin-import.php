@@ -970,7 +970,9 @@ mb_test( '6B4 request: action adı eşleşmeyen veya bilinmeyen istek reddedilir
 	false === $B4_G::normalize_request( 'preview_stage', array( 'action' => 'mavibelge_import_start_apply', $b4_nonce_field => 'abc1234567', 'stage' => 'sectors' ), array() )['ok'] && false === $B4_G::normalize_request( 'silent_admin', array( 'action' => 'mavibelge_import_silent_admin', $b4_nonce_field => 'x' ), array() )['ok'] );
 mb_test( '6B4 request: her action seviyesi bağlayıcı — kayıt/apply/rollback yazma action\'ları map/run, önizlemeler read; nonce action adı action\'a özel',
 	'read' === $B4_G::ACTIONS['preview_stage']['level'] && 'read' === $B4_G::ACTIONS['preview_rollback']['level'] && 'map' === $B4_G::ACTIONS['save_sector_image_map']['level'] && 'run' === $B4_G::ACTIONS['start_apply']['level'] && 'run' === $B4_G::ACTIONS['advance_apply']['level']
-	&& 'run' === $B4_G::ACTIONS['start_rollback']['level'] && 'run' === $B4_G::ACTIONS['advance_rollback']['level'] && 9 === count( $B4_G::ACTIONS ) && 'mavibelge_import_start_apply' === $B4_G::nonce_action( 'start_apply' ) && $B4_G::nonce_action( 'start_apply' ) !== $B4_G::nonce_action( 'start_rollback' ) );
+	&& 'run' === $B4_G::ACTIONS['start_rollback']['level'] && 'run' === $B4_G::ACTIONS['advance_rollback']['level'] && 12 === count( $B4_G::ACTIONS ) && 'mavibelge_import_start_apply' === $B4_G::nonce_action( 'start_apply' ) && $B4_G::nonce_action( 'start_apply' ) !== $B4_G::nonce_action( 'start_rollback' )
+	// Faz 15: ücret yayını — önizleme read, etkinleştirme/geri alma apply ile aynı run kapısı.
+	&& 'read' === $B4_G::ACTIONS['preview_fee_publish']['level'] && 'run' === $B4_G::ACTIONS['activate_fees']['level'] && 'run' === $B4_G::ACTIONS['deactivate_fees']['level'] );
 
 /* ================================================================
  * G) Admin çalıştırma servisi: aşama sırası (sunucu tarafı), onay ifadesi, güvenli DTO, uçtan uca dört aşama
