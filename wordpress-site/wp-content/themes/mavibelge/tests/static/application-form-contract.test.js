@@ -90,6 +90,12 @@ check( 'dist/style.css kaynak kurallarını içerir', dist.indexOf( '.applicatio
 /* eklenti: seçenek etiketi + yinelenen kod + ön seçim */
 check( 'eklenti: dynamic_options saf kurucuyu kullanır; describe() preselect yalnız POST sonucu yokken ve yalnız application', /MaviBelge_Core_Forms_Qualification_Options::build\(/.test( service ) && /null === \$result && 'application' === \$formId/.test( service ) && /'preselect'\s*=> \$preselect/.test( service ) );
 
+/* Faz 16: meslek seçenekleri ücret kayıtlarından; belirsiz ön seçim ve "uygun meslek yok" dalları */
+check( 'Faz 16 eklenti: application meslek alanı application_fees kaynağından; ön seçim ucret + meslek tek kararla (Forms_Fee_Options::preselect)', /'options_source' => 'application_fees'/.test( read( '../../plugins/mavibelge-core/includes/forms/class-forms-schema.php' ) ) && /MaviBelge_Core_Forms_Fee_Options::preselect\(/.test( service ) && /'preselect_ambiguous' => \$ambiguous/.test( service ) );
+check( 'Faz 16 tema: seçenek yokken (options_missing) <form> çizilmez; bildirim + tel:/mailto: alternatifi; yalnız kapı açıkken', /true === \$form\['open'\] && ! empty\( \$form\['options_missing'\] \)/.test( app ) && /application-no-options/.test( app ) && /esc_url\( \$contact\['phone_tel'\] \)/.test( app ) && /esc_url\( 'mailto:' \. \$contact\['email'\] \)/.test( app ) );
+check( 'Faz 16 tema: belirsiz ön seçim bildirimi (role="status") tarife etiketlerini esc_html ile basar; form yine çizilir', /application-ambiguous" role="status"/.test( app ) && /echo esc_html\( \$ambiguous_label \)/.test( app ) && /elseif \( 'success' !== \$form\['status'\] && true === \$form\['open'\] \)[\s\S]*get_template_part\( 'template-parts\/forms\/form'/.test( app ) );
+check( 'Faz 16 CSS: başvuru seçim kutusu dar ekranda taşmaz; bildirimler kaynak ve dist\'te', /\.application-wrap \.form-field select \{ max-width: 100%;/.test( css ) && dist.indexOf( '.application-ambiguous ul {' ) !== -1 );
+
 if ( failures.length ) {
 	failures.forEach( function ( f ) {
 		console.log( 'FAIL  ' + f );

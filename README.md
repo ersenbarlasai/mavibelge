@@ -1,22 +1,63 @@
 # Mavi Belge Web Sitesi
 
-Bu depo, Mavi Belge'nin yeni web sitesi için müşteriye sunulacak **statik HTML tanıtım sitesini** ve projeye ait karar/inceleme raporlarını içerir.
+Bu depo, Mavi Belge'nin **WordPress tabanlı web sitesinin** kaynak kodunu (özel `mavibelge` teması ve özel `mavibelge-core` eklentisi),
+kurumun görsel kabul verdiği **statik tanıtım sitesini** (dondurulmuş referans) ve projeye ait karar/inceleme raporlarını içerir.
 
-## Bu sürüm nedir
+`mavibelge.com.tr` 28 Eylül 2026'dan beri bu depodaki WordPress koduyla yayındadır. Bağlayıcı mimari: WordPress + özel tema + özel eklenti;
+hazır tema ve sayfa oluşturucu kullanılmaz. **PHP 7.3 bağlayıcı üretim kısıtıdır.** Ayrıntı: [`raporlar/wordpress-ana-uygulama-plani.md`](raporlar/wordpress-ana-uygulama-plani.md),
+[`raporlar/karar-kaydi-wordpress-php73.md`](raporlar/karar-kaydi-wordpress-php73.md). Önceki Laravel/Filament belgeleri yalnız tarihsel kayıttır.
 
-Bu sürüm, müşteriye sunulacak bir **statik HTML/CSS/JavaScript tanıtım prototipidir**. Veritabanı, backend, admin paneli veya gerçek form gönderimi içermez. Formlar ve dış sistem bağlantıları görsel olarak tam çalışır ancak veri göndermez; demo mesajı gösterir.
+Yeni bir göreve başlamadan önce [`AGENTS.md`](AGENTS.md) ve [`raporlar/proje-durumu.md`](raporlar/proje-durumu.md) okunmalıdır.
 
-Kurumun 10 Eylül 2026 tarihli güncel kararıyla gerçek sistem **WordPress, özel Mavi Belge teması ve özel Mavi Belge içerik eklentisi** olarak geliştirilecektir. Güncel ve bağlayıcı uygulama planı: [`raporlar/wordpress-ana-uygulama-plani.md`](raporlar/wordpress-ana-uygulama-plani.md). Önceki Laravel/Filament belgeleri tarihsel inceleme ve karar kayıtları olarak korunmaktadır.
+## Sürümler (21 Ekim 2026)
 
-## Ana site klasörü
+| Ortam | Tema `mavibelge` | Eklenti `mavibelge-core` | Not |
+|---|---|---|---|
+| Depodaki kaynak | 0.6.11 | 0.5.6 | Faz 16; PR #5. Staging/canlıya kurulmadı |
+| Canlı, son doğrulanan | 0.6.9 | 0.5.4 | Faz 14 (29 Eylül 2026). Faz 15 paketlerinin (0.6.10 / 0.5.5) kurulumu bu depodan doğrulanmadı |
+| Staging (`cms-yeni`), son kayıt | 0.6.8 | kayıtlı değil | Canlı staging'in önünde |
+
+Kaynaktaki sürüm her zaman dosyadan okunur: `wordpress-site/wp-content/themes/mavibelge/style.css` (`Version:`) ve
+`wordpress-site/wp-content/plugins/mavibelge-core/mavibelge-core.php` (başlık + `MAVIBELGE_CORE_VERSION`).
+
+## Depo yapısı (özet)
 
 ```
-tanitim-site/
+.
+├── AGENTS.md                Çalışma kuralları (yetkili kaynak sırası, ortam sınırları, gizli bilgi, Git)
+├── wordpress-site/          WordPress özel kodu ve araçları (bkz. wordpress-site/README.md)
+│   ├── wp-content/themes/mavibelge/         Özel tema
+│   ├── wp-content/plugins/mavibelge-core/   Özel eklenti (içerik modeli, katalog/ücret, formlar, SEO, içe aktarım)
+│   ├── data/                Katalog, ücret ve yönlendirme veri manifestleri
+│   ├── docs/                Sözleşmeler, işletim kılavuzları, QA raporu
+│   ├── tools/               Derleme, kalite kapıları, runtime testleri, paketleme
+│   └── dist-packages/       Üretilen kurulum paketleri (ZIP'ler Git'e girmez)
+├── tanitim-site/            Dondurulmuş statik tanıtım sitesi (yalnız okunur görsel referans)
+├── raporlar/                Proje durumu, faz raporları, karar kayıtları
+├── header-logo.png          Orijinal Mavi Belge logosu (kaynak)
+├── myk_logo.png             Orijinal MYK logosu (kaynak)
+├── turkak_logo.png          Orijinal TÜRKAK logosu (kaynak)
+└── STITCH_*.md / CLAUDE_*.md  Tasarım/uygulama prompt kayıtları (bir kısmı yalnız yerelde, Git'te değil)
 ```
 
-Ana giriş dosyası: `tanitim-site/index.html`
+## Geliştirme ve test
 
-## Siteyi yerelde çalıştırma
+- Sunucuda Composer, Node.js, Git veya WP-CLI bulunduğu varsayılmaz; tema varlıkları yerelde derlenir:
+  `node wordpress-site/tools/build/build-theme-assets.js` (doğrulama: `--check`). `assets/dist/*` elle düzenlenmez.
+- Tüm kalite kapıları: `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <çıktı-dizini>` → "TÜM KAPILAR GEÇTİ".
+  Runtime kapıları yerel Docker ortamı (PHP 7.3.33 + WordPress 6.9.9 + MariaDB 10.11) ister; testler ana `wp_` veritabanını
+  değiştirmez, silinebilir `mbfx_` klonunda çalışır. Ortam: [`wordpress-site/tools/runtime-test/README.md`](wordpress-site/tools/runtime-test/README.md).
+- Paketleme, staging kurulumu ve geri dönüş: [`wordpress-site/docs/release-runbook.md`](wordpress-site/docs/release-runbook.md).
+  Kanıtlar ve açık kapılar: [`wordpress-site/docs/qa-report.md`](wordpress-site/docs/qa-report.md).
+- Commit, push, deploy ve canlı/staging erişimi yalnız kullanıcının açık onayıyla yapılır (bkz. [`AGENTS.md`](AGENTS.md) §5–§6).
+
+## Statik tanıtım sitesi (dondurulmuş referans)
+
+`tanitim-site/`, kurumun görsel kabul verdiği statik HTML/CSS/JavaScript prototipidir (giriş: `tanitim-site/index.html`).
+Veritabanı, backend veya gerçek form gönderimi içermez; formlar demo mesajı gösterir. **Yalnız okunur referanstır**, hiçbir görev
+değiştirmez. `https://yeni.mavibelge.com.tr/` üzerinde yayındadır ve üzerine yazılmaz.
+
+Yerelde açmak için:
 
 ```bash
 cd tanitim-site
@@ -31,27 +72,15 @@ cd tanitim-site
 npx serve .
 ```
 
-## Kapsam
+Statik sitenin kapsamı:
 
 - Toplam **41 HTML sayfası**.
 - **83 mesleki yeterlilik kaydı** (MYK kodu, seviye, sektör ile doğrulanmış).
 - **12 sektör**: Makine, Metalurji, Metal, Ulaştırma & Lojistik, Plastik, Elektrik, Cam, Tekstil, İnşaat, Mobilya, Maden & Mermer, Güzellik ve Saç Bakım.
+  (WordPress kataloğu bu kaynaktan 14 sektör, 83 yeterlilik ve 103 ücret kaydı / 145 fiyat seçeneği olarak aktarıldı.)
 - Orijinal Mavi Belge, MYK ve TÜRKAK logoları korunmuştur; değiştirilmemiş, yeniden çizilmemiştir.
 - "Referanslarımız" bölümündeki 12 logo **temsili**dir; gerçek müşteri referansı değildir (bkz. `tanitim-site/IMAGE_SOURCES.md`).
-- Ücret, referans ve bazı kurumsal bilgiler kurum onayı bekliyor; doğrulanamayan yerlerde uydurma veri yerine "Bilgi güncellenecektir" gibi dürüst demo metni kullanılmıştır.
-
-## Klasör yapısı (özet)
-
-```
-.
-├── raporlar/
-│   └── final-rapor.md          Kapsam ve içerik kararlarının temel referansı
-├── tanitim-site/                Statik tanıtım sitesi (bkz. tanitim-site/README.md)
-├── header-logo.png              Orijinal Mavi Belge logosu (kaynak)
-├── myk_logo.png                 Orijinal MYK logosu (kaynak)
-├── turkak_logo.png              Orijinal TÜRKAK logosu (kaynak)
-└── STITCH_*.md / CLAUDE_*.md    Tasarım/uygulama prompt kayıtları
-```
+- Statik sitede doğrulanamayan yerlerde uydurma veri yerine "Bilgi güncellenecektir" gibi dürüst demo metni kullanılmıştır.
 
 Ayrıntılı site yapısı, sayfa listesi ve demo işlemler için: `tanitim-site/README.md`.
 
@@ -103,7 +132,7 @@ Tüm kapılar: `bash wordpress-site/tools/qa/run-all-gates.sh --runtime <dizin>`
 çok istekli apply/rollback (istek başına en çok 10 kayıt, kalıcı checkpoint, çift tıklama/eski istek/paralel istek koruması), staging/üretim için ayrı ve varsayılan **kapalı** wp-config sabitleri; WP-CLI yolu aynı çalışma-zamanı grafiğini kullanır.
 Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. (Tarihsel, 26 Eylül 2026: gerçek staging/canlı apply çalıştırılmamıştı; commit/push/deploy yapılmamıştı.)
 
-## Güncel durum (20 Ekim 2026)
+## Güncel durum (21 Ekim 2026)
 
 - **Canlı geçiş yapıldı.** `mavibelge.com.tr` 28 Eylül 2026'da yeni WordPress sitesine geçti ve kamuya açıldı (tema 0.6.8 / eklenti 0.5.3 ile).
   Kayıt: [`raporlar/canli-gecis-kayit-sablonu.md`](raporlar/canli-gecis-kayit-sablonu.md). Task 6 kabulü **açık**: gözlem penceresinin 5xx/PHP/SMTP
@@ -114,4 +143,7 @@ Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. (Tarihse
   (%20 KDV dahil, 1.500 TL belge basım ücreti hariç). Veri paketi `mavibelge-ucret-verisi-20261020-7b720433.zip`. Kullanıcı paketi yükleyip ücretleri
   yönetim panelinden elle aktif yaptı; ekran görüntüsündeki özet: hazır 0, yayında 103, araçla geri alınabilir 0, bağlantısız 19 (hepsi yayında).
   Ortamın kurulu tema/eklenti sürümleri bu depodan doğrulanmadı. Yönerge: [`wordpress-site/docs/ucret-staging-uygulama-yonergesi.md`](wordpress-site/docs/ucret-staging-uygulama-yonergesi.md).
+- **Faz 16 (kod Git'te, kurulmadı):** online başvuru meslek listesi ziyaretçiye açık aktif ücret kayıtlarından otomatik oluşur (eklenti 0.5.6 /
+  tema 0.6.11). Dal `codex/application-fee-occupations`, PR #5 (21 Ekim 2026). Tam yerel kapı 60/0. Paketler
+  `wordpress-site/dist-packages/faz16-20261020/`; staging/canlıya kurulmadı. Rapor: [`raporlar/basvuru-meslek-ucret-faz16-raporu-20261020.md`](raporlar/basvuru-meslek-ucret-faz16-raporu-20261020.md).
 - Staging (`cms-yeni`) son bilinen kayıtta 0.6.8'deydi; canlı staging'in önünde. Ayrıntılı ve doğrulanmış durum: [`raporlar/proje-durumu.md`](raporlar/proje-durumu.md).

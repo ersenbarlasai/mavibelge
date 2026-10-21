@@ -156,6 +156,11 @@ Depoda gösterim için `MaviBelge_Core_Validator::kurus_to_lira_display()` aynı
 - **Yayın durumu import'un yönettiği alan değildir:** `_mb_record_status` ücret yönetilen alan listesinden (`Import_Managed_Fields::FEE_FIELDS`) çıkarıldı. Import yalnız create'te `draft` yazar (`Write_Payload::INITIAL_POST_META`), update dokunmaz. Etkinleştirilen ücret sonraki aktarım önizlemesinde sahte `conflict` üretmez; içerik alanlarındaki elle değişiklik yine `conflict`'tir. 0.5.4 ve öncesinin `record_status=draft` dahil hesaplanmış `_mb_last_applied_hash` değerleri, içerik değişmemişse okumada yeni biçime çevrilir (`Target_Repository::effective_fee_last_applied_hash()`); içerik değişmişse saklı değer aynen kalır (conflict). Eski run'ların uygulama içi geri alınması bu nedenle `drift_detected` ile reddedilir (kapalı yönde).
 - **Yönetim ekranı:** fiyat seçenekleri tam genişlikte; satır ekle (şablon klonu, benzersiz indeks), yukarı/aşağı taşı (sıra yeniden numaralanır), kaldır; tutar kutusunun altında "Kaydedilecek" önizlemesi (görüntü amaçlı; sunucu kuralı tek otorite). Yalnız birim yazılmış (etiket ve tutar boş) satır artık sessizce düşmez: atomik ret. Form `_mb_price_options` hiç göndermezse kayıtlı liste korunur. Sektör ve KDV oranı/basım ücreti değişiklikleri denetim günlüğüne girer.
 
+**Faz 16 — ücret kaydı ↔ online başvuru (eklenti 0.5.6):** Online Başvuru formundaki meslek listesi, ziyaretçiye açık aktif
+`mb_ucret` kayıtlarından türetilir; ayrı bir başvuru meslek alanı/listesi YOKTUR. Seçenek kimliği `mb_ucret` yazı kimliği,
+etiket `_mb_profession_name` + `_mb_level` + `_mb_qualification_code`; e-postadaki yeterlilik ilişkisi `_mb_qualification_id`
+(yalnız herkese açık yeterlilik). Yeni meta alanı eklenmedi. Ayrıntı: `forms-security-contract.md` "Online başvuru meslek seçimi".
+
 ### Haber (`mb_haber`)
 
 WordPress'in yerleşik başlık/özet/içerik/öne çıkan görsel/yayın tarihi alanlarına ek olarak:

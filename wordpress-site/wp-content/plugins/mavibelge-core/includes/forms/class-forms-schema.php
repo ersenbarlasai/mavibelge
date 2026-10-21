@@ -73,7 +73,8 @@ class MaviBelge_Core_Forms_Schema {
 				'sensitivity' => 'sensitive',
 				'submit'      => 'Başvuruyu Gönder',
 				'fields'      => array(
-					array( 'name' => 'qualification', 'type' => 'select', 'label' => 'Başvurulacak meslek/yeterlilik', 'required' => true, 'options_source' => 'qualifications' ),
+					// Faz 16: seçenekler ziyaretçiye açık aktif ÜCRET kayıtlarından; değer ücret kaydı kimliğidir (Forms_Fee_Options).
+					array( 'name' => 'qualification', 'type' => 'select', 'label' => 'Başvurulacak meslek/yeterlilik', 'required' => true, 'options_source' => 'application_fees' ),
 					array( 'name' => 'exam_location', 'type' => 'select', 'label' => 'Tercih edilen sınav alanı', 'required' => true, 'options' => self::EXAM_LOCATIONS ),
 					array( 'name' => 'full_name', 'type' => 'text', 'label' => 'Ad Soyad', 'required' => true, 'max' => 100 ),
 					array( 'name' => 'national_id', 'type' => 'text', 'label' => 'T.C. Kimlik No', 'required' => true, 'max' => 11, 'sensitive' => true ),

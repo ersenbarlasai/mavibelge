@@ -66,6 +66,7 @@ if [ "$RUNTIME" = "1" ]; then
 	gate "Faz 12 gerçek içe aktarılmış sayfalar: 41/41 rota (güzel /slug/ bağlantı) + yayın kapsamı + form kapalılığı + robots.txt/wp-sitemap.xml (üretim/staging)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/pages-render.sh" "$OUT/pages-render"
 	gate "Faz 12e yeterlilik liste/detay: gerçek katalog (83/14/103), /index.php/ yapısı, filtre/sayfalama/ücret/sektör görseli" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qualification-render.sh" "$OUT/qualification-render"
 	gate "Faz 15 ücret kataloğu: 2 QA başlangıç -> toplu yayın 103 satır/145 seçenek birebir, admin/yetki/mobil, conflict, geri alma, eski hash, eksik dosya yazmasız ret, veri paketi, envanter" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/fee-catalog.sh" "$OUT/fee-catalog"
+	gate "Faz 16 başvuru meslekleri ücret kayıtlarından: 103 seçenek, ön seçim, dışlama/önbellek/gün sınırı, 503 kayıt, POST yeniden doğrulama, e-posta, Chrome" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/application-fees.sh" "$OUT/application-fees"
 	gate "Faz 11 render QA (41 sayfa + boş durum + eklenti pasif)" bash "$WS/tools/runtime-test/with-lock.sh" bash "$WS/tools/runtime-test/qa-render.sh" "$OUT/qa-render"
 fi
 echo

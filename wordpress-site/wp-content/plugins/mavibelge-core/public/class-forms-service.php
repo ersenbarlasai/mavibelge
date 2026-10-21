@@ -92,17 +92,31 @@ class MaviBelge_Core_Forms_Service {
 		$fields   = MaviBelge_Core_Forms_Schema::present_fields( $def, $options );
 		$result  = ( null !== self::$last && self::$last['form'] === $formId ) ? self::$last : null;
 		$status  = null !== $result ? $result['status'] : ( self::success_from_query( $formId ) ? 'success' : '' );
-		// Faz 12f: `?meslek=<MYK kodu>` yalnız online başvuruda ve yalnız POST sonucu YOKKEN ön seçim olur (doğrulama hatasıyla
-		// yeniden çizimde kullanıcının POST ettiği değer önceliklidir). Değer yalnız herkese açık, tekil bir seçenek anahtarıyla
-		// TAM eşleşirse kullanılır; aksi hâlde hiçbir şey seçilmez ve ham değer hiçbir yere taşınmaz.
+		// Faz 16: online başvuruda ön seçim yalnız POST sonucu YOKKEN olur (doğrulama hatasıyla yeniden çizimde kullanıcının POST
+		// ettiği değer önceliklidir). `?ucret=<ücret kimliği>` TAM eşleşme; yoksa Faz 12f `?meslek=<MYK kodu>` yalnız TEK uygun
+		// ücrete çözülürse seçilir. Koda birden fazla tarife bağlıysa hiçbiri seçilmez; `preselect_ambiguous` bu tarifelerin
+		// etiketlerini taşır (ziyaretçiden seçim istenir). Ham sorgu değeri hiçbir yere taşınmaz.
 		$preselect = array();
+		$ambiguous = array();
 		if ( null === $result && 'application' === $formId ) {
-			$requested = MaviBelge_Core_Forms_Qualification_Options::requested(
-				isset( $_GET['meslek'] ) ? $_GET['meslek'] : null, // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput -- yalnız katı biçim + allowlist eşleşmesiyle okunur, durum değiştirmez.
-				isset( $options['qualifications'] ) ? $options['qualifications'] : array()
+			$fee_options = isset( $options['application_fees'] ) ? $options['application_fees'] : array();
+			$decision    = MaviBelge_Core_Forms_Fee_Options::preselect(
+				isset( $_GET['ucret'] ) ? $_GET['ucret'] : null, // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput -- yalnız katı kimlik biçimi + allowlist eşleşmesiyle okunur, durum değiştirmez.
+				isset( $_GET['meslek'] ) ? $_GET['meslek'] : null, // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput -- yalnız katı MYK biçimi + allowlist eşleşmesiyle okunur, durum değiştirmez.
+				$fee_options,
+				self::application_fee_rows()
 			);
-			if ( '' !== $requested ) {
-				$preselect['qualification'] = $requested;
+			if ( '' !== $decision['selected'] ) {
+				$preselect['qualification'] = $decision['selected'];
+			}
+			foreach ( $decision['ambiguous'] as $fee_id ) {
+				$ambiguous[] = $fee_options[ $fee_id ];
+			}
+		}
+		$empty_sources = array();
+		foreach ( $fields as $present ) {
+			if ( ! empty( $present['required'] ) && in_array( $present['type'], array( 'select', 'radio' ), true ) && empty( $present['options'] ) ) {
+				$empty_sources[] = $present['name'];
 			}
 		}
 		return array(
@@ -122,7 +136,12 @@ class MaviBelge_Core_Forms_Service {
 			'errors'        => null !== $result ? $result['errors'] : array(),
 			'values'        => null !== $result ? $result['echo'] : array(),
 			'preselect'     => $preselect,
-			'token'         => $gate['open'] ? self::issue_token( $formId ) : '',
+			// Faz 16: `?meslek=` birden fazla tarifeye çözüldü (hiçbiri seçilmedi) -> tarifelerin etiketleri.
+			'preselect_ambiguous' => $ambiguous,
+			// Faz 16: zorunlu bir seçim alanının seçeneği yok (ör. başvuruya açık ücret kaydı yok) -> tema formu ÇİZMEZ, jeton
+			// üretilmez; bilgilendirme ve iletişim alternatifi gösterilir. Kapı (gate) ayarı değişmez.
+			'options_missing' => $empty_sources,
+			'token'         => $gate['open'] && empty( $empty_sources ) ? self::issue_token( $formId ) : '',
 			'names'         => array(
 				'form'     => MaviBelge_Core_Forms_Schema::FORM_FIELD,
 				'token'    => MaviBelge_Core_Forms_Schema::TOKEN_FIELD,
@@ -137,16 +156,46 @@ class MaviBelge_Core_Forms_Service {
 		return isset( $_GET['mb_form_status'], $_GET['mb_form'] ) && 'success' === $_GET['mb_form_status'] && $formId === $_GET['mb_form']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- yalnız başarı iletisini gösterir; durum değiştirmez.
 	}
 
-	/** Dinamik seçenek kaynakları (yalnız herkese açık, aktif yeterlilikler; en çok 200). @return array<string, array<string,string>> */
+	/**
+	 * Dinamik seçenek kaynakları:
+	 *  - `application_fees` (Faz 16, online başvuru): Sınav Ücretleri sayfasıyla AYNI görünürlük kuralından geçen BÜTÜN ücret
+	 *    kayıtları (Catalog_Service::get_application_fee_rows(); arama/filtre/sayfalama yok, sessiz kesme yok).
+	 *  - `qualifications` (sınav talebi formu): yalnız herkese açık, aktif yeterlilikler; en çok 200.
+	 *
+	 * @return array<string, array>
+	 */
 	private static function dynamic_options( array $def ) {
-		$needs = false;
+		$sources = array();
 		foreach ( $def['fields'] as $field ) {
-			if ( isset( $field['options_source'] ) && 'qualifications' === $field['options_source'] ) {
-				$needs = true;
+			if ( isset( $field['options_source'] ) ) {
+				$sources[ $field['options_source'] ] = true;
 			}
 		}
-		if ( ! $needs || ! post_type_exists( 'mb_yeterlilik' ) ) {
-			return array( 'qualifications' => array() );
+		$out = array( 'qualifications' => array(), 'application_fees' => array() );
+		if ( isset( $sources['application_fees'] ) ) {
+			$out['application_fees'] = MaviBelge_Core_Forms_Fee_Options::build( self::application_fee_rows() );
+		}
+		if ( isset( $sources['qualifications'] ) ) {
+			$out['qualifications'] = self::qualification_options();
+		}
+		return $out;
+	}
+
+	/** @return array get_application_fee_rows() (istek içinde bir kez). */
+	private static function application_fee_rows() {
+		if ( null === self::$fee_rows ) {
+			self::$fee_rows = class_exists( 'MaviBelge_Core_Catalog_Service' ) ? MaviBelge_Core_Catalog_Service::get_application_fee_rows() : array();
+		}
+		return self::$fee_rows;
+	}
+
+	/** @var array|null istek içi başvuru satırları (reset() temizler). */
+	private static $fee_rows = null;
+
+	/** Sınav talebi formunun yeterlilik seçenekleri (Faz 12f kuralı, değişmedi). @return array<string,string> */
+	private static function qualification_options() {
+		if ( ! post_type_exists( 'mb_yeterlilik' ) ) {
+			return array();
 		}
 		$ids = get_posts(
 			array(
@@ -170,7 +219,7 @@ class MaviBelge_Core_Forms_Service {
 			);
 		}
 		// Faz 12f: etiket "{Ad} — {Kod} (Seviye {N})"; aynı koda iki herkese açık kayıt varsa kod dışlanır (fail-closed).
-		return array( 'qualifications' => MaviBelge_Core_Forms_Qualification_Options::build( $rows ) );
+		return MaviBelge_Core_Forms_Qualification_Options::build( $rows );
 	}
 
 	/* ------------------------------------------------------------ gönderim */
@@ -181,7 +230,8 @@ class MaviBelge_Core_Forms_Service {
 
 	/** Testler için: bu isteğin sonucunu temizler. */
 	public static function reset() {
-		self::$last = null;
+		self::$last     = null;
+		self::$fee_rows = null;
 	}
 
 	public static function maybe_handle_submission() {
@@ -251,13 +301,23 @@ class MaviBelge_Core_Forms_Service {
 		}
 		$context   = array( 'options' => self::dynamic_options( MaviBelge_Core_Forms_Schema::get( $formId ) ) );
 		$validated = MaviBelge_Core_Forms_Validator::validate( $formId, $post, $context );
+		$details   = array();
+		if ( 'application' === $formId ) {
+			$fee = self::verify_application_fee( $post, $validated, $context['options']['application_fees'] );
+			if ( null !== $fee['error'] ) {
+				$validated['errors']['qualification'] = $fee['error'];
+				unset( $validated['clean']['qualification'], $validated['echo']['qualification'] );
+			} else {
+				$details['qualification'] = $fee['details'];
+			}
+		}
 		$upload    = self::collect_uploads( $formId, $files );
 		$errors    = array_merge( $validated['errors'], $upload['errors'] );
 		if ( ! empty( $errors ) ) {
 			self::cleanup( $upload['paths'] );
 			return $res( 'validation', $errors, $validated['echo'] );
 		}
-		$message = MaviBelge_Core_Forms_Mail_Builder::build( $formId, $validated['clean'], $settings, $upload['paths'] );
+		$message = MaviBelge_Core_Forms_Mail_Builder::build( $formId, $validated['clean'], $settings, $upload['paths'], $details );
 		$sent    = null !== $message && $mailer->send( $message );
 		self::cleanup( $upload['paths'] ); // Kalıcı saklama YOK: e-postadan hemen sonra (başarılı ya da değil) silinir.
 		if ( ! $sent ) {
@@ -267,6 +327,42 @@ class MaviBelge_Core_Forms_Service {
 		set_transient( 'mbf_used_' . $check['id'], 1, MaviBelge_Core_Forms_Security::TOKEN_MAX_AGE );
 		self::audit( MaviBelge_Core_Audit_Log::EVENT_FORM_SUBMITTED, $formId, 'ok' );
 		return $res( 'success' );
+	}
+
+	/** Seçilen ücret artık başvuruya açık değil (pasif, taslak, silinmiş, dönemi değişmiş veya süresi dolmuş). */
+	const FEE_NO_LONGER_AVAILABLE = 'Seçtiğiniz meslek/tarife artık online başvuruya açık değil. Lütfen listeden yeniden seçin.';
+
+	/**
+	 * Faz 16 — online başvuru meslek seçiminin sunucu doğrulaması. POST'taki değer yalnız ücret kimliği olarak okunur; meslek
+	 * adı, seviye, MYK kodu ve yeterlilik ilişkisi YALNIZ sunucudaki kayıttan üretilir. Kayıt, listedeki (önbellekli) görünürlüğe
+	 * ek olarak ÖNBELLEKSİZ yeniden çözülür: form açıldıktan sonra pasifleşen, taslağa alınan, silinen, dönemi değişen veya
+	 * süresi dolan kayıtla gönderim reddedilir. Bağlantısız (kodsuz) ücret geçerli bir seçimdir.
+	 *
+	 * @return array{error: string|null, details: array}
+	 */
+	private static function verify_application_fee( array $post, array $validated, array $fee_options ) {
+		$raw = array_key_exists( 'qualification', $post ) ? $post['qualification'] : null;
+		if ( isset( $validated['errors']['qualification'] ) ) {
+			// Biçimi geçerli bir kimlik listede yoksa (uygunluğunu yitirmiş veya hiç uygun olmamış kayıt) anlaşılır mesaj.
+			$id = MaviBelge_Core_Forms_Fee_Options::normalize_id( is_string( $raw ) ? $raw : null );
+			return array( 'error' => '' !== $id ? self::FEE_NO_LONGER_AVAILABLE : $validated['errors']['qualification'], 'details' => array() );
+		}
+		$id = MaviBelge_Core_Forms_Fee_Options::normalize_id( is_string( $raw ) ? $raw : null );
+		if ( '' === $id || ! array_key_exists( (int) $id, $fee_options ) ) {
+			return array( 'error' => 'Listeden geçerli bir seçim yapın.', 'details' => array() );
+		}
+		$fee = MaviBelge_Core_Catalog_Service::get_public_fee( (int) $id );
+		if ( null === $fee ) {
+			return array( 'error' => self::FEE_NO_LONGER_AVAILABLE, 'details' => array() );
+		}
+		$row = MaviBelge_Core_Catalog_Service::application_fee_row( $fee );
+		return array(
+			'error'   => null,
+			'details' => array(
+				'value' => MaviBelge_Core_Forms_Fee_Options::label( $row['profession_name'], $row['level'], $row['qualification_code'] ),
+				'lines' => MaviBelge_Core_Forms_Fee_Options::mail_details( $row ),
+			),
+		);
 	}
 
 	private static function mailer() {

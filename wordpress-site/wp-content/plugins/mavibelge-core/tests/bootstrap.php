@@ -43,6 +43,7 @@ require_once dirname( __DIR__ ) . '/includes/class-content-admin-rules.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-schema.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-validator.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-qualification-options.php';
+require_once dirname( __DIR__ ) . '/includes/forms/class-forms-fee-options.php';
 require_once dirname( __DIR__ ) . '/includes/forms/class-forms-config.php';
 require_once dirname( __DIR__ ) . '/includes/class-rate-limit.php';
 require_once dirname( __DIR__ ) . '/includes/class-cache.php';

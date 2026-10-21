@@ -253,6 +253,11 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .application-closed-note { margin: var(--space-3) 0 0; text-align: right; }
 .application-later-title { font-size: var(--fs-md); margin: var(--space-6) 0 var(--space-3); }
 .mb-application-preview .demo-notice strong { display: block; margin-bottom: var(--space-1); }
+/* Faz 16: ücret kaydından gelen uzun meslek etiketleri dar ekranda taşmaz; belirsiz ön seçim ve "uygun meslek yok" bildirimi. */
+.application-wrap .form-field select { max-width: 100%; text-overflow: ellipsis; }
+.application-no-options, .application-ambiguous { margin-bottom: var(--space-4); overflow-wrap: anywhere; }
+.application-no-options strong, .application-ambiguous strong { display: block; margin-bottom: var(--space-1); }
+.application-ambiguous ul { margin: var(--space-2) 0 0; padding-left: 1.25em; }
 .file-drop {
   border: 2px dashed var(--color-gray-300);
   border-radius: var(--radius-md);
@@ -368,6 +373,7 @@ legend { font-weight: 700; padding: 0 var(--space-2); color: var(--color-navy-90
 .qual-cta-card .hint { margin: 0; }
 .qual-cta-fee { padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-gray-200); }
 .qual-cta-fee-name { margin: 0 0 var(--space-2); font-weight: 700; font-size: var(--fs-sm); color: var(--color-navy-900); }
+.qual-cta-fee-apply { display: inline-block; margin-top: var(--space-2); font-size: var(--fs-sm); font-weight: 600; min-height: 44px; line-height: 44px; }
 .qual-cta-card .fee-options-list li { align-items: baseline; }
 .qual-cta-card .fee-option-label { min-width: 0; overflow-wrap: anywhere; }
 .qual-cta-card .fee-option-amount { font-size: var(--fs-md); }

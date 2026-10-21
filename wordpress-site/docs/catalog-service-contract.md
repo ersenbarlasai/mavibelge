@@ -55,6 +55,17 @@ Yalnız gerçek, kayıtlı `_mb_qualification_id` eşleşmesiyle döner — ad/k
 
 **Faz 5 Düzeltme ve Kabul §2.4 ile eklendi.** `get_all_valid_active_fees()`'in toplam eleman sayısı — ilişkili olsun olmasın, §3'teki **tüm** kuralları geçen her ücret sayılır. `admin/class-settings.php`'nin "aktif dönemde eşleşen ücret yok" uyarısı **yalnız bunu** kullanır. `get_active_fee_qualification_ids()` (yalnız `_mb_qualification_id > 0` olanlar) buna **karıştırılmaz** — o yalnız `mb_priced` yeterlilik filtresi içindir; eskiden yönetim uyarısı yanlışlıkla bunu kullanıyordu ve tamamen geçerli ama bağlantısız (yeterlilik ID'si `0`) ücretler varken bile "eşleşen ücret yok" diyordu.
 
+### `get_public_fee( $post_id )`, `get_application_fee_rows()`, `application_fee_row( $fee )` (Faz 16)
+
+- `get_public_fee( int $post_id )`: tek ücretin ŞU ANKİ görünürlüğü, **önbelleksiz**. Liste ile aynı karar fonksiyonu
+  (`public_fee_dto()`: yayın + Kayıt Durumu + §3 kural 3–6) kullanılır; tam sayı olmayan, başka içerik türünden, taslak/pasif,
+  başka dönem, süresi dolmuş/başlamamış veya geçersiz fiyatlı kayıt `null` döner. Online başvuru gönderiminde yeniden doğrulama
+  için kullanılır.
+- `get_application_fee_rows()`: online başvuru meslek listesi — `get_all_valid_active_fees()`'in BÜTÜN kayıtları (arama, filtre,
+  sayfalama yok), ücret başına bir satır: `id, profession_name, level, qualification_code, qualification_id, linked_title,
+  linked_myk_code`. Bağlı yeterlilik yalnız `Visibility_Guard::is_public_qualification()` doğruysa taşınır.
+- Etiket, sıralama ve ön seçim kuralları formdadır (`MaviBelge_Core_Forms_Fee_Options`, `forms-security-contract.md`).
+
 ### `present_fee( array $fee )`
 
 Sorgu yapmaz — yalnız formatlama. `single_amount_display` (tek seçenek varsa), `options[]` (`label`, `units[]`, `amount_display`), `vat_label` (**`mavibelge-core` metin alanı** — Faz 5 Düzeltme ve Kabul §2.7, eskiden yanlışlıkla tema alanı `mavibelge` kullanılıyordu), `certificate_print_fee_display` (**0 veya boşsa boş döner — asla "0 TL" yazmaz**), `source_url` (yalnız gerçek, var olan bir attachment URL'si varsa), `qualification_permalink`.
@@ -100,6 +111,8 @@ Bir `mb_ucret` kaydı yalnız **tümü** doğruysa `get_all_valid_active_fees()`
 ## 4. Sorgu stratejisi ve bilinen sınırlar
 
 - **`CANDIDATE_CAP = 500`**: her iç aday sorgusu (mb_yeterlilik veya mb_ucret) en fazla bu kadar satır çeker — asla `-1`. Gerçek ölçek (83 yeterlilik, 103 ücret — `docs/content-model.md`) bu sınırın çok altında; sınır aşılırsa bu sabit ve sayfalama stratejisi birlikte gözden geçirilmelidir.
+- **Faz 16 — ücret aday sorgusu parçalıdır:** `build_all_valid_active_fees()` `mb_ucret` adaylarını `CANDIDATE_CAP` büyüklüğünde, başlık + kimlik sırasıyla (`paged`) okur; parça dolu geldikçe sonrakine geçer. Uygun ücret sayısı 500'ü aşsa da Sınav Ücretleri listesi, sayaçlar ve online başvuru meslek listesi sessizce kesilmez (runtime testinde 503 kayıtla sınanır). `MAX_CANDIDATE_BATCHES = 200` yalnız sonsuz döngü korumasıdır; aşılırsa `candidates_truncated()` true olur ve `fee_inventory()['truncated']` bunu bildirir. Yeterlilik aday sorgusu değişmedi.
+- **Önbellek:** ücret listesi Faz 10 nesil önbelleğindedir (anahtar: aktif dönem + site saatine göre gün). Ücret kaydı, `_mb_` meta, yazı durumu/çöp ve aktif dönem değişiklikleri nesli artırır; gün değişince anahtar değiştiği için geçerlilik tarihi dolan kayıt yönetici kaydı olmadan düşer.
 - **Neden PHP-side filtreleme:** Serbest metin arama (başlık **veya** meta alanı) ve tarih-penceresi/fiyat-geçerliliği kontrolleri, tek bir güvenli `WP_Query` `meta_query`/`s` kombinasyonuyla doğru ifade edilemiyor (WordPress çekirdeği `s` ile meta OR'unu desteklemez). Bunun yerine: sektör/seviye/durum/dönem gibi basit eşitlikler DB seviyesinde (`meta_query`/`tax_query`) uygulanır; serbest metin ve tarih/fiyat geçerliliği, sınırlı aday kümesi üzerinde PHP'de uygulanır. Hiçbir adımda ham SQL veya `$wpdb` kullanılmaz.
 - **Türkçe arama sınırı:** `text_contains_ci()` yalnız `mb_strtolower()`/`mb_strpos()` tabanlı düz alt-dize eşleşmesidir; İ/i noktalı-noktasız harf gibi Türkçe'ye özgü uç durumlarda beklenmedik sonuç verebilir. ICU/Intl bağımlılığı **varsayılmaz**. Gelişmiş/bulanık arama Faz 5'in kapsamı dışıdır.
 - **`get_active_fee_qualification_ids()`**: yalnız `mb_priced=1` filtresi için kullanılır; her çağrıda `get_all_valid_active_fees()`'i yeniden çalıştırır — önbellek yoktur (gerçek veri henüz sıfır olduğu için performans kaygısı bu fazda erken optimizasyon olurdu).

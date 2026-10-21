@@ -74,11 +74,11 @@ mb_test( 'Faz 8 doğrulama: HTML etiketleri temizlenir; textarea CRLF -> LF ve N
 $fv_sel = $FV::validate( 'exam_request', array( 'request_type' => 'corporate', 'full_name' => 'Test Kurum', 'phone' => '0212 000 00 00', 'email' => 'kurum@ornek.example', 'consent' => 'on', 'candidate_count' => '25x' ) );
 mb_test( 'Faz 8 doğrulama: sayısal desen (candidate_count yalnız rakam); radio değeri listede olmalı',
 	isset( $fv_sel['errors']['candidate_count'] ) && ! isset( $fv_sel['errors']['request_type'] ) && isset( $FV::validate( 'exam_request', array( 'request_type' => 'hacker' ) )['errors']['request_type'] ) );
-$fv_app = array( 'qualification' => '97UY0001-3', 'exam_location' => 'iskenderun', 'full_name' => 'Test Aday', 'national_id' => '10000000146', 'phone' => '0212 000 00 00', 'email' => 'aday@ornek.example', 'consent' => '1' );
-$fv_app_ok = $FV::validate( 'application', $fv_app, array( 'options' => array( 'qualifications' => array( '97UY0001-3' => 'Test' ) ) ) );
-mb_test( 'Faz 8 doğrulama: online başvuru — dinamik seçenek (yeterlilik kodu) ve sabit seçenek (sınav alanı) doğrulanır; T.C. kimlik geçerli',
-	true === $fv_app_ok['ok'] && ! isset( $FV::validate( 'application', $fv_app, array( 'options' => array( 'qualifications' => array( '97UY0001-3' => 'Test' ) ) ) )['errors']['national_id'] )
-	&& isset( $FV::validate( 'application', $fv_app, array( 'options' => array( 'qualifications' => array( 'BASKA' => 'x' ) ) ) )['errors']['qualification'] ) && isset( $FV::validate( 'application', array_merge( $fv_app, array( 'exam_location' => 'yok' ) ), array( 'options' => array( 'qualifications' => array( '97UY0001-3' => 'Test' ) ) ) )['errors']['exam_location'] ) );
+$fv_app = array( 'qualification' => '4021', 'exam_location' => 'iskenderun', 'full_name' => 'Test Aday', 'national_id' => '10000000146', 'phone' => '0212 000 00 00', 'email' => 'aday@ornek.example', 'consent' => '1' );
+$fv_app_ok = $FV::validate( 'application', $fv_app, array( 'options' => array( 'application_fees' => array( 4021 => 'Test — Seviye 3' ) ) ) );
+mb_test( 'Faz 8 doğrulama: online başvuru — dinamik seçenek (Faz 16: ücret kaydı kimliği) ve sabit seçenek (sınav alanı) doğrulanır; T.C. kimlik geçerli',
+	true === $fv_app_ok['ok'] && ! isset( $FV::validate( 'application', $fv_app, array( 'options' => array( 'application_fees' => array( 4021 => 'Test — Seviye 3' ) ) ) )['errors']['national_id'] )
+	&& isset( $FV::validate( 'application', $fv_app, array( 'options' => array( 'application_fees' => array( 9999 => 'x' ) ) ) )['errors']['qualification'] ) && isset( $FV::validate( 'application', array_merge( $fv_app, array( 'exam_location' => 'yok' ) ), array( 'options' => array( 'application_fees' => array( 4021 => 'Test — Seviye 3' ) ) ) )['errors']['exam_location'] ) );
 mb_test( 'Faz 8 doğrulama: hassas alan (national_id) ve bilinmeyen alanlar ASLA echo\'ya girmez (yeniden görüntülemede geri doldurulmaz)',
 	! array_key_exists( 'national_id', $fv_app_ok['echo'] ) && array_key_exists( 'full_name', $fv_app_ok['echo'] ) && ! array_key_exists( 'consent', $fv_app_ok['echo'] ) );
 mb_test( 'Faz 8 doğrulama: bilinmeyen form -> hata, clean boş', false === $FV::validate( 'bogus', array( 'x' => '1' ) )['ok'] && array() === $FV::validate( 'bogus', array( 'x' => '1' ) )['clean'] );

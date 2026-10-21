@@ -42,6 +42,23 @@ files.forEach((f) => {
 		rows.push({ slug, title: decode(t[1]), description: decode(d[1]) });
 	}
 });
+// Faz 16 — statik referansın tanıtım ("Demo") metni gerçek, çalışan sayfayı yanlış anlatıyordu. YALNIZ bu sayfalar için,
+// kullanıcı talimatıyla (2026-10-20) gerçek işlevi anlatan metin kullanılır; kaynak HTML (tanitim-site) DEĞİŞTİRİLMEZ.
+const OVERRIDES = {
+	'online-basvuru': {
+		title: 'Online Başvuru — Mavi Belge',
+		description: 'Mesleki yeterlilik sınavı için online başvuru: başvurulacak meslek ve sınav alanını seçin, kişisel bilgilerinizi ve belgelerinizi iletin.',
+	},
+};
+Object.keys(OVERRIDES).forEach((slug) => {
+	const row = rows.find((r) => r.slug === slug);
+	if (!row) {
+		errors.push(slug + ': istisna tanımlı ama kaynak sayfa yok');
+		return;
+	}
+	row.title = OVERRIDES[slug].title;
+	row.description = OVERRIDES[slug].description;
+});
 if (errors.length || rows.length !== 41) {
 	console.error('Sayfa varsayılanları üretilemedi (beklenen 41 sayfa, bulunan ' + rows.length + '):\n' + errors.join('\n'));
 	process.exit(1);

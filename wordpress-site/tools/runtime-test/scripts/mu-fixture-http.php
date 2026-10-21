@@ -17,11 +17,33 @@ if ( is_readable( '/tmp/mbfx-http-on' ) ) {
 		'pre_wp_mail',
 		function ( $short_circuit, $atts ) {
 			file_put_contents( '/tmp/mbfx-mail.count', "1\n", FILE_APPEND );
+			// Faz 16: YALNIZ `/tmp/mbfx-mail-capture` işareti varken (application-fee testi; yalnız SENTETİK form verisi) son
+			// iletinin konu + gövdesi geçici dosyaya yazılır ve test sonunda silinir. İşaret yoksa içerik ASLA kaydedilmez.
+			if ( is_readable( '/tmp/mbfx-mail-capture' ) && is_array( $atts ) ) {
+				file_put_contents( '/tmp/mbfx-mail.last', 'Subject: ' . ( isset( $atts['subject'] ) ? $atts['subject'] : '' ) . "\n\n" . ( isset( $atts['message'] ) ? $atts['message'] : '' ) );
+			}
 			return true;
 		},
 		10,
 		2
 	);
+	// Faz 16 (application-fees testi): `/tmp/mbfx-cache-on` -> nesil önbelleği WP_DEBUG açıkken de etkin (gerçek ziyaretçi yolu);
+	// `/tmp/mbfx-tz` -> site saat dilimi dosyadaki IANA adı (YALNIZ istek içi; DB'ye yazılmaz, önbellek nesli değişmez) — gün sınırı
+	// geçişinin admin kaydı OLMADAN listeye yansıdığını sınar.
+	if ( is_readable( '/tmp/mbfx-cache-on' ) ) {
+		add_filter( 'mavibelge_core_cache_enabled', '__return_true' );
+	}
+	if ( is_readable( '/tmp/mbfx-tz' ) ) {
+		$mbfx_tz = trim( (string) file_get_contents( '/tmp/mbfx-tz' ) );
+		if ( 1 === preg_match( '/^[A-Za-z_]+\/[A-Za-z_]+$/', $mbfx_tz ) ) {
+			add_filter(
+				'pre_option_timezone_string',
+				function () use ( $mbfx_tz ) {
+					return $mbfx_tz;
+				}
+			);
+		}
+	}
 	// Test ortamının WordPress ortam türü `local` olabilir: SEO testleri ÜRETİM davranışını sınar, bu yüzden üretim kabul edilir;
 	// staging kapısı testi `/tmp/mbfx-staging` işaretiyle üretim-dışı ortamı simüle eder.
 	add_filter(
