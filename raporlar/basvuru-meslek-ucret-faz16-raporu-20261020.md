@@ -1,7 +1,7 @@
 # Faz 16 — Online Başvuru Meslek Listesi Ücret Kayıtlarından (eklenti 0.5.6, tema 0.6.11)
 
 > Tarih: 2026-10-20. Çalışma alanı: `E:\PROJELER\MaviBelge`, dal `codex/application-fee-occupations` (taban `main` = `9aca081`).
-> Kod 21 Ekim 2026'da `codex/application-fee-occupations` dalında commit edildi (`6b47268`), PR #5 ile main'e birleştirildi. Deploy **yapılmadı**. Canlı/staging bağlantısı, yönetici girişi, veri veya ayar değişikliği **yok**.
+> Kod 21 Ekim 2026'da `codex/application-fee-occupations` dalında commit edildi (`6b47268`), PR #5 açıldı. Deploy **yapılmadı**. Canlı/staging bağlantısı, yönetici girişi, veri veya ayar değişikliği **yok**.
 > Ücret verisi, tutarlar ve yayın kararları değiştirilmedi; ücret verisi yeniden üretilmedi ya da import edilmedi.
 
 ## 1. Ne değişti
