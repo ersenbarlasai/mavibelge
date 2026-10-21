@@ -31,6 +31,33 @@ ziyaretçiye BASILMAZ: `describe()` alanları saf `MaviBelge_Core_Forms_Schema::
 ekranı KVKK sayfasını `get_page_by_path()` + `get_permalink()` + `get_edit_post_link()` ile gösterir; sayfa yoksa açık uyarı
 verir (kapılar DEĞİŞMEZ — sayfa varlığı kapı koşulu değildir; bkz. açık karar notu `qa-report.md` Faz 14).
 
+## Online başvuru meslek seçimi (Faz 16 — eklenti 0.5.6, tema 0.6.11)
+"Başvurulacak meslek/yeterlilik" alanının kaynağı `application_fees`'tir (önceden `qualifications`). Liste, ön seçim, sunucu
+doğrulaması ve e-posta **aynı ücret kimliğini ve aynı uygunluk kuralını** kullanır:
+
+- **Kural:** `MaviBelge_Core_Catalog_Service::get_application_fee_rows()` — Sınav Ücretleri sayfasının kullandığı TEK görünürlük
+  kararı (`public_fee_dto()`: yayında + Kayıt Durumu aktif + aktif tarife dönemi + bugün geçerlilik penceresinde + kanonik fiyat
+  listesi + gerçek sektör terimi). Arama/filtre/sayfalama yoktur; aday sorgusu parçalı okunur, uygun kayıt sayısı ne olursa olsun
+  sessizce kesilmez (bkz. `catalog-service-contract.md`).
+- **Kimlik:** seçenek değeri ücret kaydının WordPress yazı kimliğidir; MYK kodu kimlik **değildir** (kodsuz ücretler ve aynı
+  yeterliliğe bağlı farklı tarifeler vardır). Ücret kaydı başına bir seçenek. Etiket ve Türkçe sıralama
+  `MaviBelge_Core_Forms_Fee_Options` (saf) içindedir: "Ad — Seviye N — Kod"; seviye/kod yoksa uydurulmaz; aynı etiketi taşıyan
+  farklı ücretler birleştirilmez (" — Ücret kaydı #ID" eki).
+- **Ön seçim** (yalnız POST sonucu yokken): `?ucret=<kimlik>` TAM eşleşme; yoksa `?meslek=<MYK kodu>` yalnız TEK uygun ücrete
+  çözülürse. Birden fazla tarifeye çözülen kodda hiçbiri seçilmez; DTO `preselect_ambiguous` etiketleri taşır ve tema seçim ister.
+  Biçim dışı, dizi, listede olmayan (taslak/pasif/başka tür/başka dönem) değer hiçbir şey seçmez; ham değer basılmaz.
+- **Gönderim:** değer yalnız kimlik biçiminde kabul edilir (`/\A[1-9][0-9]{0,17}\z/`, kırpma yok) ve listede olmalıdır; ardından
+  kayıt **önbelleksiz** `get_public_fee()` ile yeniden çözülür. Form açıldıktan sonra uygunluğunu yitiren kayıt "Seçtiğiniz
+  meslek/tarife artık online başvuruya açık değil. Lütfen listeden yeniden seçin." doğrulama hatasıyla reddedilir (e-posta yok,
+  seçim temizlenir). Bağlantısız/kodsuz ücret geçerli seçimdir.
+- **E-posta:** meslek satırı ve altındaki "Ücret kaydı / Meslek / Seviye / MYK kodu / Bağlı yeterlilik" satırları yalnız sunucudaki
+  kayıttan üretilir (POST metni kullanılmaz; tek satır, kontrol karakteri temizlenir; konu ve başlıklar değişmedi). Bağlı
+  yeterlilik yalnız herkese açıksa adı/koduyla yazılır, aksi hâlde "Bağlantısız".
+- **Uygun kayıt yoksa:** zorunlu seçim alanının seçeneği olmadığından DTO `options_missing` dolu döner, jeton üretilmez, tema formu
+  çizmez ve telefon/e-posta alternatifi gösterir. Kapı ayarı değişmez.
+- Kalıcı başvuru kaydı, yeni veritabanı tablosu veya audit'e aday verisi eklenmedi. Sınav talebi formunun isteğe bağlı yeterlilik
+  alanı Faz 12f kuralında (`qualifications`) kaldı.
+
 ## Gönderim akışı (`MaviBelge_Core_Forms_Service::process`)
 1. POST + geçerli form kimliği + formun **kendi sayfası** + kapı açık.
 2. WordPress nonce (`_mb_nonce`, eylem `mb_form_<id>`).

@@ -3,7 +3,7 @@
  * Plugin Name: Mavi Belge Core
  * Plugin URI: https://mavibelge.com.tr
  * Description: Mavi Belge kurumsal veri ve is kurallari eklentisi. Faz 2: icerik turleri, taksonomiler, alan sozlesmesi, rol/yetenek modeli ve denetim gunlugu temeli. Faz 2 duzeltme turlari: MYK/TL/yetki/yayin butunlugu, tek dogrulama servisi (Field_Repository), register_meta sanitize callback imza duzeltmesi, kismi fiyat listesi kaydi kapatildi, yetki belgeleri tutarlilastirildi. Faz 5: tema icin tek genel katalog servisi (Catalog_Service) - meslek/sektor arama, aktif tarife donemi kurallarina uyan ucret sorgulari - ve yonetim liste filtreleri. Veri importu, REST ve SEO hala kapsam disi.
- * Version: 0.5.5
+ * Version: 0.5.6
  * Requires at least: 6.9
  * Requires PHP: 7.3
  * Author: Mavi Belge
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MAVIBELGE_CORE_VERSION', '0.5.5' );
+define( 'MAVIBELGE_CORE_VERSION', '0.5.6' );
 define( 'MAVIBELGE_CORE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MAVIBELGE_CORE_URL', plugin_dir_url( __FILE__ ) );
 
@@ -66,6 +66,7 @@ require_once MAVIBELGE_CORE_PATH . 'public/class-content-service.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-schema.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-validator.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-qualification-options.php';
+require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-fee-options.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-config.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-security.php';
 require_once MAVIBELGE_CORE_PATH . 'includes/forms/class-forms-mail-builder.php';

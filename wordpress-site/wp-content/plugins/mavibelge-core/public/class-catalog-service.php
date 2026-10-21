@@ -361,43 +361,134 @@ class MaviBelge_Core_Catalog_Service {
 		);
 	}
 
-	private static function build_all_valid_active_fees( $active_period ) {
-		$query = new WP_Query(
-			array(
-				'post_type'      => 'mb_ucret',
-				'post_status'    => 'publish',
-				'posts_per_page' => self::CANDIDATE_CAP,
-				'orderby'        => 'title',
-				'order'          => 'ASC',
-				'no_found_rows'  => true,
-				'meta_query'     => array(
-					array(
-						'key'   => '_mb_record_status',
-						'value' => 'active',
-					),
-					array(
-						'key'   => '_mb_tariff_period',
-						'value' => $active_period,
-					),
-				),
-			)
-		);
+	/**
+	 * Faz 16: aday sorgusu CANDIDATE_CAP büyüklüğünde PARÇALAR hâlinde okunur (başlık + kimlik sırasıyla kararlı sayfalama);
+	 * uygun kayıt sayısı bir parçayı aşsa da liste sessizce kesilmez. MAX_CANDIDATE_BATCHES yalnız sonsuz döngü korumasıdır;
+	 * aşılırsa candidates_truncated() true döner ve fee_inventory() bunu bildirir.
+	 */
+	const MAX_CANDIDATE_BATCHES = 200;
 
+	/** Bu istekte aday sorgusu güvenlik sınırına takıldı mı? */
+	private static $candidates_truncated = false;
+
+	public static function candidates_truncated() {
+		return self::$candidates_truncated;
+	}
+
+	private static function build_all_valid_active_fees( $active_period ) {
 		$today = current_time( 'Y-m-d' );
 		$fees  = array();
 
-		if ( $query->have_posts() ) {
-			foreach ( $query->posts as $post ) {
-				$check = self::evaluate_fee_content_rules( $post->ID, $active_period, $today );
-				if ( null !== $check['blocker'] ) {
-					continue;
+		for ( $page = 1; $page <= self::MAX_CANDIDATE_BATCHES; $page++ ) {
+			$query = new WP_Query(
+				array(
+					'post_type'      => 'mb_ucret',
+					'post_status'    => 'publish',
+					'posts_per_page' => self::CANDIDATE_CAP,
+					'paged'          => $page,
+					'orderby'        => array( 'title' => 'ASC', 'ID' => 'ASC' ),
+					'no_found_rows'  => true,
+					'meta_query'     => array(
+						array(
+							'key'   => '_mb_record_status',
+							'value' => 'active',
+						),
+						array(
+							'key'   => '_mb_tariff_period',
+							'value' => $active_period,
+						),
+					),
+				)
+			);
+			$batch = is_array( $query->posts ) ? $query->posts : array();
+			foreach ( $batch as $post ) {
+				$dto = self::public_fee_dto( $post, $active_period, $today );
+				if ( null !== $dto ) {
+					$fees[] = $dto;
 				}
-				$fees[] = self::build_fee_dto( $post, $check['options'], $check['sector_slug'], $check['sector_name'] );
+			}
+			wp_reset_postdata();
+			if ( count( $batch ) < self::CANDIDATE_CAP ) {
+				return $fees;
 			}
 		}
-		wp_reset_postdata();
-
+		self::$candidates_truncated = true;
 		return $fees;
+	}
+
+	/**
+	 * TEK görünürlük kararı (§3 kural 1–6): yayında + Kayıt Durumu aktif + aktif dönem + geçerlilik penceresi + kanonik fiyat
+	 * listesi + gerçek sektör terimi. Liste (build_all_valid_active_fees(), aday sorgusu kural 1–2'yi zaten daraltır ve
+	 * burada AYNI kural yeniden doğrulanır) ve tek kayıt çözümü (get_public_fee()) bunu kullanır.
+	 *
+	 * @return array|null fee DTO veya null (ziyaretçiye görünmez)
+	 */
+	private static function public_fee_dto( $post, $active_period, $today ) {
+		if ( ! $post instanceof WP_Post || 'mb_ucret' !== $post->post_type || 'publish' !== $post->post_status ) {
+			return null;
+		}
+		if ( 'active' !== (string) get_post_meta( $post->ID, '_mb_record_status', true ) ) {
+			return null;
+		}
+		$check = self::evaluate_fee_content_rules( $post->ID, $active_period, $today );
+		if ( null !== $check['blocker'] ) {
+			return null;
+		}
+		return self::build_fee_dto( $post, $check['options'], $check['sector_slug'], $check['sector_name'] );
+	}
+
+	/**
+	 * Faz 16 — tek ücret kaydının ŞU ANKİ görünürlüğü (önbelleksiz; form gönderiminde yeniden doğrulama için). Kimlik
+	 * çağırandan geldiği için güvenilmez: başka içerik türü, taslak, pasif, başka dönem, süresi dolmuş/başlamamış veya
+	 * geçersiz fiyatlı kayıt null döner.
+	 *
+	 * @param mixed $post_id
+	 * @return array|null fee DTO
+	 */
+	public static function get_public_fee( $post_id ) {
+		if ( ! post_type_exists( 'mb_ucret' ) || ! is_int( $post_id ) || $post_id <= 0 ) {
+			return null;
+		}
+		$active_period = self::get_active_tariff_period();
+		if ( '' === $active_period ) {
+			return null;
+		}
+		$post = get_post( $post_id );
+		return $post instanceof WP_Post ? self::public_fee_dto( $post, $active_period, current_time( 'Y-m-d' ) ) : null;
+	}
+
+	/**
+	 * Faz 16 — online başvuru meslek listesi: Sınav Ücretleri sayfasındaki BÜTÜN görünür ücretler (arama/filtre/sayfalama
+	 * YOK), ücret kaydı başına bir satır. Bağlı yeterlilik yalnız herkese açıksa adı/koduyla taşınır.
+	 *
+	 * @return array<int, array{id: int, profession_name: string, level: string, qualification_code: string, qualification_id: int, linked_title: string, linked_myk_code: string}>
+	 */
+	public static function get_application_fee_rows() {
+		$rows = array();
+		foreach ( self::get_all_valid_active_fees() as $fee ) {
+			$rows[] = self::application_fee_row( $fee );
+		}
+		return $rows;
+	}
+
+	/** Bir ücret DTO'sundan başvuru satırı (liste ve gönderimdeki yeniden doğrulama aynı biçimi kullanır). */
+	public static function application_fee_row( array $fee ) {
+		$qid   = isset( $fee['qualification_id'] ) ? (int) $fee['qualification_id'] : 0;
+		$title = '';
+		$code  = '';
+		if ( $qid > 0 && 'mb_yeterlilik' === get_post_type( $qid ) && class_exists( 'MaviBelge_Core_Visibility_Guard' ) && MaviBelge_Core_Visibility_Guard::is_public_qualification( $qid ) ) {
+			$title = (string) get_the_title( $qid );
+			$code  = (string) get_post_meta( $qid, '_mb_myk_code', true );
+		}
+		return array(
+			'id'                 => (int) $fee['id'],
+			'profession_name'    => (string) $fee['profession_name'],
+			'level'              => (string) $fee['level'],
+			'qualification_code' => (string) $fee['qualification_code'],
+			'qualification_id'   => '' !== $title ? $qid : 0,
+			'linked_title'       => $title,
+			'linked_myk_code'    => $code,
+		);
 	}
 
 	/**
@@ -529,7 +620,7 @@ class MaviBelge_Core_Catalog_Service {
 				'visible'       => isset( $visible[ $id ] ),
 			);
 		}
-		return array( 'total' => count( $records ), 'truncated' => $truncated, 'records' => $records );
+		return array( 'total' => count( $records ), 'truncated' => $truncated || self::candidates_truncated(), 'records' => $records );
 	}
 
 	private static function build_fee_dto( $post, array $canonical_price_options, $sector_slug, $sector_name ) {

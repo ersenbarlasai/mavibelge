@@ -47,3 +47,16 @@ function mavibelge_application_url( $myk_code = '' ) {
 	$code = is_string( $myk_code ) ? trim( $myk_code ) : '';
 	return '' !== $code ? add_query_arg( 'meslek', rawurlencode( $code ), $url ) : $url;
 }
+
+/**
+ * Faz 16 — tek bir ücret kaydını (tarifeyi) ön seçen başvuru bağlantısı (`ucret` = ücret kaydı kimliği). Eklenti değeri
+ * yalnız ziyaretçiye açık aktif bir ücrete TAM eşleşirse seçer; aksi hâlde hiçbir şey seçilmez.
+ *
+ * @param int $fee_id
+ * @return string
+ */
+function mavibelge_application_fee_url( $fee_id ) {
+	$url = mavibelge_url( 'online-basvuru' );
+	$id  = (int) $fee_id;
+	return $id > 0 ? add_query_arg( 'ucret', (string) $id, $url ) : $url;
+}

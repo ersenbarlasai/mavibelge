@@ -39,7 +39,27 @@ $is_live = true === $form['open'] || 'success' === $form['status'];
 
 	<?php if ( $is_live ) : ?>
 		<?php get_template_part( 'template-parts/forms/form-status', null, array( 'form' => $form ) ); ?>
-		<?php if ( 'success' !== $form['status'] && true === $form['open'] ) : ?>
+		<?php if ( 'success' !== $form['status'] && true === $form['open'] && ! empty( $form['options_missing'] ) ) : ?>
+			<?php $contact = mavibelge_primary_contact(); ?>
+			<div class="demo-notice application-no-options" role="note">
+				<strong><?php esc_html_e( 'Şu anda online başvuruya açık meslek bulunmuyor.', 'mavibelge' ); ?></strong>
+				<?php esc_html_e( 'Başvuru için bize telefon veya e-posta ile ulaşabilirsiniz:', 'mavibelge' ); ?>
+				<a href="<?php echo esc_url( $contact['phone_tel'] ); ?>"><?php echo esc_html( $contact['phone_display'] ); ?></a>
+				·
+				<a href="<?php echo esc_url( 'mailto:' . $contact['email'] ); ?>"><?php echo esc_html( $contact['email'] ); ?></a>
+			</div>
+		<?php elseif ( 'success' !== $form['status'] && true === $form['open'] ) : ?>
+			<?php if ( ! empty( $form['preselect_ambiguous'] ) ) : ?>
+				<div class="alert alert-info application-ambiguous" role="status">
+					<strong><?php esc_html_e( 'Bu meslek için birden fazla tarife var.', 'mavibelge' ); ?></strong>
+					<?php esc_html_e( 'Lütfen “Başvurulacak meslek/yeterlilik” listesinden başvurmak istediğiniz tarifeyi seçin:', 'mavibelge' ); ?>
+					<ul>
+						<?php foreach ( $form['preselect_ambiguous'] as $ambiguous_label ) : ?>
+							<li><?php echo esc_html( $ambiguous_label ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			<?php endif; ?>
 			<?php get_template_part( 'template-parts/forms/form', null, array( 'form' => $form, 'steps' => $steps ) ); ?>
 		<?php endif; ?>
 	<?php else : ?>

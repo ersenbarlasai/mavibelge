@@ -48,6 +48,7 @@ if ( 'prepare' === $mode ) {
 		$wp_rewrite->init();
 		$out[ 'url_' . $k ]        = mavibelge_application_url( '11UY0011-3/03' );
 		$out[ 'url_plain_' . $k ]  = mavibelge_application_url( '' );
+		$out[ 'url_fee_' . $k ]    = mavibelge_application_fee_url( 4021 ); // Faz 16: tekil ücret ön seçimi (sentetik kimlik)
 	}
 	$structure = null;
 	$wp_rewrite->init();

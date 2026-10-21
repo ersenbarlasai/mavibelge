@@ -33,7 +33,7 @@ return array(
 	'misyon-vizyon' => array( 'Misyon ve Vizyon — Mavi Belge', 'Mavi Belge\'nin misyon ve vizyon beyanı.' ),
 	'myk' => array( 'MYK Nedir? — Mavi Belge', 'Mesleki Yeterlilik Kurumu (MYK) hakkında bilgi.' ),
 	'nasil-basvururum' => array( 'Nasıl Başvururum? — Mavi Belge', 'MYK mesleki yeterlilik sınavına başvuru adımları.' ),
-	'online-basvuru' => array( 'Online Başvuru (Demo) — Mavi Belge', 'Çok adımlı demo online başvuru formu. Tanıtım sürümüdür, veri gönderilmez.' ),
+	'online-basvuru' => array( 'Online Başvuru — Mavi Belge', 'Mesleki yeterlilik sınavı için online başvuru: başvurulacak meslek ve sınav alanını seçin, kişisel bilgilerinizi ve belgelerinizi iletin.' ),
 	'referanslar' => array( 'Referanslarımız — Mavi Belge', 'Mavi Belge\'nin kurumsal referansları.' ),
 	'sektor' => array( 'Sektör Meslekleri — Mavi Belge', 'Seçilen sektöre ait MYK yeterlilik ve meslek listesi.' ),
 	'sinav-surecleri' => array( 'Sınav Süreçleri — Mavi Belge', 'Başvurudan sınav ve belgelendirmeye kadar süreç adımları.' ),

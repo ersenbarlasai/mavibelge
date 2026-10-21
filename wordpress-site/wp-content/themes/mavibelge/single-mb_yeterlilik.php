@@ -173,6 +173,9 @@ while ( have_posts() ) :
 									<p class="qual-cta-fee-name"><?php echo esc_html( $fee['profession_name'] ); ?></p>
 								<?php endif; ?>
 								<?php get_template_part( 'template-parts/catalog/fee-options', null, array( 'fee' => $fee, 'expanded' => true ) ); ?>
+								<?php if ( count( $fees ) > 1 ) : // Faz 16: aynı yeterlilikte birden fazla tarife -> tarifeyi tekil seçen bağlantı. ?>
+									<a class="qual-cta-fee-apply" href="<?php echo esc_url( mavibelge_application_fee_url( $fee['id'] ) ); ?>"><?php esc_html_e( 'Bu tarifeyle başvur', 'mavibelge' ); ?><span class="screen-reader-text">: <?php echo esc_html( $fee['profession_name'] ); ?></span></a>
+								<?php endif; ?>
 							</div>
 							<?php
 						endforeach;

@@ -114,4 +114,6 @@ Adım adım işletim: `wordpress-site/docs/admin-import-operations.md`. (Tarihse
   (%20 KDV dahil, 1.500 TL belge basım ücreti hariç). Veri paketi `mavibelge-ucret-verisi-20261020-7b720433.zip`. Kullanıcı paketi yükleyip ücretleri
   yönetim panelinden elle aktif yaptı; ekran görüntüsündeki özet: hazır 0, yayında 103, araçla geri alınabilir 0, bağlantısız 19 (hepsi yayında).
   Ortamın kurulu tema/eklenti sürümleri bu depodan doğrulanmadı. Yönerge: [`wordpress-site/docs/ucret-staging-uygulama-yonergesi.md`](wordpress-site/docs/ucret-staging-uygulama-yonergesi.md).
+- **Faz 16 (yerel, kurulmadı):** online başvuru meslek listesi ziyaretçiye açık aktif ücret kayıtlarından otomatik oluşur (eklenti 0.5.6 /
+  tema 0.6.11). Rapor: [`raporlar/basvuru-meslek-ucret-faz16-raporu-20261020.md`](raporlar/basvuru-meslek-ucret-faz16-raporu-20261020.md).
 - Staging (`cms-yeni`) son bilinen kayıtta 0.6.8'deydi; canlı staging'in önünde. Ayrıntılı ve doğrulanmış durum: [`raporlar/proje-durumu.md`](raporlar/proje-durumu.md).

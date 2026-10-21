@@ -19,9 +19,12 @@ class MaviBelge_Core_Forms_Mail_Builder {
 	 * @param array    $clean       Validator::validate() `clean` çıktısı
 	 * @param array    $settings    Form yapılandırması (recipient_email, consent_version)
 	 * @param string[] $attachments Geçici dosya yolları (yalnız yol dizgeleri)
+	 * @param array    $details     Faz 16: alan adı => array( 'value' => görünen değer, 'lines' => etiket => değer ). YALNIZ
+	 *                              sunucudaki kayıttan üretilir (online başvuruda seçilen ücret kaydı); gövdeye tek satırlık,
+	 *                              kontrol karakteri temizlenmiş metin olarak girer, konuya/başlıklara GİRMEZ.
 	 * @return array{to: string, subject: string, body: string, headers: string[], attachments: string[]}|null
 	 */
-	public static function build( $formId, array $clean, array $settings, array $attachments = array() ) {
+	public static function build( $formId, array $clean, array $settings, array $attachments = array(), array $details = array() ) {
 		$def = MaviBelge_Core_Forms_Schema::get( $formId );
 		if ( null === $def || empty( $settings['recipient_email'] ) || ! MaviBelge_Core_Forms_Validator::is_valid_email( $settings['recipient_email'] ) ) {
 			return null;
@@ -37,6 +40,13 @@ class MaviBelge_Core_Forms_Mail_Builder {
 				continue;
 			}
 			if ( ! array_key_exists( $name, $clean ) ) {
+				continue;
+			}
+			if ( isset( $details[ $name ]['value'] ) ) {
+				$lines[] = $field['label'] . ': ' . self::single_line( $details[ $name ]['value'] );
+				foreach ( isset( $details[ $name ]['lines'] ) && is_array( $details[ $name ]['lines'] ) ? $details[ $name ]['lines'] : array() as $label => $text ) {
+					$lines[] = '  ' . self::single_line( $label ) . ': ' . self::single_line( $text );
+				}
 				continue;
 			}
 			$lines[] = $field['label'] . ': ' . self::value_text( $field, $clean[ $name ] );

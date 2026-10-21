@@ -75,12 +75,17 @@ class MaviBelge_Core_Forms_Qualification_Options {
 	 * @return string Seçilecek seçenek anahtarı veya ''.
 	 */
 	public static function requested( $raw, array $options ) {
-		if ( ! is_string( $raw ) || '' === $raw || strlen( $raw ) > self::MAX_CODE_LENGTH ) {
-			return '';
-		}
-		if ( 1 !== preg_match( '/\A[0-9]{2}UY[0-9]{4}-[0-9]{1,2}(\/[0-9]{2})?\z/', $raw ) ) {
+		if ( ! self::is_valid_code_format( $raw ) ) {
 			return '';
 		}
 		return array_key_exists( $raw, $options ) ? $raw : '';
+	}
+
+	/** Katı MYK kodu biçimi (yalnız string; satır sonu/boşluk/kodlanmış karakter yok). Faz 16 ücret ön seçimi de bunu kullanır. */
+	public static function is_valid_code_format( $raw ) {
+		if ( ! is_string( $raw ) || '' === $raw || strlen( $raw ) > self::MAX_CODE_LENGTH ) {
+			return false;
+		}
+		return 1 === preg_match( '/\A[0-9]{2}UY[0-9]{4}-[0-9]{1,2}(\/[0-9]{2})?\z/', $raw );
 	}
 }

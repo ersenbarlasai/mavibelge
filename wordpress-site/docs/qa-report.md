@@ -133,3 +133,47 @@ Bu görevde (konsolidasyon) son birleşik kod üzerinde koşulan testler aşağ�
 **Ayrıca çalıştırıldı:** `tools/ops/redirect-bootstrap` — `test-package.js` 11/11 ve PHP 7.3 `tests/run.php` 57/57 (CRLF çalışma kopyasında; onaylı manifest hash'i CRLF baytlarına aittir, LF kopyada tasarım gereği reddeder). `redirect-bootstrap/tests/runtime.sh` çalıştırılmadı.
 **Çalıştırılmayan / bu görevin kapsamı dışında:** staging/canlı doğrulaması (sunucuya erişilmedi), gerçek e-posta, aXe/Lighthouse.
 **Log:** `E:\PROJELER\MaviBelge-qa-20261020-kesin-loglar\` (Git dışında).
+
+## Faz 16 — online başvuru meslek listesi ücret kayıtlarından (tema 0.6.11, eklenti 0.5.6; yerel, staging/canlı DEĞİL)
+Kural, kimlik ve sözleşme: `forms-security-contract.md` "Online başvuru meslek seçimi"; rapor: `raporlar/basvuru-meslek-ucret-faz16-raporu-20261020.md`.
+
+**Bu görevde gerçekten çalıştırılanlar (2026-10-20/21, yerel):**
+
+| Test | Sonuç |
+|---|---|
+| Tam kalite kapısı `run-all-gates.sh --runtime` (depo dışı LF klon `E:\PROJELER\MaviBelge-qa-faz16`; 55 CRLF dosyası Windows çalışma kopyası düzeninde) | **60 PASS / 0 FAIL**, `TÜM KAPILAR GEÇTİ (yerel).`, çıkış kodu **0 (doğrudan yakalandı)**; 23:10:07 → 00:05:19 |
+| Kod parmak izi | 817 dosya, koşu öncesi ve sonrası **aynı**; ana klasördeki 33 değişen/yeni dosya test edilen klonla CR hariç byte-eşit |
+| PHP 7.3.33 lint | 199 dosya temiz |
+| Eklenti birim testleri `tests/run.php` | **1653/1653** ×2 byte-eşit (yeni `faz16-application-fees.php`: 25) |
+| Faz 16 runtime + Chrome `application-fees.sh` | **87/87**; ana DB/dosya/uploads farkı 0; debug.log 0 |
+| Faz 12f başvuru (yeni sözleşmeye taşındı) | kapalı 113/113, açık 20/20 |
+| Beş form güvenlik matrisi (iletişim) | 212/212 |
+| KVKK onay bağlantısı | 156/156 |
+| Faz 15 ücret kataloğu | 71/71 + 9/9 |
+| Yeterlilik render / başlık geometrisi | 112/112, 94/94 |
+| Paket testi / ücret veri paketi | 27/27, 13/13 (veri paketi aynı ad ve SHA-256 `a7a4173b…3fcae` ile yeniden üretildi: ücret verisi değişmedi) |
+| Tema statik başvuru sözleşmesi | 32/32 |
+
+**Faz 16 runtime senaryoları (87 kontrol):** 103 ücret → 103 seçenek (145 fiyat seçeneği 145 seçeneğe dönüşmez); değer = ücret kimliği;
+etiket kayıttan; 19 kodsuz/bağlantısız ücret seçilebilir; Dokuma Operatörü Seviye 3/4 ayrı; iki Mobil Vinç tarifesi ayrı kimlik ve adla;
+Beko Loder kodsuz; Türkçe sıra bağımsız yeniden hesaplamayla aynı; Sınav Ücretleri toplamı her adımda listeyle aynı. Ön seçim: `?ucret=`,
+eski `?meslek=` (tek ücret), `?meslek=12UY0061-3/04` belirsiz (hiçbiri seçilmez, iki ad gösterilir), `?ucret` öncelik, 11 geçersiz
+`?ucret` biçimi (sıfır, baştaki sıfır, negatif, bilinmeyen, yeterlilik/sayfa kimliği, HTML, aşırı uzun, ondalık, boşluk, dizi).
+Dışlama + önbellek (önbellek açık): taslak, Kayıt Durumu arşivlendi/taslak, süresi bitmiş, gelecekte başlayan, yanlış dönem, çöp —
+her biri listeden ve Sınav Ücretleri'nden düşer (102), nesil artar, geri alınca 103. Gün sınırı: yönetici kaydı olmadan site tarihi
+ilerleyince (nesil aynı) kayıt düşer. Aktif dönem değişince uygun kayıt yok: form/jeton yok, telefon/e-posta alternatifi. 503 uygun ücret
+(200 ve 500 aday sınırının üstü) → 503 seçenek ve Sınav Ücretleri 503. Gönderim: form açıldıktan sonra taslak/pasif/dönem/süre/çöp →
+anlaşılır Türkçe ret, e-posta yok; **bayat önbellekte** (liste kaydı hâlâ gösterirken) POST önbelleksiz yeniden doğrulamayla reddedilir;
+11 sahte/bozuk kimlik + dizi girdisi reddedilir; bağlantısız ücretle geçerli gönderim → 303 PRG + test mailer'ında doğru içerik
+("MYK kodu: Belirtilmemiş", "Bağlı yeterlilik: Bağlantısız"); replay 400; bağlı ücretle gönderimde gerçek yeterlilik ilişkisi.
+Yeterlilik detayında iki tarife için `?ucret=` bağlantıları. Chrome: seçim, Devam Et doğrulaması, ileri/geri, sunucu hatası sonrası adım +
+korunan seçim (T.C. kimlik geri doldurulmaz), 375/390/768 px'te taşma yok, konsol temiz.
+
+**Bu görevde düzeltilen test ortamı sorunları (kodun değil):** (1) ilk Faz 16 koşusu bellek yetersizliğinden Claude Code tarafından
+durduruldu; toplu kayıt 420 → 400'e indirildi ve WP-CLI nesne önbelleği boşaltılarak yeniden koşuldu. (2) İki koşuda ana DB
+karşılaştırması WordPress çekirdeğinin 30 dakikalık tema desen önbelleği (`_site_transient_wp_theme_files_patterns-*`) yüzünden kırmızıydı
+(satırlar aynı; bir koşuda zaman aşımı yenilendi, bir koşuda AUTO_INCREMENT +2). Faz 16 runner'ının ana önekteki yardımcıları
+(anlık görüntü, klon, silme; yalnız `$wpdb` kullanırlar) artık `--skip-themes --skip-plugins` ile çalışır; ölçüt gevşetilmedi. Son tam
+koşu bu düzeltmeyle 60/0.
+**Çalıştırılmayan:** staging/canlı doğrulaması (erişim yok), gerçek SMTP teslimi, aXe/Lighthouse, mutasyon (kırmızı) kanıtı koşusu.
+**Loglar (Git dışı):** `E:\PROJELER\MaviBelge-qa-faz16-loglar\tam-kapi-2\` (son tam koşu), `deneme2\`, `deneme3\`, `tam-kapi\` (önceki).
